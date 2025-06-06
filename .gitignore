@@ -1,0 +1,28 @@
+# LaTeX auxiliary files
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.nav
+*.snm
+*.vrb
+
+# Temporary files
+*~
+.DS_Store
+*.swp
+*.backup
+
+# Build directories
+build/
+.latexmk/
+
+# Optional: Keep PDFs out of version control
+# *.pdf
