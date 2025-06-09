@@ -1,0 +1,39 @@
+{
+  "Linear Algebra": {
+    "credit_hours": 3.0,
+    "assignments": {
+      "PS1": {
+        "grade": 98.0,
+        "max_points": 100.0,
+        "percentage": 98.0,
+        "date": "2025-06-09T17:59:02.538032",
+        "category": "PSets"
+      }
+    },
+    "categories": {
+      "PSets": {
+        "weight": 30.0,
+        "assignments": [
+          "PS1"
+        ]
+      },
+      "Midterm": {
+        "weight": 35.0,
+        "assignments": []
+      },
+      "Final": {
+        "weight": 35.0,
+        "assignments": []
+      }
+    },
+    "final_grade": null,
+    "created": "2025-06-09T17:56:30.672718"
+  },
+  "Linear Algebras": {
+    "credit_hours": 4.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-06-09T18:11:42.719564"
+  }
+}

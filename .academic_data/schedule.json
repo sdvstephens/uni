@@ -1,0 +1,31 @@
+{
+  "Linear Algebras": {
+    "classes": [
+      {
+        "day": "Monday",
+        "time": "10:00 AM",
+        "location": "Room 101",
+        "type": "class"
+      }
+    ],
+    "exams": [
+      {
+        "type": "Midterm",
+        "date": "2025-06-20",
+        "time": "2:00 PM",
+        "location": ""
+      }
+    ]
+  },
+  "Linear Algebra": {
+    "classes": [
+      {
+        "day": "Wednesday",
+        "time": "2:00 PM",
+        "location": "Science Hall 205",
+        "type": "class"
+      }
+    ],
+    "exams": []
+  }
+}

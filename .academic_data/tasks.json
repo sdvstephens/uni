@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "title": "Study Chapter 5: Vector Spaces",
+    "course": "Linear Algebra",
+    "due_date": "2025-06-12",
+    "priority": "medium",
+    "type": "assignment",
+    "status": "pending",
+    "created": "2025-06-09T18:12:00.282867",
+    "completed": null,
+    "notes": ""
+  },
+  {
+    "id": 2,
+    "title": "Study for Midterm - Linear Algebras",
+    "course": "Linear Algebras",
+    "due_date": "2025-06-17",
+    "priority": "high",
+    "type": "study",
+    "status": "pending",
+    "created": "2025-06-09T18:14:11.006934",
+    "completed": null,
+    "notes": ""
+  },
+  {
+    "id": 3,
+    "title": "Study Chapter 5: Vector Spaces",
+    "course": "Linear Algebra",
+    "due_date": "2025-06-12",
+    "priority": "medium",
+    "type": "assignment",
+    "status": "pending",
+    "created": "2025-06-09T18:14:50.682670",
+    "completed": null,
+    "notes": ""
+  }
+]

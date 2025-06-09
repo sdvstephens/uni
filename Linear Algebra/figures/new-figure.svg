@@ -2,20 +2,20 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="240mm"
    height="120mm"
    viewBox="0 0 240 120"
    version="1.1"
    id="svg8"
-   inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
-   sodipodi:docname="test-figure.svg"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:dc="http://purl.org/dc/elements/1.1/">
+   inkscape:version="0.92.4 (unknown)"
+   sodipodi:docname="figure.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.99437388"
-     inkscape:cx="325.33035"
-     inkscape:cy="194.59481"
+     inkscape:cx="284.27627"
+     inkscape:cy="182.72055"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -35,14 +35,11 @@
      width="200mm"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1440"
-     inkscape:window-height="890"
-     inkscape:window-x="30"
-     inkscape:window-y="37"
-     inkscape:window-maximized="0"
-     inkscape:showpageshadow="2"
-     inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1">
+     inkscape:window-width="2520"
+     inkscape:window-height="995"
+     inkscape:window-x="20"
+     inkscape:window-y="65"
+     inkscape:window-maximized="1">
     <inkscape:grid
        type="xygrid"
        id="grid815"
@@ -50,9 +47,7 @@
        spacingx="10"
        spacingy="10"
        empspacing="4"
-       dotted="false"
-       originx="0"
-       originy="0" />
+       dotted="false" />
   </sodipodi:namedview>
   <metadata
      id="metadata5">
@@ -70,12 +65,5 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-177)">
-    <circle
-       style="fill:#000000;stroke-width:0.264583"
-       id="path1"
-       cx="104.30349"
-       cy="223.56406"
-       r="26.341951" />
-  </g>
+     transform="translate(0,-177)" />
 </svg>

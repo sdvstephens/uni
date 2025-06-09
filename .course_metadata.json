@@ -1,0 +1,211 @@
+{
+  "Physics": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-06T14:30:47.052056",
+        "topic": "Introduction to Mechanics",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-06-06T14:33:11.666557",
+        "topic": "Vector Spaces",
+        "filename": "lecture_02.tex"
+      }
+    ],
+    "created": "2025-06-06T14:30:47.052053"
+  },
+  "Linear Algebra": {
+    "lectures": [
+      {
+        "number": 2,
+        "date": "2025-06-06T14:35:06.236692",
+        "topic": "Eigenvalue Transformations",
+        "filename": "lecture_02.tex"
+      }
+    ],
+    "created": "2025-06-06T14:35:06.236682"
+  },
+  "bird": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-06T15:47:59.125490",
+        "topic": "why i love birds",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-06-06T15:53:48.624634",
+        "topic": "why i love birds",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-06-06T16:02:41.317753",
+        "topic": "test of master",
+        "filename": "lecture_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-06-06T16:02:47.083793",
+        "topic": "test of master",
+        "filename": "lecture_04.tex"
+      },
+      {
+        "number": 5,
+        "date": "2025-06-06T16:02:49.471195",
+        "topic": "test of master",
+        "filename": "lecture_05.tex"
+      },
+      {
+        "number": 6,
+        "date": "2025-06-06T16:02:50.867193",
+        "topic": "test of master",
+        "filename": "lecture_06.tex"
+      },
+      {
+        "number": 7,
+        "date": "2025-06-06T16:02:54.671954",
+        "topic": "test of master",
+        "filename": "lecture_07.tex"
+      },
+      {
+        "number": 8,
+        "date": "2025-06-06T16:02:57.557346",
+        "topic": "test of master",
+        "filename": "lecture_08.tex"
+      },
+      {
+        "number": 9,
+        "date": "2025-06-06T16:03:41.111777",
+        "topic": "test of master",
+        "filename": "lecture_09.tex"
+      },
+      {
+        "number": 10,
+        "date": "2025-06-06T16:04:19.198717",
+        "topic": "test of master",
+        "filename": "lecture_10.tex"
+      },
+      {
+        "number": 11,
+        "date": "2025-06-06T16:04:47.714635",
+        "topic": "test of master",
+        "filename": "lecture_11.tex"
+      },
+      {
+        "number": 12,
+        "date": "2025-06-06T16:06:26.038409",
+        "topic": "test of master2",
+        "filename": "lecture_12.tex"
+      },
+      {
+        "number": 13,
+        "date": "2025-06-06T16:06:33.406035",
+        "topic": "test of master2",
+        "filename": "lecture_13.tex"
+      },
+      {
+        "number": 14,
+        "date": "2025-06-06T16:06:35.270524",
+        "topic": "test of master2",
+        "filename": "lecture_14.tex"
+      },
+      {
+        "number": 15,
+        "date": "2025-06-06T16:06:36.560242",
+        "topic": "test of master2",
+        "filename": "lecture_15.tex"
+      },
+      {
+        "number": 16,
+        "date": "2025-06-06T16:06:37.735903",
+        "topic": "test of master2",
+        "filename": "lecture_16.tex"
+      },
+      {
+        "number": 17,
+        "date": "2025-06-06T16:07:28.535440",
+        "topic": "test of master2",
+        "filename": "lecture_17.tex"
+      },
+      {
+        "number": 18,
+        "date": "2025-06-06T16:08:12.503939",
+        "topic": "test3",
+        "filename": "lecture_18.tex"
+      },
+      {
+        "number": 19,
+        "date": "2025-06-06T16:11:46.517690",
+        "topic": "testofsafe",
+        "filename": "lecture_19.tex"
+      },
+      {
+        "number": 20,
+        "date": "2025-06-06T16:12:07.344999",
+        "topic": "test2ofs",
+        "filename": "lecture_20.tex"
+      }
+    ],
+    "created": "2025-06-06T15:47:59.125485"
+  },
+  "Single Variable Calculus": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-06T16:20:24.086568",
+        "topic": "Differentiation",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-06-07T17:49:53.355335",
+        "topic": "Highlights of Calculus: Big Picture",
+        "filename": "lecture_02.tex"
+      }
+    ],
+    "created": "2025-06-06T16:20:24.086558"
+  },
+  "The Society of Mind": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-07T19:10:51.256778",
+        "topic": "The Emotional Machine",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-06-07T20:08:11.796849",
+        "topic": "test",
+        "filename": "lecture_02.tex"
+      }
+    ],
+    "created": "2025-06-07T19:10:51.256775"
+  },
+  "testcourse": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-08T13:22:05.918558",
+        "topic": "testcoursetest",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-08T13:22:05.918554"
+  },
+  "Calculus Revisited: Complex Variables, Differential Equations, and Linear Algebra": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-09T13:25:57.506546",
+        "topic": "Introduction",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-09T13:25:57.506541"
+  }
+}
