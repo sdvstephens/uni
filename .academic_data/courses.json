@@ -9,5 +9,16 @@
     "assignments": {},
     "grades": {},
     "notes_path": "/Users/stephens1/university/Linear_Algebras"
+  },
+  "tester": {
+    "name": "tester",
+    "code": "TST101",
+    "credits": 4.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-06-09T19:20:25.956423",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/tester"
   }
 }
