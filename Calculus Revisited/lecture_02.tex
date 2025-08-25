@@ -1,0 +1,114 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{2}{pretest}{July 08, 2025}
+
+\section{Pretest}
+
+\begin{enumerate}
+  \item Given the equation \( x^2-4x+3=0 \),
+    \begin{enumerate}[(a)]
+      \item Write the solution set using set-builder notation 
+      
+        \textcolor{red}{Using the quadratic equation we quickly get \( x=\frac{4\pm \sqrt{16-12} }{2}= 1,3 \) thus, our solutions are \( -1,-3 \). Putting this into set-builder notation we have: \( \{x|x=-1,-3\} \)}.
+
+      \item Write the solution set in roster notation 
+
+        \textcolor{red}{Simply applying the answer from the previous problem into roster notation: \( \{ -3,-1 \} \)}.
+
+    \end{enumerate}
+
+
+  \item \begin{enumerate}[(a)]
+   \item Show that \( (A\cap B) \cup C \) and \( A\cap (B \cup C) \) need not be the same set.
+
+     \textcolor{red}{Writing this out formally: \( \forall a\text{ s.t. } a \in A \text{ and } a\in B   \) we result in a new set, say, \( D \); then let \( (A\cap B) \cup C =E\), then \( E= a \in D \text{ or } x \in C \). In the case that \( A\cap (B \cup C)\, : \, \forall b \text{ s. t. } b\in B \text{ and } b\in C \) which we let form into a new set \( D \); let  \( A\cap (B \cup C)=E\), then \( E=b\in D \text{ or } x\in A\).  An example to demonstrate this is as follows: \(E_{1}=( \{ 1,2,3,4 \}\cap \{2,3,4,5\})\cup\{3,4,5,6\}=\{ 2,3,4,5,6\} \) and \( E_{2}=\{ 1,2,3,4\}\cap(\{2,3,4,5\}\cup\{3,4,5,6\})=\{1,2,3,4,5\} \). Notice that \( E_{1}\neq E_{2} \).}
+
+    \item What is the most general case in which \( (A\cap B) \cup C \) and \( A\cap (B\cup C)\) are the same?
+
+      \textcolor{red}{When they are all the empty set.}
+
+      
+      \item What is wrong with the expression \( A \cap B \cup C \)? 
+
+        \textcolor{red}{It is not well defined as it is unclear which operation takes precedence.}
+
+
+\end{enumerate}
+
+\item Let $A=\{1,2,3\}$
+  \begin{enumerate}[(a)]
+    \item How many elements belong to the set \( \{f|f:A\to A\} \)?
+
+      \textcolor{red}{$\mathscr{P}(f)=2^3=8$.}
+
+    \item How many of these elements are one-to-one? 
+
+      \textcolor{red}{All of them, in fact, they are also onto and all bijective.}
+
+    \item If $f(1)=2, f(2)=3,$ and $f(3)=1$, describe $f^{-1}:A\to A$. 
+
+      \textcolor{red}{The inverse function can be described by the transformations $2\mapsto 1$ and $3\mapsto 2$ and $1\mapsto 3$. Alternatively: $f^{-1}(2)=1, f^{-1}(3)=2,$ and $f^{-1}(1)=3$.}
+
+\end{enumerate}
+
+\item Define $f$ by 
+  \[
+    f(x)=\begin{cases}
+      2-x, & 0\leq x \leq 2 \\
+      0, & \text{otherwise}
+         \end{cases}
+  .\] 
+  \begin{enumerate}
+    \item $f(-x)$
+
+
+    \item $-f(x)$
+
+
+    \item $f(x+3)$
+
+
+    \item \( f(2x+3) \)
+
+
+  \end{enumerate}
+
+  \textcolor{red}{These are far too trivial, so I will not be doing them.}
+  
+\item Let \( f \) and \( g \) be defined by: 
+
+\[
+  f(x)=\frac{x^2-9}{x-3}
+\] 
+\[
+  g(x)=x+3
+.\] 
+\begin{enumerate}
+  \item How do $f$ and $g$ differ?
+    
+    \textcolor{red}{$f$ has a point of removable discontinuity at $x=3$; $g$ does not.}
+
+  \item Does \( \lim_{x\to}\frac{x^2-9}{x-3}=\lim_{x\to 3}(x+3) \)?
+
+    \textcolor{red}{Yes, it does. As said, the point of discontinuity is removable, observe: \[  f(x)=\frac{x^2-9}{x-3}=\frac{(x+3)(x-3)}{(x-3)}=(x+3)   .\] }
+\end{enumerate}
+
+
+
+\end{enumerate}
+
+
+
+\section{Problem Set I}
+\begin{itemize}
+  \item Let \( A \) be the set whose elements are \( a,b,c,d \).
+    
+\end{itemize}
+
+
+% Your notes here...
+
+\end{document}

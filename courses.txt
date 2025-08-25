@@ -1,7 +1,4 @@
-Calculus Revisited: Complex Variables, Differential Equations, and Linear Algebra
-Classical Mechanics
-Linear Algebra
-Multivariable Calculus
-Principles of Chemical Science
-Single Variable Calculus
 The Society of Mind
+Calculus Revisited
+Linear_Algebras
+

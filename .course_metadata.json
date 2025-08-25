@@ -182,6 +182,12 @@
         "date": "2025-06-07T20:08:11.796849",
         "topic": "test",
         "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-07-05T22:21:22.219800",
+        "topic": "testtopic",
+        "filename": "lecture_03.tex"
       }
     ],
     "created": "2025-06-07T19:10:51.256775"
@@ -207,5 +213,150 @@
       }
     ],
     "created": "2025-06-09T13:25:57.506541"
+  },
+  "tester": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-11T17:11:42.610404",
+        "topic": "topic1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-11T17:11:42.610401"
+  },
+  "Notes_on_Education": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-11T19:29:07.732809",
+        "topic": "John Dewey",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-11T19:29:07.732799"
+  },
+  "Linear_Algebras": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-11T21:28:53.619633",
+        "topic": "test",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-11T21:28:53.619630"
+  },
+  "Psychology": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-12T21:36:07.339628",
+        "topic": "Chapter 1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-06-12T21:36:07.339625"
+  },
+  "PHP": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-06-30T10:18:23.301365",
+        "topic": "Self-Efficacy Journaling",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-07-03T10:05:58.957278",
+        "topic": "Piper",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-07-07T11:46:46.678644",
+        "topic": "boundaries",
+        "filename": "lecture_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-07-16T09:33:56.148775",
+        "topic": "Self Care",
+        "filename": "lecture_04.tex"
+      },
+      {
+        "number": 5,
+        "date": "2025-07-16T15:06:19.474911",
+        "topic": "test-topic",
+        "filename": "lecture_05.tex"
+      }
+    ],
+    "created": "2025-06-30T10:18:23.301362"
+  },
+  "Calculus Revisited": {
+    "lectures": [
+      {
+        "number": 2,
+        "date": "2025-07-08T13:51:47.139219",
+        "topic": "pretest",
+        "filename": "lecture_02.tex"
+      }
+    ],
+    "created": "2025-07-08T13:51:47.139215"
+  },
+  "test-course": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-07-15T22:59:28.737127",
+        "topic": "test-course-topic",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-07-15T22:59:28.737124"
+  },
+  "Calculus_of_One_Variable": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-07-18T18:25:00.621610",
+        "topic": "Introduction to Numbers",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-07-18T18:25:00.621599"
+  },
+  "Number_Theory": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-07-30T13:36:39.080507",
+        "topic": "Divisibility and primes",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-07-30T13:36:39.080502"
+  },
+  "Khan_Academy": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-07-31T11:50:33.221839",
+        "topic": "Cosmology and Astronomy",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-07-31T11:50:33.221836"
+  },
+  "Phillipe": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-08-13T12:01:00.224532",
+        "topic": "philippe1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-08-13T12:01:00.224529"
   }
 }

@@ -16,16 +16,5 @@
         "location": ""
       }
     ]
-  },
-  "Linear Algebra": {
-    "classes": [
-      {
-        "day": "Wednesday",
-        "time": "2:00 PM",
-        "location": "Science Hall 205",
-        "type": "class"
-      }
-    ],
-    "exams": []
   }
 }

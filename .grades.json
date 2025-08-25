@@ -42,5 +42,61 @@
     "categories": {},
     "final_grade": null,
     "created": "2025-06-09T19:20:25.986503"
+  },
+  "Notes on Education": {
+    "credit_hours": 0.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-06-11T19:27:58.664945"
+  },
+  "Psychology": {
+    "credit_hours": 0.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-06-12T11:43:03.201960"
+  },
+  "PHP": {
+    "credit_hours": 0.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-06-30T10:17:29.797536"
+  },
+  "test-course": {
+    "credit_hours": 0.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-07-15T22:58:41.083145"
+  },
+  "Calculus of One Variable": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-07-18T18:24:35.143473"
+  },
+  "Number Theory": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-07-30T13:36:22.266905"
+  },
+  "Khan Academy": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-07-31T11:49:22.721529"
+  },
+  "Phillipe": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-08-13T12:00:24.610907"
   }
 }

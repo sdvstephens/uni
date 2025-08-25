@@ -1,0 +1,143 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{1}{Introduction}{June 09, 2025}
+
+\section{Introduction}
+
+This is the overview of the \textit{hardware} and \textit{software} of single variable calculus. The structure of the course is as follows: lectures $\longrightarrow $ text \( \longrightarrow  \) notes \( \longrightarrow  \) study guides \( \longrightarrow  \) learning exercises (psets). Calculus may be viewed as high school mathematics with the additional concept of the limit tossed in. Differential calculus is one that focuses on the concept of instantaneous speed. At a particular instance (say, \( P \)) the instantaneous speed seems to be $0$ because we are not moving! We know, however, that we are not magically stationary during this slice of time relative to observers, however. We don't want to know the average speed (i.e., \( \frac{\Delta x}{\Delta y} \)), but rather the instantaneous speed! So what if we brought the two windows of observation (the beginning and the end of the averages (initial and final)) infinitely close to each other? Then the average speed will approach the instantaneous speed of point \( P \)!
+
+I wonder if the concept of frames of reference in physics directly relates to the concept of relativity within regards to two frames of reference approaching a singular point; that is to say, did Einstein take inspiration from the fact that relative-ness of the observers eventually approached something which was different from the instantaneous speed that can be observed from afar? This relative difference seems to be crucial in calculus. Perhaps I am waffling, however, and it is nothing of note. 
+
+Side note: Herbert Gross is such a fun guy.
+
+\subsection{Functions}
+
+\begin{definition}
+$f:A \to B$ means that the function maps each element of $A$ to at least $1$ element of $B$.\end{definition}
+
+ $f$ cannot have $a\in A \mapsto b_{1},b_{2}\in B$ but it can have   $a_{1},a_{2},\ldots \in A \mapsto b \in B$. $A$ is the domain of $f$ and $B$ is the range/ codomain of $f$. Note that if you have a mapping like the following:
+
+  
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.6\textwidth]{./figures/dandr.pdf}
+ \caption{Domain($A$) and codomain ($B$); notice that there is a subset of $B$ called $C$. $C$ is the \textbf{image} of $A$ under the transformation $f$.}
+    \label{fig:dandr}
+\end{figure}
+\pagebreak
+\begin{definition}
+  The \textbf{image} under a transformation is the subset of all elements that the domain maps to in the codomain. The image, i.e., the subset, of a domain over a transformation may or may not be the same set as the codomain.
+\end{definition}
+
+It need not be the case, for $B$ to be a codomain, that all the elements of $B$ must have an assignment from $A$ over the function $f$. 
+
+\begin{definition}
+  A function is considered \textbf{\textit{onto}} (injective) if the set that is the image is the same set as the range/ codomain. 
+\end{definition}
+
+Given $A=\{1,2,3\}$ and $f(a)=4a \forall a \in A$. Then we have a $B=\{4,8,12\}$. This will happen in every case where we derive the set $B$ from the function and $A$. 
+
+\begin{definition}
+  A one-to-one (surjective) function is a function that follows the case that for every $a\in A$ and $b\in B$ $\exists$ one and only one element which $a$ maps to under the function. That is to say, $\forall a_n \mapsto b_n, \, b_n$ is unique. 
+\end{definition}
+
+A function can be both one-to-one and onto, we call this type of function a bijective function. If the function is bijective, then we can obtain an inverse function by reversing all the mappings' arrow heads. Note, however, if the function is not bijective and only onto or one-to-one then we \textbf{cannot} obtain an inverse function. This is because if it is not surjective then $b$ will map to multiple $a$s in $A$, which cannot happen as it then becomes a non-well defined function. If it is the case that it is not injective, then there are elements of $B$ that are undefined and have no mapping to $A$. 
+  
+Let us use an actual graph to display an example with lets say someone drops a ball on the ground such that we have some function $s=\begin{cases}
+  0 ,  &t<0 \\
+  16t^2 , &0\le t\le t_G \\
+    16t^2 , &t>t_G \\
+  
+\end{cases}$
+
+ 
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.3\textwidth]{./figures/st.pdf}
+    \caption{Here is the relationship between $s$ and $t$.}
+    \label{fig:st}
+\end{figure}
+
+Notice that as $t$ changes for the first while (up to $t_G$, i.e., the time when $s$ hits the ground) no two unique $s$ points have the same $t$; however, after $t_G$ we notice that $s$ becomes constant, and thus the function cannot be surjective! 
+
+\begin{definition}
+  A \textbf{neighborhood} of $x=c$ is an interval which contains $c$ inside of it (ex: if $a\le c$ and $c\le b$ and we have an \textbf{open} interval (as $c$ could in theory be the end points s.t. $a=b$ or $a=c$) of $(a,b)$). If $c$ is equidistant from $a$ and $b$, then we have a \textbf{\textit{symmetric neighborhood}}. 
+\end{definition}
+
+We are interested in neighborhoods because calculus is often about what is right next to or near a given point. There also exists something known as \textbf{\textit{deleted neighborhoods}} best demonstrated by an example.
+
+Given a function, say, \( f(x)=\frac{x^2-9}{(x-3)} \), we notice that $f(3)$ is indeterminant and D. N. E., thus we can have all points infinitely close to $x=3$ but not equal to. The infinitely closing-in area around $x=3$ becomes the deleted neighborhood. 
+
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.6\textwidth]{./figures/nbhd.pdf}
+    \caption{Shown is an example of a neighborhood and a deleted neighborhood in $\C$}
+    \label{fig:nbhd}
+\end{figure}
+
+\begin{definition}
+  We define absolute value by the following (also magnitude)\[
+    |x_{1}-x_{2}|=+\sqrt{(x_{1}-x_{2})^2} 
+  .\] 
+\end{definition}
+
+We wish to discuss the arithmetic of functions. What does it mean for two functions to be equal? Well, they must be defined on the same domain ($\text{dom} f = \text{dom} g= A$) and, for all $a_n \mapsto b_n$ under $f$ and $g$, the mappings must be the same. Sums, products, etc, are intuitive: say $f(x) = 2x$ and $g(x)=5x$ then $f(x)+g(x)=2x+5x=7x$; it follows similarly for other forms of arithmetic. Finally we have composite functions which are simply functions contained within functions (ex: $q(x)=f(g(x))$). Example: $f(x)=2x$ and $g(x)=x^2+1$, thus $f(g(x))=2(x^2+1)=2x^2+2$. The inverse is simple $g(f(x))=(2x)^2+1=4x^2+1$; notice $f(g(x))\neq g(f(x))$. 
+
+\subsection{The inverse and identity functions}
+
+\begin{theorem}[Existence of the Identity Function]
+  The identity function may be defined as a composition of $f^{-1} \circ f=e$ where we let $e$ be the identity function.
+\end{theorem}
+
+\begin{theorem}[Existence of Inverse Function]
+  For the inverse of a function to exist it must be both one-to-one and onto.
+\end{theorem}
+
+
+Some famous inverses:
+\[
+  y = \log_b x ; b^y=x \,\,\,\, \text{and }
+  y = \sin ^{-1}; x=\sin  y
+.\] 
+
+But isn't \( \sin x \) a periodic function, and thus is not one-to-one? Yes! What allows us to have an inverse function is the restriction of \( \sin  \) to \( [-1,1] \); this circumvents the non-one-to-one-ness and forces it to be one-to-one. 
+
+Notice, however, when solving for $x$ in terms of $y$ we are actually solving for inverse functions -- notice that $y=2x-y\implies x=\frac{y+7}{2}$ then notice $y=f(x) \therefore x=f^{-1} (y)$. The functions "undo" each other. 
+\pagebreak
+\subsection{Derivatives and Limits}
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.3\textwidth]{./figures/ball.pdf}
+    \caption{ball}
+    \label{fig:ball}
+\end{figure}
+
+Avg. speed from \( t=1 \) to \(  t=2 \) is \( \frac{64-16}{1} \). However we want to know the instant speed at \( t=1 \). Let us allow the averages to get closer and closer (\( [1,1.1],[1,1.001],[1,1.0000001],\ldots  \)); notice that as we get closer and closer we approach that which we are looking for. So what if we work with a variable instead of a constant? 
+\[
+  [1,1+h] \longrightarrow \frac{\Delta(1+h)-\Delta(1)}{h}=\frac{16(1+h)^2-16}{h}=\frac{32h+16h^2}{h}=32+16h
+.\] 
+We let $h\neq 0$ but we want to have it such that \( h \to 0 \). Note that since we cannot divide by zero it is necessary that we specify that $h$ is non-zero. However, as \( h\to 0 \) then $16h\to 0\therefore 32+16h \to 32$. Formally writing this out and then generalizing it, leads us to our first derivative definition:
+
+\begin{definition}[The limit definition of the derivative]
+ \[
+   \lim_{h\to 0} \frac{\Delta(x+h)-\Delta(x)}{h} = \lim_{\Delta x \to 0} \frac{f(x+\Delta x)-f(x)}{\Delta x}=f'(x)=\frac{d}{dx}
+ .\] 
+\end{definition}
+
+Then, if \( \Delta=16t^2 \) is the speed of the ball at $t=t$, then the velocity, $v$, is $v=32t$. The velocity then, is the instantanous speed (as a limit of average speeds). 
+
+I would draw out the graph of the geometric definition of the derivative but everyone has seen it; it is an extremeply well known example, so use your imagination. 
+
+
+
+
+
+% Your notes here...
+
+\end{document}
