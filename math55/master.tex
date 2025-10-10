@@ -1,0 +1,523 @@
+\documentclass[12pt,oneside]{report}
+
+% Load preamble
+\input{/Users/stephens1/university/preamble.tex}
+
+% Optional: Customize these
+\course{math55}
+\me{Your Name}
+
+\begin{document}
+
+% Title page
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge\bfseries math55\par}
+    \vspace{1cm}
+    {\Large Lecture Notes\par}
+    \vspace{2cm}
+    {\Large Compiled: \today\par}
+\end{titlepage}
+
+% Table of contents
+\tableofcontents
+\newpage
+
+\pagestyle{head}
+
+% ============================================
+% ALL LECTURES (content extracted)
+% ============================================
+
+% ============================================================
+% lecture_01
+% ============================================================
+
+\lecture{1}{naive set theory}{August 29, 2025}
+
+\section{Na\"ive Set Theory}
+
+% Your notes here...
+
+\begin{enumerate}
+  \item Consider the sentence \( \text{not}(x \in x) \), i.e., the subset by way of axiom of specification \( B=\{ x\in A : x \not \in x \} \). Is it the case that \( B\in A \)? 
+
+    No. It is not the case that \( B\in A \). If \( B\in A \), then either \(B\in B \, , B=\{B\in A : B\not \in A\} \), but \( B \) cannot be in \( A \) by definition. Similarly, if \( B \in A \) AND \( B\not\in B \), then by definition \( B \) is contained within the subset \( B \), which once again, is a contradiction. 
+
+
+
+
+
+
+
+
+
+
+  \item Given some set \( \{ \emptyset, \{ \emptyset \}, \{\{\emptyset\}\},\ldots  \} =\mathfrak{E}\) prove or disprove that all sets in \( \mathfrak{E} \) obtained this way are unique. 
+
+    For all \( x\in \mathfrak{E} \) there exists another element, \(( y\neq \emptyset )\in \mathfrak{E}\), such that \(x \subset y  \). We show that \( x\neq y \). For contradiction, we say \( y \subset  x \). Then \( x=\{ \} \) then \( y\subset \emptyset \); this cannot be, however, since the only subset of the empty set is the empty set, and, since \( y\neq \emptyset \) this is a contradiction. 
+
+
+    Let \( n,k \in \mathbb{N} \). Given \( A_{0} = \emptyset\) and \( A_{n+1}=\{A_{n}\}\). We show that \( A_n\neq A_k \) if \( n\neq k \). Suppose then, for contradiction, when 5.
+
+
+Lie Groups - Group and manifold (locally like \( \mathbb{R}^n \)). an example may be \( GL_n(\mathbb{R})\subset M_n (\mathbb{R}) \cong \mathbb{R}^n \)
+
+dim \( =0 \); Lie groups are discrete groups (classifcation of discrete groups are hopeless)
+
+we can reduce a lie group to a discrete group and a connector group. 
+
+\end{enumerate}
+
+% ============================================================
+% lecture_02
+% ============================================================
+
+\lecture{2}{quicknotesbcipaddied}{September 10, 2025}
+
+\section{quicknotesbcipaddied}
+
+\( (3) \implies (1) \). Assume \( G / K \) coset mult is a grp.  s.t. G to G/K 
+
+
+
+Remark:
+
+given a group homomorphism \( \phi  : G\to  H \), then \( K=\text{ker}(\phi ) \) is a normal subgroup of \( G \), and \(  \phi  \) factors as \( G \to  G / K \to  \Im(\phi ) \hookrightarrow H \)  a maps to aK maps to phi (a). This is the same grp. isomorphism from earlier. 
+
+
+Ex: \( S_{3} \) are perm. of 1,2,3. iso. to \( D_{3} \). Three transportations of swapping elements these correspond to reflections of a triangle and have order 2; we have two 3-cycles (correspond to rotations and have order 3). 
+
+
+
+
+
+% Your notes here...:
+
+% ============================================================
+% lecture_03
+% ============================================================
+
+\lecture{3}{lecc10
+}{September 24, 2025}
+
+\section{lecc10}
+
+
+
+
+% Your notes here...
+Suppose \( \phi  : V \to  V, \, (v_{1},\ldots ,v_n) \mid  \mathscr{M} (\phi )=A \), each \( V_k=)\text{span}(v_{1}\ldots v_k) \) invariant under \( \phi  \).
+
+% ============================================================
+% lecture_04
+% ============================================================
+
+\lecture{4}{groups}{September 26, 2025}
+
+\section{Groups}
+
+% Your notes here...
+\subsection{Definitions}
+
+In this course we study one of the most fundamental objects in mathematics: groups. 
+
+\begin{definition}
+  A \textit{group} is a set \( S \) together with a map
+  \begin{displaymath}
+    m: S\times S \to  S
+  \end{displaymath}
+  called a \textit{law of composition}. Writing \( ab \) for \( m(a,b) \), the law of comp. has to satisfy three axioms:
+  \begin{enumerate}[i.]
+    \item (existence of identity): \( \exists e \in  S \), called the identity, s.t. \( ae=ea=a \forall a\in S \);
+    \item (existence of inverses): for any element \( a \in S \exists b \in  S \mid  ab=ba=e\), we usually denote this as \( a^{-1} \) or \( -a \);
+    \item (the associative law): for any three elements \( a,b,c \in  S \) we have \[
+      a(bc)=(ab)c
+    .\] 
+  \end{enumerate}
+\end{definition}
+
+This results in some immediate concequnces, namely the uniqueness of the identity element and the \textit{cancellation law}. The proofs are trivial. 
+
+We usually represent groups in the form \( G \), as a simplified for \( (G,m) \) or \( \langle G,m \rangle \) (the latter being less common). The cardinality of the set of a given group is called the order of said group: i.e., the cardinality of the group \( |G| \) is the cardinality of the set \( G \) (the use of the same notation for groups and sets can be confusing at times but are context dependent). 
+
+We have an additional type of group that naturally appears from any of the common number systems \( \mathbb{R},\mathbb{N},\ldots  \), called an abelian group.
+
+\begin{definition}
+  An abelian group is a group that is commutative; that is to say:
+  \begin{displaymath}
+    \forall a,b \in  G, \, ab=ba.
+  \end{displaymath}
+  
+\end{definition}
+
+This in general is not true for all groups, as symmetric groups and dihedral groups do not satisfy this definition (you will see more on this later). Additionally, there are a few other structures that arise when we alter the axioms of a group: remove the second axiom and you have a \textit{monoid}, remove the third axiom and you have a \textit{semigroup}. They will appear a few times but not often (for now).
+
+\subsection{Constructions}
+
+\begin{definition}
+  The product of two groups is given by \( G\times H \), where the set is the Cartesian product adn the law of composition is given termwise:
+  \begin{displaymath}
+    G\times H = \{(a,b)\mid a \in G,b\in H\} \, \& \, (a,b)\cdot (a',b')\coloneqq (a\cdot a',b\cdot b').
+  \end{displaymath}
+  
+\end{definition}
+We also may use \( G\oplus H \), but this is usually more case specific. 
+
+Products of greater than two groups, even infinite groups, is much the same; given the groups \(G_{1},\ldots ,G_n\) we can define a product, \[ G_{1}\times \ldots \times G_n \coloneqq  \{ (a_{1},\ldots ,a_n) \mid  a_i \in  G_i \},\] with the law of composition given by \[ (a_{1},\ldots ,a_n)\cdot (b_{1},\ldots ,b_n)\coloneqq (a_{1}\cdot b_{2},\ldots ,a_n \cdot b_n).\] 
+We ue products and sums to denote infinite and finite group products, respectively:\[
+  \prod^{\infty}_{i=1} G_i \, \& \, \bigoplus_{i=1}^n G_i
+.\] 
+
+At times we may have a group \( G^n \) such as \( \mathbb{R}^n \), etc, where each \( G_n \) contains \( n \)-tuples of its elements. 
+
+The final note is on groups of polynomials with real coefficients, denoted \( \mathbb{R}[x] \). We use \[
+  \mathbb{R}[x] \coloneqq \{ a_{0}+a_{1}x+a_{2}^2\ldots +a_nx^n \mid  n \in  \mathbb{N} \text{ and } a_i \in  \mathbb{R} \}\]  for finite polynomials as a direct sum, and the following for infinite polynomials as a direct product (i.e., the group of polynomial power series), \[
+  \mathbb{R}[[x]] \coloneqq \{ a_{0}+a_{1}x+a_{2}^2\ldots \mid a_i \in  \mathbb{R} \}
+  .\]
+
+% ============================================================
+% lecture_05
+% ============================================================
+
+\lecture{5}{relations}{September 27, 2025}
+
+\section{Relations}
+
+% Your notes here...
+
+\subsection{Symmetry Groups}
+
+An alternative to number systems as the basis of groups is symmetries of systems/ objects. To construct these consider the set \( S \) and a group acting on the set \( S \) called the permutation group \( Perm(S) \) which is the set of bijective maps \( f: S \leftrightarrow S \) has a law of composition defined as function composition. The order of the group \( Perm(S) \) is \( |Perm(S)| =n! \) when \( S \) is finite (usually this is the case with a permutation group). If \( S = \{ 1,2,\ldots ,n \} \) then \( Perm(S) \) is denoted \( S_n \) is is known as the symmetry group.
+
+\begin{definition}[Symmetric Groups]
+  The symmetric group is a set \( Perm(S) \) acting on a set \( S \) of order \( n \), denoted \( S_n \) such that \( Perm(S) \) is the set of bijective maps \( f: S \leftrightarrow S \) with the law of composition of \( Perm(S) \) being function composition. We denote the permutations via \( \sigma^n  \) and \( \tau ^n \), where \( \sigma  \) is a permutation via shifts and \( \tau  \) is a permutation via swaping two given elements. 
+\end{definition}
+
+
+\begin{problem}[1.1.1]
+  We know that the group \( S_n \) is non-abelian \( \forall n\ge 3 \). Why is this? First we demonstrate by example. Consider the group with the set \( S =\{1,2,3,4\}\), notice that \( |S_4| =4! =24 \). The group is made of up a sequence of perumtations \( e,\sigma ,\sigma^2,\sigma^3,\tau ,\tau \sigma ,\tau \sigma^2,\tau \sigma^3 \), where \( \sigma ^n \) is a shift of order \( n \) such that \( (1,2,\ldots,m )\mapsto (\ldots ,m,1,2,\ldots ) \), so, for example, \( (1,2,3)\) under \( \sigma^2 \) results in \(\sigma^2(1,2,3)=(2,3,1)\) since \( (1,2,3)\overset{\sigma}{\mapsto} (3,1,2) \overset{\sigma}{\mapsto} (2,3,1) \). The \( \tau  \) is a switch between any two elements: \( (1,2,3)\overset{\tau}{\mapsto}(1,3,2) \), but \( \tau ^2 \) simply reverses whatever mapping we made by acting on the same elements we applied \( \tau  \) to, i.e., \( (1,2,3)\overset{\tau}{\mapsto}(1,3,2)\overset{\tau }{\mapsto}(1,2,3) \). Given these facts, (note that we are going to drop the commas for the sequence of numbers) notice that \( \tau \sigma (1234) \implies (1234)\overset{\sigma}{\mapsto} (4123) \overset{\tau }{\mapsto} (1423)\), but \( \sigma \tau (1234)\implies (1234)\overset{\tau }{\mapsto} (2134) \overset{\sigma  }{\mapsto} (4213) \). Notice, then, that \( (1423)\neq (4213) \), thus it mustn't be the case that \( S_4 \) is abelian. This, in general, is true for all \( S_n \mid n\ge 3 \). 
+\end{problem}
+
+A similar notion that arises from symmetric groups is the dihedral group: the set of symmetries of \( S \) under rotation and reflection where \( S \) is the set of verticies of a regular \( n \)-gon in the plane (a plane). We call this \( D_n \). 
+
+
+\begin{definition}[Dihedral Groups]
+  A dihedral group, denoted \( D_n \) is the set of symmetries of \( S \) under rotation and reflection (function composition) as the law of composition, where \( S \) is the set of all verticies of a regular \( n \)-gon. This is a special type of symmetric group. 
+\end{definition}
+
+As a quick side-note we use \( \mu  \) and \( \rho  \) is function notation for our relfections and rotations, respectively, in relation to dihedral groups. There is a good amount of similarity with \( \tau  \) and \( \sigma  \) from symmetric groups.
+
+\pagebreak
+
+\begin{problem}[1.1.2]
+  Consider the dihedral group \( D_{3} \), notice that it is isomorphic to \( S_{3} \). Notice, however, that this is not the case for \( D_{4} \) and \( S_{4} \). We use \( \rho  \) and \( \mu  \) for rotations and reflections (LoC) under \( D_{n} \) (similar to \( \sigma  \) and \( \tau  \)). For \( D_{3} \) we have a \( 3 \)-gon, which is simply a triangle. We may assign to each of its three verticies a number such that under the transformations of \( \rho  \) and \( \mu  \) we achieve rotations and reflections. Below is an example of this:
+
+
+  \begin{figure}[!ht]
+    \centering
+ \includegraphics[width=0.7\textwidth]{./figures/d3.pdf}
+    \caption{}
+    \label{}
+\end{figure}
+
+The observed triangle is a geometric representation of \( D_{3} \). We can see that the order is given by \( |D_{3}|=|\{ e,\rho ,\rho ^2,\mu ,\mu \rho ,\mu \rho ^2 \}|=6 \), the same as \( S_3 \); however when observing \( D_{4} \) and \( S_{4} \), we notice that these are incapible of being isomorphic since they have different orders: \(|D_4|=|\{ e, \rho ,\rho ^2,\rho ^3,\mu ,\mu \rho ,\mu \rho ^2,\mu \rho ^3\} | =8 \) and \( |S_{4}|=|\{ e,\sigma ,\sigma ^2,\sigma ^3,\tau \sigma ,\tau \sigma ^2,\tau \sigma ^3,\tau ^2 \sigma , \ldots  \}| = 24 \). Interesting! It seems, from observation that while \( S_n \) follows the rule of order \( n! \), \( D_n \) follows the rule of order \( 2n \). Notice that the mappings that involve \( \mu  \) in \( D_{3} \) are all reflections on a different axis of symmetry, the axis of symmetry under \( e, \rho  \) and \( \rho ^2 \). We can thus imagine \( D_{3} \) as \( 2n \) due to the fact that it has \( n \) rotations, and therefore \( n \) axies of symmetry \( \implies n+n=2n \).\qed
+
+
+
+\end{problem}
+
+Something to note is that, as we increase in dimensionality (recall that \( D_n \) is restricted to \( n \)-gons in \( \mathbb{R}^2 \)), i.e., as \( n \) increases for \( \mathbb{R}^n \), then the order of the group has more and more complex reflections (\( \mu  \)s), which meet \( S_{n} \)'s order and even exceeds it. A general rule is: for \( \mathbb{R}^n \), \( |G|=2^n(n!) \). The number of rotations and reflections, however, can be infinite (for example consider the set of all symmetries of a circle). 
+
+\begin{definition}[Linearity]
+  Linearity of a bijective function is determined by the rule that \( \phi (v+w)=\phi (v)+\phi (w), \forall  v,w \in  \mathbb{R}^n \) and \( \phi (\lambda v) , \forall v \in \mathbb{R}^n, \lambda \in  \mathbb{R}\). Notice our \( v,w \) quantities are vectors and our \( \lambda  \) quantity is a scalar. 
+\end{definition}
+
+
+\begin{definition}[General and Special Linear Groups]
+
+  Consider the symmetries of \( S=\mathbb{R}^n \) but restrict the set of bijections to be only those which are linear (as defined in the previous definition). This forms the group \( GL_n(\mathbb{R}) \), i.e., the group of \( n \times n \) matrices with nonzero determinant. Similarly, a special case is \( SL_n(\mathbb{R}) \), which is the special linear group which is the same as the general linear group except the determinant is specified to be \( 1 \). 
+  
+\end{definition}
+
+
+\begin{definition}[Orthogonal Groups]
+  An orthogonal group is a type of symmetric group that is the linear maps \( \Gamma : \mathbb{R}^n \to  \mathbb{R}^n \) that respect (preserve) distance.
+\end{definition}
+
+\subsection{Group Relations}
+
+\begin{definition}[Subgroups]
+  A subgroup of \( G \) is a subset \( H \subset G \) such that \( H \) is closed under the law of composition of \( G \) (i.e., \( \forall a,b \in  H ab \in  H \)) and \( \forall a \in  H \exists a^{-1} \in  H \) s.t. \( aa^{-1}=e \). 
+\end{definition}
+
+
+\begin{definition}[Generators and Generation]
+  Group generation happens as a concequence of our definition of subgroups. Notice, that given \( H \le G \) (we use \( \le\) and \(\ge \) notation to indicate subgroup-ness) we can construct the smallest subgrop of \( G \) by taking the intersection of all subgroups of \( G \); notice that this intersection is indeed a subgroup as well. For generation of a group we want to take the samllest subset denoted \( S \subset G\) such that there exist a samllest subgroup that contains \( S \):
+  \begin{displaymath}
+    G_{smallest}=\bigcap_{H\le G; H\ge S} H
+  \end{displaymath}
+  we use the terminology that \( S= \langle S \rangle  \) is the generator of \( G \) if \( \langle S \rangle = G \).
+\end{definition}
+
+We can now use this bit of information to come up with a more formal definition of cyclic groups:
+
+\begin{definition}[Cyclic Groups]
+  A group is a cyclic group \( \iff \) all elements in the group are generated by a single element.
+\end{definition}
+
+\subsection{Homomorphisms}
+\begin{definition}[Homomorphisms]
+  If \( H \) and \( G \) are two groups, a homomorphism is given by \( \varphi : H \to  G \) as a map that respects the laws of composition in \( G \) and \( H \), i.e., \( \forall a,b\in H \),
+  \begin{displaymath}
+    \varphi (ab)=\varphi (a)\varphi (b).
+  \end{displaymath}
+  We can denote this using a commutative diagram,
+
+  \[
+    \begin{tikzcd}
+G \times  G\arrow{r}{\varphi \times  \varphi } \arrow[swap]{d}{m_G} & H \times  H \arrow{d}{m_H} \\%
+G \arrow{r}{\varphi}& H,
+\end{tikzcd}
+\] 
+where \( m_G, m_H \) are the laws of compsoition for \( G,H \), respectively. What makes this diagram a homomorphism is thereby the very fact that it commutes. 
+\end{definition}
+
+Let's take two interesting cases: the inverse and the identity of a group under homomorphism: consider \( e_H \) and \( e_G \). By homomorphism, it must be the case that \( \varphi (e_He_G)=\varphi (e_H) \varphi (e_G) \), however, notice that since this is the identity, in order to preserve group structure, we result in the identity (\( e_H \) or simply \( e \)). if this is the case we can say \( \varphi (e_G)=e \) and \( \varphi (e_H)=e \), thus, \( \varphi (e_H)=e=\varphi (e_G) \). Similarly, take the inverse of some given \( a \in  G \), \( a^{-1} \in  G \), notice that \( \varphi (a^{-1})=\varphi (a)^{-1} \).
+
+% ============================================================
+% lecture_06
+% ============================================================
+
+\lecture{6}{category theory}{October 03, 2025}
+
+\section{Category Theory}
+
+% Your notes here...
+
+\subsection{Categories}
+
+\begin{definition}[Category]
+  A category \( \mathscr{C} \) is a collection of \textbf{objects}, such that:
+
+  \begin{enumerate}[(i.)]
+    \item for each pair of objects \( A,B\in  \text{Ob}(\mathscr{C} )   \);
+    \item a collection of morphisms is given by \( \text{Mor}(A,B) \);
+    \item there exists operation titled \textit{composition of morphisms} given by \[ \text{Mor}(A,B)\times \text{Mor}(B,C) \to \text{Mor}(A,C) \] such that \( f,g \mapsto g \circ f \);
+    \item Category Theory Axioms: \begin{enumerate}
+        \item every object \( A \) has an identity morphism \( \text{id}_A \in  \text{Mor}(A,A) \) such that \[ \forall f \in  \text{Mor}(A,B), \, f \circ \text{id}_A=\text{id}_B\circ f=f ;\]
+        \item composition (of morphisms) is associative, i.e., \( (f\circ g)\circ h= f\circ (g\circ h) \).
+    \end{enumerate}
+\end{enumerate}
+
+\end{definition}
+
+We can think of categories and sets as, for the most part, the same thing, except for the fact that a category may include the category of all sets; this is where we deliniate sets and categories in order to avoid pesky paradoxes. 
+
+Some examples of categories, for purposes of clarity:
+\begin{enumerate}
+  \item category of sets, \( \text{Mor}(A,B)= \) all maps \( A \to  B \)
+  \item \( \text{Vect}_k \) as a fin. dim. vector space over \( k \), then \( \text{Mor}= \) linear maps
+  \item groups, group homomorphisms 
+  \item topological spaces, continuous maps
+  \item and more...
+\end{enumerate}
+
+There exists a relationship called \textbf{isomorphism} not too dissimilar from group-theoretic isomorphisms. 
+
+\begin{definition}[Isomorphism]
+  \( f \in  \text{Mor}(A,B) \) is an \textit{isomorphism} if has inverse, i.e., \( \exists g \in  \text{Mor}(B,A) \) s.t. \( g \circ f =id_A \) and \( f \circ g =id_A \) \( \implies \text{if }\exists g \implies !\exists g \) and that \( \text{id}_A \) is an isomorphism. \( f \implies f^{-1} \) (\( g\equiv f^{-1} \\ \) )are both called isomorphisms, individually. 
+  
+\end{definition}
+  Concequentially the automorphisms \( Aut(A) \) is always a group. 
+
+sets :permutations, groups: automs, vec: invertible lin op. 
+
+Isomorphic objects of \( e \) have isomorphic automorphic groups. Given \( f \in  \text{Mor}(A,B) \) as an isomorphism \( c_f:Aut(A) \to  Aut(B) \) which maps \( g \mapsto f \circ g \circ f^{-1} \). 
+
+We may define sum, product, and quotient objects in categories. Consider a product \( A\times B \coloneqq \mathcal{C} \) of objects \( A,B \in  \mathscr{C} \) characterized by \( \mathcal{P} \) projects \( \pi_1 \in \text{Mor}(\mathcal{P},A), \pi_{2}\in \text{Mor}(\mathcal{P}, A) \) s.t. \( \forall  \) object \( T \), \( \forall f_{1}\in \text{Mor}(T,A), f_{2}\in \text{Mor}(T,B), \, \exists \) unique \( f \in \text{Mor}(T,\mathcal{P}) \) s.t. \( \pi_{1} \circ f =f_1, \, \pi_{2}\circ f=f_{2} \). 
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.2\textwidth]{./figures/tcat.pdf}
+    \caption{}
+    \label{fig:tcat}
+\end{figure}
+
+\begin{definition}[functor]
+  \( C,D \) categories, a (\textit{covariant}) functor \( F:C \to  D \) is an assigment:
+  \begin{enumerate}
+    \item for every object \( X \) of \( C \) an object \( F(X) \) of \( D \)
+    \item for each morphism \( f \in  \text{Mor}_C(X,Y) \), a morphism \( F(f) \in  \text{Mor}_D(F(X),F(Y)) \) s.t. \begin{enumerate}
+        \item \( F(id_X)=id_{F(X)} \)
+        \item \( F(g \circ f)= F(g)\circ F(f) \)
+    \end{enumerate}
+  \end{enumerate}
+\end{definition}
+
+Consider Forgetful functors , on a vector space over k given vector sace \( V \) \( F: Vect_k \to Vect_k \)objects: \( W \mapsto Hom(V,W) \) lin. maps \( V \to  W \), morphism \( f: W \to  W'\implies?? \)
+
+Anywhos. He's going on about linear maps as morphisms for categories and functors but I don't care all that much at the moment. As a functor \( F : \text{Vect}_k \to  \text{Vect}_k \) can be shown as \( Hom(V, \circ) \). What the mell does obj. \( V \mapsto V_{\mathbb{C}}=V\oplus iV\)
+
+\begin{definition}
+  A \textit{contravariant functor} \( F : C \to D \) is the same except reverses direction of morphism:
+  \begin{displaymath}
+    f \in  \text{Mor}_C(X,Y) \mapsto F(f) \in  \text{Mor}_D(F(Y),F(X)) \mid  F(g\circ f)=F(f) \circ F(g).
+  \end{displaymath}
+\end{definition}
+
+So for example, consider \( V \to V^* \) s.t. \( f \in  Hom(V,W) \mapsto f^* \in  Hom(W^*,V^*) \). 
+
+\begin{definition}
+  Given two functors \( F,G : \mathscr{C} \to  \mathscr{D} \) a natural transformation \( t \) from \( F \) to \(G\) is the data \( \forall X \in  Ob(\mathscr{C}) \), a morphism \( t_X \in  \text{Mor}_{\mathscr{D}}(F(X),G(X)) \) s.t. 
+
+ \[
+ \forall  X, Y \in  Ob(\mathscr{C}), \forall f \in  \text{Mor}_{\mathscr{C}}(X,Y), \]
+ \[
+\begin{tikzcd}
+F(X) \arrow{r}{F(f)} \arrow[swap]{d}{t_x} & F(Y) \arrow{d}{t_y} \\%
+G(X) \arrow{r}{G(f)}& G(Y)
+\end{tikzcd}
+.\]
+  
+\end{definition}
+
+\begin{definition}[Bilinear forms]
+  A \textbf{\textit{bilinear form}} on a vector space \( V \) over a field \( k \) is a map \( b:V \times V \to  k \) (this is to say we take \( (v,w)\mapsto b(v,w) \)) that is linear in each variable, i.e., \( \forall u,v,w \in  V, \, \lambda \in  k, b(\lambda v,w)=b(v,\lambda w)=\lambda b(v,w) \) ("multiplied" on both sides separately). 
+\end{definition}
+
+\begin{definition}[symmetric]
+  Say \( b \) is symmetric if \( b(v,w( = b(w,v) )) \forall v,w \in  V \) and is skew symmetric if \( b(v,w)=-b(w,v) \).
+\end{definition}
+
+I have mentally clocked out, I spent last night and this morning going over the notes for today and ngl i understood it better before he started explaining it 
+
+AWWWWWW 
+
+\[
+  \begin{tikzcd}
+    A \arrow{r}{f} \arrow[swap]{dr}{g\circ f} & B \arrow{d}{g} \\%
+& C
+\end{tikzcd}
+.\]
+
+% ============================================================
+% lecture_07
+% ============================================================
+
+\lecture{7}{lec15}{October 06, 2025}
+
+\section{Lecture 15}
+
+% Your notes here...
+%
+
+\subsection{bilinear forms}
+
+\textbf{Bilinear forms} on fin. dim. vec. space \( V \) over \( k \) for
+\[ b: V \times  V \to k \longleftrightarrow  \varphi _b \in  \text{Hom}(V,V^*)\]
+which gives an isom. \( B(V) \cong \text{Hom}(V,V^*) \) (\( \varphi  _b (v)=b(v,\cdot) \))
+
+Say be in non degenerate if \( \varphi_b  \) is injective. 
+
+In a basis \( (e_{1},\ldots e_n) \) of \( V \), rep. \( b \) by a mat. \( A \) w ent \( a_{ij}=b(e_i,e_j) \) .
+
+\[
+  b(\sum_i x_ie_i,\sum_jx_je_j) = \displaystyle\sum_{i,j}^{ a_{ij}x_iy_j}=X^{\perp}Ay
+.\] 
+
+where col. vectors are \( X \) and \( y \) that correspond to the summations in \( b \). 
+
+
+Something something
+\begin{enumerate}[i.]
+  \item \( b \) is symm. \( \iff \) \( A \) is symm. (\( b(v,w)=b(w,v) \iff A^{\perp}=A, a_{ij}=a_{ji} \))
+  \item \( b \) is nondegenerate \( \iff \) \( A \) is invertible. 
+\end{enumerate}
+
+
+ "Two vectors paired together to zero"
+
+\begin{definition}[Orthogonality]
+  If \( S \subset V \) is a subspace of \( V \), \( b:V\times V \to k \) w/ is bilinear form, the \textbf{orthogonal compliment} is \( S^{\perp}=\{v \in  V \mid  \forall w \in  S, b(v,w)=0 \} \)
+\end{definition}
+
+Beware: if b is skew symmetric or symm. then \( (*)\iff \forall w \in  S, b(w,v)=0 \), otherwise (not skew symm or symm) we we have a left orthogonal and a right orthogonal (such that they are not the same), buttttt we want to have them be equal so we just will ignore this for now lol. 
+
+\begin{lemma}
+  If \( b \) is nondegenerate then \( dim(S^{\perp})=dim(V)-dim(S) \), else ineq. 
+\end{lemma}
+
+\begin{proof}
+  
+  \begin{displaymath}
+    S^{\perp}=      \text{ker} \left( V \to  S^*, \, (v \mapsto \varphi _b(v)_{\mid S} =b(v,\cdot)_{\mid S}) \right)
+  \end{displaymath}
+  which is the composition of \( \varphi _b V \to  V^* \) and restriction \( r: V^* \to  S^* \) and \( l\mapsto l_{\mid S} \) which is surjective. So by rank thm. \( \text{dim}S^{\perp} \text{dim}V-\text{rank}(r \circ \varphi _b ) \le \text{dim}(S^*)=\text{dim}(S) \) is \( b  \) is nondegenerate then \( r \circ \varphi _b \) is surjective so \( rk=\text{dim}S \).
+\end{proof}
+
+
+Note: write less don't merely copy. Perhaps only do definitions and misc. info? proofs seem to be something you can go over post lecture, just try to understand for now. 
+
+
+Ex: \( V=\mathbb{R}^n \) with standard dot prod. so \( b(v,w) = \sum v_i w_i \) Then \( V= S \oplus S^\perp \)
+
+
+\begin{definition}[Inner Product Spaces]
+  An \textbf{inner product space} is a vector space \( V \) over \( \mathbb{R} \) together with a symmetric positive definite bilinear form \( \langle *,*\rangle: V \times V \to  \mathbb{R} \).
+\end{definition}
+
+\begin{definition}[ips symmetric]
+  \( \langle u,v \rangle =\langle v,u \rangle \)
+\end{definition}
+
+\begin{definition}[positive definite]
+  \( \langle u,u \rangle \ge  0 \forall u \in  V \), and \( \langle u,u \rangle=0 \iff u=0 \).
+\end{definition}
+
+\begin{definition}[norm]
+  The \textbf{norm} of a vector is \( | | v | | = \sqrt{\langle v,v\rangle}  \). \(v,w \in V \) are orthogonal if \( \langle v,w \rangle =0 \). 
+\end{definition}
+
+\begin{theorem}[Cauchy-Scwartz inequality]
+  yk what this is lol, just do it with norms \( |\langle u , v \rangle | \le | | u | | | | v | | \)
+\end{theorem}
+
+\begin{theorem}
+  Every finite dim inner product space \( / \mathbb{R} \) has an ortho basis.
+\end{theorem}
+
+\[
+  \frac{\mathrm{d/V}}{\mathrm{dx}} 
+.\]
+
+% ============================================================
+% lecture_08
+% ============================================================
+
+\lecture{8}{lec16}{October 08, 2025}
+
+\section{Orthogonal adjoint operators and Hermatians}
+
+% Your notes here...
+
+
+
+
+\begin{definition}
+  \( T \) is self-adjoint if \( T^* = T \), i.e., 
+  \begin{displaymath}
+    \langle T u , v \rangle = \langle u,Tv \rangle 
+  \end{displaymath}
+  so \( \mathcal{M}(T) \) in an orthogonal basis is symmetric (\( \mathcal{M}_{ij}=\mathcal{M}_{ji} \)). 
+\end{definition}
+
+
+
+\begin{theorem}[spectral thm]  
+  If \( T : V \to  V  \) is self adjoint then \( T \) is diagonalizable, with real eigenvalues. Even more, T can be diagonalized in an orthogonal basis of \( ( V, \langle \cdot , \cdot  \rangle ) \)!  
+
+\end{theorem}
+
+\end{document}

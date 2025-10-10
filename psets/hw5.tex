@@ -1,0 +1,121 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage{amsmath,amsfonts,amsthm}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{-0.4in}
+\setlength{\textheight}{8.9in}
+\setlength{\parskip}{0.4em}
+\newtheorem*{theorem}{Theorem}
+\parindent0em
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\def\F{\mathbb{F}}
+\raggedbottom
+
+\begin{document}
+\begin{center}
+{\bf \Large Math 55a Homework 5}\medskip
+
+Due Wednesday October 8, 2025.
+\end{center}
+
+\begin{itemize}
+\item You are encouraged to discuss the homework problems with 
+other students. However, what you hand in should reflect your 
+own understanding of the material. You are NOT allowed to copy solutions 
+from other students or other sources. Also, please list at the end of the
+problem set the sources you consulted and people you worked with on 
+this assignment.
+%\item Questions marked * may be on the harder side.
+\end{itemize}
+
+{\bf Material covered:} Generalized eigenvectors, nilpotent operators, Jordan normal form;
+categories and functors; bilinear forms.
+(Axler chapter 8; 
+Artin \S 4.4-4.7 and 8.1, 8.2, 8.4; handout on categories and functors.)
+\bigskip
+
+
+{\bf 1.} 
+
+(a)
+(b) Show that $I+T$ is invertible (where $I$ is the identity operator),
+and give a formula for its inverse.
+\medskip
+
+
+{\bf 2.}
+
+%\medskip
+
+{\bf 3.}\medskip
+
+{\bf 4.} Let $V$ be an $n$-dimensional vector space over a field $k$,
+with $\ch(k)\neq 2$.
+The set of bilinear forms $V\times V\to k$ has the structure of a vector space $B(V)$,
+of dimension $n^2$. We say that a bilinear form is {\em symmetric} if $b(v,w)=b(w,v)$ for
+all $v,w\in V$, {\em skew-symmetric} if $b(v,w)=-b(w,v)$ for all
+$v,w\in V$.
+
+(a) Show that the subset $B_{symm}(V)\subset B(V)$ of symmetric bilinear
+forms is a subspace of $B(V)$, and calculate its dimension.
+
+(b) Similarly, show that the subset $B_{skew}(V)\subset B(V)$ of
+skew-symmetric bilinear forms is a subspace of $B(V)$ and calculate its
+dimension.
+
+(c) Show that $B(V)=B_{symm}(V)\oplus B_{skew}(V)$. Does this remain true if
+$\ch(k)=2$?
+\medskip
+
+{\bf 5.} Let $V$ be an $n$-dimensional vector space over a field $k$,
+with $\ch(k)\neq 2$. 
+
+(a) How should one define the notion of a {\em trilinear form} $t:V\times V\times V\to k$?
+Show that the set $T(V)$ of trilinear forms on $V$ can be given the
+structure of a vector space, and calculate its dimension.
+
+(b) Say a trilinear form $t:V\times V\times V\to k$ is {\em symmetric} if
+the value $t(u,v,w)$ is unchanged if we permute the variables, and denote
+by $T_{symm}(V)\subset T(V)$ the subset of symmetric trilinear forms.
+Show that $T_{symm}(V)$ is a subspace of $T(V)$, and calculate its
+dimension.
+
+(c) Say a trilinear form $t:V\times V\times V\to k$ is {\em skew-symmetric}
+(or {\em alternating}) if permuting the variables multiplies the value 
+$t(u,v,w)$ by $\pm 1$ according to the sign of the permutation. Show that
+the subset $T_{skew}(V)\subset T(V)$ of skew-symmetric trilinear forms
+is a subspace of $T(V)$, and calculate its dimension.
+
+(d) Show that, if $n\geq 2$, then we do {\em not} have $T(V)=T_{symm}(V)
+\oplus T_{skew}(V)$.  (The reason for this will become clearer when we
+discuss the representation theory of the symmetric group.)
+\medskip
+
+{\bf 6.} Let $V$ be a finite-dimensional vector space over a field $k$, and
+$b:V\times V\to k$ a non-degenerate bilinear form. A subspace
+$\Lambda\subset V$ is called {\em isotropic} for $b$ if $b(v,w)=0$ $\forall
+v,w\in\Lambda$. Show that, if $\Lambda$ is isotropic, then
+$\dim(\Lambda)\leq \frac12 \dim(V)$.
+\medskip
+
+
+{\bf 7.} Let $S_1,\dots,S_m$ be subsets of $\{1,\dots,n\}$ such that
+$S_i$ contains an odd number of elements for each $1\leq i\leq m$, 
+and $S_i\cap S_j$ contains an even number of elements for each $1\leq
+i<j\leq m$. Show that $m\leq n$.
+
+(Hint: construct vectors $v_1,\dots,v_m$ in $(\F_2)^n$, and use the
+standard dot product (mod 2) to show they are linearly independent). 
+\medskip
+
+{\bf 8.} How long did this assignment take you?  How hard was it?
+What resources did you use, and how much help did you need?
+(Remember to list the students you collaborated with on this assignment.)
+Did you have any prior experience with this material?
+
+\end{document}

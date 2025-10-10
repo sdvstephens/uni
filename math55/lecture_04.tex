@@ -1,0 +1,71 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{4}{groups}{September 26, 2025}
+
+\section{Groups}
+
+% Your notes here...
+\subsection{Definitions}
+
+In this course we study one of the most fundamental objects in mathematics: groups. 
+
+\begin{definition}
+  A \textit{group} is a set \( S \) together with a map
+  \begin{displaymath}
+    m: S\times S \to  S
+  \end{displaymath}
+  called a \textit{law of composition}. Writing \( ab \) for \( m(a,b) \), the law of comp. has to satisfy three axioms:
+  \begin{enumerate}[i.]
+    \item (existence of identity): \( \exists e \in  S \), called the identity, s.t. \( ae=ea=a \forall a\in S \);
+    \item (existence of inverses): for any element \( a \in S \exists b \in  S \mid  ab=ba=e\), we usually denote this as \( a^{-1} \) or \( -a \);
+    \item (the associative law): for any three elements \( a,b,c \in  S \) we have \[
+      a(bc)=(ab)c
+    .\] 
+  \end{enumerate}
+\end{definition}
+
+This results in some immediate concequnces, namely the uniqueness of the identity element and the \textit{cancellation law}. The proofs are trivial. 
+
+We usually represent groups in the form \( G \), as a simplified for \( (G,m) \) or \( \langle G,m \rangle \) (the latter being less common). The cardinality of the set of a given group is called the order of said group: i.e., the cardinality of the group \( |G| \) is the cardinality of the set \( G \) (the use of the same notation for groups and sets can be confusing at times but are context dependent). 
+
+We have an additional type of group that naturally appears from any of the common number systems \( \mathbb{R},\mathbb{N},\ldots  \), called an abelian group.
+
+\begin{definition}
+  An abelian group is a group that is commutative; that is to say:
+  \begin{displaymath}
+    \forall a,b \in  G, \, ab=ba.
+  \end{displaymath}
+  
+\end{definition}
+
+This in general is not true for all groups, as symmetric groups and dihedral groups do not satisfy this definition (you will see more on this later). Additionally, there are a few other structures that arise when we alter the axioms of a group: remove the second axiom and you have a \textit{monoid}, remove the third axiom and you have a \textit{semigroup}. They will appear a few times but not often (for now).
+
+\subsection{Constructions}
+
+\begin{definition}
+  The product of two groups is given by \( G\times H \), where the set is the Cartesian product adn the law of composition is given termwise:
+  \begin{displaymath}
+    G\times H = \{(a,b)\mid a \in G,b\in H\} \, \& \, (a,b)\cdot (a',b')\coloneqq (a\cdot a',b\cdot b').
+  \end{displaymath}
+  
+\end{definition}
+We also may use \( G\oplus H \), but this is usually more case specific. 
+
+Products of greater than two groups, even infinite groups, is much the same; given the groups \(G_{1},\ldots ,G_n\) we can define a product, \[ G_{1}\times \ldots \times G_n \coloneqq  \{ (a_{1},\ldots ,a_n) \mid  a_i \in  G_i \},\] with the law of composition given by \[ (a_{1},\ldots ,a_n)\cdot (b_{1},\ldots ,b_n)\coloneqq (a_{1}\cdot b_{2},\ldots ,a_n \cdot b_n).\] 
+We ue products and sums to denote infinite and finite group products, respectively:\[
+  \prod^{\infty}_{i=1} G_i \, \& \, \bigoplus_{i=1}^n G_i
+.\] 
+
+At times we may have a group \( G^n \) such as \( \mathbb{R}^n \), etc, where each \( G_n \) contains \( n \)-tuples of its elements. 
+
+The final note is on groups of polynomials with real coefficients, denoted \( \mathbb{R}[x] \). We use \[
+  \mathbb{R}[x] \coloneqq \{ a_{0}+a_{1}x+a_{2}^2\ldots +a_nx^n \mid  n \in  \mathbb{N} \text{ and } a_i \in  \mathbb{R} \}\]  for finite polynomials as a direct sum, and the following for infinite polynomials as a direct product (i.e., the group of polynomial power series), \[
+  \mathbb{R}[[x]] \coloneqq \{ a_{0}+a_{1}x+a_{2}^2\ldots \mid a_i \in  \mathbb{R} \}
+  .\] 
+\end{document}
+
+
+

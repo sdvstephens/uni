@@ -1,0 +1,156 @@
+\documentclass[12pt]{amsart}
+
+%Below are some necessary packages for your course.
+\usepackage{amsfonts,latexsym,amsthm,amssymb,amsmath,amscd,euscript,enumerate}
+\usepackage{framed}
+\usepackage{fullpage}
+\usepackage{hyperref}
+    \hypersetup{colorlinks=true,citecolor=blue,urlcolor =black,linkbordercolor={1 0 0}}
+
+\newenvironment{statement}[1]{\smallskip\noindent\color[rgb]{1.00,0.00,0.50} {\bf #1.}}{}
+\allowdisplaybreaks[1]
+
+%Below are the theorem, definition, example, lemma, etc. body types.
+
+\newtheorem{theorem}{Theorem}
+\newtheorem*{proposition}{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{postulate}[theorem]{Postulate}
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{notation}{Notation}
+\newtheorem*{note}{Note}
+
+% You can define new commands to make your life easier.
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\def\ch{\mathrm{char}}
+\def\Hom{\mathrm{Hom}}
+
+\def\Ker{\mathrm{Ker}}
+\def\Im{\mathrm{Im}}
+\def\Vect{\mathrm{Vect}}
+\def\rank{\mathrm{rank}}
+% We can even define a new command for \newcommand!
+\newcommand{\nc}{\newcommand}
+
+% If you want a new function, use operatorname to define that function (don't use \text)
+\nc{\on}{\operatorname}
+\nc{\Spec}{\on{Spec}}
+
+\title{Math 55a pset 3} % IMPORTANT: Change the problemset number as needed.
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\vspace*{-0.25in}
+\centerline{SDVS}
+% Just so that your CA's can come knocking on your door when you don't hand in that problemset on time...
+\centerline{}
+\centerline{Cambridge, MA 02138}
+\centerline{\href{mailto:youremailhere@college.harvard.edu}{{\tt youremailhere@college.harvard.edu}}}
+\vspace*{0.15in}
+
+
+
+\begin{statement}{1}
+ Let $V$ be an $n$-dimensional vector space, and $T : V \to V$ a linear map; suppose that
+$T$ is nilpotent, i.e.\ $T^N = 0$ for some $N > 0$.
+
+  \begin{enumerate}[(a)]
+    \item Show that $T^n = 0$.
+
+    \item   Show that \( I+T \) is invertible (where \( I \) is the identity operator), and give a formula for its inverse. 
+  \end{enumerate}
+\end{statement}
+
+\begin{proof}
+We begin with (a). Note that this creates three cases, 
+\begin{enumerate}[I.]
+  \item \( n=N \), trivial;
+  \item \( n>N, \implies \, T^n=T^NT^{n-N}=T^{n-N}0=0 \);
+  \item \( n<N \), 
+\end{enumerate}
+\end{proof}
+
+\begin{statement}{2}
+ Let $V$ be a vector space over a field $k$ and $\phi:V\to V$ a
+linear operator. dimensions of the kernal and image of \( T \)? What changes if \( \text{char}=2 \)?
+
+(a) Show that for all $m\geq 1$, $\Im(\phi^{m+1})\subset \Im(\phi^m)$,
+and if $\Im(\phi^{m+1})=\Im(\phi^m)$ then $\Im(\phi^n)=\Im(\phi^m)$ for all
+$n\geq m$.
+
+(b) The {\em eventual image} of $\phi$, denoted $\mathrm{evIm}(\phi)$, is
+the set of vectors which can be expressed as $\phi^m(v)$ for {\em all}
+$m\in\N$, i.e.\ $\mathrm{evIm}(\phi)=\bigcap_{m\geq 1} \Im(\phi^m)$.
+Show that $\mathrm{evIm}(\phi)$ is an invariant subspace for $\phi$.
+
+(c) Show that, if $V$ is finite-dimensional, then the eventual image of
+$\phi$ and its generalized kernel $\mathrm{gKer}(\phi)=\{v\in V\,|\,
+\exists m\in \N,\ \phi^m(v)=0\}$ coincide with the image and kernel of 
+$\phi^n$ where $n=\dim V$, and
+the restriction of $\phi$ to $\mathrm{evIm}(\phi)$ is surjective.
+
+(d) Still assuming $V$ is finite-dimensional, deduce from the above results
+that $V$ decomposes into the direct sum of invariant subspaces
+$V=\mathrm{evIm}(\phi)\oplus \mathrm{gKer}(\phi)$, where $\phi$ is invertible
+on $\mathrm{evIm}(\phi)$ and nilpotent on $\mathrm{gKer}(\phi)$.
+
+(e) Show that, if $V$ is infinite-dimensional, then none of the 
+statements in (d) need to hold: find an infinite-dimensional vector 
+space 	$V$ and two linear operators $\phi,\psi:V\to V$ for which:
+\begin{enumerate}
+\item $\mathrm{evIm}(\phi)=\mathrm{gKer}(\phi)=V$,
+the restriction of $\phi$ to $\mathrm{evIm}(\phi)$ is not injective,
+and the restriction of $\phi$ to $\mathrm{gKer}(\phi)$ is not nilpotent;
+\item $\mathrm{evIm}(\psi)=\mathrm{gKer}(\psi)=0$.
+\end{enumerate}
+\end{statement}
+\begin{proof}
+    
+\end{proof}
+
+\begin{statement}{3}
+  
+ Fix a field $k$, and consider the category $\Vect_k$ of
+all vector spaces over $k$.
+
+(a) Show that there exists a contravariant functor from the category $\Vect_k$ to
+itself, which on objects takes each vector space $V$ to
+its dual $V^*=\Hom(V,k)$.
+
+(b) Recall that for each vector space $V$ we have a ``natural'' homomorphism 
+$ev_V:V\to V^{**}$ taking every vector $v\in V$ to the element
+$ev_V(v)$ of $V^{**}=\Hom(V^*,k)$ which maps $\ell\in V^*$ to $\ell(v)\in k$.
+Show that these homomorphisms determine a natural transformation from
+the identity functor to the square of the functor of part (a).
+\end{statement}
+
+
+
+\begin{statement}{4}
+
+  \begin{enumerate}[(a)]
+    \item Find a field $\F_4$ with 4 elements! Namely, denote the elements by $\{0, 1, \alpha, \beta\}$ and write out the tables for addition and multiplication in $\F_4$. 
+    \item If we forget the multiplicative structure of $\F_4$ and just think of it as an abelian group
+for addition, is it isomorphic to $\Z/4$ or $\Z/2 \times \Z/2$?
+\item Show that this is the unique field with 4 elements up to isomorphism.
+  \end{enumerate}
+
+\end{statement}
+
+
+\end{document}

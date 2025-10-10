@@ -1,0 +1,96 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{7}{lec15}{October 06, 2025}
+
+\section{Lecture 15}
+
+% Your notes here...
+%
+
+\subsection{bilinear forms}
+
+\textbf{Bilinear forms} on fin. dim. vec. space \( V \) over \( k \) for
+\[ b: V \times  V \to k \longleftrightarrow  \varphi _b \in  \text{Hom}(V,V^*)\]
+which gives an isom. \( B(V) \cong \text{Hom}(V,V^*) \) (\( \varphi  _b (v)=b(v,\cdot) \))
+
+Say be in non degenerate if \( \varphi_b  \) is injective. 
+
+In a basis \( (e_{1},\ldots e_n) \) of \( V \), rep. \( b \) by a mat. \( A \) w ent \( a_{ij}=b(e_i,e_j) \) .
+
+\[
+  b(\sum_i x_ie_i,\sum_jx_je_j) = \displaystyle\sum_{i,j}^{ a_{ij}x_iy_j}=X^{\perp}Ay
+.\] 
+
+where col. vectors are \( X \) and \( y \) that correspond to the summations in \( b \). 
+
+
+Something something
+\begin{enumerate}[i.]
+  \item \( b \) is symm. \( \iff \) \( A \) is symm. (\( b(v,w)=b(w,v) \iff A^{\perp}=A, a_{ij}=a_{ji} \))
+  \item \( b \) is nondegenerate \( \iff \) \( A \) is invertible. 
+\end{enumerate}
+
+
+ "Two vectors paired together to zero"
+
+\begin{definition}[Orthogonality]
+  If \( S \subset V \) is a subspace of \( V \), \( b:V\times V \to k \) w/ is bilinear form, the \textbf{orthogonal compliment} is \( S^{\perp}=\{v \in  V \mid  \forall w \in  S, b(v,w)=0 \} \)
+\end{definition}
+
+Beware: if b is skew symmetric or symm. then \( (*)\iff \forall w \in  S, b(w,v)=0 \), otherwise (not skew symm or symm) we we have a left orthogonal and a right orthogonal (such that they are not the same), buttttt we want to have them be equal so we just will ignore this for now lol. 
+
+\begin{lemma}
+  If \( b \) is nondegenerate then \( dim(S^{\perp})=dim(V)-dim(S) \), else ineq. 
+\end{lemma}
+
+\begin{proof}
+  
+  \begin{displaymath}
+    S^{\perp}=      \text{ker} \left( V \to  S^*, \, (v \mapsto \varphi _b(v)_{\mid S} =b(v,\cdot)_{\mid S}) \right)
+  \end{displaymath}
+  which is the composition of \( \varphi _b V \to  V^* \) and restriction \( r: V^* \to  S^* \) and \( l\mapsto l_{\mid S} \) which is surjective. So by rank thm. \( \text{dim}S^{\perp} \text{dim}V-\text{rank}(r \circ \varphi _b ) \le \text{dim}(S^*)=\text{dim}(S) \) is \( b  \) is nondegenerate then \( r \circ \varphi _b \) is surjective so \( rk=\text{dim}S \).
+\end{proof}
+
+
+Note: write less don't merely copy. Perhaps only do definitions and misc. info? proofs seem to be something you can go over post lecture, just try to understand for now. 
+
+
+Ex: \( V=\mathbb{R}^n \) with standard dot prod. so \( b(v,w) = \sum v_i w_i \) Then \( V= S \oplus S^\perp \)
+
+
+\begin{definition}[Inner Product Spaces]
+  An \textbf{inner product space} is a vector space \( V \) over \( \mathbb{R} \) together with a symmetric positive definite bilinear form \( \langle *,*\rangle: V \times V \to  \mathbb{R} \).
+\end{definition}
+
+\begin{definition}[ips symmetric]
+  \( \langle u,v \rangle =\langle v,u \rangle \)
+\end{definition}
+
+\begin{definition}[positive definite]
+  \( \langle u,u \rangle \ge  0 \forall u \in  V \), and \( \langle u,u \rangle=0 \iff u=0 \).
+\end{definition}
+
+\begin{definition}[norm]
+  The \textbf{norm} of a vector is \( | | v | | = \sqrt{\langle v,v\rangle}  \). \(v,w \in V \) are orthogonal if \( \langle v,w \rangle =0 \). 
+\end{definition}
+
+\begin{theorem}[Cauchy-Scwartz inequality]
+  yk what this is lol, just do it with norms \( |\langle u , v \rangle | \le | | u | | | | v | | \)
+\end{theorem}
+
+\begin{theorem}
+  Every finite dim inner product space \( / \mathbb{R} \) has an ortho basis.
+\end{theorem}
+
+\[
+  \frac{\mathrm{d/V}}{\mathrm{dx}} 
+.\] 
+
+\end{document}
+
+
+
+

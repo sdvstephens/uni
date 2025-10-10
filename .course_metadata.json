@@ -311,6 +311,24 @@
         "date": "2025-07-15T22:59:28.737127",
         "topic": "test-course-topic",
         "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-08T16:23:34.270159",
+        "topic": "tester2",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-10-08T20:13:24.749910",
+        "topic": "tester3",
+        "filename": "lecture_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-10-09T01:46:39.514309",
+        "topic": "tester4",
+        "filename": "lecture_04.tex"
       }
     ],
     "created": "2025-07-15T22:59:28.737124"
@@ -322,6 +340,18 @@
         "date": "2025-07-18T18:25:00.621610",
         "topic": "Introduction to Numbers",
         "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-09-05T18:16:38.897812",
+        "topic": "int",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-09-05T18:16:58.323157",
+        "topic": "int",
+        "filename": "lecture_03.tex"
       }
     ],
     "created": "2025-07-18T18:25:00.621599"
@@ -358,5 +388,80 @@
       }
     ],
     "created": "2025-08-13T12:01:00.224529"
+  },
+  "math55": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-08-29T12:36:29.034450",
+        "topic": "naive set theory",
+        "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-09-10T10:08:42.856793",
+        "topic": "quicknotesbcipaddied",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-09-24T10:09:42.496314",
+        "topic": "lecc10\n",
+        "filename": "lecture_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-09-26T10:48:27.592546",
+        "topic": "groups",
+        "filename": "lecture_04.tex"
+      },
+      {
+        "number": 5,
+        "date": "2025-09-27T12:03:09.810993",
+        "topic": "relations",
+        "filename": "lecture_05.tex"
+      },
+      {
+        "number": 6,
+        "date": "2025-10-03T09:02:57.652359",
+        "topic": "category theory",
+        "filename": "lecture_06.tex"
+      },
+      {
+        "number": 7,
+        "date": "2025-10-06T08:59:05.964579",
+        "topic": "lec15",
+        "filename": "lecture_07.tex"
+      },
+      {
+        "number": 8,
+        "date": "2025-10-08T09:27:06.473977",
+        "topic": "lec16",
+        "filename": "lecture_08.tex"
+      }
+    ],
+    "created": "2025-08-29T12:36:29.034447"
+  },
+  "physics19": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-09-05T16:43:52.439213",
+        "topic": "pset1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-09-05T16:43:52.439210"
+  },
+  "psets": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-09-08T08:37:16.447034",
+        "topic": "pset1_m55",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-09-08T08:37:16.447031"
   }
 }

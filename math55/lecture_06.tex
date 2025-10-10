@@ -1,0 +1,121 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{6}{category theory}{October 03, 2025}
+
+\section{Category Theory}
+
+% Your notes here...
+
+\subsection{Categories}
+
+\begin{definition}[Category]
+  A category \( \mathscr{C} \) is a collection of \textbf{objects}, such that:
+
+  \begin{enumerate}[(i.)]
+    \item for each pair of objects \( A,B\in  \text{Ob}(\mathscr{C} )   \);
+    \item a collection of morphisms is given by \( \text{Mor}(A,B) \);
+    \item there exists operation titled \textit{composition of morphisms} given by \[ \text{Mor}(A,B)\times \text{Mor}(B,C) \to \text{Mor}(A,C) \] such that \( f,g \mapsto g \circ f \);
+    \item Category Theory Axioms: \begin{enumerate}
+        \item every object \( A \) has an identity morphism \( \text{id}_A \in  \text{Mor}(A,A) \) such that \[ \forall f \in  \text{Mor}(A,B), \, f \circ \text{id}_A=\text{id}_B\circ f=f ;\]
+        \item composition (of morphisms) is associative, i.e., \( (f\circ g)\circ h= f\circ (g\circ h) \).
+    \end{enumerate}
+\end{enumerate}
+
+\end{definition}
+
+We can think of categories and sets as, for the most part, the same thing, except for the fact that a category may include the category of all sets; this is where we deliniate sets and categories in order to avoid pesky paradoxes. 
+
+Some examples of categories, for purposes of clarity:
+\begin{enumerate}
+  \item category of sets, \( \text{Mor}(A,B)= \) all maps \( A \to  B \)
+  \item \( \text{Vect}_k \) as a fin. dim. vector space over \( k \), then \( \text{Mor}= \) linear maps
+  \item groups, group homomorphisms 
+  \item topological spaces, continuous maps
+  \item and more...
+\end{enumerate}
+
+There exists a relationship called \textbf{isomorphism} not too dissimilar from group-theoretic isomorphisms. 
+
+\begin{definition}[Isomorphism]
+  \( f \in  \text{Mor}(A,B) \) is an \textit{isomorphism} if has inverse, i.e., \( \exists g \in  \text{Mor}(B,A) \) s.t. \( g \circ f =id_A \) and \( f \circ g =id_A \) \( \implies \text{if }\exists g \implies !\exists g \) and that \( \text{id}_A \) is an isomorphism. \( f \implies f^{-1} \) (\( g\equiv f^{-1} \\ \) )are both called isomorphisms, individually. 
+  
+\end{definition}
+  Concequentially the automorphisms \( Aut(A) \) is always a group. 
+
+sets :permutations, groups: automs, vec: invertible lin op. 
+
+Isomorphic objects of \( e \) have isomorphic automorphic groups. Given \( f \in  \text{Mor}(A,B) \) as an isomorphism \( c_f:Aut(A) \to  Aut(B) \) which maps \( g \mapsto f \circ g \circ f^{-1} \). 
+
+We may define sum, product, and quotient objects in categories. Consider a product \( A\times B \coloneqq \mathcal{C} \) of objects \( A,B \in  \mathscr{C} \) characterized by \( \mathcal{P} \) projects \( \pi_1 \in \text{Mor}(\mathcal{P},A), \pi_{2}\in \text{Mor}(\mathcal{P}, A) \) s.t. \( \forall  \) object \( T \), \( \forall f_{1}\in \text{Mor}(T,A), f_{2}\in \text{Mor}(T,B), \, \exists \) unique \( f \in \text{Mor}(T,\mathcal{P}) \) s.t. \( \pi_{1} \circ f =f_1, \, \pi_{2}\circ f=f_{2} \). 
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.2\textwidth]{./figures/tcat.pdf}
+    \caption{}
+    \label{fig:tcat}
+\end{figure}
+
+\begin{definition}[functor]
+  \( C,D \) categories, a (\textit{covariant}) functor \( F:C \to  D \) is an assigment:
+  \begin{enumerate}
+    \item for every object \( X \) of \( C \) an object \( F(X) \) of \( D \)
+    \item for each morphism \( f \in  \text{Mor}_C(X,Y) \), a morphism \( F(f) \in  \text{Mor}_D(F(X),F(Y)) \) s.t. \begin{enumerate}
+        \item \( F(id_X)=id_{F(X)} \)
+        \item \( F(g \circ f)= F(g)\circ F(f) \)
+    \end{enumerate}
+  \end{enumerate}
+\end{definition}
+
+Consider Forgetful functors , on a vector space over k given vector sace \( V \) \( F: Vect_k \to Vect_k \)objects: \( W \mapsto Hom(V,W) \) lin. maps \( V \to  W \), morphism \( f: W \to  W'\implies?? \)
+
+Anywhos. He's going on about linear maps as morphisms for categories and functors but I don't care all that much at the moment. As a functor \( F : \text{Vect}_k \to  \text{Vect}_k \) can be shown as \( Hom(V, \circ) \). What the mell does obj. \( V \mapsto V_{\mathbb{C}}=V\oplus iV\)
+
+\begin{definition}
+  A \textit{contravariant functor} \( F : C \to D \) is the same except reverses direction of morphism:
+  \begin{displaymath}
+    f \in  \text{Mor}_C(X,Y) \mapsto F(f) \in  \text{Mor}_D(F(Y),F(X)) \mid  F(g\circ f)=F(f) \circ F(g).
+  \end{displaymath}
+\end{definition}
+
+So for example, consider \( V \to V^* \) s.t. \( f \in  Hom(V,W) \mapsto f^* \in  Hom(W^*,V^*) \). 
+
+\begin{definition}
+  Given two functors \( F,G : \mathscr{C} \to  \mathscr{D} \) a natural transformation \( t \) from \( F \) to \(G\) is the data \( \forall X \in  Ob(\mathscr{C}) \), a morphism \( t_X \in  \text{Mor}_{\mathscr{D}}(F(X),G(X)) \) s.t. 
+
+ \[
+ \forall  X, Y \in  Ob(\mathscr{C}), \forall f \in  \text{Mor}_{\mathscr{C}}(X,Y), \]
+ \[
+\begin{tikzcd}
+F(X) \arrow{r}{F(f)} \arrow[swap]{d}{t_x} & F(Y) \arrow{d}{t_y} \\%
+G(X) \arrow{r}{G(f)}& G(Y)
+\end{tikzcd}
+.\]
+  
+\end{definition}
+
+\begin{definition}[Bilinear forms]
+  A \textbf{\textit{bilinear form}} on a vector space \( V \) over a field \( k \) is a map \( b:V \times V \to  k \) (this is to say we take \( (v,w)\mapsto b(v,w) \)) that is linear in each variable, i.e., \( \forall u,v,w \in  V, \, \lambda \in  k, b(\lambda v,w)=b(v,\lambda w)=\lambda b(v,w) \) ("multiplied" on both sides separately). 
+\end{definition}
+
+\begin{definition}[symmetric]
+  Say \( b \) is symmetric if \( b(v,w( = b(w,v) )) \forall v,w \in  V \) and is skew symmetric if \( b(v,w)=-b(w,v) \).
+\end{definition}
+
+I have mentally clocked out, I spent last night and this morning going over the notes for today and ngl i understood it better before he started explaining it 
+
+AWWWWWW 
+
+\[
+  \begin{tikzcd}
+    A \arrow{r}{f} \arrow[swap]{dr}{g\circ f} & B \arrow{d}{g} \\%
+& C
+\end{tikzcd}
+.\] 
+
+
+
+\end{document}
+

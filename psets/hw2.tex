@@ -1,0 +1,218 @@
+\documentclass[11pt,letterpaper]{article}
+\input{../preamble}
+\usepackage{amsmath,amsfonts}
+\usepackage{hyperref}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.2in}
+\setlength{\parskip}{0.4em}
+\parindent0em
+\def\R{\mathbb{R}}
+\def\Q{\mathbb{Q}}
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\C{\mathbb{C}}
+\begin{document}
+\begin{center}
+{\bf \Large Math 55a Homework 2}\medskip
+
+Due Wednesday September 17, 2025.
+\end{center}
+
+\begin{itemize}
+\item You are encouraged to discuss the homework problems with 
+other students. However, what you hand in should reflect your 
+own understanding of the material. You are NOT allowed to copy solutions 
+from other students or other sources. Also, please list at the end of the
+problem set the sources you consulted and people you worked with on 
+this assignment.
+\item Questions marked * may be on the harder side.
+\end{itemize}
+
+{\bf Material covered:} Subgroups, normal subgroups, quotients; modular arithmetic,
+permutations, etc. (most of Artin chapter 2).
+\bigskip
+
+{\bf 1.} Describe a polygon in $\R^2$ whose symmetry group is $\Z/3$. What
+is the fewest number of vertices that such a polygon can have?
+\medskip
+
+{\bf 2.} Let $G$ be the set of {\em affine transformations} of the real
+line, i.e.\ maps $f_{a,b}:\R\to \R$ of the form $f_{a,b}:x\mapsto ax+b$ for
+some $a,b\in \R$ with $a\neq 0$.
+
+(a) Show that $G$ is a group, with group law given by composition.
+
+(b) Show that the subsets $H=\{f_{a,b}\,|\,a=1\}$ and $K=\{f_{a,b}\,|\,b=0\}$
+are subgroups of $G$. Which one is normal, and what is the quotient of
+$G$ by that subgroup?
+\medskip
+
+{\bf 3.} Let $G=S^1=\{z\in \C\,|\,|z|=1\}$ be the group of complex numbers
+of modulus 1, with multiplication. Let $H\subset G$ be the subgroup $\{\pm 1\}$.
+Show that the quotient $G/H$ is isomorphic~to~$G$.\medskip
+
+{\bf 4.} Show that, if $G$ is a finite group and $H\subset G$ is a subgroup
+of index 2 (i.e., $|G|/|H|=2$), then $H$ is a normal subgroup of $G$.
+\medskip
+
+\begin{proof}[]
+  We are given \( |G|/|H|=2 \). Both left and right cosets, then, must give the same partition of \( G \); thus, for the left coset partition either \( g \in  H\implies gH=H \) or \( g \not\in H \implies gH=G \setminus H \), and, for the right coset partition, either \( g \in  H \implies g \not\in H \implies Hg= G \setminus H \); thus both result in \( \{H,G \setminus H\} \implies gH=Hg=G\setminus H , \, \forall  g \not \in  H\). Thus \( gHg^{-1}=(gH)g^{-1}=(Hg)g^{-1}=H \implies H \unlhd G \).
+\end{proof}
+
+
+
+{\bf 5.} Let $G$ be the group of rotations preserving a cube in $\R^3$.
+Show that $G$ is isomorphic to the symmetric group $S_4$ (permutations of a 
+four-element set). (Hint: which four-element set?)
+\medskip
+
+\begin{proof}[]
+Let \( G \) be the octahedral group \( O_h \) for \( \mathbb{R}^3 \). We show that it is a homomorphism: let \( \varphi  \) be a map \( \varphi  : O_h \to S_{4} \). We want to show \( \varphi (ab)=\varphi (a)\varphi (b) , \forall a,b\in O_h\). Consider the group of rotations perserving a cube in \( \mathbb{R}^3 \), notice if we have a cube of length \( 1 \), the coordinates of the verticies are \( (1,1,1),(1,-1,1),(-1,-1,1),(-1,1,1),(1,1,-1),(1,-1,-1),(-1,1,-1),(-1,-1,-1) \); the rotations then across the diagonals that preserve the cube are:
+
+\begin{align*}
+d_1 &: (-1,-1,-1) \to (1,1,1) \\
+d_2 &: (-1,-1,1) \to (1,1,-1) \\
+d_3 &: (-1,1,-1) \to (1,-1,1) \\
+d_4 &: (1,-1,-1) \to (-1,1,1).
+\end{align*}
+
+Let \( \rho  \) be a rotations in \( O_h \). Then \( \varphi (\rho ) \) is the permutations of the diagonal rotations \(\{d_{1},d_{2},d_{3},d_{4}\} \). Consider two diagonal rotations \( \rho_{1}\) and \( \rho_{2} \in O_h\). 
+
+
+
+\begin{align*}
+  \varphi (\rho_{1} \rho_{2}) &\stackrel{\mathclap{\normalfont\mbox{?}}}{=} \varphi (\rho_{1}) \varphi (\rho_{2})\\
+.\end{align*}
+
+
+\end{proof}
+
+
+{\bf 6*.} The dihedral group $D_n$ is the group of order $2n$
+consisting of all symmetries (rotations and reflections) of the regular $n$-gon in the plane.
+Find all normal subgroups of $D_n$. (Hint: the answer is slightly different
+for even $n$ vs.\ for odd $n$.)
+\medskip
+
+{\bf 7.} Prove or provide a counterexample: if $A$ is a normal subgroup of
+$B$ and $B$ is a normal subgroup of $C$, then $A$ is a normal subgroup of
+$C$.
+\medskip
+
+\begin{proof}[Proof Other Information]
+We will show that \( A\coloneqq  \{ (), (12)(34)\} \) is a normal subgroup of \\ \( B\coloneqq V_4=\{ (),(12)(34),(13)(24),(14)(23)\} \), the normal Klein 4 group. The Klein 4 group will also be shown to be a normal subgroup of \(C\coloneqq  A_{4} \), where 
+\[
+  A_{4}=\{ (),(123),(132),(234),(243),(341),(314),(412),(421),(12)(34),(13)(34),(14)(23) \}
+.\] 
+We end will end with the notion that while it is true that \( A\unlhd B \) and \( B\unlhd C \), it is not the case that \( A\unlhd C \). 
+
+
+  First, \( B \) is a subgroup of \( C \), since it is a subset consisting of all the disjoint cycles in \( C \) closed under the same operation and each element in \( B \) is its own inverse. Since it is closed under both and is a subset, it is obviously a subgroup. An additional note is that \( B \) is an abelian group, shown by the following Cayley table:
+
+
+  \begin{center}
+  \noindent\begin{tabular}[h!]{c | c c c c}
+     & 0 & 1 & 2 & 3   \\
+    \cline{1-5}
+    0 & 0 & 1 & 2 & 3  \\
+    1 & 1 & 0 & 3 & 2 \\
+    2 & 2 & 3 & 0 & 1 \\
+    3 & 3 & 2 & 1 & 0 \\
+\end{tabular}
+\end{center}
+
+
+
+  Second, to show that \( B\unlhd C \), consider a new set, say \( \Pi \) which is the set of possible ways to partition \( \{ 1,2,3,4\} \) into two unordered pairs, so \( \Pi = \{ \pi_{1},\pi_{2}, \pi_{3}\} \), where \( \pi_{1}=\{ \{1,2 \}, \{3,4\} \}, \pi_{2}=\{ \{1,3 \},\{2,4\} \}, \text{ and } \pi_{3}=\{\{1,4\},\{2,3\}\}\). Notice that, the permutations of \( A_{4} \) are permutations from \( S_{4} \), additionally notice that the composition law applies for any \( S_n \), and since \( |\Pi | =3 \) we can keep \( S_3 \) and its composition law in mind. If I take a mapping \( \varphi : A_4 \to S_3 \), since \( A_4, S_{3}, S_4 \) are closed under the same composition, notice that any \( \forall a,b, \varphi (ab)=\varphi (a)\varphi (b) \), thus \( \varphi  \) is homomophic. Given surjectivity, the image of the map is thereby the whole group \( S_3 \); thus the \( \ker (\varphi)\) can be computed, to save you the visual trouble, I have already parsed it, and it should be, by now, clear to see that the only mappings of the permutations on the elements of \( \Pi \) to \( S_{3} \) are \( \ker(\varphi)=\{e,(12)(34),(13)(24),(14)(23) \} \), notice, however that this is the same as \( V_4 \)! Since we have shown \( \ker (\varphi )= V_4\), then, by first isomorphism theorem, \( V_4 \unlhd A_4 \iff B  \unlhd C\). 
+
+  Recall that \( A \subset B \) and \( B \) is abelian. Thus, for any \( bAb^{-1}=A \implies Abb^{-1}=A \implies Ae=A \implies A=A \), and thus \( A \) is a normal subgroup of \( B \). 
+
+  To demonstrate that \( A \ntrianglelefteq C  \) a singular counterexample will suffice. Let \( c=(123)\in  C \) and \( c^{-1}=(132)\in  C \). Take \( a=(12)(34) \in  A \) and compute \( cAc^{-1}=A \):
+
+  \[
+    (123)\circ(12)(34)\circ(132)=(14)(23), \, (14)(23) \neq (12)(34)
+  .\] 
+  Since \( (14)(23)\in B\), but \((14)(23)\not\in A\) we have \( A \ntrianglelefteq C \).
+
+
+\end{proof}
+
+
+
+
+
+ 
+
+{\bf 8.} Find the order of the group $GL_2(\Z/2)$ of $2\times 2$ matrices
+with entries in $\Z/2$ and nonzero determinant (mod~2).
+Is $GL_2(\Z/2)$ isomorphic to another group we've encountered?
+\medskip
+
+ 
+
+
+
+
+\newpage
+
+{\bf 9*.} (a) Let $p$ be a prime number, and suppose $H\subset S_p$ is a
+subgroup of the group of permutations of $\{1,2,\dots,p\}$. Show that
+if $H$ contains the $p$-cycle $(123\dots p)$ and a transposition (a
+permutation that exchanges two elements and fixes all others), then
+$H=S_p$. (In other words: no matter how we choose $1\leq i<j\leq p$,
+$S_p$ is generated by $(123\dots p)$ and $(ij)$).
+
+(b) Show that the conclusion of part (a) may be false if we don't assume $p$
+is prime (even though it is still true that $S_p$ is generated by $(123\dots p)$ and 
+a {\em suitably chosen} transposition).
+\medskip
+
+{\bf 10*.} Let $G$ be a finitely generated group, and $H\subset G$ a subgroup
+of finite index. Show that $H$ is finitely generated.
+
+(Hint: Choose a finite subset $S\subset G$ containing one representative
+of each coset of $H$, so every element of $G$ is the
+product of an element of $S$ and an element of $H$. Given a word in the generators of $G$ and their
+inverses, how do you rewrite it as the product of an element of $S$ and an
+element~of~$H$?)
+\medskip
+
+{\bf 11*.} (Optional, extra credit): Let $G$ be a non-abelian finite group,
+and consider its center $Z(G)=\{a\in G\,|\,ax=xa\ \forall x\in G\}$.
+
+(a) Show that $G/Z(G)$ is not a cyclic group.
+
+(b) Show that at most $5/8^{\mathrm{ths}}$ of the pairs of elements of $G$
+commute, i.e.\ the set $C=\{(a,b)\in G\times G\,|\,ab=ba\}$ satisfies
+$|C|\leq \frac58 |G|^2$.
+
+(c) Show that this bound is optimal, i.e.\ there exists a non-abelian finite
+group for which $|C|=\frac58 |G|^2$.%
+\medskip
+
+{\bf 12*.} (Optional, extra credit):  Given a set $S$, let $\mathcal{E}\subset \mathcal{P}(S)$ be such
+that (1) $S\in \mathcal{E}$, (2) if $A\in \mathcal{E}$ then $S-A\in
+\mathcal{E}$, (3) if $A,B\in \mathcal{E}$ then $A\cup B\in \mathcal{E}$ and 
+$A\cap B\in \mathcal{E}$. 
+
+Prove that if $S$ is finite then there is a set
+$T$ and a surjective map $f:S\to T$ such that $\mathcal{E}=\{f^{-1}(A),\ 
+A\subset T\}$. What happens if $S$ is infinite?
+\medskip
+
+
+
+
+
+
+{\bf 13.} How long did this assignment take you?  How hard was it?
+What resources did you use, and how much help did you need?
+(Remember to list the students you collaborated with on this assignment.)
+Did you have any prior experience with this material?
+
+Alec del Pino, Tara Westover, Sasha Something
+
+\end{document}

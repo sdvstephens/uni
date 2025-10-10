@@ -98,5 +98,33 @@
     "categories": {},
     "final_grade": null,
     "created": "2025-08-13T12:00:24.610907"
+  },
+  "math55": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-08-29T12:36:03.531223"
+  },
+  "physics19": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-09-05T16:39:35.080963"
+  },
+  "testerco": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-09-05T18:16:08.535857"
+  },
+  "psets": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-09-08T08:34:38.406401"
   }
 }

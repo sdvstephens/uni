@@ -97,5 +97,49 @@
     "assignments": {},
     "grades": {},
     "notes_path": "/Users/stephens1/university/Phillipe"
+  },
+  "math55": {
+    "name": "math55",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-08-29T12:36:03.500831",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/math55"
+  },
+  "physics19": {
+    "name": "physics19",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-09-05T16:39:35.046712",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/physics19"
+  },
+  "testerco": {
+    "name": "testerco",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-09-05T18:16:08.504075",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/testerco"
+  },
+  "psets": {
+    "name": "psets",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-09-08T08:34:38.374066",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/psets"
   }
 }

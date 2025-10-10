@@ -1,0 +1,44 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{1}{naive set theory}{August 29, 2025}
+
+\section{Na\"ive Set Theory}
+
+% Your notes here...
+
+\begin{enumerate}
+  \item Consider the sentence \( \text{not}(x \in x) \), i.e., the subset by way of axiom of specification \( B=\{ x\in A : x \not \in x \} \). Is it the case that \( B\in A \)? 
+
+    No. It is not the case that \( B\in A \). If \( B\in A \), then either \(B\in B \, , B=\{B\in A : B\not \in A\} \), but \( B \) cannot be in \( A \) by definition. Similarly, if \( B \in A \) AND \( B\not\in B \), then by definition \( B \) is contained within the subset \( B \), which once again, is a contradiction. 
+
+
+
+
+
+
+
+
+
+
+  \item Given some set \( \{ \emptyset, \{ \emptyset \}, \{\{\emptyset\}\},\ldots  \} =\mathfrak{E}\) prove or disprove that all sets in \( \mathfrak{E} \) obtained this way are unique. 
+
+    For all \( x\in \mathfrak{E} \) there exists another element, \(( y\neq \emptyset )\in \mathfrak{E}\), such that \(x \subset y  \). We show that \( x\neq y \). For contradiction, we say \( y \subset  x \). Then \( x=\{ \} \) then \( y\subset \emptyset \); this cannot be, however, since the only subset of the empty set is the empty set, and, since \( y\neq \emptyset \) this is a contradiction. 
+
+
+    Let \( n,k \in \mathbb{N} \). Given \( A_{0} = \emptyset\) and \( A_{n+1}=\{A_{n}\}\). We show that \( A_n\neq A_k \) if \( n\neq k \). Suppose then, for contradiction, when 5.
+
+
+Lie Groups - Group and manifold (locally like \( \mathbb{R}^n \)). an example may be \( GL_n(\mathbb{R})\subset M_n (\mathbb{R}) \cong \mathbb{R}^n \)
+
+dim \( =0 \); Lie groups are discrete groups (classifcation of discrete groups are hopeless)
+
+we can reduce a lie group to a discrete group and a connector group. 
+
+\end{enumerate}
+
+
+
+\end{document}
