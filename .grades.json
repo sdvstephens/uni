@@ -126,5 +126,26 @@
     "categories": {},
     "final_grade": null,
     "created": "2025-09-08T08:34:38.406401"
+  },
+  "test": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-10-09T21:34:27.026722"
+  },
+  "math55a": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-10-09T23:19:30.419605"
+  },
+  "studies-in-algebra-and-group-theory": {
+    "credit_hours": 3.0,
+    "assignments": {},
+    "categories": {},
+    "final_grade": null,
+    "created": "2025-10-09T23:33:26.575432"
   }
 }

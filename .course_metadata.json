@@ -438,6 +438,24 @@
         "date": "2025-10-08T09:27:06.473977",
         "topic": "lec16",
         "filename": "lecture_08.tex"
+      },
+      {
+        "number": 9,
+        "date": "2025-10-09T21:36:05.016559",
+        "topic": "t1",
+        "filename": "lecture_09.tex"
+      },
+      {
+        "number": 10,
+        "date": "2025-10-09T21:44:52.737062",
+        "topic": "t1",
+        "filename": "lecture_10.tex"
+      },
+      {
+        "number": 11,
+        "date": "2025-10-09T21:52:43.679797",
+        "topic": "t1",
+        "filename": "lecture_11.tex"
       }
     ],
     "created": "2025-08-29T12:36:29.034447"
@@ -463,5 +481,27 @@
       }
     ],
     "created": "2025-09-08T08:37:16.447031"
+  },
+  "test": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-10-09T22:14:46.095734",
+        "topic": "t1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-10-09T22:14:46.095728"
+  },
+  "studies-in-algebra-and-group-theory": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-10-09T23:34:43.091128",
+        "topic": "naive-set-theory",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-10-09T23:34:43.091126"
   }
 }

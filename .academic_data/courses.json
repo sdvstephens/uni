@@ -141,5 +141,38 @@
     "assignments": {},
     "grades": {},
     "notes_path": "/Users/stephens1/university/psets"
+  },
+  "test": {
+    "name": "test",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-10-09T21:34:26.977129",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/test"
+  },
+  "math55a": {
+    "name": "math55a",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-10-09T23:19:30.393320",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/math55a"
+  },
+  "studies-in-algebra-and-group-theory": {
+    "name": "studies-in-algebra-and-group-theory",
+    "code": "math55a",
+    "credits": 3.0,
+    "instructor": "denis auroux",
+    "schedule": "",
+    "created": "2025-10-09T23:33:26.547461",
+    "assignments": {},
+    "grades": {},
+    "notes_path": "/Users/stephens1/university/studies-in-algebra-and-group-theory"
   }
 }

@@ -1,0 +1,42 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{1}{na\"{i}ve-set-theory}{October 09, 2025}
+
+\section{na\"{i}ve-set-theory}
+
+% Your notes here...
+
+\subsection{chapters 6-10}
+\subsubsection{ordered pairs}
+We begin with a discussion of ordered pairs. Consider a set of numbers \( \{1,2,3,4\}   \). For any set there is no particular order that triumphs over another, i.e., \( \{1,2,3,4\} = \{1,3,2,4\} = \{3,4,2,1\} =\ldots     \), an obvious truth. Say we want \( \{1,2,3,4\}   \) to be in the order of \( \{3,2,1,4\}   \) for some arbitrary reason; we may then consider the collection,
+\[
+  \sC = \{\{3\} , \{3,2\} ,\{3,2,1\} , \{3,2,1,4\}     \}
+.\] 
+It becomes obvious what is happening here: the method by which we get order is dependent on the number of itterations in which a particular element appears in any number of sets in a given collection (in comparison to the other elements in the other sets of the respective collection). 
+
+Then consider this process but for a nested collection (a collection within a collection) which contains two sets, namely the arbitrary elements \( a,b \) in opposing orders, and notice that it gives us the definition of a 2-tuple (ordered pair),
+\[
+  \sC_{1} = \{\{a\} ,\{a,b\}   \} \coloneqq (a,b) \, \text{ and }\, \sC_{2}  = \{\{b\} ,\{b,a\}   \} \coloneqq  (b,a)  
+.\] 
+
+This, of course, naturally extends to greater \( n \)-tuples. There are some obvious concequences of this that will not be gone over here. 
+
+The \textbf{Cartesian product} is a set of ordered pairs which can be given by taking power sets. 
+
+\begin{definition}[Cartesian product]
+  The cartesian product is the cross product of two sets given by 
+\[ A \times  B \coloneqq  \{a \in A, b \in B \mid  (a,b) \in  \mcP(\mcP(A \cup B))  \}  \}   .\]
+\end{definition}
+
+\subsubsection{relations}
+
+The review or ordered pairs leads us to our next discussion on relations. A relation in more colloquial terms is a dynamic or characteristic of a given element shared with another given element such that they are arranged in the form of ordered pairs. Think of equality, then think of equality as equating \( (2+3,1+4) \), or perhaps something more interesting, the set of all \( (x,y) \) such that \( x \) is a man, \( y \) is an enby (slay), and \( x \) is married to \( y \) (many such cases). We can then think of relations as a set of ordered pairs \( R \subset A\times B \). Consider the following examples:
+\begin{enumerate}
+  \item \( R \coloneqq \{(a,b)\in \mathbb{N}^2 \mid y-x>0\} \iff aRb  \equiv y>x \), the relation of greater than;
+  \item \( R\coloneqq \{ (a,B) \in A \times \mathcal{P}(A) \mid a \in B\} \iff aRB \equiv a \in B   \), the relation of \textit{belonging} (being an elemnt of);
+\end{enumerate}
+
+\end{document}
