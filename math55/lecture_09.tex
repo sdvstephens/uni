@@ -1,0 +1,143 @@
+\documentclass{article}
+\input{../preamble}
+
+\begin{document}
+
+\lecture{9}{hermatians, \( \CC\)-spectrals, etc.}{October 10, 2025}
+
+\section{hermatian inner products}
+
+We now wish to real with inner products on complex vector spaces (as opposed to our previous study on \( \mathbb{R} \)). Hermation inner products are \( \CC \)-linear, i.e., conjugate-linear in one of the inpts. 
+
+\begin{definition}[hermation forms]
+A \textbf{Hermation form} on a \( \CC \)-vector space \( V \) is \( H: V\times V \to  \CC[] \) s.t.
+\begin{enumerate}
+  \item \( H \) is \textbf{\textit{sesquilinear}}
+    \begin{itemize}
+      \item \( H(u,v+w)=H(u,v)+H(v,w)\)
+      \item \( H( u, \lambda v) =\lambda  H (u,v)\)
+      \item however, \( H(\lambda u, v)= \overline{\lambda }  H(u,v) \), where our \( \overline{\lambda }  \) is our complex conjugate (just \( \overline{z}  \) really). 
+    \end{itemize}
+  \item \( H \) conjugate symmetric \( H(u,v)=\overline{H(v,u)} \implies H(u,v) \in  \mathbb{R} \)
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[hermation inner products]
+  A hermatian inner product on \( V \) is a positive definite  \(  (H(u,u)\ge 0 \forall u \neq 0) \)
+\end{definition}
+
+\begin{mybox}{blue}{Remark 1}
+  \[
+    \varphi _H : V \to  V^*, \, u \mapsto H(u,\cdot )
+  \]
+  where \( H \) is \( \CC \)-linear \( V \to  \CC \) and \( H \) is linear in the second input. We say \( \varphi  \) is a \textbf{\textit{complex antilinear}} map, and \( (\varphi (\lambda  u ) = \overline{\lambda } \varphi (u) ) \).
+\end{mybox}
+
+In the case that \( H \) is positive def. \( \implies \) nondegenerate \( \forall (u \neq 0)\in  V , \varphi _H(u)=H (u,\cdot )\neq 0\). When we are given a subspace \( S \subset  V \), it must be orthogonal, 
+\[ S^\perp = \{v \in  V \mid H(v,w)=0 \forall w \in  S\}   \]
+s.t. it is a subspace. Of course, as with any finite dimensional conjugate \( \text{dim}V<\infty \), we have \( (S^{\perp})^\perp \). Continuing on, we note that when \( V = S \oplus S^\perp \), \(S \cap S^\perp = \{0\} \), \[
+  u \in  S \cap S^\perp \implies H(u,u) \text{ where the first \( u \in  S\), and the second \( u \in  S^\perp \)} =0 \implies u=0,
+\] 
+so \( \text{dim}S^\perp = \text{dim} V - \text{dim}S \)
+
+\begin{theorem}
+  \( V \) admits an orhtogonal basis in \( \CC\). The proof is the same as in \( \mathbb{R} \). 
+\end{theorem}
+
+\begin{definition}
+  An \textbf{orthonormal basis} of \( (V,H) \) is a basis \( \{e_i\}   \) s.t. 
+  \begin{displaymath}
+    H(e_i,e_i)=\|e_i\|^2 =1, \, H(e_i,e_j)=0 \forall i\neq j, e_i \perp e_j. 
+  \end{displaymath}
+  
+\end{definition}
+
+some other stuff
+
+
+...
+...
+So, in matrix form, \( H(z,w)=\overline{z}^{\text{T}}w =z^*=(\overline{z}_{1}\ldots \overline{z}_n) \) as conjugate transpose. 
+
+Consider fourier series as a (sorta-kinda) example of \( V=C^{\infty} (S^1,\CC) \) w/ is infinitely differentiable \( S^1=\mathbb{R}/\mathbb{Z} \to  \CC, (\iff 1)\)-periodic functions \( \mathbb{R} \to  \CC \). \( L^2 \)-inner product, \[
+  H(f,g)=\int_{S^1}\overline{f(t)} g(t)dt = \int_0^1 \overline{f(t)} g(t)dt\]
+  and 
+  \[
+    H(f,f) = \int _0^1|f(t)|^2 > 0\,  \text{ if } f\neq 0
+  .\] 
+  Note that then \[ f_n(t) =e^{2 \pi  i nt} = \cos (2 \pi  nt) + i \sin  (2 \pi  nt), n \in  \mathbb{Z}\] is orthogonal! So, \( H(f_n,f_m)=\delta _{n,m}  \). 
+
+
+\begin{definition}
+ We let \( V \) be a complex space, \( H \) a hermatian inner product, and \( T:V \to  V \) a linear operator.
+  \begin{displaymath}
+    \text{the adjoint of } T \text{ is } T^* : V \to  V \text{ s.t. } H(T^*v,w)=H(v,Tw) \forall v,w \in  V
+  \end{displaymath}
+  \[
+    (\iff H(Tv,w)=H(v,T^*w))
+  .\] 
+
+
+\end{definition}
+Some immediate concequences:
+\begin{itemize}
+  \item \( T \) is \textit{self-adjoint} if \( T^*=T \)
+  \item \(  T \) is \textit{unitary} if \( H(Tv,Tw)=H(v,w) \)
+  \item \( T \) is normal if \( TT^*=T^*T \)
+    unitary operators form a group (omg!) \( U(V)=U(V,H) \subset \Aut(V) = \text{GL}(V) \), \( U(n) \subset  \text{GL}(n,\CC) \), e.g., \( U(1)=S^1=\{z \mid  |z| = 1\} \subset  \CC[*]  \). 
+\end{itemize}
+
+
+
+
+
+\begin{mybox}{orange}{Proposition 1}
+    in an orthonom. basis \( \mcM (T^*) = \mcM (T)^*=\overline{\mcM(T)^t}  \) so \( H(Tv,w)=(\mcM v )^*w = v^* (\mcM^* w)=H(v,T^*w) \), self-adjoint operators \( \leftrightarrow \) hermatian matricies 
+
+\end{mybox}
+
+
+\begin{definition}[complex spectral theorem]
+  put it here 
+\end{definition}
+
+proof goes here
+
+in such a basis \( \mcM (T) = \begin{pmatrix} \lambda_1 & \, & 0 \\ \, & \ddots& \, \\ 0 & \, & \lambda_n \end{pmatrix}  \)
+
+
+\subsection{some number theory (non-degenerate symmetric bilinear forms)}
+
+this u can go over later via the notes just put it in here
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

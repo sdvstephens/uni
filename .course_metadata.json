@@ -456,6 +456,12 @@
         "date": "2025-10-09T21:52:43.679797",
         "topic": "t1",
         "filename": "lecture_11.tex"
+      },
+      {
+        "number": 9,
+        "date": "2025-10-10T08:54:54.636979",
+        "topic": "hermatians, complex spectrals, and classifying bilinear forms",
+        "filename": "lecture_09.tex"
       }
     ],
     "created": "2025-08-29T12:36:29.034447"
