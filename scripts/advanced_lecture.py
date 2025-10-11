@@ -58,6 +58,8 @@ class AdvancedLectureManager:
         lecture_content = f"""\\documentclass{{article}}
 \\input{{../preamble}}
 
+\\nchapter{{{next_num}}}{{{topic}}}
+
 \\begin{{document}}
 
 \\lecture{{{next_num}}}{{{topic}}}{{{date_str}}}

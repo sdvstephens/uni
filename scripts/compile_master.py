@@ -48,24 +48,40 @@ class MasterCompiler:
         return None
     
     def extract_content(self, lecture_file):
-        """Extract content from standalone lecture file"""
-        with open(lecture_file, 'r') as f:
-            lines = f.readlines()
+        """Extract content from standalone lecture file (strip documentclass and preamble)"""
+        try:
+            with open(lecture_file, 'r') as f:
+                lines = f.readlines()
+        except Exception as e:
+            print(f"⚠️  Error reading {lecture_file.name}: {e}")
+            return ""
         
+        # Find \nchapter commands BEFORE \begin{document}
+        nchapter_lines = []
         content_start = 0
         content_end = len(lines)
         in_document = False
         
         for i, line in enumerate(lines):
-            if '\\begin{document}' in line:
+            # Capture \nchapter before \begin{document}
+            if '\\nchapter' in line and not in_document:
+                nchapter_lines.append(line)
+            elif '\\begin{document}' in line:
                 content_start = i + 1
                 in_document = True
             elif '\\end{document}' in line and in_document:
                 content_end = i
                 break
         
-        content = ''.join(lines[content_start:content_end])
-        return content.strip()
+        if not in_document:
+            print(f"ℹ️  {lecture_file.name} appears to be content-only (no \\begin{{document}})")
+            return ''.join(lines).strip()
+        
+        # Combine nchapter + content
+        nchapter_content = ''.join(nchapter_lines)
+        body_content = ''.join(lines[content_start:content_end])
+        
+        return (nchapter_content + "\n" + body_content).strip()
     
     def compile_course(self, course_name, open_pdf=False, preamble_path="../preamble.tex", strip_mode=True):
         """Compile all lectures in a course into master.pdf"""
