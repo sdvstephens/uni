@@ -166,9 +166,9 @@ class MasterCompiler:
 \\course{{{course_name}}}
 \\me{{Your Name}}
 
-\\title{{\\Huge{{{course_name}}}\\\\Random Examples}}
-\\author{{\\huge{{Your Name}}}}
-\\date{{}}
+\\title{{\\Huge{{{course_name}}}\\\\XXXX -- Harvard University}}
+\\author{{\\huge{{S. D. V. Stephens}}}}
+\\date{{\\today}}
 
 \\begin{{document}}
 
@@ -204,9 +204,9 @@ class MasterCompiler:
 \\course{{{course_name.replace('_', ' ')}}}
 \\me{{Your Name}}
 
-\\title{{\\Huge{{{course_name.replace('_', ' ')}}}\\\\Random Examples}}
-\\author{{\\huge{{Your Name}}}}
-\\date{{}}
+\\title{{\\Huge{{{course_name.replace('_', ' ')}}}\\\\XXXX -- Harvard University}}
+\\author{{\\huge{{S. D. V. Stephens}}}}
+\\date{{\\today}}
 
 \\begin{{document}}
 

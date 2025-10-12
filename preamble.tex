@@ -18,7 +18,7 @@
 \usepackage{import}
 \usepackage{transparent}
 \usepackage{float}
-\usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.6in]{geometry}
+\usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.4in]{geometry}
 \usepackage[shortlabels]{enumitem}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{xfrac}
@@ -786,6 +786,13 @@ defernumbers=true
 
 \makeatletter
 \renewcommand{\tableofcontents}{%
+	\titleformat{\chapter}[display]
+	  {\normalfont}
+	  {\filright
+	   \footnotesize
+	   \enspace Lecture \arabic{chapter}.\enspace}
+	  {8pt}
+	  {\Large\bfseries\filcenter}
 	\chapter*{%
 	  \vspace*{-20\p@}%
 	  \begin{tikzpicture}[remember picture, overlay]%
@@ -794,7 +801,16 @@ defernumbers=true
 		  \clip (6.5,-.75) rectangle (13,1);
 		  \pgftext[right,x=9cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
 	  \end{tikzpicture}}%
-	\@starttoc{toc}}
+	\@starttoc{toc}
+% Restore frame formatting for chapters
+	\titleformat{\chapter}[frame]
+	  {\normalfont}
+	  {\filright
+	   \footnotesize
+	   \enspace Lecture \arabic{chapter}.\enspace}
+	  {8pt}
+	  {\Large\bfseries\filcenter}
+}
 \makeatother
 
 
@@ -822,13 +838,13 @@ defernumbers=true
   \setcounter{chapter}{\numexpr#1-1\relax}%
   \chapter{#2}%
 }
-\titleformat{\chapter}[frame]
-  {\normalfont}
-  {\filright
-   \footnotesize
-   \enspace Lecture \arabic{chapter}.\enspace}
-  {8pt}
-  {\Large\bfseries\filcenter}
+%\titleformat{\chapter}[display]
+%  {\normalfont}
+%  {\filright
+%   \footnotesize
+%   \enspace Lecture \arabic{chapter}.\enspace}
+%  {8pt}
+%  {\Large\bfseries\filcenter}
 %\titlecontents{chapter}[1.5em]{}{\contentslabel{2.3em}}{\hspace*{-2.3em}}{\hfill\contentspage}
 \titlespacing*{\chapter} {0pt}{0pt}{40pt}  
 
