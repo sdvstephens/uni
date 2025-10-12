@@ -55,14 +55,14 @@ class AdvancedLectureManager:
         
         # Create lecture content with better template
         date_str = datetime.now().strftime("%B %d, %Y")
-        lecture_content = f"""\\documentclass{{article}}
+        lecture_content = f"""\\documentclass{{report}}
 \\input{{../preamble}}
 
-\\nchapter{{{next_num}}}{{{topic}}}
+\\course{{{course_name}}}
 
 \\begin{{document}}
 
-\\lecture{{{next_num}}}{{{topic}}}{{{date_str}}}
+\\lecture{{{next_num}}}{{{topic}}}
 
 \\section{{{topic}}}
 

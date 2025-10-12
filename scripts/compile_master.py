@@ -48,40 +48,24 @@ class MasterCompiler:
         return None
     
     def extract_content(self, lecture_file):
-        """Extract content from standalone lecture file (strip documentclass and preamble)"""
-        try:
-            with open(lecture_file, 'r') as f:
-                lines = f.readlines()
-        except Exception as e:
-            print(f"⚠️  Error reading {lecture_file.name}: {e}")
-            return ""
+        """Extract content from standalone lecture file"""
+        with open(lecture_file, 'r') as f:
+            lines = f.readlines()
         
-        # Find \nchapter commands BEFORE \begin{document}
-        nchapter_lines = []
         content_start = 0
         content_end = len(lines)
         in_document = False
         
         for i, line in enumerate(lines):
-            # Capture \nchapter before \begin{document}
-            if '\\nchapter' in line and not in_document:
-                nchapter_lines.append(line)
-            elif '\\begin{document}' in line:
+            if '\\begin{document}' in line:
                 content_start = i + 1
                 in_document = True
             elif '\\end{document}' in line and in_document:
                 content_end = i
                 break
         
-        if not in_document:
-            print(f"ℹ️  {lecture_file.name} appears to be content-only (no \\begin{{document}})")
-            return ''.join(lines).strip()
-        
-        # Combine nchapter + content
-        nchapter_content = ''.join(nchapter_lines)
-        body_content = ''.join(lines[content_start:content_end])
-        
-        return (nchapter_content + "\n" + body_content).strip()
+        content = ''.join(lines[content_start:content_end])
+        return content.strip()
     
     def compile_course(self, course_name, open_pdf=False, preamble_path="../preamble.tex", strip_mode=True):
         """Compile all lectures in a course into master.pdf"""
@@ -173,7 +157,7 @@ class MasterCompiler:
         
         inputs = "\n".join(input_lines)
         
-        template = f"""\\documentclass[12pt,oneside]{{report}}
+        template = f"""\\documentclass{{report}}
 
 % Load preamble
 \\input{{{preamble_path}}}
@@ -182,24 +166,17 @@ class MasterCompiler:
 \\course{{{course_name}}}
 \\me{{Your Name}}
 
+\\title{{\\Huge{{{course_name}}}\\\\Random Examples}}
+\\author{{\\huge{{Your Name}}}}
+\\date{{}}
+
 \\begin{{document}}
 
-% Title page
-\\begin{{titlepage}}
-    \\centering
-    \\vspace*{{2cm}}
-    {{\\Huge\\bfseries {course_name}\\par}}
-    \\vspace{{1cm}}
-    {{\\Large Lecture Notes\\par}}
-    \\vspace{{2cm}}
-    {{\\Large Compiled: \\today\\par}}
-\\end{{titlepage}}
-
-% Table of contents
-\\tableofcontents
+\\maketitle
 \\newpage
-
-\\pagestyle{{head}}
+\\pdfbookmark[section]{{\\contentsname}}{{toc}}
+\\tableofcontents
+\\pagebreak
 
 % All lectures
 {inputs}
@@ -218,7 +195,7 @@ class MasterCompiler:
         
         all_content = "\n\n".join(lecture_sections)
         
-        template = f"""\\documentclass[12pt,oneside]{{report}}
+        template = f"""\\documentclass{{report}}
 
 % Load preamble
 \\input{{{preamble_path}}}
@@ -227,24 +204,17 @@ class MasterCompiler:
 \\course{{{course_name.replace('_', ' ')}}}
 \\me{{Your Name}}
 
+\\title{{\\Huge{{{course_name.replace('_', ' ')}}}\\\\Random Examples}}
+\\author{{\\huge{{Your Name}}}}
+\\date{{}}
+
 \\begin{{document}}
 
-% Title page
-\\begin{{titlepage}}
-    \\centering
-    \\vspace*{{2cm}}
-    {{\\Huge\\bfseries {course_name.replace('_', ' ')}\\par}}
-    \\vspace{{1cm}}
-    {{\\Large Lecture Notes\\par}}
-    \\vspace{{2cm}}
-    {{\\Large Compiled: \\today\\par}}
-\\end{{titlepage}}
-
-% Table of contents
-\\tableofcontents
+\\maketitle
 \\newpage
-
-\\pagestyle{{head}}
+\\pdfbookmark[section]{{\\contentsname}}{{toc}}
+\\tableofcontents
+\\pagebreak
 
 % ============================================
 % ALL LECTURES (content extracted)

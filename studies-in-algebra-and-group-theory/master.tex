@@ -1,4 +1,4 @@
-\documentclass[12pt,oneside]{report}
+\documentclass[a4paper]{report}
 
 % Load preamble
 \input{/Users/stephens1/university/preamble.tex}
@@ -7,24 +7,17 @@
 \course{studies-in-algebra-and-group-theory}
 \me{Your Name}
 
+\title{\Huge{Studies in Algebra and Group Theory}\\Math 55a -- Harvard University}
+\author{\huge{S. D. V. Stephens}}
+\date{2025-10-12}
+
 \begin{document}
 
-% Title page
-\begin{titlepage}
-    \centering
-    \vspace*{2cm}
-    {\Huge\bfseries studies-in-algebra-and-group-theory\par}
-    \vspace{1cm}
-    {\Large Lecture Notes\par}
-    \vspace{2cm}
-    {\Large Compiled: \today\par}
-\end{titlepage}
-
-% Table of contents
-\tableofcontents
+\maketitle
 \newpage
-
-\pagestyle{head}
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
 
 % ============================================
 % ALL LECTURES (content extracted)
@@ -34,13 +27,9 @@
 % lecture_01
 % ============================================================
 
-\lecture{1}{na\"{i}ve-set-theory}{October 09, 2025}
+\lecture{1}{Na\"{i}ve-set-theory}
 
-\section{halmos chapters 6-10}
-
-% Your notes here...
-
-\subsection{ordered pairs}
+\section{Ordered Pairs}
 We begin with a discussion of ordered pairs. Consider a set of numbers \( \{1,2,3,4\}   \). For any set there is no particular order that triumphs over another, i.e., \( \{1,2,3,4\} = \{1,3,2,4\} = \{3,4,2,1\} =\ldots     \), an obvious truth. Say we want \( \{1,2,3,4\}   \) to be in the order of \( \{3,2,1,4\}   \) for some arbitrary reason; we may then consider the collection,
 \[
   \sC = \{\{3\} , \{3,2\} ,\{3,2,1\} , \{3,2,1,4\}     \}
@@ -56,12 +45,12 @@ This, of course, naturally extends to greater \( n \)-tuples. There are some obv
 
 The \textbf{Cartesian product} is a set of ordered pairs which can be given by taking power sets. 
 
-\begin{definition}[Cartesian product]
-  The cartesian product is the cross product of two sets given by 
-\[ A \times  B \coloneqq  \{a \in A, b \in B \mid  (a,b) \in  \mcP(\mcP(A \cup B))  \}  \}   .\]
-\end{definition}
+\dfn{Cartesian product}{The cartesian product is the cross product of two sets given by 
+\[ A \times  B \coloneqq  \{a \in A, b \in B \mid  (a,b) \in  \mcP(\mcP(A \cup B))  \}  \}   .\]}
 
-\subsection{relations}
+
+
+\section{Relations}
 
 The review or ordered pairs leads us to our next discussion on relations. A relation in more colloquial terms is a dynamic or characteristic of a given element shared with another given element such that they are arranged in the form of ordered pairs. Think of equality, then think of equality as equating \( (2+3,1+4) \), or perhaps something more interesting, the set of all \( (x,y) \) such that \( x \) is a man, \( y \) is an enby (slay), and \( x \) is married to \( y \) (many such cases). We can then think of relations as a set of ordered pairs \( R \subset A\times B \). Consider the following examples:
 \begin{enumerate}
@@ -70,16 +59,28 @@ The review or ordered pairs leads us to our next discussion on relations. A rela
   \item \( R\coloneqq \{(c,d)\}\in \{\text{all cats}\} \times  \{\text{all dogs}\}  \mid \text{ \( c \) and \( d \) live in the same house}   \).
 \end{enumerate}
 
-\subsubsection{equivalence relations and partitions}
+Naturally, there are an infinite number of possible relations, however there is a particular class of these which we are interested in for the time being---that which relates two equivalent elements (the definition of what equivalence means is, for now, notably ambiguous). 
+\subsection{Equivalence relations and partitions}
 
 If a relation \( R \) exists s.t. \( xRx \) for any \( x \in  X \), then we say \( R \) is reflexive. If \( xRy \iff yRx \), it is symmetric, and if \( xRy \implies yRz \implies xRz \), it is transitive. If a given relation \( R \) satisfies all three of these properties (reflixivity, symmetry, transitivity), then we say it is an \textbf{\textit{equivalence relation}}. 
 
-\begin{definition}[equivalence relations]
-  An equivalence relation, usually denoted \( \sim  \), is a relation that is reflexive, symmetric, and transitive \( \forall x_n \in X \).
-\end{definition}
+\dfn{Equivalence relations}{An equivalence relation, usually denoted \( \sim  \), is a relation that is reflexive, symmetric, and transitive \( \forall x_n \in X \).}
 
-\begin{mybox}{red}{Problem 1}
-  Consider each of the three qualifies (axioms) for the existence of an equivalnce relation. Find an explicit relation that has one property but not the other for each of the three axioms.
-\end{mybox}
+\qs{}{Consider each of the three qualifies (axioms) for the existence of an equivalnce relation. Find an explicit relation that has one property but not the other for each of the three axioms.}
+
+\begin{solution}
+  test
+\end{solution}
+
+% ============================================================
+% lecture_02
+% ============================================================
+
+\lecture{2}{Groups}
+
+\section{Groups}
+
+lalala
+% Your notes here...
 
 \end{document}

@@ -462,6 +462,12 @@
         "date": "2025-10-10T08:54:54.636979",
         "topic": "hermatians, complex spectrals, and classifying bilinear forms",
         "filename": "lecture_09.tex"
+      },
+      {
+        "number": 10,
+        "date": "2025-10-11T00:14:39.506660",
+        "topic": "test",
+        "filename": "lecture_10.tex"
       }
     ],
     "created": "2025-08-29T12:36:29.034447"
@@ -506,6 +512,18 @@
         "date": "2025-10-09T23:34:43.091128",
         "topic": "naive-set-theory",
         "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-11T16:36:40.408020",
+        "topic": "t",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-12T02:45:09.962996",
+        "topic": "Groups",
+        "filename": "lecture_02.tex"
       }
     ],
     "created": "2025-10-09T23:34:43.091126"

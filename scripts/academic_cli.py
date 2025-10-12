@@ -81,9 +81,23 @@ class UnifiedAcademicSystem:
         course_dir = self.root_dir / name.replace(" ", "_")
         course_dir.mkdir(exist_ok=True)
         (course_dir / "figures").mkdir(exist_ok=True)
+        (course_dir / "psets").mkdir(exist_ok=True)
         
+        # Create .latexmkrc for texlab root detection
+        latexmkrc_content = """# LaTeX build configuration
+$pdf_mode = 1;
+$pdflatex = 'pdflatex -interaction=nonstopmode -synctex=1 %O %S';
+$out_dir = '.latexmk/out';
+$aux_dir = '.latexmk/aux';
+"""
+        latexmkrc_file = course_dir / ".latexmkrc"
+        with open(latexmkrc_file, 'w') as f:
+            f.write(latexmkrc_content)
+
+
         self.save_data()
         print(f"✓ Added course: {name} ({code}) - {credits} credits")
+        print(f"✓ Created .latexmkrc in {course_dir.name}")
         
         # Integrate with existing grade system
         self.setup_grade_tracking(name, credits)

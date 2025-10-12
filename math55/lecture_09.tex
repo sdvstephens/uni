@@ -1,16 +1,16 @@
-\documentclass{article}
+\documentclass{report}
 \input{../preamble}
-
+\course{math55}
 \begin{document}
 
-\lecture{9}{hermatians, \( \CC\)-spectrals, etc.}{October 10, 2025}
+\lecture{9}{Hermitians, \( \CC\)-spectrals, etc.}
 
-\section{hermatian inner products}
+\section{Hermitian inner products}
 
-We now wish to real with inner products on complex vector spaces (as opposed to our previous study on \( \mathbb{R} \)). Hermation inner products are \( \CC \)-linear, i.e., conjugate-linear in one of the inpts. 
+We now wish to real with inner products on complex vector spaces (as opposed to our previous study on \( \mathbb{R} \)). Hermitian inner products are \( \CC \)-linear, i.e., conjugate-linear in one of the inpts. 
 
-\begin{definition}[hermation forms]
-A \textbf{Hermation form} on a \( \CC \)-vector space \( V \) is \( H: V\times V \to  \CC[] \) s.t.
+\begin{definition}{Hermitian forms}{hermforms}
+A \textbf{Hermitian form} on a \( \CC \)-vector space \( V \) is \( H: V\times V \to  \CC\) s.t.
 \begin{enumerate}
   \item \( H \) is \textbf{\textit{sesquilinear}}
     \begin{itemize}
@@ -22,9 +22,12 @@ A \textbf{Hermation form} on a \( \CC \)-vector space \( V \) is \( H: V\times V
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[hermation inner products]
-  A hermatian inner product on \( V \) is a positive definite  \(  (H(u,u)\ge 0 \forall u \neq 0) \)
+\begin{definition}{Hermitian inner products}{herminner}
+  A hermitian inner product on \( V \) is a positive definite  \(  (H(u,u)\ge 0 \forall u \neq 0) \)
 \end{definition}
+
+\dfn{limit}{limiter}
+
 
 \begin{mybox}{blue}{Remark 1}
   \[
@@ -40,11 +43,11 @@ s.t. it is a subspace. Of course, as with any finite dimensional conjugate \( \t
 \] 
 so \( \text{dim}S^\perp = \text{dim} V - \text{dim}S \)
 
-\begin{theorem}
+\begin{theorem}{Th}{t}
   \( V \) admits an orhtogonal basis in \( \CC\). The proof is the same as in \( \mathbb{R} \). 
 \end{theorem}
 
-\begin{definition}
+\begin{definition}{}{}
   An \textbf{orthonormal basis} of \( (V,H) \) is a basis \( \{e_i\}   \) s.t. 
   \begin{displaymath}
     H(e_i,e_i)=\|e_i\|^2 =1, \, H(e_i,e_j)=0 \forall i\neq j, e_i \perp e_j. 
@@ -68,17 +71,16 @@ Consider fourier series as a (sorta-kinda) example of \( V=C^{\infty} (S^1,\CC) 
   Note that then \[ f_n(t) =e^{2 \pi  i nt} = \cos (2 \pi  nt) + i \sin  (2 \pi  nt), n \in  \mathbb{Z}\] is orthogonal! So, \( H(f_n,f_m)=\delta _{n,m}  \). 
 
 
-\begin{definition}
- We let \( V \) be a complex space, \( H \) a hermatian inner product, and \( T:V \to  V \) a linear operator.
+  \begin{definition}{}{}
+ We let \( V \) be a complex space, \( H \) a Hermitian inner product, and \( T:V \to  V \) a linear operator.
   \begin{displaymath}
     \text{the adjoint of } T \text{ is } T^* : V \to  V \text{ s.t. } H(T^*v,w)=H(v,Tw) \forall v,w \in  V
   \end{displaymath}
-  \[
-    (\iff H(Tv,w)=H(v,T^*w))
-  .\] 
+
+  \[(\iff H(Tv,w)=H(v,T^*w)) .\] 
 
 
-\end{definition}
+\end{definition}{}{}
 Some immediate concequences:
 \begin{itemize}
   \item \( T \) is \textit{self-adjoint} if \( T^*=T \)
@@ -92,12 +94,12 @@ Some immediate concequences:
 
 
 \begin{mybox}{orange}{Proposition 1}
-    in an orthonom. basis \( \mcM (T^*) = \mcM (T)^*=\overline{\mcM(T)^t}  \) so \( H(Tv,w)=(\mcM v )^*w = v^* (\mcM^* w)=H(v,T^*w) \), self-adjoint operators \( \leftrightarrow \) hermatian matricies 
+    in an orthonom. basis \( \mcM (T^*) = \mcM (T)^*=\overline{\mcM(T)^t}  \) so \( H(Tv,w)=(\mcM v )^*w = v^* (\mcM^* w)=H(v,T^*w) \), self-adjoint operators \( \leftrightarrow \) Hermitian matricies 
 
 \end{mybox}
 
 
-\begin{definition}[complex spectral theorem]
+\begin{definition}{Complex spectral theorem}{compspecthr}
   put it here 
 \end{definition}
 
@@ -109,20 +111,6 @@ in such a basis \( \mcM (T) = \begin{pmatrix} \lambda_1 & \, & 0 \\ \, & \ddots&
 \subsection{some number theory (non-degenerate symmetric bilinear forms)}
 
 this u can go over later via the notes just put it in here
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

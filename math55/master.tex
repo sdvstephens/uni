@@ -34,7 +34,7 @@
 % lecture_01
 % ============================================================
 
-\lecture{1}{naive set theory}{August 29, 2025}
+\lecture{1}{naive set theory}
 
 \section{Na\"ive Set Theory}
 
@@ -74,7 +74,7 @@ we can reduce a lie group to a discrete group and a connector group.
 % lecture_02
 % ============================================================
 
-\lecture{2}{quicknotesbcipaddied}{September 10, 2025}
+\lecture{2}{quicknotesbcipaddied}
 
 \section{quicknotesbcipaddied}
 
@@ -100,7 +100,7 @@ Ex: \( S_{3} \) are perm. of 1,2,3. iso. to \( D_{3} \). Three transportations o
 % ============================================================
 
 \lecture{3}{lecc10
-}{September 24, 2025}
+}
 
 \section{lecc10}
 
@@ -114,7 +114,7 @@ Suppose \( \phi  : V \to  V, \, (v_{1},\ldots ,v_n) \mid  \mathscr{M} (\phi )=A 
 % lecture_04
 % ============================================================
 
-\lecture{4}{groups}{September 26, 2025}
+\lecture{4}{groups}
 
 \section{Groups}
 
@@ -181,7 +181,7 @@ The final note is on groups of polynomials with real coefficients, denoted \( \m
 % lecture_05
 % ============================================================
 
-\lecture{5}{relations}{September 27, 2025}
+\lecture{5}{relations}
 
 \section{Relations}
 
@@ -290,7 +290,7 @@ Let's take two interesting cases: the inverse and the identity of a group under 
 % lecture_06
 % ============================================================
 
-\lecture{6}{category theory}{October 03, 2025}
+\lecture{6}{category theory}
 
 \section{Category Theory}
 
@@ -406,7 +406,7 @@ AWWWWWW
 % lecture_07
 % ============================================================
 
-\lecture{7}{lec15}{October 06, 2025}
+\lecture{7}{lec15}
 
 \section{Lecture 15}
 
@@ -496,7 +496,7 @@ Ex: \( V=\mathbb{R}^n \) with standard dot prod. so \( b(v,w) = \sum v_i w_i \) 
 % lecture_08
 % ============================================================
 
-\lecture{8}{lec16}{October 08, 2025}
+\lecture{8}{lec16}
 
 \section{Orthogonal adjoint operators and Hermatians}
 
@@ -524,14 +524,14 @@ Ex: \( V=\mathbb{R}^n \) with standard dot prod. so \( b(v,w) = \sum v_i w_i \) 
 % lecture_09
 % ============================================================
 
-\lecture{9}{hermatians, \( \CC\)-spectrals, etc.}{October 10, 2025}
+\lecture{9}{Hermitians, \( \CC\)-spectrals, etc.}
 
-\section{hermatian inner products}
+\section{Hermitian inner products}
 
-We now wish to real with inner products on complex vector spaces (as opposed to our previous study on \( \mathbb{R} \)). Hermation inner products are \( \CC \)-linear, i.e., conjugate-linear in one of the inpts. 
+We now wish to real with inner products on complex vector spaces (as opposed to our previous study on \( \mathbb{R} \)). Hermitian inner products are \( \CC \)-linear, i.e., conjugate-linear in one of the inpts. 
 
-\begin{definition}[hermation forms]
-A \textbf{Hermation form} on a \( \CC \)-vector space \( V \) is \( H: V\times V \to  \CC[] \) s.t.
+\begin{definition}{Hermitian forms}{hermforms}
+A \textbf{Hermitian form} on a \( \CC \)-vector space \( V \) is \( H: V\times V \to  \CC[] \) s.t.
 \begin{enumerate}
   \item \( H \) is \textbf{\textit{sesquilinear}}
     \begin{itemize}
@@ -543,8 +543,8 @@ A \textbf{Hermation form} on a \( \CC \)-vector space \( V \) is \( H: V\times V
 \end{enumerate}
 \end{definition}
 
-\begin{definition}[hermation inner products]
-  A hermatian inner product on \( V \) is a positive definite  \(  (H(u,u)\ge 0 \forall u \neq 0) \)
+\begin{definition}{Hermitian inner products}{herminner}
+  A hermitian inner product on \( V \) is a positive definite  \(  (H(u,u)\ge 0 \forall u \neq 0) \)
 \end{definition}
 
 \begin{mybox}{blue}{Remark 1}
@@ -561,11 +561,11 @@ s.t. it is a subspace. Of course, as with any finite dimensional conjugate \( \t
 \] 
 so \( \text{dim}S^\perp = \text{dim} V - \text{dim}S \)
 
-\begin{theorem}
+\begin{theorem}{Th}{t}
   \( V \) admits an orhtogonal basis in \( \CC\). The proof is the same as in \( \mathbb{R} \). 
 \end{theorem}
 
-\begin{definition}
+\begin{definition}{}{}
   An \textbf{orthonormal basis} of \( (V,H) \) is a basis \( \{e_i\}   \) s.t. 
   \begin{displaymath}
     H(e_i,e_i)=\|e_i\|^2 =1, \, H(e_i,e_j)=0 \forall i\neq j, e_i \perp e_j. 
@@ -589,8 +589,8 @@ Consider fourier series as a (sorta-kinda) example of \( V=C^{\infty} (S^1,\CC) 
   Note that then \[ f_n(t) =e^{2 \pi  i nt} = \cos (2 \pi  nt) + i \sin  (2 \pi  nt), n \in  \mathbb{Z}\] is orthogonal! So, \( H(f_n,f_m)=\delta _{n,m}  \). 
 
 
-\begin{definition}
- We let \( V \) be a complex space, \( H \) a hermatian inner product, and \( T:V \to  V \) a linear operator.
+  \begin{definition}{}{}
+ We let \( V \) be a complex space, \( H \) a Hermitian inner product, and \( T:V \to  V \) a linear operator.
   \begin{displaymath}
     \text{the adjoint of } T \text{ is } T^* : V \to  V \text{ s.t. } H(T^*v,w)=H(v,Tw) \forall v,w \in  V
   \end{displaymath}
@@ -599,7 +599,7 @@ Consider fourier series as a (sorta-kinda) example of \( V=C^{\infty} (S^1,\CC) 
   .\] 
 
 
-\end{definition}
+\end{definition}{}{}
 Some immediate concequences:
 \begin{itemize}
   \item \( T \) is \textit{self-adjoint} if \( T^*=T \)
@@ -613,12 +613,12 @@ Some immediate concequences:
 
 
 \begin{mybox}{orange}{Proposition 1}
-    in an orthonom. basis \( \mcM (T^*) = \mcM (T)^*=\overline{\mcM(T)^t}  \) so \( H(Tv,w)=(\mcM v )^*w = v^* (\mcM^* w)=H(v,T^*w) \), self-adjoint operators \( \leftrightarrow \) hermatian matricies 
+    in an orthonom. basis \( \mcM (T^*) = \mcM (T)^*=\overline{\mcM(T)^t}  \) so \( H(Tv,w)=(\mcM v )^*w = v^* (\mcM^* w)=H(v,T^*w) \), self-adjoint operators \( \leftrightarrow \) Hermitian matricies 
 
 \end{mybox}
 
 
-\begin{definition}[complex spectral theorem]
+\begin{definition}{Complex spectral theorem}{compspecthr}
   put it here 
 \end{definition}
 
@@ -630,5 +630,24 @@ in such a basis \( \mcM (T) = \begin{pmatrix} \lambda_1 & \, & 0 \\ \, & \ddots&
 \subsection{some number theory (non-degenerate symmetric bilinear forms)}
 
 this u can go over later via the notes just put it in here
+
+
+
+
+
+\begin{definition}{}{}
+test
+\end{definition}
+
+% ============================================================
+% lecture_10
+% ============================================================
+
+\section{test}
+
+lalalal
+
+
+% Your notes here...
 
 \end{document}
