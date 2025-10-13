@@ -1,0 +1,77 @@
+name: Sync University PDFs to Dropbox
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.pdf'
+  workflow_dispatch:
+
+jobs:
+  sync-pdfs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: List all PDFs in repo
+        run: |
+          echo "📚 Finding all PDF files..."
+          find . -name "*.pdf" -type f | sort
+          echo ""
+          echo "Total PDFs found:"
+          find . -name "*.pdf" -type f | wc -l
+          
+      - name: Install rclone
+        run: |
+          curl https://rclone.org/install.sh | sudo bash
+          rclone version
+          
+      - name: Configure rclone for Dropbox
+        env:
+          RCLONE_CONFIG: ${{ secrets.RCLONE_CONFIG }}
+        run: |
+          mkdir -p ~/.config/rclone
+          echo "$RCLONE_CONFIG" > ~/.config/rclone/rclone.conf
+          echo "✅ rclone configured"
+          
+      - name: Sync PDFs to Dropbox
+        run: |
+          echo "🔄 Starting sync to Dropbox..."
+          
+          # Sync all PDFs while preserving directory structure
+          rclone sync . dropbox:University-Notes \
+            --include "*.pdf" \
+            --exclude ".git/**" \
+            --create-empty-src-dirs \
+            --verbose \
+            --progress \
+            --transfers 8 \
+            --checkers 8
+          
+          echo "✅ Sync complete!"
+          
+      - name: List synced files
+        run: |
+          echo "📋 Files in Dropbox:"
+          rclone ls dropbox:University-Notes --include "*.pdf"
+          
+      - name: Summary
+        run: |
+          echo "================================"
+          echo "✅ PDF Sync Summary"
+          echo "================================"
+          echo "Repository: sdvstephens/uni"
+          echo "Destination: Dropbox/University-Notes/"
+          echo ""
+          echo "Total PDFs synced:"
+          find . -name "*.pdf" -type f | wc -l
+          echo ""
+          echo "Structure preserved:"
+          echo "  - examples/Calculus Revisited/"
+          echo "  - Calculus_of_One_Variable/"
+          echo "  - math55/"
+          echo "  - studies-in-algebra-and-group-theory/"
+          echo "================================"
