@@ -10,7 +10,7 @@
     "grades": {},
     "notes_path": "/Users/stephens1/university/math55"
   },
-    "studies-in-algebra-and-group-theory": {
+  "studies-in-algebra-and-group-theory": {
     "name": "studies-in-algebra-and-group-theory",
     "code": "math55a",
     "credits": 3.0,
@@ -20,5 +20,35 @@
     "assignments": {},
     "grades": {},
     "notes_path": "/Users/stephens1/university/studies-in-algebra-and-group-theory"
+  },
+  "test": {
+    "name": "test",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-10-13T11:44:56.933727",
+    "assignments": {},
+    "notes_path": "/Users/stephens1/university/test"
+  },
+  "math_55a": {
+    "name": "Math 55a",
+    "code": "",
+    "credits": 3.0,
+    "instructor": "",
+    "schedule": "",
+    "created": "2025-10-13T17:03:31.572345",
+    "assignments": {},
+    "notes_path": "/Users/stephens1/university/Math_55a"
+  },
+  "math-55a": {
+    "name": "Math-55a",
+    "code": "math55a",
+    "credits": 3.0,
+    "instructor": "Denis Auroux",
+    "schedule": "",
+    "created": "2025-10-13T17:09:47.827088",
+    "assignments": {},
+    "notes_path": "/Users/stephens1/university/Math-55a"
   }
 }

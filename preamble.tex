@@ -185,7 +185,6 @@ defernumbers=true
 }
 {th}
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=chapter]{theorem}{Theorem}
 {%
 	enhanced,
@@ -206,7 +205,6 @@ defernumbers=true
 {th}
 
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcolorbox{Theoremcon}
 {%
 	enhanced
@@ -223,7 +221,6 @@ defernumbers=true
 %================================
 % Corollery
 %================================
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{Corollary}{Corollary}
 {%
 	enhanced
@@ -242,7 +239,6 @@ defernumbers=true
 	,segmentation style={solid, myp!85!black}
 }
 {th}
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=chapter]{corollary}{Corollary}
 {%
 	enhanced
@@ -267,7 +263,6 @@ defernumbers=true
 % LEMMA
 %================================
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{Lemma}{Lemma}
 {%
 	enhanced,
@@ -287,7 +282,6 @@ defernumbers=true
 }
 {th}
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=chapter]{lemma}{lemma}
 {%
 	enhanced,
@@ -311,7 +305,6 @@ defernumbers=true
 % Exercise
 %================================
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{Exercise}{Exercise}
 {%
 	enhanced,
@@ -331,7 +324,6 @@ defernumbers=true
 }
 {th}
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=chapter]{exercise}{Exercise}
 {%
 	enhanced,
@@ -356,7 +348,6 @@ defernumbers=true
 % PROPOSITION
 %================================
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{Prop}{Proposition}
 {%
 	enhanced,
@@ -376,7 +367,6 @@ defernumbers=true
 }
 {th}
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=chapter]{prop}{Proposition}
 {%
 	enhanced,
@@ -401,7 +391,6 @@ defernumbers=true
 % CLAIM
 %================================
 
-\tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{claim}{Claim}
 {%
 	enhanced
@@ -659,6 +648,55 @@ defernumbers=true
 		},
 	#1,
 }
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  TITLE BOX FOR PSETS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newtcolorbox{titlebox}[1][]{%
+	enhanced jigsaw,
+	colback=gray!20!white,%
+	colframe=gray!80!black,
+	boxrule=1pt,
+	title=\textbf{#1},
+	halign title=flush center,
+	coltitle=black,
+	breakable,
+	drop shadow=black!50!white,
+	attach boxed title to top left={xshift=1cm,yshift=-\tcboxedtitleheight/2,yshifttext=-\tcboxedtitleheight/2},
+	minipage boxed title=4cm,
+	sidebyside,
+	sidebyside align=top,
+	lefthand ratio=0.55,
+	boxed title style={%
+			colback=white,
+			size=fbox,
+			boxrule=1pt,
+			boxsep=2pt,
+			underlay={%
+					\coordinate (dotA) at ($(interior.west) + (-0.5pt,0)$);
+					\coordinate (dotB) at ($(interior.east) + (0.5pt,0)$);
+					\begin{scope}
+						\clip (interior.north west) rectangle ([xshift=3ex]interior.east);
+						\filldraw [white, blur shadow={shadow opacity=60, shadow yshift=-.75ex}, rounded corners=2pt] (interior.north west) rectangle (interior.south east);
+					\end{scope}
+					\begin{scope}[gray!80!black]
+						\fill (dotA) circle (2pt);
+						\fill (dotB) circle (2pt);
+					\end{scope}
+				},
+		},
+}
+
+
+
+
+
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % SELF MADE COMMANDS
@@ -1220,7 +1258,6 @@ defernumbers=true
 \newcommand{\SF}{\mathcal F}
 \newcommand{\SG}{\mathcal G}
 \newcommand{\SH}{\mathcal H}
-\newcommand{\OO}{\mathcal O}
 
 \newcommand{\SCA}{\mathscr A}
 \newcommand{\SCB}{\mathscr B}

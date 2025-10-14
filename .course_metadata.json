@@ -503,7 +503,33 @@
         "filename": "lecture_01.tex"
       }
     ],
-    "created": "2025-10-09T22:14:46.095728"
+    "created": "2025-10-09T22:14:46.095728",
+    "homework": [
+      {
+        "number": 1,
+        "date": "2025-10-13T10:05:08.267645",
+        "title": "PSET1",
+        "filename": "hw_01.tex"
+      },
+      {
+        "number": 1,
+        "date": "2025-10-13T10:19:28.864790",
+        "title": "tester",
+        "filename": "hw_01.tex"
+      },
+      {
+        "number": 1,
+        "date": "2025-10-13T10:48:16.895974",
+        "title": "PSET1",
+        "filename": "hw_01.tex"
+      },
+      {
+        "number": 1,
+        "date": "2025-10-13T11:45:08.298654",
+        "title": "pset",
+        "filename": "hw_01.tex"
+      }
+    ]
   },
   "studies-in-algebra-and-group-theory": {
     "lectures": [
@@ -524,8 +550,63 @@
         "date": "2025-10-12T02:45:09.962996",
         "topic": "Groups",
         "filename": "lecture_02.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-13T18:06:12.178519",
+        "topic": "Naive-set-theory",
+        "filename": "lecture_02.tex"
       }
     ],
     "created": "2025-10-09T23:34:43.091126"
+  },
+  "Math-55a": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-10-13T18:06:46.969208",
+        "topic": "Naive-set-theory",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "homework": [
+      {
+        "number": 1,
+        "date": "2025-10-13T17:10:18.890582",
+        "title": "PSET1",
+        "filename": "hw_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-13T17:10:42.598012",
+        "title": "PSET2",
+        "filename": "hw_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-10-13T17:11:11.927142",
+        "title": "PSET3",
+        "filename": "hw_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-10-13T17:11:22.992778",
+        "title": "Problem Set 4",
+        "filename": "hw_04.tex"
+      },
+      {
+        "number": 5,
+        "date": "2025-10-13T17:11:30.803578",
+        "title": "Problem Set 5",
+        "filename": "hw_05.tex"
+      },
+      {
+        "number": 6,
+        "date": "2025-10-13T17:11:37.479131",
+        "title": "Problem Set 6",
+        "filename": "hw_06.tex"
+      }
+    ],
+    "created": "2025-10-13T17:10:18.890502"
   }
 }

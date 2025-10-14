@@ -1,31 +1,9 @@
 \documentclass{report}
+\input{../preamble}
 
-% Load preamble
-\input{/Users/stephens1/university/preamble.tex}
-
-% Optional: Customize these
-\course{studies-in-algebra-and-group-theory}
-\me{Your Name}
-
-\title{\Huge{studies-in-algebra-and-group-theory}\\XXXX -- Harvard University}
-\author{\huge{S. D. V. Stephens}}
-\date{\today}
+\course{Math-55a}
 
 \begin{document}
-
-\maketitle
-\newpage
-\pdfbookmark[section]{\contentsname}{toc}
-\tableofcontents
-\pagebreak
-
-% ============================================
-% ALL LECTURES (content extracted)
-% ============================================
-
-% ============================================================
-% lecture_01
-% ============================================================
 
 \lecture{1}{Na\"{i}ve-set-theory}
 
@@ -70,7 +48,7 @@ If a relation \( R \) exists s.t. \( xRx \) for any \( x \in  X \), then we say 
 \sol I apologize for the terse abstraction involved in this first example, but let \[ R\coloneqq \{(1,1),(2,2),(3,3)(1,2),(2,3)\in \{1,2,3\}^2  \}   ,\] notice that \( (1,1),(2,2),(3,3) \) is true for \( R \), thus reflixivity holds; however, it is quick to see that \( (1,2) \) exists in \( R \) but \( (2,1)\not\in R \), thus symmetry cannot hold. For transitivity, notice that we have \( (1,2) \text{ and }  (2,3)\), so we can set up the first step, but \( (1,3)\not\in  R \)! Thus transitivity fails. This example is a reminder that we need not think of concrete properties that can be applied in front of our eyes (shapes, dogs, even equality!) in order to have or manipulate some sort of mathematical relation. Next, consider a the relation \( R\coloneqq \{(a,b)\mid a \neq  b\}   \). First, \( aRa \) is categorically untrue thus reflixivity means nothing to us. Symmetry, however, tells us that if \( aRb \) then \( bRa \), which is true! Transitivity may seems sneakily true at first, but notice that \( aRb, \, bRa \implies aRa \) is not true (we simply replaced \( c \) with another instance of \( a \)). Finally, transitivity as a singular property is pretty straightforward. Consider \( x>y \), notice that \( x>x \implies x<x \) is categorically untrue since \( x \) can never be greater or less than itself, additionally, \( x>y \) never implies \( y>x \). For transitivity however, notice that \(x>y, \, y>z \implies x>z \) is true!
 
 
-Next we move onto partitions, and to start we must define them! But first I note that we bring up partitions not onyl for their interestingness but also since they have a direct relation to equivalence relations via something known as \textit{equivalence classes}. 
+Next we move onto partitions, and to start we must define them! But first I note that we bring up partitions not only for their interestingness but also since they have a direct relation to equivalence relations via something known as \textit{equivalence classes}. 
 \dfn{Partitions}{A partition of a set \( X \) is a disjoint collection \( \sC \) (i.e., a collection in which all the sets inside contain no common elements with the other sets inside \( \sC \)) of non-empty subsets whose union is \( X \) itself.} 
 \ex{Partitions of \( \mathbb{Z} \)}{Consider \( \mathbb{Z} \). Notice that we can seperate this into a distinct collection of disjoint sets---i.e., we can partition \( \mathbb{Z} \)---by taking all multiples of a given number, represented by \( n\mathbb{Z} \), where each sequential \( n\mathbb{Z}+m \) has the property that if any \( n\mathbb{Z}+k \) s.t. \( k<m \) has the same multiple, it will not inclue said multiple in itself. Explicity this is given by \( \sC = \{n\mathbb{Z},n\mathbb{Z}+1,n\mathbb{Z}+2,\ldots \} \) and \( \mathbb{Z}=n\mathbb{Z}\sqcup n\mathbb{Z}+1 \sqcup n\mathbb{Z}+2 \sqcup \ldots \)}
 \dfn{Equivalence classes}{An equivalence class of \( x \) with respect to \( R \) is the \textbf{\textit{class}}---which we may use instead of the word "set" for traditional and conventional reasons rather than practical, but for all intents and purposes is the same---of all \( y \) such that \( xRy \) holds.}
@@ -96,7 +74,7 @@ First I want to remind us of some notation and terminology things (mathematician
 \dfn{Functions}{We all know what functions are at some level, but here were are going to be extraordinarily explicit (though you likely have already heard it in this form, regardless). A function on \( X \) into \( y \) is a relation (\( R \)) given by a letter like \( f,g,h,\varphi,\ldots   \), such that:
 \begin{enumerate}
   \item \( \dom f = X  \);
-  \item if \( (x,y)\in f \) and \( (x,z) \in f \), then \( y=z \) (uniqueness of \( y \) for each \( x \)); additionally, \( f(x)=y \) is conventional notation (insteaf of \( (x,y) \in f \) or \( xfy \));
+  \item if \( (x,y)\in f \) and \( (x,z) \in f \), then \( y=z \) (uniqueness of \( y \) for each \( x \)); additionally, \( f(x)=y \) is conventional notation (instead of \( (x,y) \in f \) or \( xfy \));
   \item \( y \) is called the \textbf{\textit{value}} that \( f \) \textbf{\textit{assumes}} at the \textbf{\textit{argument}} \( x \); i.e., \( f \) \textbf{\textit{maps/ sends/ transforms}} \( x \) to/ into \( y \). We often use the terms map, mapping, transformation, correspondence, operator, and function interchangably. 
 \end{enumerate}
 We denote this correspondence via \[
@@ -129,16 +107,33 @@ There are a few other terminologies that follow from all that has been mentioned
     \item \( Y^{\emptyset} \) has exactly one element, namely \( \emptyset   \), regardless of if \( Y \) is empty or not;
     \item if \( X \) is non-empty, then \( \emptyset^X \) is empty.
 \end{enumerate}}
-\sol \pf{Proof}{\begin{enumerate}[a)]
-  \item We begin by noting
+\sol \pf{Proof}
+{\begin{enumerate}[a)]
+    \item Given that \( Y^{\emptyset} \subset \mcP (\emptyset \times Y) = \mcP(Y)=\{\emptyset,\ldots   \}\), we can clearly see that all functions in \( Y^{\emptyset} \) must be singletons, 
+
+
+
+
+      Consider an example, \( f : \emptyset \to Y \), note that the only possibility for a function \( f \) is \( f()=() \); intuition on this can be gained by considering the Kuratowski encoding of the ordered pair \( \{ \text{  }, \{ \text{  }, \emptyset\}  \}= \{\{\emptyset\}  \} =(\emptyset)\). 
+
+
+      
+    \item 
 \end{enumerate}}
 
 \nt{I should note that the time spent on this almost expository writing for these notes has been incredibly time-consuimg and thus, from this point on, things will be cut down and significantly more dense.}
 
 \section{Families}
 
+Forget literally everything you know about notational convention! Why? Idk, that's just how mathematicians decided to approach this topic---the family (\textit{awwwwww}). Consider a function \( x \) (yes, this is strange) s.t. \( x : I \to  X \). We call \( I \) the \textbf{\textit{index set}}, and thereby each \( i \in  I \) is an \textbf{\textit{index}}; the range of the function is then called the \textbf{\textit{indexed set}} (why, this is so stupid?!); the function has a special name, being called a \textbf{\textit{family}}, and the value of \( x \) at a given \( i \) is called a \textbf{\textit{term}} of the family (denoted \( x_{i} \)). Other even more bewildering notation may be used such as \( \{x_{i}\}   \) being a family in \( X \) or, more horrificially, a family \( \{A_i\}   \) of subsets of \( X \), being a function \( A : I \to  \mcP(X)\) (now that I think of it, this notation, sickeningly, is becoming somewhat preferable). 
 
+Given that \( \ran (\{A_i\}= \bigcup_{i \in  I} A_i  ) \), we notice that every arbitrary collection of sets is in fact the range of some arbitrary family: consider \( I \) and \( X \) equal to \( \sC \) s.t. \( \{A_i\} : \sC \to  \sC  \). I am realizing it is the terminology which is so obtuse, that what I do not like. 
+
+\thm{Associative Law of Unions}{Let \( \{I_j\} : J \to  K \mid  K = \bigcup_{j\in  I}\) and \( \{A_k\}: K \to X   \), then \[
+  \bigcup_{k \in  K}A_k=\bigcup_{j \in  J}\left( \bigcup_{i \in I_j} A_i  \right)  
+.\] }
 
 \section{Inverses and Composites}
+
 
 \end{document}

@@ -73,7 +73,6 @@ class UnifiedAcademicSystem:
             "schedule": schedule,
             "created": datetime.now().isoformat(),
             "assignments": {},
-            "grades": {},
             "notes_path": str(self.root_dir / name.replace(" ", "_"))
         }
         
@@ -82,6 +81,7 @@ class UnifiedAcademicSystem:
         course_dir.mkdir(exist_ok=True)
         (course_dir / "figures").mkdir(exist_ok=True)
         (course_dir / "psets").mkdir(exist_ok=True)
+        (course_dir / "psets" / "figures").mkdir(exist_ok=True)
         
         # Create .latexmkrc for texlab root detection
         latexmkrc_content = """# LaTeX build configuration
@@ -99,21 +99,6 @@ $aux_dir = '.latexmk/aux';
         print(f"✓ Added course: {name} ({code}) - {credits} credits")
         print(f"✓ Created .latexmkrc in {course_dir.name}")
         
-        # Integrate with existing grade system
-        self.setup_grade_tracking(name, credits)
-    
-    def setup_grade_tracking(self, course_name: str, credits: float):
-        """Set up grade tracking for new course"""
-        try:
-            subprocess.run([
-                "grades", "add-course", 
-                "--course", course_name, 
-                "--credits", str(credits)
-            ], check=True, capture_output=True)
-            print(f"✓ Grade tracking set up for {course_name}")
-        except:
-            print(f"⚠ Could not set up grade tracking for {course_name}")
-    
     def list_courses(self):
         """List all courses"""
         if not self.courses:

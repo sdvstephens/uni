@@ -1,0 +1,102 @@
+\documentclass{report}
+\input{~/university/preamble.tex}
+
+\begin{document}
+
+\begin{titlebox}[Math 55a]
+    \textbf{Name:} S. D. V. Stephens\\[2mm]
+    \textbf{Professor:} Prof. Denis Auroux\\[2mm]
+    \textbf{Date:}\today 
+\tcblower
+    \begin{center}
+    \vspace{4mm}
+    {\Huge\bfseries PSET 6}
+    \end{center}
+\end{titlebox}
+\vspace{10mm}
+
+\qs{}{Suppose the rows of an $n\times n$ real matrix $A\in M_n(\mathbb{R})$ form an orthonormal basis for $\mathbb{R}^n$ with its usual inner product. Show that the same is true of the columns of $A$.
+
+(Hint: consider the product of $A$ with its transpose.)}
+\sol 
+
+\qs{}{Let $V\subset \mathbb{R}[x]$ be the space of real polynomials of degree at most 2, and define an inner product on $V$ by $\langle f,g\rangle=\int_0^1 f(x)g(x)\,dx$. Find an orthonormal basis of $V$ with respect to this inner product.}
+\sol 
+
+\qs{}{A \emph{reflection} on a (real) inner-product space $V$ is a self-adjoint transformation
+such that $P^2 = I$ and $\Ker (P+I)$ is 1-dimensional.
+\begin{enumerate}[(a)]
+  \item Show that any reflection can be expressed in the form $P(x) = x - 2\langle x,v\rangle v$, where $\|v\|=1$;
+  \item Show that, given any two vectors $x,y \in V$ of the same length, there is
+a reflection such that $P(x)=y$;
+  \item Using (b), show that any orthogonal transformation of $\mathbb{R}^n$ is a product of at most $n$ reflections.
+\end{enumerate}
+}
+\sol
+
+\qs{}{Let $V$ be a finite-dimensional (real) inner product space, and $T : V \to V$ a self-adjoint operator. Suppose that $v \in V$ is a vector such that $\|v\| = 1$ and $\langle Tv, v \rangle \geq \langle Tw, w \rangle$ for all $w \in V$ with $\|w\|=1$. Prove that $v$ is an eigenvector for $T$.
+
+(Do not use the spectral theorem. Once we've studied \emph{compactness} in topology, this gives us another way to prove the spectral theorem: we can find an eigenvector for $T$ by seeing where the function $w \mapsto \langle Tw, w \rangle$ achieves its maximum on the unit sphere.)
+
+{\em Hint:} let $f(w)=\frac{1}{\|w\|^2}\langle Tw,w\rangle$, and consider $f(v+tu)$ for $u\perp v$ and $t\in \mathbb{R}$.
+
+
+}
+\sol 
+\pagebreak
+\qs{}{Given an orthonormal basis $u_1,\dots,u_n$ of an inner product space $(V,\langle\cdot,\cdot\rangle)$, the {\em ellipsoid} with principal axes the lines spanned by $u_1,\dots,u_n$ and semi-axis lengths $a_1,\dots,a_n$ is the subset of $V$ consisting of all elements $w=\sum x_i u_i$ whose coordinates $(x_1,\dots,x_n)$ in the basis $(u_1,\dots,u_n)$ satisfy the equation $$\sum_{i=1}^n \frac{x_i^2}{a_i^2}=1.$$ The case where $a_1=\dots=a_n=1$ gives the {\em unit sphere} $S=\{w\in V,\ \|w\|=1\}$.
+
+Let $\varphi:V\to V$ be {\em any} invertible linear transformation. Show that $\varphi$ maps the unit sphere $S\subset V$ to an ellipsoid in $V$.
+
+(Hint: observe that $\varphi(S)$ is the set of vectors $w$ such that $\|Tw\|=1$, where $T=\varphi^{-1}$, and apply the spectral theorem to the operator $T^*T$.)}
+\sol 
+
+\qs{}{ The {\em dilatation} of an invertible linear operator $T:V\to V$ acting on a
+finite-dimensional vector space $V$ over $\mathbb{R}$ with an inner product $\langle\cdot,\cdot\rangle$ is defined by $$K(T)=\frac{\sup_{\|v\|=1} \|Tv\|}{\inf_{\|v\|=1} \|Tv\|}.$$
+\begin{enumerate}
+  \item Show that $K(T)^2$ is equal to the ratio between the largest and
+smallest eigenvalues of $T^*T$.
+  \item Show that $K(T_1T_2)\leq K(T_1)K(T_2)$.
+\end{enumerate}}
+\sol 
+
+\qs{}{Let $T:V\to V$ be an operator on a real vector space $V$ with inner product $\langle \cdot,\cdot\rangle$, and assume that $\langle Tv,w\rangle=-\langle v,Tw\rangle$ for all $v,w\in V$. (Such an operator is called {\em skew-adjoint}. The matrix representing $T$ in an orthonormal basis is skew-symmetric: $M_{ij}=-M_{ji}$). Prove that $I+T$ is invertible, and that $S=(I-T)(I+T)^{-1}$ is an orthogonal operator.}
+\sol 
+
+\qs{}{
+Suppose the bilinear form $B(x,y)=\sum a_{ij} x_i y_j$ gives a (symmetric definite positive) inner product on $\mathbb{R}^n$ (whose matrix in the standard basis is $A=(a_{ij})$). 
+\begin{enumerate}[(a)]
+  \item For $n=2$, show that the largest entry (or entries) in the matrix $A$
+occur on the diagonal, namely at least one of $a_{11}$ or $a_{22}$ achieves 
+the maximum of all $\{a_{ij}\}$.
+  \item For $n>2$, does it remain true that the largest entry or entries in the
+matrix $A$ occur on the diagonal? (Give a proof or a counterexample)
+\end{enumerate}}
+\pagebreak
+\qs{}{Let $V$ be a complex vector space of dimension $n$, and denote by $W$ the same set $V$ viewed as a $2n$-dimensional vector space over $\mathbb{R}$. If $H : V \times V \to \CC$ is a Hermitian pairing, we denote by $G$ and $B$ the two maps $W\times W\to \mathbb{R}$ defined by the real and imaginary parts of $H$: $$G(v,w)=\mathbb{R}e\, H(v,w)\quad \text{and} \quad B(v,w)=\Im\, H(v,w).$$ We also denote by $J:W\to W$ the linear operator which corresponds to scalar multiplication by $i$ acting on $V$, $J(v)=iv$.
+
+\begin{enumerate}[(a)]
+  \item Show that $G$ is a symmetric bilinear form on $W$, nondegenerate if and only if $H$ is nondegenerate;
+  \item Show that $B$ is a skew-symmetric bilinear form on $W$, nondegenerate if and only if $H$ is nondegenerate;
+  \item Assume $H$ is non-degenerate. Show that, for a linear operator $T:W\to W$, any two of the following three properties imply the third one:
+    \begin{enumerate}[(i.)]
+    \item $T$ preserves $G$, i.e.\ $G(T(u),T(v))=G(u,v)$ for all $u,v\in W$;
+    \item $T$ preserves $B$, i.e.\ $B(T(u),T(v))=B(u,v)$ for all $u,v\in W$;
+    \item $T$ is complex linear, i.e.\ $T\circ J=J\circ T$.
+  \end{enumerate}
+(Hint: first show that $G(u,v)=B(u,Jv)$ for all $u,v\in W$.)
+
+\end{enumerate}
+Note: operators which satisfy these three conditions correspond to {\em unitary}
+transformations of the complex vector space $V$, i.e.\ $\CC$-linear maps
+which preserve $H$. In the case of $\CC^n=\mathbb{R}^{2n}$ with the standard
+Hermitian inner product, this gives the following relations among
+subgroups of $GL(2n,\mathbb{R})$: $$O(2n)\cap GL(n,\CC)=Sp(2n,\mathbb{R})\cap
+GL(n,\CC)=O(2n)\cap Sp(2n,\mathbb{R})=U(n).$$}
+
+\sol 
+
+\qs{}{How long did this assignment take you?  How hard was it? What resources did you use, and how much help did you need? (Remember to list the students you collaborated with on this assignment.) Did you have any prior experience with this material?}
+\sol 
+
+\end{document}
