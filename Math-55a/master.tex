@@ -1,9 +1,31 @@
 \documentclass{report}
-\input{../preamble}
 
+% Load preamble
+\input{/Users/stephens1/university/preamble.tex}
+
+% Optional: Customize these
 \course{Math-55a}
+\me{Your Name}
+
+\title{\Huge{Math-55a}\\XXXX -- Harvard University}
+\author{\huge{S. D. V. Stephens}}
+\date{\today}
 
 \begin{document}
+
+\maketitle
+\newpage
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+% ============================================
+% ALL LECTURES (content extracted)
+% ============================================
+
+% ============================================================
+% lecture_01
+% ============================================================
 
 \lecture{1}{Na\"{i}ve-set-theory}
 
@@ -176,7 +198,167 @@ Notice that function composition is not always commutative, nor need it be. Also
 
 \subsection{Inverse/ converse and composite relations}
 
-The main idea of this comes out of our exploration of inverse functions. Functions \textit{are} relations after all. Consider the \textbf{\textit{converse relation}} of \( R \) on \( X \times Y \) s.t. \( xRy \) and \( yR^{-1}x \). Similar things can be done for composites by generalizing composition to relations, observe: let \( S \) be a relation on \( Y \times Z \) and \( R \) be a relation on \( X \times Y \) such that \( xRy \) and \( ySz \). Now let \( T \) over \( X\times Z \) be given by \( S\circ R \) such that \( xTz \) exists \( \iff  \exists  y \in Y\) such that \( xRy \) and \( ySz \). Congrats! You made a \textbf{\textit{composite relation}}. If it is the case that \( R \) and \( S \) are functions s.t. \( R(x)=y, \, S(y)=z \) and \( S(R(x))=z \iff xTz \) which implies that functional composition is a special case of a greater abstraction called the \textbf{\textit{relative product}}(??). 
+The main idea of this comes out of our exploration of inverse functions. Functions \textit{are} relations after all. Consider the \textbf{\textit{converse relation}} of \( R \) on \( X \times Y \) s.t. \( xRy \) and \( yR^{-1}x \). Similar things can be done for composites by generalizing composition to relations, observe: let \( S \) be a relation on \( Y \times Z \) and \( R \) be a relation on \( X \times Y \) such that \( xRy \) and \( ySz \). Now let \( T \) over \( X\times Z \) be given by \( S\circ R \) such that \( xTz \) exists \( \iff  \exists  y \in Y\) such that \( xRy \) and \( ySz \). Congrats! You made a \textbf{\textit{composite relation}}. If it is the case that \( R \) and \( S \) are functions s.t. \( R(x)=y, \, S(y)=z \) and \( S(R(x))=z \iff xTz \) which implies that functional composition is a special case of a greater abstraction called the \textbf{\textit{relative product}}(??).
 
+% ============================================================
+% lecture_02
+% ============================================================
+
+\lecture{2}{Groups}
+
+\section{Group basics}
+\dfn{Groups}{A \textbf{\textit{group}} is a set \( S \) together with a map \[
+  m : S \times S \to S\] called a \textbf{\textit{law of composition}} (LOC) (also called \textbf{\textit{binary operation}}). Writing \( ab \) for \( m(a,b) \), the LOC has to satisfy three axioms (known as the group axioms):
+  \begin{enumerate}[i.]
+  \item (existence of identity): \( \exists  e \in S \) called the \textit{identity} such that \( ea=ae=a, \, \forall a \in S \);
+  \item (existence of inverse): \( \forall a \in S, \exists b \) such that \( ab=be-e \) (we often denote \( b \) as \(-a\) or \(a^{-1} \));
+  \item (the associative law): \( \forall a,b,c \in S, \, a(bc)=(ab)c \).
+\end{enumerate}}
+Now some notes: from the definition it quickly follows that the identity of a group is unique, and this is easy to show. Due to inverses, we have been gifted with the \textit{cancellation law}, \( ab=ab' \implies b=b' \). Finally, \( (S,m) \) is our pair which constructs our group, however, it is often that we will simply use one letter to denote the group (often \( G \) or the same letter used with the underlying set, e.g., \( S \)). Instead of using \( |G| \) to denote cardinality, we will often use it---in the context of groups---to denote the underlying set; the cardinality of the group/ underlying set, then, too, undergoes a name change---it is known as the \textit{order} of the group. 
+\nt{It is customary to use \( + \) as the representative operation for commutative laws (i.e., when it is the case that the group is not only associative, but also commutative). This does not, however, imply that multiplication is reserved for non-commutativity.}
+
+\subsection{Group Variants}
+There are special cases of group-like-structures with more or less group axioms, here we list a few which we will define informally:
+\dfn{Abelian groups}{An abelian group is a group \( G \) such that all \( a,b \in G \) commute under the law of composition.}
+\dfn{Monoids}{A \textbf{\textit{monoid}} is an algebraic structure with the same underlying structure as a group (i.e., set and LOC) and two out of three of its axioms---namely missing inverses.}
+\dfn{Semigroup}{A \textbf{\textit{semigroup}} is an algebraic structure with the same underlying structure as a group (i.e., set and LOC) and two out of three of its axioms---namely missing associativity.} 
+
+\ex{}{\( Z / n \coloneqq \{0,1,2,\ldots ,n-1\}   \), with a group law given by addition mod \( n \), where \[ m(a,b)\coloneqq \begin{cases}
+    a + b, & \text{if } a+b\le n-1 \\
+    a+b-n, & \text{if not.}
+  \end{cases} \]
+
+}
+\ex{}{\( \mathbb{Q}^*,\mathbb{R}^*,\CC^* \) under multiplication as LOC. Identity \( 1 \), inverse \( \frac{1}{x} \). Inside \( \CC^* \) the unit circle \( S^1=\{z \in \CC \mid |z|=1\}   \) is also a group under multiplication. All of these are abelian.}
+\nt{While it seems like the abelian pattern would continue as we construct higher dimensional sets comprised of \( \mathbb{R} \), in fact, as we move to quaternions we run into our first non-abelian group constructed by \( \mathbb{R} \) under multiplication.} 
+
+Before we move onto more examples, some terminology updates are due: 
+\dfn{Permutations of a set}{ A permutation of a set \( A \) is a bijection \( f : A\leftrightarrow A \), to form a group we use composition (functional or relational?) as our LOC and call this group \( \text{Perm}(A) \). Note that for \( \text{Perm}(A) \) its order, if finite, is given by \( n! \) where \( n \) is the order of \( A \).}
+\dfn{Symmetric groups}{A symmetric group on \( n \) elements is given by \( S_n=\text{Perm}(\{1,\ldots ,n\}  ) \).}
+\ex{Symmetries of an equilateral triangle}{\( S_{3} \) can be thought of as symmetries of a triangle comprised of rotations and reflections (3 of each, with one of the rotations being the identity). 
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    % Define vertices of equilateral triangle
+    \coordinate (A) at (90:1.5);
+    \coordinate (B) at (210:1.5);
+    \coordinate (C) at (330:1.5);
+    
+    % Define midpoints for reflection lines
+    \coordinate (MA) at ($(B)!0.5!(C)$);
+    \coordinate (MB) at ($(A)!0.5!(C)$);
+    \coordinate (MC) at ($(A)!0.5!(B)$);
+    
+    % Draw reflection lines (dashed)
+    \draw[dashed, gray] (A) -- (MA);
+    \draw[dashed, gray] (B) -- (MB);
+    \draw[dashed, gray] (C) -- (MC);
+    
+    % Draw the triangle
+    \draw[thick] (A) -- (B) -- (C) -- cycle;
+    
+    % Draw vertices as dots
+    \fill (A) circle (1.5pt);
+    \fill (B) circle (1.5pt);
+    \fill (C) circle (1.5pt);
+    
+    % Draw rotation arrow in center
+    \draw[-{Stealth}, thick] (0,0.3) arc (90:330:0.3);
+\end{tikzpicture}
+\end{center}
+
+Symmetires, then, permute the certices, and every permutation of the set of vertices arises from exacly one symmetry. Thus, \( S_{3} \) occurs as the group of symmetries of a triangle. The other groups in \( \mathbb{R}^2 \) that arise from symmetries are called dihedral groups, and the groups comprised of symmetries in \( \RR[3] \) are called octahedral groups. We will return to these at a later point. 
+
+}
+
+\ex{Matrix groups}{We have some special type of matrix groups, it is okay if you do not know much about them at the moment, we will dive into detail about them later; note that the following groups are all using the LOC of matrix multiplication. The first such group is the \textbf{\textit{general linear group}} given by \( \text{GL}_n(\mathbb{R}) \coloneqq \{\text{inverstible \( n \times n \) matrices with real coefficients}\}  \), the second is known as the \textbf{\textit{special linear group}} given by \( \text{SL}_n (\mathbb{R})\coloneqq \{n\times n \text{ real matrices with determinant }1\}  \), there also exists these for \( \CC \), and in fact for any \( \FF \) as we will later show from \( \GL(n,\FF) \) (you do not need to know what this means for now).} 
+
+
+A group that has the property of being generated by an element (in example 2.0.3, the element that generates is a single symmetry) such that the entire group can be obtained by adding said element and/ or its inverse to itself repeatedly is said to be \textbf{\textit{cyclic}}. 
+
+
+
+\section{Constructions}
+A natural question that arises in the course of group study asks, \textit{how can we construct new groups from existing groups?} That is to say, how can one \textit{combine} groups? We combine groups using \textit{products} given by \( G \times H \) such that \( G,H \) are both groups; the underlying set is given by ordinary Cartesian product, and the law of composition is said to be given termwise; i.e.,
+\[
+  (a,b)\cdot (a',b')\coloneqq (aa',bb')
+.\] 
+
+There are times we may use the term \textit{sum} for the combination of \( G \) and \( H \), written \( G \oplus H \), but we usually have more specific uses for this term (though this may not \textit{always} be the case). For construction on more than two groups we simply have 
+\[
+  G_{1}\times \ldots G_n \coloneqq \{(a_{1},\ldots ,a_n)\mid a_i \in G_i\}  
+\] with LOC given by \[
+(a_{1},\ldots ,a_n)\cdot (b_{1},\ldots, b_n)\coloneqq (a_{1}b_{1},\ldots ,a_nb_n)
+.\] When taking the product of \( n \) groups (i.e., \( G^n \) (e.g., \( \mathbb{Z}^n \))) we usually denote this via 
+\[
+  \bigoplus^n_{i=1}G_i \text{ or } \prod_{i=1}^{n}G_i
+.\] 
+
+When given infinitely many groups, our summation symbol takes on a special property,
+wherein \( \prod_{i=1}^{\infty} G_i=\{(a_{1},a_{2},\ldots )\mid a_i \in  G_i\}  \), but \( \bigoplus_{i=1}^{\infty}G_i=\{(a_{1},\ldots )\mid a_i \in G_i, \text{ where all but finitely many \( a_i \) are identity}\}  \). We can see this best exemplified with some polynomials:
+
+\ex{Power series and polynomial groups}{Consider \( G_{0}=G_{1}=\ldots =(\mathbb{R},+) \) for \( (a_{0},a_{1},\ldots ) \) by \( \sum^n_i a_ix^i \), then
+\[
+   \prod^{\infty}_{i=0}\mathbb{R}=\mathbb{R}[[x]], \text{ i.e., formal power series } \sum_{i=0}^{\infty}a_ix^i \text{ under addition} 
+,\] 
+and 
+\[
+\bigoplus^{\infty}_{i=0}\mathbb{R}=\mathbb{R}[x], \text{ i.e., polynomials } \sum_{\text{finite}}a_ix^i
+.\]} 
+
+\section{Subgroups and Homomorphisms} 
+Similar to how we have had subsets, we, too, have \textbf{\textit{subgroups}}!
+
+\dfn{Subgroups and proper subgroups}{A \textbf{\textit{subgroup}} \( H\) of \( G \) is a non-empty subset \( H\subset G \) which is closed under the given law of composition---that is to say, \( \forall a,b \in H \implies ab \in H \)---and inversion---i.e., \( \forall a \in H \implies a^{-1}\in H \). Since \( H \neq \emptyset \), those 2 conditions imply \( e \in H \). Thus \( H \) under the same operation as \( G \) is a group within its own right. We say that \( H \) is a \textbf{\textit{proper subgroup}} if \( H \subset G \) but \( H\neq G \).}
+
+\thm{}{Let \( S \) be a subgroup of \( (\mathbb{Z},+) \) (somtimes represented as \( \mathbb{Z}^+ \)). Either \( S=\{0\}   \)---the trivial subgroup---or it is the form \( \mathbb{Z}a \) such that \( a \) is the smallest positive integer in \( S \).}
+\pf{Proof}{Refer to Artin Ch.2, Thm.2.3.3.}
+\mprop{Title}{Let \( a,b \in \mathbb{Z} \), not both zero, and let \( d \) be their greatest common divisor, the positive integer that generates the subgroup \( S=\mathbb{Z}a+\mathbb{Z}b \). So \( \mathbb{Z}d=\mathbb{Z}a+\mathbb{Z}b \). Then 
+  \begin{enumerate}[(a)]
+  \item \( d \) divides \( a \) and \( b \);
+  \item if an integer \( n \) divides both \( a \) and \( b \), it, too, divides \( d \);
+  \item there are integers \( r \) and \( s \) such that \( d=ra+sb \).
+\end{enumerate}}
+\cor{}{A pair \( a,b \in \mathbb{Z} \) is relatively prime \( \iff \) there are integers \( r \) and \( s \) such that \( ra+sb=1 \).}
+\cor{}{Let \( p \in \PP \). If \( p \) divides a product of \( ab \in \mathbb{Z} \), then \( p \) divides \( a \) XOR \( p \) divides \( b \).}
+
+\dfn{Homomorphisms and isomorphisms}{Given two groups \( G,H\), a \textbf{\textit{homomorphism}} (abbr. homom. or hom.) \( \varphi : G \to H \) is a map which respects the law of composition and is such that \( \forall a,b \in G, \varphi (ab)=\varphi (a)\varphi (b) \). This implies \( \varphi (e_G)=e_H \) and \( \varphi (a\inv )=\varphi (a)\inv \). An \textbf{\textit{isomorphism}} (abbr. isom.) is a bijective homomorphism. If \( G \) and \( H \) are isomorphic, they are essentially the "same" group structure-wise, even if its elemnts and laws may have different names!}
+
+
+
+
+% Your notes here...
+
+% ============================================================
+% lecture_03
+% ============================================================
+
+\lecture{3}{Group Relations}
+
+\section{Symmetry Group}
+
+\section{Group Relations}
+
+\subsection{Subgroups}
+\subsection{Homomorphisms}
+\subsection{Kernals, Images, and Order}
+\subsection{Finite Symmetric Groups}
+
+% Your notes here...
+
+% ============================================================
+% lecture_04
+% ============================================================
+
+\lecture{4}{Quotient Groups}
+
+\section{Cardinality}
+\section{Sets of Maps and Powersets}
+\section{Equivalence Relations}
+\section{Quotient Groups}
+\section{Congruence mod \( H \)}
+
+
+% Your notes here...
 
 \end{document}

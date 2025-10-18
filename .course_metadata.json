@@ -567,6 +567,24 @@
         "date": "2025-10-13T18:06:46.969208",
         "topic": "Naive-set-theory",
         "filename": "lecture_01.tex"
+      },
+      {
+        "number": 2,
+        "date": "2025-10-15T21:06:17.241657",
+        "topic": "Groups",
+        "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-10-15T21:08:44.773736",
+        "topic": "Group Relations",
+        "filename": "lecture_03.tex"
+      },
+      {
+        "number": 4,
+        "date": "2025-10-15T21:12:37.380045",
+        "topic": "Quotient Groups",
+        "filename": "lecture_04.tex"
       }
     ],
     "homework": [

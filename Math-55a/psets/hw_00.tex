@@ -1,0 +1,59 @@
+\documentclass{report}
+\input{~/university/preamble.tex}
+
+\begin{document}
+
+\begin{titlebox}[Math 55a]
+    \textbf{Name:} S. D. V. Stephens\\[2mm]
+    \textbf{Professor:} Prof. Denis Auroux\\[2mm]
+    \textbf{Date:}\today 
+\tcblower
+    \begin{center}
+    \vspace{4mm}
+    {\Huge\bfseries PSET 0}
+    \end{center}
+\end{titlebox}
+\vspace{10mm}
+
+\qs{}{Let \( f : X \to  Y  \) be a map of sets. A function \( g : Y \to  X \) is called a left (resp. right) inverse of \( f \) if \( g \circ f = \text{id}_X \) (resp. \( f \circ g = \text{id}_Y\)). 
+  \begin{enumerate}[(a)]
+  \item Show that \( f \) admits a right inverse if an only if \( f \) is surjective. Show that, in general, a right inverse is not unique.
+  \item Show that \( f \) admits a left inverse if an only if \( f \) is injeective. Show that, in general, a left inverse is not unique. 
+\end{enumerate}} 
+\pf{Proof}{\pf{(a) \(\implies \)}{Let \( f \circ g = \text{id}_Y \), then for all \( y, \, g(y)=x\) we have \( f(g(y))=f(x) \implies y=f(x), \, \forall y\)}
+\pf{(a) \( \impliedby \)}{For all \( y \), there exists an \( x \) such that \( f(x)=y \). Then, \( f(x)=f(g(y)) \implies y=f(g(y)), \, \forall y \implies f\circ g = \text{id}_Y \)}
+\pf{(a). In general a right inverse is not unqiue.}{Consider \( f:X \surjto Y  \) such that \( X=\mathbb{N} \) and \( Y=\{0\}. \) Then there exist infinitely many right inverses since any \( x \in  X \) can map to the only \( y \in  Y \).}
+\pf{(b)\( \implies \)}{Given \( g \circ f = \text{id}_X \). Let \( f(x_{1})=f(x_{2}) \) for arbitrary \( x_{1},x_{2}\in X \). This implies that \( g(f(x_{1}))=g(f(x_{2})) \), but since \( g \circ f =\text{id}_X\) we get \( x_{1}=x_{2} \).}
+\pf{(b)\( \impliedby \)}{Given injectivity. Let \( y_{1}=f(x_{1}) \) for arbitrary \( x_{1},y_{1} \). Then \( g(y_{1})=g(f(x_{1})) \) and since \( g(y_1)=x_{1} \), we have \( x_{1}=g(f(x_{1})), \forall x \in X \implies g \circ f = \text{id}_X\). THIS IS WRONG!!! CORRECT THIS!!!} 
+\pf{(b). In general a left inverse is not unique.}{Consider \( f :X \surjto Y \) where \( X = \{0\}, \, Y=\mathbb{N}   \). Any left inverse must have \( g(0)=0 \), but \( g(n) \) for \( n\neq 0 \) can be anything, giving infinitely many left inverses.}
+}
+
+\qs{}{Let \( f :X \to  Y \) be a map of set.
+  \begin{enumerate}[(a)]
+    \item For \( B \subset  Y \) we define \( f^{-1}(B)=\{x \in X \mid  f(x) \in B\}   \). Show that  \[
+        f^{-1}(Y-B)=X-f^{-1}(B), \, f^{-1}\left(\bigcup_{i \in  I}B_i\right) = \bigcup_{i \in  I} f^{-1}(B_i), \, \text{ and }  f^{-1}\left( \bigcap_{i \in  I}  B_i\right) = \bigcap_{i \in  I} f^{-1}(B_i)
+    .\] 
+  \item For \( A \subset  X \) we define \( f(A) \) to be the subset of \( Y \) consisting of all elements \( y \in  Y \) for which there exists \( x \in  A \) with \( f(x)=y \). How does \( f(X-A) \) compare with \( Y-f(A) \)? How does \( f \left( \bigcup_{i \in  I} A_i \right) \) compare with \( \bigcup_{i \in  I}  f(A_i) \)? How does \(f \left( \bigcap_{i \in  I}A_i \right) \) compare with \( \bigcap_{i \in  I}  f(A_i) \)?
+\end{enumerate}
+
+
+
+
+
+
+}
+\pf{Proof}{\pf{Proof of 2.a.1}{\( x \in  f^{-1}(Y-B) \implies f(x) \in Y-B \therefore x' \in  f^{-1}(B) \therefore x \in  X-f^{-1}(B), \forall x \in f^{-1}(Y-B)\) }
+  \pf{Proof of 2.a.2}{ \( x \in  f^{-1}(\bigcup_{i \in  I} B_i )  \implies f(x) \in B_i, \forall i \in  I \implies x \in  f^{-1}B_i, \forall i \in  I \implies x \in f^{-1}(B_i), \forall  i \in  I \implies x \in \bigcup_{i \in I} f^{-1}(B_i) \). } 
+  \pf{Proof of 2.a.3}{ Exactly the same as 2.a.2.}
+  \pf{Proof of 2.b.1}{}
+  \pf{Proof of 2.b.2}{}
+  \pf{Proof of 2.b.3}{}
+
+
+
+}
+
+\qs{}{Give an explicity bijection between \( f : \mathbb{N} \leftrightarrow \mathbb{N}^2 \)}
+\sol
+\qs{}{At his death, a millionare left his \( 10 \) children a million dollars in cash, all in \$\(  100,\) \$\(10, \) \$\(1 \) bills, \( 10 \)-cent, and \( 1 \)-cent coins. Show that there is a way for them to split the fortune into ten stacks of equal value. (Note that this would not be true if there were \$ \(3 \) bills).}
+\end{document}
