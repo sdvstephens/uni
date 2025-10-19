@@ -626,5 +626,24 @@
       }
     ],
     "created": "2025-10-13T17:10:18.890502"
+  },
+  "Sleepy_Joe": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-10-18T20:44:45.557513",
+        "topic": "joe lecture 1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-10-18T20:44:45.557509",
+    "homework": [
+      {
+        "number": 1,
+        "date": "2025-10-18T20:51:20.332166",
+        "title": "sletjosemton",
+        "filename": "hw_01.tex"
+      }
+    ]
   }
 }

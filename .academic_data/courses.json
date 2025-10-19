@@ -50,5 +50,15 @@
     "created": "2025-10-13T17:09:47.827088",
     "assignments": {},
     "notes_path": "/Users/stephens1/university/Math-55a"
+  },
+  "sleepy_joe": {
+    "name": "Sleepy Joe",
+    "code": "JOE101",
+    "credits": 3.0,
+    "instructor": "Joe Trump",
+    "schedule": "",
+    "created": "2025-10-18T20:43:34.063334",
+    "assignments": {},
+    "notes_path": "/Users/stephens1/university/Sleepy_Joe"
   }
 }
