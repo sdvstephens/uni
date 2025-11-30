@@ -1,0 +1,1 @@
+Undergone an ENORMOUS update. Now using emacs instead of neovim, workflow is 2x as fast (though took months to complete), and is much more comprehensive. Also includes in-line TeX compiled viewing in emacs-doom. 
