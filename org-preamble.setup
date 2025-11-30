@@ -1,0 +1,14 @@
+# -*- org -*-
+# Common setup for lecture/pset org files
+# Individual lectures compiled into master document later
+
+#+OPTIONS: toc:nil num:t author:nil date:nil title:nil
+#+STARTUP: latexpreview fold noexport ignore
+#+LATEX_CLASS: report
+#+LATEX_CLASS_OPTIONS: [11pt]
+#+LATEX_HEADER_EXTRA: \input{~/university/preamble.tex}
+# Suppress \author{}, \date{}, \title{} commands (we use \lecture{}{} instead)
+#+BIND: org-latex-title-command ""
+#+BIND: org-latex-toc-command ""
+#+exclude_TAGS: noexport ignore
+#+KEYWORDS: orgmode pdf latex

@@ -17,10 +17,7 @@ class IpeFigures:
 <ipe version="70218" creator="Ipe 7.2.24">
 <info created="D:20240101000000" modified="D:20240101000000"/>
 <preamble>
-\\usepackage{amsmath}
-\\usepackage{amssymb}
-\\usepackage{amsfonts}
-\\usepackage{mathtools}
+\\input{/Users/stephens1/university/preamble.tex}
 </preamble>
 <ipestyle name="basic">
 <color name="red" value="1 0 0"/>

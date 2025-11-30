@@ -468,6 +468,12 @@
         "date": "2025-10-11T00:14:39.506660",
         "topic": "test",
         "filename": "lecture_10.tex"
+      },
+      {
+        "number": 11,
+        "date": "2025-10-31T02:21:58.371066",
+        "topic": "tester001",
+        "filename": "lecture_11.tex"
       }
     ],
     "created": "2025-08-29T12:36:29.034447"
@@ -556,6 +562,12 @@
         "date": "2025-10-13T18:06:12.178519",
         "topic": "Naive-set-theory",
         "filename": "lecture_02.tex"
+      },
+      {
+        "number": 3,
+        "date": "2025-10-20T09:02:12.433082",
+        "topic": "10-20-2025",
+        "filename": "lecture_03.tex"
       }
     ],
     "created": "2025-10-09T23:34:43.091126"
@@ -585,6 +597,228 @@
         "date": "2025-10-15T21:12:37.380045",
         "topic": "Quotient Groups",
         "filename": "lecture_04.tex"
+      },
+      {
+        "number": 5,
+        "date": "2025-10-27T09:54:36.876378",
+        "topic": "today",
+        "filename": "lecture_05.tex"
+      },
+      {
+        "number": 6,
+        "date": "2025-10-31T01:47:33.780901",
+        "topic": "Test",
+        "filename": "lecture_06.tex"
+      },
+      {
+        "number": 7,
+        "date": "2025-10-31T02:03:29.981733",
+        "topic": "test-1",
+        "filename": "lecture_07.tex"
+      },
+      {
+        "number": 8,
+        "date": "2025-11-02T19:24:19.955584",
+        "topic": "review-midterm-2",
+        "filename": "lecture_08.tex"
+      },
+      {
+        "number": 9,
+        "date": "2025-11-03T09:01:32.517653",
+        "topic": "lecture-24",
+        "filename": "lecture_09.tex"
+      },
+      {
+        "number": 1,
+        "date": "2025-11-14T18:34:39.781468",
+        "topic": "testlec1",
+        "filename": "lecture_01.org"
+      },
+      {
+        "number": 2,
+        "date": "2025-11-14T18:38:20.728518",
+        "topic": "tester001",
+        "filename": "lecture_02.org"
+      },
+      {
+        "number": 3,
+        "date": "2025-11-14T18:54:30.519442",
+        "topic": "tester1011",
+        "filename": "lecture_03.org"
+      },
+      {
+        "number": 4,
+        "date": "2025-11-14T18:56:21.489998",
+        "topic": "test",
+        "filename": "lecture_04.org"
+      },
+      {
+        "number": 5,
+        "date": "2025-11-14T18:59:27.462150",
+        "topic": "testerfinalpleaseeee",
+        "filename": "lecture_05.org"
+      },
+      {
+        "number": 6,
+        "date": "2025-11-14T20:09:26.159736",
+        "topic": "10101010",
+        "filename": "lecture_06.org"
+      },
+      {
+        "number": 7,
+        "date": "2025-11-14T20:30:37.019286",
+        "topic": "test1m",
+        "filename": "lecture_07.org"
+      },
+      {
+        "number": 8,
+        "date": "2025-11-14T20:34:44.532080",
+        "topic": "tesmm",
+        "filename": "lecture_08.org"
+      },
+      {
+        "number": 9,
+        "date": "2025-11-14T20:44:30.710877",
+        "topic": "testlmkw",
+        "filename": "lecture_09.org"
+      },
+      {
+        "number": 10,
+        "date": "2025-11-14T21:02:18.524117",
+        "topic": "testerlainwrf",
+        "filename": "lecture_10.org"
+      },
+      {
+        "number": 11,
+        "date": "2025-11-14T22:51:09.576741",
+        "topic": "lmnop",
+        "filename": "lecture_11.org"
+      },
+      {
+        "number": 12,
+        "date": "2025-11-14T23:22:17.155589",
+        "topic": "tester1011",
+        "filename": "lecture_12.org"
+      },
+      {
+        "number": 13,
+        "date": "2025-11-14T23:24:03.214084",
+        "topic": "tessster12",
+        "filename": "lecture_13.org"
+      },
+      {
+        "number": 14,
+        "date": "2025-11-14T23:29:24.408699",
+        "topic": "posejt",
+        "filename": "lecture_14.org"
+      },
+      {
+        "number": 15,
+        "date": "2025-11-14T23:33:57.600353",
+        "topic": "test",
+        "filename": "lecture_15.org"
+      },
+      {
+        "number": 16,
+        "date": "2025-11-15T00:12:14.189687",
+        "topic": "testestet",
+        "filename": "lecture_16.org"
+      },
+      {
+        "number": 17,
+        "date": "2025-11-15T00:51:47.075081",
+        "topic": "tt",
+        "filename": "lecture_17.org"
+      },
+      {
+        "number": 18,
+        "date": "2025-11-15T01:11:23.258679",
+        "topic": "oakwfpoajwg",
+        "filename": "lecture_18.org"
+      },
+      {
+        "number": 19,
+        "date": "2025-11-15T01:23:22.522345",
+        "topic": "qowkemdc",
+        "filename": "lecture_19.org"
+      },
+      {
+        "number": 20,
+        "date": "2025-11-15T01:51:15.198789",
+        "topic": "sexrdctfv",
+        "filename": "lecture_20.org"
+      },
+      {
+        "number": 21,
+        "date": "2025-11-15T01:54:42.054679",
+        "topic": "wefgh",
+        "filename": "lecture_21.org"
+      },
+      {
+        "number": 22,
+        "date": "2025-11-15T01:56:55.280240",
+        "topic": "t1",
+        "filename": "lecture_22.org"
+      },
+      {
+        "number": 23,
+        "date": "2025-11-15T02:03:16.950571",
+        "topic": "sietnso",
+        "filename": "lecture_23.org"
+      },
+      {
+        "number": 24,
+        "date": "2025-11-15T02:17:08.291156",
+        "topic": "egaf",
+        "filename": "lecture_24.org"
+      },
+      {
+        "number": 25,
+        "date": "2025-11-15T02:24:40.185135",
+        "topic": "awd",
+        "filename": "lecture_25.org"
+      },
+      {
+        "number": 26,
+        "date": "2025-11-15T02:34:54.676037",
+        "topic": "aief",
+        "filename": "lecture_26.org"
+      },
+      {
+        "number": 27,
+        "date": "2025-11-15T02:40:18.680596",
+        "topic": "adwa dw",
+        "filename": "lecture_27.org"
+      },
+      {
+        "number": 28,
+        "date": "2025-11-15T02:45:23.919647",
+        "topic": "jtyrhtseg",
+        "filename": "lecture_28.org"
+      },
+      {
+        "number": 1,
+        "date": "2025-11-17T00:43:39.163659",
+        "topic": "anotherone",
+        "filename": "lecture_01.org"
+      },
+      {
+        "number": 2,
+        "date": "2025-11-17T01:10:58.014292",
+        "topic": "anotheranotherone",
+        "filename": "lecture_02.org"
+      },
+      {
+        "number": 3,
+        "date": "2025-11-17T01:21:55.782312",
+        "topic": "oiafn",
+        "filename": "lecture_03.org"
+      },
+      {
+        "number": 4,
+        "date": "2025-11-17T10:09:56.046149",
+        "topic": "t1ee",
+        "filename": "lecture_04.org"
       }
     ],
     "homework": [
@@ -623,6 +857,12 @@
         "date": "2025-10-13T17:11:37.479131",
         "title": "Problem Set 6",
         "filename": "hw_06.tex"
+      },
+      {
+        "number": 8,
+        "date": "2025-10-29T19:13:42.044245",
+        "title": "Problem Set 8",
+        "filename": "hw_08.tex"
       }
     ],
     "created": "2025-10-13T17:10:18.890502"
@@ -645,5 +885,49 @@
         "filename": "hw_01.tex"
       }
     ]
+  },
+  "TestCourse01": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-11-01T17:56:05.982775",
+        "topic": "TestTopic1",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-11-01T17:56:05.982768"
+  },
+  "Artin_and_Axler": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-11-03T15:21:25.442166",
+        "topic": "Artin and Axler Chapter 2",
+        "filename": "lecture_01.tex"
+      }
+    ],
+    "created": "2025-11-03T15:21:25.442158"
+  },
+  "Studies_in_Algebra_and_Group_Theory": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-11-28T13:10:53.249047",
+        "topic": "test",
+        "filename": "lecture_01.org"
+      }
+    ],
+    "created": "2025-11-28T13:10:53.249042"
+  },
+  "Math-55b": {
+    "lectures": [
+      {
+        "number": 1,
+        "date": "2025-11-28T14:09:20.887329",
+        "topic": "Introduction",
+        "filename": "lecture_01.org"
+      }
+    ],
+    "created": "2025-11-28T14:09:20.887326"
   }
 }

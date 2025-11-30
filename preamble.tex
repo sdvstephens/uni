@@ -1,138 +1,34 @@
 \newcommand{\course}[1]{\newcommand{\courseloc}{#1}}
 
-\usepackage{amsmath,amssymb,amsfonts,mathtools,amsthm}
-\usepackage{mathrsfs}
-\usepackage{booktabs, emptypage, subcaption, multicol}
-\usepackage{braket, bm, lipsum, systeme}
-\usepackage{hyperref,theoremref}
-\hypersetup{
-  pdftitle={assignment},
-  colorlinks=true, linkcolor=doc!90,
-  bookmarksnumbered=true,
-  bookmarksopen=true
-}
+% ===========================================
+% PREVIEW MODE DETECTION
+% ===========================================
+% Check if preview package is loaded (for org-latex-preview)
+\newif\iforgpreview
+\orgpreviewfalse
+\makeatletter
+\@ifpackageloaded{preview}{\orgpreviewtrue}{}
+\makeatother
+
+% ===========================================
+% FONT ENCODING (load early)
+% ===========================================
 \usepackage[T1]{fontenc}
 \usepackage{anyfontsize}
-\usepackage{lmodern}
-\usepackage{graphicx}
-\usepackage{import}
-\usepackage{transparent}
-\usepackage{float}
-\usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,margin=0.85in,bmargin=2cm,footskip=.4in]{geometry}
-\usepackage[shortlabels]{enumitem}
+
+% ===========================================
+% MATH PACKAGES (always load)
+% ===========================================
+\usepackage{amsmath,amssymb,amsfonts,mathtools,amsthm}
+\usepackage{eulervm}
+\usepackage{mathrsfs}
+
+% ===========================================
+% COLORS (always load, must come before hyperref)
+% ===========================================
 \usepackage[dvipsnames]{xcolor}
-\usepackage{xfrac}
-\usepackage{comment}
-\let\mathbf\relax
-\usepackage[varbb]{newpxmath}
-\usepackage[most,many,breakable]{tcolorbox}
-\usepackage{varwidth}
-\usepackage{nameref}
-\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
-\usepackage{chngcntr}
-\usepackage{import}
-\usepackage{xifthen}
-\usepackage{pdfpages}
-\usepackage{transparent}
-\usepackage{xparse}
-\usepackage{pgffor}
-%\usepackage{emoji}
-\usepackage{stmaryrd}
-\usepackage{listings}
-\usepackage{siunitx}
-\usepackage{tikz, tikz-cd, tikz-3dplot, tikzsymbols}
-\usetikzlibrary{intersections, angles, quotes, calc, positioning, arrows.meta}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.13}
-\usepackage{thmtools}
-\usepackage[framemethod=TikZ]{mdframed}
-\usepackage{etoolbox}
-\usepackage{xifthen} 
-\usepackage{titlesec}
-\usepackage[dotinlabels]{titletoc}
-\usepackage{fancyhdr}
-\usepackage{marginnote}
-\usepackage{witharrows}
-\usepackage{scalerel}
-\usepackage[usestackEOL]{stackengine}
-\usepackage[linguistics]{forest}
-\usepackage{array}
-\usepackage[export]{adjustbox}
-\usepackage{multirow}
-\usepackage{tabularx}
-\usepackage{extarrows}
-\usepackage[ 
-backend=biber,
-backref=true,
-style=numeric,
-sortcites=true,
-sorting=none,
-defernumbers=true
-]{biblatex}
-\usepackage{xurl}
-\usepackage[makeroom]{cancel}
-\usepackage{bookmark}
-\usepackage{tensor}
-\usepackage{derivative}
-\usepackage{annotate-equations}
-\usepackage{dashbox}
-\usepackage{nicematrix}
-\usepackage{ytableau}
-\usepackage{tabularray}
-\usepackage{xpatch}
 
-
-
-
-
-%=================================
-%= TikZ things customized        =
-%=================================
-
-
-\newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
-\SetCommentSty{mycommfont}
-\newcommand{\incfig}[2]{%
-    \def\svgwidth{#1\columnwidth}
-    \import{./figures/}{#2.pdf_tex}
-}
-
-\graphicspath{{./figures/}}
-\pdfsuppresswarningpagegroup=1
-
-
-
-
-
-
-
-\usepackage{tikzsymbols}
-\tikzset{
-	symbol/.style={
-			draw=none,
-			every to/.append style={
-					edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
-		}
-}
-\tikzstyle{c} = [circle,fill=black,scale=0.5]
-\tikzstyle{b} = [draw, thick, black, -]
-\tikzset{
-    vertex/.style={
-        circle,
-        draw,
-        minimum size=6mm,
-        inner sep=0pt
-    }
-}
-
-%\tikzset{
-%    force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt}
-%}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SELF MADE COLORS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+% Custom colors
 \definecolor{doc}{RGB}{0,60,110}
 \definecolor{myg}{RGB}{56, 140, 70}
 \definecolor{myb}{RGB}{45, 111, 177}
@@ -156,14 +52,179 @@ defernumbers=true
 \definecolor{myexercisebg}{HTML}{F2FBF8}
 \definecolor{myexercisefg}{HTML}{88D6D1}
 
+% ===========================================
+% LAYOUT AND STRUCTURE (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage[tmargin=2cm,rmargin=1in,lmargin=1in,bmargin=2cm,footskip=.4in]{geometry}
+  \usepackage[shortlabels]{enumitem}
+  \usepackage{titlesec}
+  \usepackage[dotinlabels]{titletoc}
+  \usepackage{fancyhdr}
+\fi
+
+% ===========================================
+% HYPERREF (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage{hyperref,theoremref}
+  \hypersetup{
+    pdftitle={assignment},
+    colorlinks=true, linkcolor=doc!90,
+    bookmarksnumbered=true,
+    bookmarksopen=true
+  }
+  \usepackage{bookmark}
+\fi
+
+% ===========================================
+% GRAPHICS AND FIGURES (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage{graphicx}
+  \usepackage{import}
+  \usepackage{float}
+  \usepackage{subcaption}
+\fi
+
+% ===========================================
+% TABLES (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage{booktabs}
+  \usepackage{array}
+  \usepackage{multirow}
+  \usepackage{tabularx}
+  \usepackage{nicematrix}
+  \usepackage{tabularray}
+\fi
+
+% ===========================================
+% GENERAL UTILITIES (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage{emptypage, multicol}
+  \usepackage{lipsum}
+  \usepackage{xfrac}
+  \usepackage{comment}
+  \usepackage{varwidth}
+  \usepackage{nameref}
+  \usepackage{chngcntr}
+  \usepackage{marginnote}
+  \usepackage{pdfpages}
+  \usepackage{transparent}
+  \usepackage{algorithm2e}
+  \usepackage{listings}
+\fi
+
+% ===========================================
+% ALWAYS LOAD - MATH UTILITIES
+% ===========================================
+\usepackage{braket, bm}
+\usepackage{systeme}
+\usepackage{xifthen}
+\usepackage{xparse}
+\usepackage{pgffor}
+\usepackage{etoolbox}
+\usepackage{xpatch}
+\usepackage{stmaryrd}
+\usepackage{siunitx}
+\usepackage{derivative}
+\usepackage{cancel}
+\usepackage{ytableau}
+
+% ===========================================
+% TIKZ (always load for diagrams)
+% ===========================================
+\usepackage{tikz, tikz-cd, tikz-3dplot, tikzsymbols}
+\usetikzlibrary{intersections, angles, quotes, calc, positioning, arrows.meta}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\usepackage[linguistics]{forest}
+
+% ===========================================
+% THEOREM ENVIRONMENTS (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage{thmtools}
+  \usepackage[framemethod=TikZ]{mdframed}
+  \usepackage[most,many,breakable]{tcolorbox}
+\fi
+
+% ===========================================
+% EQUATION TOOLS (always load)
+% ===========================================
+\usepackage{witharrows}
+\usepackage{scalerel}
+\usepackage[usestackEOL]{stackengine}
+\usepackage{extarrows}
+\iforgpreview\else
+  \usepackage{annotate-equations}
+\fi
+\usepackage{dashbox}
+
+% ===========================================
+% BIBLIOGRAPHY (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage[ 
+  backend=biber,
+  backref=true,
+  style=numeric,
+  sortcites=true,
+  sorting=none,
+  defernumbers=true
+  ]{biblatex}
+  \usepackage{xurl}
+\fi
+
+% ===========================================
+% ADJUSTBOX (skip in preview mode)
+% ===========================================
+\iforgpreview\else
+  \usepackage[export]{adjustbox}
+\fi
+
+
+%=================================
+%= TikZ things customized        =
+%=================================
+
+\iforgpreview\else
+  \newcommand\mycommfont[1]{\footnotesize\ttfamily\textcolor{blue}{#1}}
+  \SetCommentSty{mycommfont}
+  \newcommand{\incfig}[2]{%
+      \def\svgwidth{#1\columnwidth}
+      \import{./figures/}{#2.pdf_tex}
+  }
+  \graphicspath{{./figures/}}
+  \pdfsuppresswarningpagegroup=1
+\fi
+
+\tikzset{
+	symbol/.style={
+			draw=none,
+			every to/.append style={
+					edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+		}
+}
+\tikzstyle{c} = [circle,fill=black,scale=0.5]
+\tikzstyle{b} = [draw, thick, black, -]
+\tikzset{
+    vertex/.style={
+        circle,
+        draw,
+        minimum size=6mm,
+        inner sep=0pt
+    }
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TCOLORBOX SETUPS
+% TCOLORBOX SETUPS (skip in preview mode)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iforgpreview\else
 
 \setlength{\parindent}{1cm}
-%================================
-% THEOREM BOX
-%================================
 
 \tcbuselibrary{theorems,skins,hooks}
 \newtcbtheorem[number within=section]{Theorem}{Theorem}
@@ -204,7 +265,6 @@ defernumbers=true
 }
 {th}
 
-
 \newtcolorbox{Theoremcon}
 {%
 	enhanced
@@ -218,9 +278,6 @@ defernumbers=true
 	,separator sign none
 }
 
-%================================
-% Corollery
-%================================
 \newtcbtheorem[number within=section]{Corollary}{Corollary}
 {%
 	enhanced
@@ -239,6 +296,7 @@ defernumbers=true
 	,segmentation style={solid, myp!85!black}
 }
 {th}
+
 \newtcbtheorem[number within=chapter]{corollary}{Corollary}
 {%
 	enhanced
@@ -257,11 +315,6 @@ defernumbers=true
 	,segmentation style={solid, myp!85!black}
 }
 {th}
-
-
-%================================
-% LEMMA
-%================================
 
 \newtcbtheorem[number within=section]{Lemma}{Lemma}
 {%
@@ -301,10 +354,6 @@ defernumbers=true
 }
 {th}
 
-%================================
-% Exercise
-%================================
-
 \newtcbtheorem[number within=section]{Exercise}{Exercise}
 {%
 	enhanced,
@@ -342,11 +391,6 @@ defernumbers=true
 	segmentation style={solid, myexercisefg},
 }
 {th}
-
-
-%================================
-% PROPOSITION
-%================================
 
 \newtcbtheorem[number within=section]{Prop}{Proposition}
 {%
@@ -386,11 +430,6 @@ defernumbers=true
 }
 {th}
 
-
-%================================
-% CLAIM
-%================================
-
 \newtcbtheorem[number within=section]{claim}{Claim}
 {%
 	enhanced
@@ -410,11 +449,6 @@ defernumbers=true
 }
 {th}
 
-
-
-%================================
-% EXAMPLE BOX
-%================================
 
 \newtcbtheorem[number within=section]{Example}{Example}
 {%
@@ -450,10 +484,6 @@ defernumbers=true
 }
 {ex}
 
-%================================
-% DEFINITION BOX
-%================================
-
 \newtcbtheorem[number within=section]{Definition}{Definition}{enhanced,
 	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
 	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
@@ -474,6 +504,7 @@ defernumbers=true
 		},
 	fonttitle=\bfseries,
 	title={#2},#1}{def}
+
 \newtcbtheorem[number within=chapter]{definition}{Definition}{enhanced,
 	before skip=2mm,after skip=2mm, colback=red!5,colframe=red!80!black,boxrule=0.5mm,
 	attach boxed title to top left={xshift=1cm,yshift*=1mm-\tcboxedtitleheight}, varwidth boxed title*=-3cm,
@@ -495,14 +526,8 @@ defernumbers=true
 	fonttitle=\bfseries,
 	title={#2},#1}{def}
 
-
-%================================
-% EXERCISE BOX
-%================================
-
 \newcounter{questioncounter}
 \counterwithin{questioncounter}{chapter}
-% \counterwithin{questioncounter}{section}
 
 \makeatletter
 \newtcbtheorem[use counter=questioncounter]{question}{Question}{enhanced,
@@ -530,10 +555,6 @@ defernumbers=true
 }{def}
 \makeatother
 
-%================================
-% SOLUTION BOX
-%================================
-
 \makeatletter
 \newtcolorbox{solution}{enhanced,
 	breakable,
@@ -557,10 +578,6 @@ defernumbers=true
 		},
 }
 \makeatother
-
-%================================
-% Question BOX
-%================================
 
 \makeatletter
 \newtcbtheorem{qstion}{Question}{enhanced,
@@ -608,11 +625,6 @@ defernumbers=true
 	#1
 }{def}
 
-
-%================================
-% NOTE BOX
-%================================
-
 \usetikzlibrary{arrows,calc,shadows.blur}
 \tcbuselibrary{skins}
 \newtcolorbox{note}[1][]{%
@@ -649,12 +661,6 @@ defernumbers=true
 	#1,
 }
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  TITLE BOX FOR PSETS 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \newtcolorbox{titlebox}[1][]{%
 	enhanced jigsaw,
 	colback=gray!20!white,%
@@ -690,32 +696,38 @@ defernumbers=true
 		},
 }
 
+\newtcolorbox{mybox}[3][]
+{
+  colback  = #2!10,
+  colframe = #2!25,
+  coltitle = #2!20!black,  
+  title    = {#3},
+  #1,
+}
 
-
-
-
-
-
+\fi % End of \iforgpreview\else block for tcolorbox
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SELF MADE COMMANDS
+% SELF MADE COMMANDS (always load)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\thm}[2]{\begin{Theorem}{#1}{}#2\end{Theorem}}
-\newcommand{\cor}[2]{\begin{Corollary}{#1}{}#2\end{Corollary}}
-\newcommand{\mlemma}[2]{\begin{Lemma}{#1}{}#2\end{Lemma}}
-\newcommand{\mer}[2]{\begin{Exercise}{#1}{}#2\end{Exercise}}
-\newcommand{\mprop}[2]{\begin{Prop}{#1}{}#2\end{Prop}}
-\newcommand{\clm}[3]{\begin{claim}{#1}{#2}#3\end{claim}}
-\newcommand{\wc}[2]{\begin{wconc}{#1}{}\setlength{\parindent}{1cm}#2\end{wconc}}
-\newcommand{\thmcon}[1]{\begin{Theoremcon}{#1}\end{Theoremcon}}
-\newcommand{\ex}[2]{\begin{Example}{#1}{}#2\end{Example}}
-\newcommand{\dfn}[2]{\begin{Definition}[colbacktitle=red!75!black]{#1}{}#2\end{Definition}}
-\newcommand{\dfnc}[2]{\begin{definition}[colbacktitle=red!75!black]{#1}{}#2\end{definition}}
-\newcommand{\qs}[2]{\begin{question}{#1}{}#2\end{question}}
-\newcommand{\pf}[2]{\begin{myproof}[#1]#2\end{myproof}}
-\newcommand{\nt}[1]{\begin{note}#1\end{note}}
+\iforgpreview\else
+  \newcommand{\thm}[2]{\begin{Theorem}{#1}{}#2\end{Theorem}}
+  \newcommand{\cor}[2]{\begin{Corollary}{#1}{}#2\end{Corollary}}
+  \newcommand{\mlemma}[2]{\begin{Lemma}{#1}{}#2\end{Lemma}}
+  \newcommand{\mer}[2]{\begin{Exercise}{#1}{}#2\end{Exercise}}
+  \newcommand{\mprop}[2]{\begin{Prop}{#1}{}#2\end{Prop}}
+  \newcommand{\clm}[3]{\begin{claim}{#1}{#2}#3\end{claim}}
+  \newcommand{\wc}[2]{\begin{wconc}{#1}{}\setlength{\parindent}{1cm}#2\end{wconc}}
+  \newcommand{\thmcon}[1]{\begin{Theoremcon}{#1}\end{Theoremcon}}
+  \newcommand{\ex}[2]{\begin{Example}{#1}{}#2\end{Example}}
+  \newcommand{\dfn}[2]{\begin{Definition}[colbacktitle=red!75!black]{#1}{}#2\end{Definition}}
+  \newcommand{\dfnc}[2]{\begin{definition}[colbacktitle=red!75!black]{#1}{}#2\end{definition}}
+  \newcommand{\qs}[2]{\begin{question}{#1}{}#2\end{question}}
+  \newcommand{\pf}[2]{\begin{myproof}[#1]#2\end{myproof}}
+  \newcommand{\nt}[1]{\begin{note}#1\end{note}}
+\fi
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
 		\node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -725,6 +737,7 @@ defernumbers=true
 	{\the\value{#1}}%
 }
 \newcommand{\getCurrentSectionNumber}{\getcurrentref{section}}
+
 \newenvironment{myproof}[1][\proofname]{%
 	\proof[\bfseries #1: ]%
 }{\endproof}
@@ -743,58 +756,122 @@ defernumbers=true
 }
 \makeatother
 
-% deliminators
-
-\newsavebox\diffdbox
-\newcommand{\slantedromand}{{\mathpalette\makesl{d}}}
-\newcommand{\makesl}[2]{%
-\begingroup
-\sbox{\diffdbox}{$\mathsurround=0pt#1\mathrm{#2}$}%
-\pdfsave
-\pdfsetmatrix{1 0 0.2 1}%
-\rlap{\usebox{\diffdbox}}%
-\pdfrestore
-\hskip\wd\diffdbox
-\endgroup
-}
-\newcommand{\dd}[1][]{\ensuremath{\mathop{}\!\ifstrempty{#1}{%
-\slantedromand\@ifnextchar^{\hspace{0.2ex}}{\hspace{0.1ex}}}%
-{\slantedromand\hspace{0.2ex}^{#1}}}}
-\ProvideDocumentCommand\dv{o m g}{%
-  \ensuremath{%
-    \IfValueTF{#3}{%
-      \IfNoValueTF{#1}{%
-        \frac{\dd #2}{\dd #3}%
-      }{%
-        \frac{\dd^{#1} #2}{\dd #3^{#1}}%
-      }%
-    }{%
-      \IfNoValueTF{#1}{%
-        \frac{\dd}{\dd #2}%
-      }{%
-        \frac{\dd^{#1}}{\dd #2^{#1}}%
-      }%
-    }%
-  }%
-}
-\providecommand*{\pdv}[3][]{\frac{\partial^{#1}#2}{\partial#3^{#1}}}
-%  - others
+% Math operators
 \DeclareMathOperator{\Lap}{\mathcal{L}}
-\DeclareMathOperator{\Var}{Var} % varience
-\DeclareMathOperator{\Cov}{Cov} % covarience
-\DeclareMathOperator{\E}{E} % expected
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\E}{E}
 
-% Since the amsthm package isn't loaded
-
-% I prefer the slanted \leq
-\let\oldleq\leq % save them in case they're every wanted
+% Slanted leq/geq
+\let\oldleq\leq
 \let\oldgeq\geq
 \renewcommand{\leq}{\leqslant}
 \renewcommand{\geq}{\geqslant}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros (always load)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\id}{\text{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+
+\newcommand{\ts}{\textsuperscript}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+
+\newenvironment{subproof}[1][Proof]{%
+\begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
+{\end{proof}}
+
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\On}{\mathrm{On}}
+\DeclareMathOperator{\img}{im}
+\DeclareMathOperator{\Img}{Im}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\Coker}{Coker}
+\DeclareMathOperator{\Ker}{Ker}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\pred}{pred}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Mor}{Mor}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Aut}{Aut}
+
+\newcommand{\eps}{\epsilon}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
+\providecommand{\half}{\frac{1}{2}}
+\newcommand{\dang}{\measuredangle}
+\newcommand{\ray}[1]{\overrightarrow{#1}}
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+\newcommand{\Qed}{\begin{flushright}\qed\end{flushright}}
+\newcommand{\parinn}{\setlength{\parindent}{1cm}}
+\newcommand{\parinf}{\setlength{\parindent}{0cm}}
+\newcommand{\inorm}{\norm_{\infty}}
+\newcommand{\opensets}{\{V_{\alpha}\}_{\alpha\in I}}
+\newcommand{\oset}{V_{\alpha}}
+\newcommand{\opset}[1]{V_{\alpha_{#1}}}
+\newcommand{\lub}{\text{lub}}
+
+% Derivative shortcuts
+\newcommand{\od}[2]{\frac{\mathrm d #1}{\mathrm d #2}}
+\newcommand{\oD}[3]{\frac{\mathrm d^{#1} #2}{\mathrm d {#3}^{#1}}}
+\newcommand{\odd}[2]{\dfrac{\mathrm d #1}{\mathrm d #2}}
+\newcommand{\oDd}[3]{\dfrac{\mathrm d^{#1} #2}{\mathrm d {#3}^{#1}}}
+\newcommand{\del}{\partial}
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\pD}[3]{\frac{\partial^{#1} #2}{\partial {#3}^{#1}}}
+\newcommand{\pdd}[2]{\dfrac{\partial #1}{\partial #2}}
+\newcommand{\pDd}[3]{\dfrac{\partial^{#1} #2}{\partial {#3}^{#1}}}
+
+% Misc
+\newcommand{\lm}{\lambda}
+\newcommand{\uin}{\mathbin{\rotatebox[origin=c]{90}{$\in$}}}
+\newcommand{\usubset}{\mathbin{\rotatebox[origin=c]{90}{$\subset$}}}
+\newcommand{\lt}{\left}
+\newcommand{\rt}{\right}
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\exs}{\exists}
+\newcommand{\st}{\strut}
+\newcommand{\dps}[1]{\displaystyle{#1}}
+
+\newcommand{\sol}{\setlength{\parindent}{0cm}\textbf{\textit{Solution:}}\setlength{\parindent}{1cm} }
+\newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TABLE OF CONTENTS
+% TABLE OF CONTENTS (skip in preview mode)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iforgpreview\else
 
 \contentsmargin{0cm}
 \titlecontents{chapter}[3.7pc]
@@ -840,7 +917,6 @@ defernumbers=true
 		  \pgftext[right,x=9cm,y=0.2cm]{\color{white}\Huge\sc\bfseries \contentsname};%
 	  \end{tikzpicture}}%
 	\@starttoc{toc}
-% Restore frame formatting for chapters
 	\titleformat{\chapter}[frame]
 	  {\normalfont}
 	  {\filright
@@ -851,9 +927,6 @@ defernumbers=true
 }
 \makeatother
 
-
-%%%MISC THINGS FOR PREFS%%%%
-
 \lstset
 {
     language=[LaTeX]TeX,
@@ -863,76 +936,46 @@ defernumbers=true
     identifierstyle=\color{black},
 }
 
-
 \AtEndEnvironment{vb}{\null\hfill$\diamond$}%
 \AtEndEnvironment{intermezzo}{\null\hfill$\diamond$}%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% This is where the lecture generation is
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\lecture}[3]{%
   \setcounter{chapter}{\numexpr#1-1\relax}%
   \chapter{#2}%
 }
-%\titleformat{\chapter}[display]
-%  {\normalfont}
-%  {\filright
-%   \footnotesize
-%   \enspace Lecture \arabic{chapter}.\enspace}
-%  {8pt}
-%  {\Large\bfseries\filcenter}
-%\titlecontents{chapter}[1.5em]{}{\contentslabel{2.3em}}{\hspace*{-2.3em}}{\hfill\contentspage}
+
 \titlespacing*{\chapter} {0pt}{0pt}{40pt}  
 
-\usepackage{fancyhdr}
 \fancypagestyle{head}{
-  \fancyhf{}     % clear all header and footer fields
+  \fancyhf{}
   \lhead{\courseloc}
   \rhead{Lecture \thechapter}
-  \cfoot{\thepage}    % Use \pageref{LastPage} instead if you want to add the link
+  \cfoot{\thepage}
   \renewcommand{\headrulewidth}{0.5pt}
   \renewcommand{\footrulewidth}{0.5pt}
 }
 
 \fancypagestyle{plain}{
-  \fancyhf{}     % clear all header and footer fields
+  \fancyhf{}
   \rhead{\courseloc}
-  \cfoot{\thepage}    % Use \pageref{LastPage} instead if you want to add the link
+  \cfoot{\thepage}
   \renewcommand{\headrulewidth}{0.5pt}
   \renewcommand{\footrulewidth}{0.5pt}   
 }
 
 \makeatother
 
-
 \let\marginpar\marginnote
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  other stuff
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\newtcolorbox{mybox}[3][]
-{
-  colback  = #2!10,
-  colframe = #2!25,
-  coltitle = #2!20!black,  
-  title    = {#3},
-  #1,
-}
 
 \newenvironment{sidenote}[1]{\begin{noot}{gray}{#1}}{\end{noot}}
-% Side note environment with user-defined color and title
 \newenvironment{sidenotex}[2]{\begin{noot}{#1}{#2}}{\end{noot}}
 
 \newenvironment{myminipage}
     {
     \begin{center}
     \begin{minipage}{0.85\textwidth}
-    %  \begin{mdframed}
     }
     { 
-    %  \end{mdframed}
     \end{minipage}   
     \end{center}
     }
@@ -940,12 +983,13 @@ defernumbers=true
 \setlength{\parskip}{4pt}
 \setlength{\parindent}{0cm}
 
+\fi % End of TOC/lecture skip block
+
 \allowdisplaybreaks
 
 \newcommand\dboxed[1]{\dbox{\ensuremath{#1}}}
 
 %%FOR LEFT ALIGNED TEXTS IN EQUATIONS%%
-
 \makeatletter
 \newif\if@gather@prefix 
 \preto\place@tag@gather{% 
@@ -1016,7 +1060,7 @@ defernumbers=true
         }
 }
 
-
+\iforgpreview\else
 \NewDocumentEnvironment{tabularmatrix}{+b}{
     \begin{tblr}{
        hlines, vlines, columns={c},
@@ -1028,230 +1072,32 @@ defernumbers=true
 
 \DefineBibliographyStrings{english}{
    backrefpage={p.},
-  % backrefpage={},
    backrefpages={pp.}
-  % backrefpages={
 }
 \renewcommand*{\finentrypunct}{}
 
 \DeclareFieldFormat{backrefparens}{\unskip.~\raisebox{-4pt}{\scriptsize{\mkbibparens{#1}}}}
 \xpatchbibmacro{pageref}{parens}{backrefparens}{}{}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Macros
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% From SeniorMars lecture template
-\newcommand{\id}{\text{id}}
-%From M275 "Topology" at SJSU
-\newcommand{\taking}[1]{\xrightarrow{#1}}
-\newcommand{\inv}{^{-1}}
-
-%From M170 "Introduction to Graph Theory" at SJSU
-\DeclareMathOperator{\diam}{diam}
-\DeclareMathOperator{\ord}{ord}
-\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
-
-%From the USAMO .tex files
-\newcommand{\ts}{\textsuperscript}
-\newcommand{\dg}{^\circ}
-\newcommand{\ii}{\item}
-
-% % From Math 55 and Math 145 at Harvard
-\newenvironment{subproof}[1][Proof]{%
-\begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
-{\end{proof}}
-
-\newcommand{\liff}{\leftrightarrow}
-\newcommand{\lthen}{\rightarrow}
-\newcommand{\opname}{\operatorname}
-\newcommand{\surjto}{\twoheadrightarrow}
-\newcommand{\injto}{\hookrightarrow}
-\newcommand{\On}{\mathrm{On}} % ordinals
-\DeclareMathOperator{\img}{im} % Image
-\DeclareMathOperator{\Img}{Im} % Image
-\DeclareMathOperator{\coker}{coker} % Cokernel
-\DeclareMathOperator{\Coker}{Coker} % Cokernel
-\DeclareMathOperator{\Ker}{Ker} % Kernel
-\DeclareMathOperator{\rank}{rank}
-\DeclareMathOperator{\Spec}{Spec} % spectrum
-\DeclareMathOperator{\Tr}{Tr} % trace
-\DeclareMathOperator{\pr}{pr} % projection
-\DeclareMathOperator{\ext}{ext} % extension
-\DeclareMathOperator{\pred}{pred} % predecessor
-\DeclareMathOperator{\dom}{dom} % domain
-\DeclareMathOperator{\ran}{ran} % range
-\DeclareMathOperator{\Hom}{Hom} % homomorphism
-\DeclareMathOperator{\Mor}{Mor} % morphisms
-\DeclareMathOperator{\End}{End} % endomorphism
-\DeclareMathOperator{\Tor}{Tor}
-\DeclareMathOperator{\Aut}{Aut}
-
-\newcommand{\eps}{\epsilon}
-\newcommand{\veps}{\varepsilon}
-\newcommand{\ol}{\overline}
-\newcommand{\ul}{\underline}
-\newcommand{\wt}{\widetilde}
-\newcommand{\wh}{\widehat}
-\newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
-\providecommand{\half}{\frac{1}{2}}
-\newcommand{\dang}{\measuredangle} %% Directed angle
-\newcommand{\ray}[1]{\overrightarrow{#1}}
-\newcommand{\seg}[1]{\overline{#1}}
-\newcommand{\arc}[1]{\wideparen{#1}}
-\DeclareMathOperator{\cis}{cis}
-\DeclareMathOperator*{\lcm}{lcm}
-\DeclareMathOperator*{\argmin}{arg min}
-\DeclareMathOperator*{\argmax}{arg max}
-\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
-\newcommand{\symsum}{\sum_{\mathrm{sym}}}
-\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
-\newcommand{\symprod}{\prod_{\mathrm{sym}}}
-\newcommand{\Qed}{\begin{flushright}\qed\end{flushright}}
-\newcommand{\parinn}{\setlength{\parindent}{1cm}}
-\newcommand{\parinf}{\setlength{\parindent}{0cm}}
-% \newcommand{\norm}{\|\cdot\|}
-\newcommand{\inorm}{\norm_{\infty}}
-\newcommand{\opensets}{\{V_{\alpha}\}_{\alpha\in I}}
-\newcommand{\oset}{V_{\alpha}}
-\newcommand{\opset}[1]{V_{\alpha_{#1}}}
-\newcommand{\lub}{\text{lub}}
-
-% OD - Ordinary derivates
-\newcommand{\od}[2]{\frac{\mathrm d #1}{\mathrm d #2}}
-\newcommand{\oD}[3]{\frac{\mathrm d^{#1} #2}{\mathrm d {#3}^{#1}}}
-% Ordinary derivates displaystyle with dfrac
-\newcommand{\odd}[2]{\dfrac{\mathrm d #1}{\mathrm d #2}}
-\newcommand{\oDd}[3]{\dfrac{\mathrm d^{#1} #2}{\mathrm d {#3}^{#1}}}
-
-% PD - Partial derivates
-\newcommand{\del}{\partial}
-\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
-\newcommand{\pD}[3]{\frac{\partial^{#1} #2}{\partial {#3}^{#1}}}
-% Partial derivates displaystyle with dfrac
-\newcommand{\pdd}[2]{\dfrac{\partial #1}{\partial #2}}
-\newcommand{\pDd}[3]{\dfrac{\partial^{#1} #2}{\partial {#3}^{#1}}}
-
-%%%
-\newcommand{\lm}{\lambda}
-\newcommand{\uin}{\mathbin{\rotatebox[origin=c]{90}{$\in$}}}
-\newcommand{\usubset}{\mathbin{\rotatebox[origin=c]{90}{$\subset$}}}
-\newcommand{\lt}{\left}
-\newcommand{\rt}{\right}
-\newcommand{\bs}[1]{\boldsymbol{#1}}
-\newcommand{\exs}{\exists}
-\newcommand{\st}{\strut}
-\newcommand{\dps}[1]{\displaystyle{#1}}
-
-\newcommand{\sol}{\setlength{\parindent}{0cm}\textbf{\textit{Solution:}}\setlength{\parindent}{1cm} }
-\newcommand{\solve}[1]{\setlength{\parindent}{0cm}\textbf{\textit{Solution: }}\setlength{\parindent}{1cm}#1 \Qed}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%% Preliminary declarations:
-%%%% These are some commands where we declare new commands for the notes
-
-% We define the macro for the name of the professor
-% \newcommand{\professor}[1]{ \newcommand{\professorloc}{#1} }
-% We define the macro for the name of the course
-%\newcommand{\course}[1]{ \newcommand{\courseloc}{#1} }
-% We define the macro for the name of the institution
-\newcommand{\institute}[1]{ \newcommand{\instituteloc}{#1} }
-% We define the macro for the name of the class roll
-\newcommand{\roll}[1]{ \newcommand{\rollloc}{#1} }
-% We define the macro for the name of the class
-\newcommand{\class}[1]{ \newcommand{\classloc}{#1} }
-% We define the macro for the name of the session
-\newcommand{\session}[1]{ \newcommand{\sessionloc}{#1} }
-
-% We define the macro for my (student/author) name and email
-\newcommand*{\meloc}{}
-\newcommand*{\mynameloc}{}
-\newcommand*{\myemailloc}{}
-\newcommand{\me}[1]{\renewcommand{\mynameloc}{#1}}
-%\newcommand*{\me}[2][]{%
-%   \renewcommand*{\mynameloc}{#2}%
-%   \if\relax\detokenize{#1}\relax
-%      \renewcommand*{\meloc}{\textbf{#2}}%
-%      \renewcommand*{\myemailloc}{}%
-%   \else
-%      \renewcommand*{\meloc}{\textbf{\href{mailto:#1}{#2}}}%
-%      \renewcommand*{\myemailloc}{\texttt{\href{mailto:#1}{#1}}}%
-%   \fi
-%}
-
-% We define the macro for the professor's name and email
-\newcommand*{\profloc}{}
-\newcommand*{\profnameloc}{}
-\newcommand*{\profemailloc}{}
-
-\newcommand*{\professor}[2][]{%
-   \renewcommand*{\profnameloc}{#2}%
-   \if\relax\detokenize{#1}\relax
-      \renewcommand*{\profloc}{\textbf{#2}}%
-      \renewcommand*{\profemailloc}{}%
-   \else
-      \renewcommand*{\profloc}{\textbf{\href{mailto:#1}{#2}}}%
-      \renewcommand*
-      {\profemailloc}{\texttt{\href{mailto:#1}{#1}}}%
-   \fi
-}
-
-%these are auxiliary definitions used in the title section
-\newcommand{\CourseLang}{Course}
-\newcommand{\DateLang}{Submission date}
-\newcommand{\StudentLang}{Name}
-\newcommand{\ProfessorLang}{Professor}
-\newcommand{\RollLang}{Roll}          
-\newcommand{\ClassLang}{Class}                 
-\newcommand{\SessionLang}{Session}     
-\newcommand{\InstituteLang}{Institute}   
-\newcommand{\EmailLang}{Email}   
-
-
-
-% Customize author command
-% \newcommand{\myname}[1]{\gdef\printmyname{#1}}
-\author{\huge \mynameloc}
-
-% Customize title command
-\newcommand{\mytitle}[1]{\gdef\printmytitle{#1}}
-\title{\Huge Lecture Notes: \\ \courseloc}
-
-% Custom command for equation numbering inside list (itemize...)
-\newcommand{\itemnumber}{\hfill\refstepcounter{equation}(\theequation)} 
-
-% Custom commands to indicate the parts where correction, details, clarifications and diagrams are needed to add  
-\newcommand{\eqdetails}{\textcolor{red}{[need details...] }}
-\newcommand{\details}{\textcolor{red}{[need to add details here...] }}
-\newcommand{\diagram}{\textcolor{red}{[need to add diagram \& details here...] }} 
-
-
-
-
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Letterfonts
+% Letterfonts (always load)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-% Things Lie
+% Lie algebra shortcuts
 \newcommand{\kb}{\mathfrak b}
 \newcommand{\kg}{\mathfrak g}
 \newcommand{\kh}{\mathfrak h}
 \newcommand{\kn}{\mathfrak n}
 \newcommand{\ku}{\mathfrak u}
 \newcommand{\kz}{\mathfrak z}
-\DeclareMathOperator{\Ext}{Ext} % Ext functor
-\newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
-\renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group chktex 6
-\newcommand\Lie{\pounds} % Lie Derivative % https://tex.stackexchange.com/a/102689/114006
+\DeclareMathOperator{\Ext}{Ext}
+\newcommand{\gl}{\opname{\mathfrak{gl}}}
+\newcommand{\slie}{\opname{\mathfrak{sl}}}
+\newcommand\Lie{\pounds}
 
-% More script letters etc.
+% More script letters
 \newcommand{\SA}{\mathcal A}
 \newcommand{\SB}{\mathcal B}
 \newcommand{\SC}{\mathcal C}
@@ -1273,7 +1119,7 @@ defernumbers=true
 \newcommand{\kp}{\mathfrak p}
 \newcommand{\kq}{\mathfrak q}
 
-% number sets
+% Number sets
 \newcommand{\RR}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{R}}{\mathbb{R}^{#1}}}}
 \newcommand{\NN}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{N}}{\mathbb{N}^{#1}}}}
 \newcommand{\ZZ}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{Z}}{\mathbb{Z}^{#1}}}}
@@ -1282,21 +1128,16 @@ defernumbers=true
 \newcommand{\PP}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{P}}{\mathbb{P}^{#1}}}}
 \newcommand{\HH}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{H}}{\mathbb{H}^{#1}}}}
 \newcommand{\FF}[1][]{\ensuremath{\ifstrempty{#1}{\mathbb{F}}{\mathbb{F}^{#1}}}}
-% expected value
 \newcommand{\EE}{\ensuremath{\mathbb{E}}}
 \newcommand{\charin}{\text{ char }}
 \DeclareMathOperator{\sign}{sign}
 \DeclareMathOperator{\Inn}{Inn}
 \DeclareMathOperator{\Syl}{Syl}
 \DeclareMathOperator{\Gal}{Gal}
-\DeclareMathOperator{\GL}{GL} % General linear group
-\DeclareMathOperator{\SL}{SL} % Special linear group
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
 
-%---------------------------------------
-% BlackBoard Math Fonts :-
-%---------------------------------------
-
-%Captital Letters
+% BlackBoard Math Fonts
 \newcommand{\bbA}{\mathbb{A}}	\newcommand{\bbB}{\mathbb{B}}
 \newcommand{\bbC}{\mathbb{C}}	\newcommand{\bbD}{\mathbb{D}}
 \newcommand{\bbE}{\mathbb{E}}	\newcommand{\bbF}{\mathbb{F}}
@@ -1311,11 +1152,7 @@ defernumbers=true
 \newcommand{\bbW}{\mathbb{W}}	\newcommand{\bbX}{\mathbb{X}}
 \newcommand{\bbY}{\mathbb{Y}}	\newcommand{\bbZ}{\mathbb{Z}}
 
-%---------------------------------------
-% MathCal Fonts :-
-%---------------------------------------
-
-%Captital Letters
+% MathCal Fonts
 \newcommand{\mcA}{\mathcal{A}}	\newcommand{\mcB}{\mathcal{B}}
 \newcommand{\mcC}{\mathcal{C}}	\newcommand{\mcD}{\mathcal{D}}
 \newcommand{\mcE}{\mathcal{E}}	\newcommand{\mcF}{\mathcal{F}}
@@ -1329,7 +1166,6 @@ defernumbers=true
 \newcommand{\mcU}{\mathcal{U}}	\newcommand{\mcV}{\mathcal{V}}
 \newcommand{\mcW}{\mathcal{W}}	\newcommand{\mcX}{\mathcal{X}}
 \newcommand{\mcY}{\mathcal{Y}}	\newcommand{\mcZ}{\mathcal{Z}}
-%Small Letters
 \newcommand{\mca}{\mathcal{a}}	\newcommand{\mcb}{\mathcal{b}}
 \newcommand{\mcc}{\mathcal{c}}	\newcommand{\mcd}{\mathcal{d}}
 \newcommand{\mce}{\mathcal{e}}	\newcommand{\mcf}{\mathcal{f}}
@@ -1344,11 +1180,7 @@ defernumbers=true
 \newcommand{\mcw}{\mathcal{w}}	\newcommand{\mcx}{\mathcal{x}}
 \newcommand{\mcy}{\mathcal{y}}	\newcommand{\mcz}{\mathcal{z}}
 
-%---------------------------------------
-% Bold Math Fonts :-
-%---------------------------------------
-
-%Captital Letters
+% Bold Math Fonts
 \newcommand{\bmA}{\boldsymbol{A}}	\newcommand{\bmB}{\boldsymbol{B}}
 \newcommand{\bmC}{\boldsymbol{C}}	\newcommand{\bmD}{\boldsymbol{D}}
 \newcommand{\bmE}{\boldsymbol{E}}	\newcommand{\bmF}{\boldsymbol{F}}
@@ -1362,7 +1194,6 @@ defernumbers=true
 \newcommand{\bmU}{\boldsymbol{U}}	\newcommand{\bmV}{\boldsymbol{V}}
 \newcommand{\bmW}{\boldsymbol{W}}	\newcommand{\bmX}{\boldsymbol{X}}
 \newcommand{\bmY}{\boldsymbol{Y}}	\newcommand{\bmZ}{\boldsymbol{Z}}
-%Small Letters
 \newcommand{\bma}{\boldsymbol{a}}	\newcommand{\bmb}{\boldsymbol{b}}
 \newcommand{\bmc}{\boldsymbol{c}}	\newcommand{\bmd}{\boldsymbol{d}}
 \newcommand{\bme}{\boldsymbol{e}}	\newcommand{\bmf}{\boldsymbol{f}}
@@ -1377,10 +1208,7 @@ defernumbers=true
 \newcommand{\bmw}{\boldsymbol{w}}	\newcommand{\bmx}{\boldsymbol{x}}
 \newcommand{\bmy}{\boldsymbol{y}}	\newcommand{\bmz}{\boldsymbol{z}}
 
-%---------------------------------------
-% Scr Math Fonts :-
-%---------------------------------------
-
+% Scr Math Fonts
 \newcommand{\sA}{{\mathscr{A}}}   \newcommand{\sB}{{\mathscr{B}}}
 \newcommand{\sC}{{\mathscr{C}}}   \newcommand{\sD}{{\mathscr{D}}}
 \newcommand{\sE}{{\mathscr{E}}}   \newcommand{\sF}{{\mathscr{F}}}
@@ -1395,12 +1223,7 @@ defernumbers=true
 \newcommand{\sW}{{\mathscr{W}}}   \newcommand{\sX}{{\mathscr{X}}}
 \newcommand{\sY}{{\mathscr{Y}}}   \newcommand{\sZ}{{\mathscr{Z}}}
 
-
-%---------------------------------------
 % Math Fraktur Font
-%---------------------------------------
-
-%Captital Letters
 \newcommand{\mfA}{\mathfrak{A}}	\newcommand{\mfB}{\mathfrak{B}}
 \newcommand{\mfC}{\mathfrak{C}}	\newcommand{\mfD}{\mathfrak{D}}
 \newcommand{\mfE}{\mathfrak{E}}	\newcommand{\mfF}{\mathfrak{F}}
@@ -1414,7 +1237,6 @@ defernumbers=true
 \newcommand{\mfU}{\mathfrak{U}}	\newcommand{\mfV}{\mathfrak{V}}
 \newcommand{\mfW}{\mathfrak{W}}	\newcommand{\mfX}{\mathfrak{X}}
 \newcommand{\mfY}{\mathfrak{Y}}	\newcommand{\mfZ}{\mathfrak{Z}}
-%Small Letters
 \newcommand{\mfa}{\mathfrak{a}}	\newcommand{\mfb}{\mathfrak{b}}
 \newcommand{\mfc}{\mathfrak{c}}	\newcommand{\mfd}{\mathfrak{d}}
 \newcommand{\mfe}{\mathfrak{e}}	\newcommand{\mff}{\mathfrak{f}}
@@ -1429,6 +1251,58 @@ defernumbers=true
 \newcommand{\mfw}{\mathfrak{w}}	\newcommand{\mfx}{\mathfrak{x}}
 \newcommand{\mfy}{\mathfrak{y}}	\newcommand{\mfz}{\mathfrak{z}}
 
-% New command for raised \chi % https://tex.stackexchange.com/a/103898/114006 
+% Raised chi
 \DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
-\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}} % inner command, used by \rchi
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preliminary declarations (skip in preview mode)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\iforgpreview\else
+
+\newcommand{\institute}[1]{ \newcommand{\instituteloc}{#1} }
+\newcommand{\roll}[1]{ \newcommand{\rollloc}{#1} }
+\newcommand{\class}[1]{ \newcommand{\classloc}{#1} }
+\newcommand{\session}[1]{ \newcommand{\sessionloc}{#1} }
+
+\newcommand*{\meloc}{}
+\newcommand*{\mynameloc}{}
+\newcommand*{\myemailloc}{}
+\newcommand{\me}[1]{\renewcommand{\mynameloc}{#1}}
+
+\newcommand*{\profloc}{}
+\newcommand*{\profnameloc}{}
+\newcommand*{\profemailloc}{}
+
+\newcommand*{\professor}[2][]{%
+   \renewcommand*{\profnameloc}{#2}%
+   \if\relax\detokenize{#1}\relax
+      \renewcommand*{\profloc}{\textbf{#2}}%
+      \renewcommand*{\profemailloc}{}%
+   \else
+      \renewcommand*{\profloc}{\textbf{\href{mailto:#1}{#2}}}%
+      \renewcommand*{\profemailloc}{\texttt{\href{mailto:#1}{#1}}}%
+   \fi
+}
+
+\newcommand{\CourseLang}{Course}
+\newcommand{\DateLang}{Submission date}
+\newcommand{\StudentLang}{Name}
+\newcommand{\ProfessorLang}{Professor}
+\newcommand{\RollLang}{Roll}          
+\newcommand{\ClassLang}{Class}                 
+\newcommand{\SessionLang}{Session}     
+\newcommand{\InstituteLang}{Institute}   
+\newcommand{\EmailLang}{Email}   
+
+\author{\huge \mynameloc}
+\newcommand{\mytitle}[1]{\gdef\printmytitle{#1}}
+\title{\Huge Lecture Notes: \\ \courseloc}
+
+\newcommand{\itemnumber}{\hfill\refstepcounter{equation}(\theequation)} 
+
+\newcommand{\eqdetails}{\textcolor{red}{[need details...] }}
+\newcommand{\details}{\textcolor{red}{[need to add details here...] }}
+\newcommand{\diagram}{\textcolor{red}{[need to add diagram \& details here...] }} 
+
+\fi % End preliminary declarations skip block

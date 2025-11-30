@@ -45,7 +45,7 @@ class AdvancedLectureManager:
         course_path = self.root_dir / course_name
         
         # Find existing lectures and determine next number
-        lectures = list(course_path.glob("lecture_*.tex"))
+        lectures = list(course_path.glob("lecture_*.org"))
         next_num = len(lectures) + 1
         
         if not topic:
@@ -53,25 +53,26 @@ class AdvancedLectureManager:
             if not topic:
                 topic = f"Lecture {next_num}"
         
-        # Create lecture content with better template
-        date_str = datetime.now().strftime("%B %d, %Y")
-        lecture_content = f"""\\documentclass{{report}}
-\\input{{../preamble}}
+        # Create lecture content as org-mode
+        # NOTE: title/author/date are kept for org-mode display but not exported
+        # (org-preamble.setup has author:nil date:nil title:nil)
+        # \lecture{num}{topic} is inserted via export block for LaTeX output
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        lecture_content = f"""#+title: {course_name} - Lecture {next_num}: {topic}
+#+author: S. D. V. Stephens
+#+date: {date_str}
+#+setupfile: ../org-preamble.setup
+#+latex_header_extra: \\course{{{course_name}}}
 
-\\course{{{course_name}}}
-
-\\begin{{document}}
-
+#+begin_export latex
 \\lecture{{{next_num}}}{{{topic}}}
+#+end_export
 
-\\section{{{topic}}}
+* {topic}
 
-% Your notes here...
-
-\\end{{document}}
 """
         
-        lecture_file = course_path / f"lecture_{next_num:02d}.tex"
+        lecture_file = course_path / f"lecture_{next_num:02d}.org"
         with open(lecture_file, 'w') as f:
             f.write(lecture_content)
         
@@ -83,13 +84,13 @@ class AdvancedLectureManager:
             "number": next_num,
             "date": datetime.now().isoformat(),
             "topic": topic,
-            "filename": f"lecture_{next_num:02d}.tex"
+            "filename": f"lecture_{next_num:02d}.org"
         }
         
         self.metadata[course_name]["lectures"].append(lecture_meta)
         self.save_metadata()
         
-        print(f"Created {course_name}/lecture_{next_num:02d}.tex: {topic}")
+        print(f"Created {course_name}/lecture_{next_num:02d}.org: {topic}")
         return lecture_file
     def new_homework(self, course_name=None, hw_num=None, title=None):
         """Create new homework file with template"""
@@ -108,7 +109,7 @@ class AdvancedLectureManager:
         
         # Find existing homework files and determine next number
         if hw_num is None:
-            hw_files = list(psets_dir.glob("hw_*.tex"))
+            hw_files = list(psets_dir.glob("hw_*.org"))
             hw_num = len(hw_files) + 1
         
         if not title:
@@ -116,13 +117,18 @@ class AdvancedLectureManager:
             if not title:
                 title = f"Problem Set {hw_num}"
         
-        # Create homework template
-        hw_content = f"""\\documentclass{{report}}
-\\input{{~/university/preamble.tex}}
+        # Create homework template as org-mode
+        date_str = datetime.now().strftime("%Y-%m-%d")
+        hw_content = f"""#+title: {course_name} - Problem Set {hw_num}
+#+author: S. D. V. Stephens
+#+date: {date_str}
+#+setupfile: ../../org-preamble.setup
+#+latex_header_extra: \\usepackage{{tcolorbox}}
+#+latex_header_extra: \\tcbuselibrary{{skins,breakable}}
+#+latex_header_extra: \\newtcolorbox{{titlebox}}[1]{{enhanced,colback=white,colframe=black!70,fonttitle=\\bfseries,title=#1,sharp corners}}
 
-\\begin{{document}}
-
-\\begin{{titlebox}}[Math 55a]
+#+begin_export latex
+\\begin{{titlebox}}{{{course_name}}}
     \\textbf{{Name:}} S. D. V. Stephens\\\\[2mm]
     \\textbf{{Professor:}} Prof. Denis Auroux\\\\[2mm]
     \\textbf{{Date:}}\\today 
@@ -133,20 +139,26 @@ class AdvancedLectureManager:
     \\end{{center}}
 \\end{{titlebox}}
 \\vspace{{10mm}}
+#+end_export
 
-\\qs{{}}{{}}
-\\sol 
+* Problem 1
 
-\\qs{{}}{{}}
-\\sol 
+** Solution
 
-\\qs{{}}{{}}
-\\sol
+$$ 
+$$
 
-\\end{{document}}
+* Problem 2
+
+** Solution
+
+* Problem 3
+
+** Solution
+
 """
         
-        hw_file = psets_dir / f"hw_{hw_num:02d}.tex"
+        hw_file = psets_dir / f"hw_{hw_num:02d}.org"
         with open(hw_file, 'w') as f:
             f.write(hw_content)
         
@@ -161,13 +173,13 @@ class AdvancedLectureManager:
             "number": hw_num,
             "date": datetime.now().isoformat(),
             "title": title,
-            "filename": f"hw_{hw_num:02d}.tex"
+            "filename": f"hw_{hw_num:02d}.org"
         }
         
         self.metadata[course_name]["homework"].append(hw_meta)
         self.save_metadata()
         
-        print(f"Created {course_name}/psets/hw_{hw_num:02d}.tex: {title}")
+        print(f"Created {course_name}/psets/hw_{hw_num:02d}.org: {title}")
         return hw_file
     def list_recent(self, days=7):
         """List recent lectures across all courses"""
@@ -208,14 +220,12 @@ def main():
     if args.action == "new":
         filepath = manager.new_lecture(args.course, args.topic)
         if filepath:
-            # Open in nvim automatically
-            subprocess.run(["nvim", str(filepath)])
+            print(f"Created: {filepath}")
     
     elif args.action == "psets":
         filepath = manager.new_homework(args.course, args.number, args.title)
         if filepath:
-            # Open in nvim automatically
-            subprocess.run(["nvim", str(filepath)])
+            print(f"Created: {filepath}")
     
     elif args.action == "recent":
         manager.list_recent(args.days)
