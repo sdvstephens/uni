@@ -1,64 +1,22 @@
 {
-  "math55": {
-    "name": "math55",
-    "code": "",
-    "credits": 3.0,
-    "instructor": "",
-    "schedule": "",
-    "created": "2025-08-29T12:36:03.500831",
-    "assignments": {},
-    "grades": {},
-    "notes_path": "/Users/stephens1/university/math55"
-  },
   "studies-in-algebra-and-group-theory": {
-    "name": "studies-in-algebra-and-group-theory",
-    "code": "math55a",
+    "name": "Studies-in-Algebra-and-Group-Theory",
+    "code": "Math-55a",
     "credits": 3.0,
-    "instructor": "denis auroux",
+    "instructor": "Dr. Denis Auroux",
     "schedule": "",
-    "created": "2025-10-09T23:33:26.547461",
+    "created": "2024-11-30T05:08:00",
     "assignments": {},
-    "grades": {},
-    "notes_path": "/Users/stephens1/university/studies-in-algebra-and-group-theory"
+    "notes_path": "/Users/stephens1/university/Studies-in-Algebra-and-Group-Theory"
   },
-  "test": {
-    "name": "test",
-    "code": "",
+  "studies-in-real-and-complex-analysis": {
+    "name": "Studies-in-Real-and-Complex-Analysis",
+    "code": "Math-55b",
     "credits": 3.0,
-    "instructor": "",
+    "instructor": "Dr. Denis Auroux",
     "schedule": "",
-    "created": "2025-10-13T11:44:56.933727",
+    "created": "2024-11-30T05:09:00",
     "assignments": {},
-    "notes_path": "/Users/stephens1/university/test"
-  },
-  "math_55a": {
-    "name": "Math 55a",
-    "code": "",
-    "credits": 3.0,
-    "instructor": "",
-    "schedule": "",
-    "created": "2025-10-13T17:03:31.572345",
-    "assignments": {},
-    "notes_path": "/Users/stephens1/university/Math_55a"
-  },
-  "math-55a": {
-    "name": "Math-55a",
-    "code": "math55a",
-    "credits": 3.0,
-    "instructor": "Denis Auroux",
-    "schedule": "",
-    "created": "2025-10-13T17:09:47.827088",
-    "assignments": {},
-    "notes_path": "/Users/stephens1/university/Math-55a"
-  },
-  "sleepy_joe": {
-    "name": "Sleepy Joe",
-    "code": "JOE101",
-    "credits": 3.0,
-    "instructor": "Joe Trump",
-    "schedule": "",
-    "created": "2025-10-18T20:43:34.063334",
-    "assignments": {},
-    "notes_path": "/Users/stephens1/university/Sleepy_Joe"
+    "notes_path": "/Users/stephens1/university/Studies-in-Real-and-Complex-Analysis"
   }
 }

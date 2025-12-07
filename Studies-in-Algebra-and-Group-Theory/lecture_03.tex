@@ -1,0 +1,144 @@
+% Created 2025-11-30 Sun 10:54
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[capitalize]{cleveref}
+\usepackage{cancel}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{longtable}
+
+%% ox-latex features:
+%   !announce-start, !guess-pollyglossia, !guess-babel, !guess-inputenc, maths,
+%   !announce-end.
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% end ox-latex features
+
+
+\input{~/university/preamble.tex}
+\course{Studies-in-Algebra-and-Group-Theory}
+\date{}
+\title{Studies-in-Algebra-and-Group-Theory - Lecture 3: Group Relations}
+\providecolor{url}{HTML}{0077bb}
+\providecolor{link}{HTML}{882255}
+\providecolor{cite}{HTML}{999933}
+\hypersetup{
+  pdfauthor={},
+  pdftitle={},
+  pdfkeywords={orgmode pdf latex},
+  pdfsubject={},
+  pdfcreator={},
+  pdflang={English},
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=link,
+  urlcolor=url,
+  citecolor=cite}
+\urlstyle{same}\begin{document}
+
+\lecture{3}{Group Relations}
+
+We say that two sets have the same \textbf{\emph{cardinality}} if \(\exists f : X \injto Y\), and we write \(|X| \le |Y|\). This allows us to inter-relate cardinality and function relations via a special theorem.
+
+\thm{Schröder-Berstein Theorem}{If \(\exists f : X \injto Y\) and \(g : X \injto Y\) then \(|X| = |Y|\).
+}
+
+The Schröder-Berstein theorem provides some immediate results for allowing explicit bijections.
+
+\mprop{Cardinality of \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}\) to any power}{Using Schröder-Berstein we can create explicit bijections \(f : \mathbb{Z} \leftrightarrow \mathbb{N}\) given by \(n \mapsto \begin{cases} 2n & \text{if } n \ge 0; \\ -(2n+1) & \text{if } n < 0. \end{cases}\)
+}
+
+\mprop{\(|\mathbb{N} \times \mathbb{N}| = |\mathbb{N}| = \mathbb{N}^n\)}{We create the explicit bijection via \(f : \mathbb{N} \times \mathbb{N} \leftrightarrow \mathbb{N}, \, (k,1) \mapsto 2^k(2l+1)-1\). It follows then that \(\mathbb{N}^a, \mathbb{Z}^b, \mathbb{Q}^c, \forall a,b,c \in \mathbb{N}\).
+}
+
+\pf{Proof}{Proof of Prop. 3.1.2
+
+Notice that any natural number can be written as \(2^k(m)\) where \(m\) is odd, i.e., \(m = 2n+1\). A bijection is automatically created here with \(2^k(2l+1)\), and the additional \(-1\) at the end of the statement is there to shift the entire bijection down one. So instead of \((0,0) \mapsto 2^0(2(0)+1) = 1\) we get \((0,0) \mapsto 2^0(2(0)+1)-1 = 0\).
+}
+
+\mprop{Countable vs uncountable infinites}{\(|\mathbb{R}| > |\mathbb{N}|\).
+}
+
+\pf{Proof}{Proof by Cantor
+
+Given by Cantor's diagonal argument, no map \(f : \mathbb{N} \to \mathbb{R}\) be surjective, because:
+
+\[ \begin{cases} f(0) &= a_{00}a_{01}a_{02}a_{03}\ldots \\ f(1) &= a_{10}a_{11}a_{12}a_{13} \ldots \\ f(2) &= a_{20}a_{21}a_{22}a_{23}\ldots \end{cases} \]
+
+then let \(y = b_{0}b_{1}b_{2}b_{3}\) where \(b_j \neq a_{jj}\) for each \(j\). Now look at the \(j^{\text{th}}\) digit, \(y \neq f(j), \, \forall j \in \mathbb{N}\), so \(f\) can't be surjective.
+}
+
+\mprop{Cardinality of mappings}{\(|\mathbb{R}^\mathbb{N}| = |\mathbb{R}|\)
+}
+
+\pf{Proof}{Proof by Cantor's diagonal used for mappings
+
+We can use the fact that \(|(0,1)| = |\mathbb{R}|\) in addition to Cantor's diagonal argument as a decimal expansion---\(t = 0.t_{1}t_{2}t_{3}\ldots\)---with \(t_i\) as an integer between \(0\) and \(9\). So now to show \(\exists f \mid f : (0,1) \leftrightarrow (0,1)^{\mathbb{N}}\), we create some \(s_j \in (0,1)^{\mathbb{N}}\) and construct the bijection via:
+
+\[\begin{cases}s_{1} &= 0.t_{1}t_{3}t_{5}\ldots \\ s_{2} &= 0.t_{2}t_{6}t_{10}\ldots \\ s_{3} &= 0.t_{4}t_{12}t_{20}\ldots
+\end{cases}\]
+
+We say that \(s_1\) is made up of all \(t_i\) that are odd; \(s_{2}\) is made up of all \(i\) which are odd such that \(i \cdot 2 \forall i \in s_{2}\); \(s_3\) is made up of all \(i\) which are odd such that \(i \cdot 2^2, \forall i \in s_{3}\), \(i \cdot 2^3 \in s_3\) and so on (the general form being \(i \cdot 2^n \mid n = j-1\)). Therefore there exists a bijection between \((0,1) \leftrightarrow (0,1)^{\mathbb{N}}\).
+}
+
+\mprop{There does not exist a largest cardinality}{Let \(\mcP(S)\) be the standard powerset. It follows then that \(\mcP(S) = \{0,1\}^S\) and \(|\mcP(S)| > |S|\) for any \(S\).
+}
+
+\pf{Proof}{Proof of non-existence of largest cardinality
+
+Recall that \(\{0,1\}^S = \{ \text{all } f \text{ such that } f : S \to \{0,1\} \}\). There must exist a bijection since \(|\mcP(S)| = 2^{|S|}\) and \(|\{0,1\}^S| = 2^{|S|}\). Now to show \(|\mcP(S)| > |S|\) we use proof by contradiction: suppose \(\exists \alpha : S \leftrightarrow \mcP(S)\) and let \(A \subset S\) defined by \(A \coloneqq \{s \in S \mid s \neq \alpha(s)\}\), now for \(A = \alpha(t)\) for some \(t \in A\) we notice that \(t \not\in \alpha(t) = A\) means that \(t \in A\), but to say \(t \in \alpha(t) \implies t \not\in A\), thus we have a contradiction.
+}
+
+Another option for this proof, though less formal, can be found by showing that \(\mcP(S) = \{0,1\}^S\) and that subsets of \(S\) have \(f\) such that \(f \mapsto f^{-1}\); let \(A \subset S\) then
+
+\[
+A \mapsto \left(\mathbb{1}_A : x \mapsto \begin{cases}
+  1 & \text{if } x \in A \\
+  0 & \text{if } x \not\in A
+\end{cases}\right)
+\]
+
+Note that if \(S\) is finite then \(|S| = n\) and \(\mcP(S) = 2^n\). This naturally leads us into our next theorem regarding the infinitude of the cardinality of \(S\) in relation to \(\mcP(S)\).
+\section{Quotient groups}
+\label{sec:org8b13864}
+
+Consider \(\mathbb{Z} / n\). Under the equivalence relation congruence mod \(n\) we can take the sum of the various subsets that mod \(n\) partitions \(\mathbb{Z}\) into as the law of composition given by \((a + n\mathbb{Z}) + (b + n\mathbb{Z}) = a + b + n\mathbb{Z}\). Notice that we can let \(T\) be the set of equivalence classes under mod \(n\), and thus we have a homomorphic map from \(\mathbb{Z} \to T\). Finally, \(T = \mathbb{Z} / n\).
+
+Why stop at integers? What if we want to make congruence mod \(H\) where is a subgroup \(H \subset G\)? Under what cases, given that we \emph{can} make mod \(H\) equivalence classes (we will define this in a bit) is the quotient map \(G \to T\) a homomorphism?
+\subsection{Congruence mod \(H\)}
+\label{sec:org7b261cb}
+
+For any two elements \(a, b \in G\) we define \(a \sim b \iff ab^{-1} \in H\), this is to say that \(a \in bH\). We thus have a \(a \sim a\) since \(e \in H\), \(a \sim b \implies ab^{-1} \in H\), and \(ba^{-1} = (ab^{-1})^{-1} \in H\), thus \(b \sim a\). Finally, \(a \sim b, b \sim c\) meaning that \(ab^{-1}\) and \(bc^{-1}\)
+\section{Symmetry group}
+\label{sec:org602b397}
+
+\section{More group relations}
+\label{sec:orge7f63f3}
+
+\subsection{Kernels, images, and order}
+\label{sec:org0c559bb}
+
+\dfn{Kernel}{The \textbf{\emph{kernel}} of a group homomorphism, \(\varphi : G \to H\), is given by \(\ker(\varphi) = \{a \in G \mid \varphi(a) = e_H\}\).
+}
+
+\mprop{}{The kernel is a subgroup of \(G\) and \(\varphi\) is injective \(\iff \ker(\varphi) = \{e_G\}\) (\(\varphi(a) = \varphi(b) \iff a^{-1}b \in \ker(\varphi)\)).
+}
+
+\dfn{Image of group homomorphisms}{The image of a group homomorphism \(\varphi : G \to H\) is \(\Img(\varphi) = \varphi(G) = \{b \in H \mid \exists a \in G : \varphi(a) = b\}\). This is a subgroup of \(H\) and \(\varphi\) is surjective \(\iff \Img(\varphi) = H\).
+}
+
+\nt{If \(\varphi\) is injective, then \(G\) is isomorphic to the subgroup \(\Img(\varphi) \subset H\). (if the isom. is given by the map \(G \to \Img(\varphi), \, a \mapsto \varphi(a)\)).
+}
+\subsection{Finite symmetric groups}
+\label{sec:orgc9ca09b}
+\end{document}

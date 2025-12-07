@@ -98,6 +98,67 @@ $aux_dir = '.latexmk/aux';
         self.save_data()
         print(f"✓ Added course: {name} ({code}) - {credits} credits")
         print(f"✓ Created .latexmkrc in {course_dir.name}")
+    
+    def cleanup_course(self, course_name: str = None, dry_run: bool = False):
+        """Move non-essential files to misc/ directory"""
+        import re
+        import shutil
+        
+        if course_name:
+            course_dirs = [self.root_dir / course_name.replace(" ", "_")]
+        else:
+            # All course directories
+            course_dirs = [self.root_dir / c.replace(" ", "_") for c in self.courses.keys()]
+        
+        # Patterns to KEEP in root (everything else goes to misc/)
+        keep_patterns = [
+            r'^lecture_\d+\.(tex|org|pdf)$',
+            r'^course-info\.org$',
+            r'^master\.(tex|org|pdf)$',
+            r'^\.latexmkrc$',
+        ]
+        keep_dirs = {'figures', 'psets', '.latexmk', '.auctex-auto', 'misc'}
+        
+        for course_dir in course_dirs:
+            if not course_dir.exists():
+                print(f"⚠ Course directory not found: {course_dir}")
+                continue
+            
+            misc_dir = course_dir / "misc"
+            moved_files = []
+            
+            for item in course_dir.iterdir():
+                # Skip all dotfiles and dot directories
+                if item.name.startswith('.'):
+                    continue
+                
+                # Skip directories we want to keep
+                if item.is_dir():
+                    if item.name in keep_dirs:
+                        continue
+                    # Move other directories to misc
+                    if not dry_run:
+                        misc_dir.mkdir(exist_ok=True)
+                        shutil.move(str(item), str(misc_dir / item.name))
+                    moved_files.append(f"[DIR] {item.name}")
+                    continue
+                
+                # Check if file matches any keep pattern
+                should_keep = any(re.match(p, item.name) for p in keep_patterns)
+                
+                if not should_keep:
+                    if not dry_run:
+                        misc_dir.mkdir(exist_ok=True)
+                        shutil.move(str(item), str(misc_dir / item.name))
+                    moved_files.append(item.name)
+            
+            if moved_files:
+                action = "Would move" if dry_run else "Moved"
+                print(f"\n{action} to {course_dir.name}/misc/:")
+                for f in moved_files:
+                    print(f"  • {f}")
+            else:
+                print(f"✓ {course_dir.name}: already clean")
         
     def list_courses(self):
         """List all courses"""
@@ -382,6 +443,10 @@ def main():
     
     course_subparsers.add_parser('list', help='List courses')
     
+    cleanup_course = course_subparsers.add_parser('cleanup', help='Move non-essential files to misc/')
+    cleanup_course.add_argument('--name', default='', help='Course name (all if empty)')
+    cleanup_course.add_argument('--dry-run', action='store_true', help='Preview without moving')
+    
     # Task commands
     task_parser = subparsers.add_parser('task', help='Task management')
     task_subparsers = task_parser.add_subparsers(dest='task_action')
@@ -430,6 +495,8 @@ def main():
             system.add_course(args.name, args.code, args.credits, args.instructor, args.schedule)
         elif args.course_action == 'list':
             system.list_courses()
+        elif args.course_action == 'cleanup':
+            system.cleanup_course(args.name if args.name else None, args.dry_run)
     
     elif args.command == 'task':
         if args.task_action == 'add':
