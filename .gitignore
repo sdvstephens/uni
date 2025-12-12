@@ -22,7 +22,6 @@
 
 # Build directories
 build/
-.latexmk/
 
 # Optional: Keep PDFs out of version control
 # *.pdf
