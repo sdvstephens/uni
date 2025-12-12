@@ -1,54 +1,21 @@
-% Created 2025-11-30 Sun 10:03
-% Intended LaTeX compiler: pdflatex
-\documentclass[11pt]{report}
-\usepackage[utf8]{inputenc}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{hyperref}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage[capitalize]{cleveref}
-\usepackage{cancel}
-\usepackage{color}
-\usepackage{booktabs}
-\usepackage{longtable}
+% Studies-in-Algebra-and-Group-Theory - Lecture 1: Set Theory
+% Author: S. D. V. Stephens
+% Date: 2025-12-09
+% Compile with: pdflatex -shell-escape
 
-%% ox-latex features:
-%   !announce-start, !guess-pollyglossia, !guess-babel, !guess-inputenc, maths,
-%   !announce-end.
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-%% end ox-latex features
-
-
+\documentclass{report}
 \input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+% TikZ Externalization (for fast recompilation)
+
 \course{Studies-in-Algebra-and-Group-Theory}
-\date{}
-\title{Studies-in-Algebra-and-Group-Theory - Lecture 1: Set Theory}
-\providecolor{url}{HTML}{0077bb}
-\providecolor{link}{HTML}{882255}
-\providecolor{cite}{HTML}{999933}
-\hypersetup{
-  pdfauthor={},
-  pdftitle={},
-  pdfkeywords={orgmode pdf latex},
-  pdfsubject={},
-  pdfcreator={},
-  pdflang={English},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite}
-\urlstyle{same}\begin{document}
+
+\begin{document}
 
 \lecture{1}{Set Theory}
+
 \section{Ordered Pairs}
-\label{sec:orgd8134ca}
 We begin with a discussion of ordered pairs. Consider a set of numbers \(\{1,2,3,4\}\). For any set there is no particular order that triumphs over another, i.e., \(\{1,2,3,4\} = \{1,3,2,4\} = \{3,4,2,1\} =\ldots\), an obvious truth. Say we want \(\{1,2,3,4\}\) to be in the order of \(\{3,2,1,4\}\) for some arbitrary reason; we may then consider the collection,
 \[
   \mfC = \{\{3\} , \{3,2\} ,\{3,2,1\} , \{3,2,1,4\}     \}
@@ -70,7 +37,6 @@ The \textbf{Cartesian product} is a set of ordered pairs which can be given by t
 \[  (a,b)\coloneqq \{\{a\},\{a,b\}\} \in  \mcP(\mcP(A \cup B))  .\]
 }
 \section{Relations}
-\label{sec:org4a1f666}
 The review or ordered pairs leads us to our next discussion on relations. A relation in more colloquial terms is a dynamic or characteristic of a given element shared with another given element such that they are arranged in the form of ordered pairs. Think of equality, then think of equality as equating \((2+3,1+4)\), or perhaps something more interesting, the set of all \((x,y)\) such that \(x\) is a man, \(y\) is an enby (slay), and \(x\) is married to \(y\) (many such cases). We can then think of relations as a set of ordered pairs \(R \subset A\times B\). Consider the following examples:
 
 \begin{enumerate}
@@ -101,7 +67,6 @@ Returning to our discussion of relations and partitions we can have this thing c
 \mprop{Relationship between equivalence relations, classes, and set partitions}{Explicitly the relationship between the two is given as follows: if \(R\) is an equivalence relation on \(X\), then the set of equivalence classes form a partition of \(X\) that induces the relation \(R\), and if \(\mfC\) is a partition of \(X\), then the induced relation is an equivalence relation whose set of equivalence classes is exactly \(\mfC\).
 }
 \section{Functions}
-\label{sec:org03d086b}
 
 First I want to remind us of some notation and terminology things (mathematicians are \textbf{\emph{very}} specific):
 \nt{To say a function is \emph{on} \(X\) \emph{into} \(Y\), means that the function is from \(X\) to \(Y\)
@@ -171,7 +136,6 @@ Consider a function's projection as the cannonical map \(\gamma  : X \to X / R\)
 \end{enumerate}
 \end{solution}
 \section{Families}
-\label{sec:orgf48a10e}
 
 Forget literally everything you know about notational convention! Why? Idk, that's just how mathematicians decided to approach this topic---the family (\emph{awwwwww}). Consider a function \(x\) (yes, this is strange) s.t. \(x : I \to  X\). We call \(I\) the \textbf{\emph{index set}}, and thereby each \(i \in  I\) is an \textbf{\emph{index}}; the range of the function is then called the \textbf{\emph{indexed set}} (why, this is so stupid?!); the function has a special name, being called a \textbf{\emph{family}}, and the value of \(x\) at a given \(i\) is called a \textbf{\emph{term}} of the family (denoted \(x_{i}\)). Other even more bewildering notation may be used such as \(\{x_{i}\}\) being a family in \(X\) or, more horrifically, a family \(\{A_i\}\) of subsets of \(X\), being a function \(A : I \to  \mcP(X)\) (now that I think of it, this notation, sickeningly, is becoming somewhat preferable).
 
@@ -201,7 +165,6 @@ De Morgan's laws apply as standard for index/ indexed sets and their unions. Fro
 
 Let us consider a special type of family: let \(I=\{a,b\}, \, a\neq b\) and let \(Z\) be the set of all families \(z\) indexed by \(I\) such that \(z_a \in X, z_b \in Y\). Now consider \(f : Z \leftrightarrow X \times Y\) such that \(f(z)=(z_a,z_b)\). This is the \textbf{\emph{generalized Cartesian product}}! There is further detail one can go into about families of sets and sets of all given families of sets, and even sets of those sets (including their Cartesian products), but these are so disgusting as to induce spontaneous retching in even the most tough-stomached mathematicians. So we will avoid it, if possible.
 \section{Inverses and Composites}
-\label{sec:org1b2c208}
 
 Consider a function \(f : X \to  Y\), a natural mapping that might arise (when thinking on power sets) is some function \(F : \mcP (X) \to  \mcP(Y)\); just as each element of \(X\) is mapped to an element \(Y\) under \(f\), each subset of \(X\) maps to some subset of \(Y\) under \(F\), so if \(A \subset  X\) then \(\exists (A \mapsto \Img (f_A)) \forall  A \in  \mcP(X)\). Cool? I guess? What is to be done about this? In all honesty, I am not sure this factoid has much use other than being a pedagogical tool (though I am almost certainly wrong and I am sure someone will rush to correct me, wherein I might toil and languish over my incorrectness and stupidity, suffering immensely---but probably not, because I simply do not care), but for our cases we use it to introduce its behavior in the inverse.
 \nt{Regarding notation---as we all too often are---\(\Img (f_A)\) is the same thing as \(f(A)\) when regarding images of subsets. I prefer the former notation as it feels a bit more natural to me.
@@ -238,6 +201,10 @@ We now move onto \textbf{\emph{composites}}.
 
 Notice that function composition is not always commutative, nor need it be. Also notice that this remains true under the special case that \(f :X \to Y\) and \(g : Y \to X\); functional composition, however, is always associative. There will be a strong proof for this later on (in Groups). Notice that if \(g : X\to Y\) for standard \(f\), if it is bijective we have an inverse function and identity map given by \(h\). Functional composition under inverses appears something like this: if \(f :X \to  Y\) and \(g: Y\to Z\), and \(f^{-1} : \mcP(Y) \to X\) and \(g^{-1} : \mcP(Z) \to \mcP(Y)\). Then \(g \circ f\) has an inverse given by \(f^{-1}\circ g^{-1}\). Notice this is not true for \(g^{-1}\circ f^{-1}\).
 \subsection{Inverse/ converse and composite relations}
-\label{sec:orgbeac768}
 The main idea of this comes out of our exploration of inverse functions. Functions \emph{are} relations after all. Consider the \textbf{\emph{converse relation}} of \(R\) on \(X \times Y\) s.t. \(xRy\) and \(yR^{-1}x\). Similar things can be done for composites by generalizing composition to relations, observe: let \(S\) be a relation on \(Y \times Z\) and \(R\) be a relation on \(X \times Y\) such that \(xRy\) and \(ySz\). Now let \(T\) over \(X\times Z\) be given by \(S\circ R\) such that \(xTz\) exists \(\iff  \exists  y \in Y\) such that \(xRy\) and \(ySz\). Congrats! You made a \textbf\{\textit{composite relation}\}. If it is the case that \(R\) and \(S\) are functions s.t. \(R(x)=y, \, S(y)=z\) and \(S(R(x))=z \iff xTz\) which implies that functional composition is a special case of a greater abstraction called the \textbf\{\textit{relative product}\}(??).
+
+
+
+
+
 \end{document}

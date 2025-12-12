@@ -1,0 +1,707 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 4: Vector Spaces and Linear Algebra
+% Author: S. D. V. Stephens
+% Date: 2025-12-10
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{4}{Vector Spaces and Linear Algebra}
+
+This lecture marks our transition from the purely algebraic study of groups to the more geometric realm of linear algebra. Vector spaces are arguably the most tractable algebraic structures---unlike groups, where classification is hopelessly complex, finite-dimensional vector spaces over a fixed field are completely classified by a single integer: the dimension. This simplicity belies their profound importance: linear algebra is the foundation of quantum mechanics, machine learning, differential equations, and much of modern mathematics. We begin by establishing the algebraic prerequisites (ring and field homomorphisms, polynomial rings) before developing the theory of vector spaces systematically.
+
+\section{Ring and Field Homomorphisms}
+
+Just as group homomorphisms preserve the group structure, ring and field homomorphisms preserve both operations simultaneously. These maps are fundamental for understanding how algebraic structures relate to one another.
+
+\dfn{Ring homomorphism}{A \textbf{\emph{ring homomorphism}} is a map \(\varphi : R \to S\) between rings that respects both operations:
+\begin{enumerate}
+  \item \(\varphi(a + b) = \varphi(a) + \varphi(b)\) for all \(a, b \in R\);
+  \item \(\varphi(ab) = \varphi(a)\varphi(b)\) for all \(a, b \in R\);
+  \item \(\varphi(1_R) = 1_S\).
+\end{enumerate}
+A \textbf{\emph{field homomorphism}} is a ring homomorphism between fields.
+}
+
+\nt{Condition (1) implies that \(\varphi\) is a group homomorphism \((R, +) \to (S, +)\), so we automatically get \(\varphi(0) = 0\) and \(\varphi(-a) = -\varphi(a)\). However, condition (3) does \emph{not} follow from condition (2), even for fields! Consider \(\varphi = 0\): this satisfies \(\varphi(ab) = 0 = 0 \cdot 0 = \varphi(a)\varphi(b)\), but \(\varphi(1) = 0 \neq 1\). We must include (3) as a separate axiom.
+}
+
+\mprop{Field homomorphisms are injective}{If \(\varphi : k \to K\) is a field homomorphism, then \(\varphi\) is injective.
+}
+
+\pf{Proof}{Let \(a \in k\) with \(a \neq 0\). Since \(k\) is a field, there exists \(b = a^{-1}\) such that \(ab = 1_k\). Applying \(\varphi\):
+\[\varphi(a)\varphi(b) = \varphi(ab) = \varphi(1_k) = 1_K \neq 0_K.\]
+This implies \(\varphi(a) \neq 0_K\) (if \(\varphi(a) = 0\), then \(\varphi(a)\varphi(b) = 0 \neq 1_K\)).
+
+Thus \(\ker(\varphi) = \{a \in k : \varphi(a) = 0_K\} = \{0_k\}\), so \(\varphi\) is injective.
+}
+
+\nt{This is a striking result: \emph{every} field homomorphism is an embedding. There are no ``collapsing'' maps between fields. This stands in sharp contrast to group and ring homomorphisms, which can have large kernels. The reason is that fields have no nontrivial ideals (a consequence of having multiplicative inverses), so the kernel of any field homomorphism must be either \(\{0\}\) or the entire field---but the latter is ruled out by \(\varphi(1) = 1 \neq 0\).
+}
+
+
+\section{Polynomial Rings and Field Extensions}
+
+Polynomials are central objects connecting algebra to analysis, number theory, and geometry. Given a field \(k\), we construct the ring of polynomials \(k[x]\) and explore how to enlarge \(k\) to contain roots of polynomials.
+
+\subsection{The polynomial ring \(k[x]\)}
+
+\dfn{Polynomial ring}{Given a field \(k\), the \textbf{\emph{polynomial ring in one variable}} is
+\[k[x] \coloneqq \left\{a_0 + a_1 x + a_2 x^2 + \cdots + a_n x^n \;\middle|\; a_i \in k, \, n \in \NN \right\}.\]
+Here \(x\) is a \textbf{\emph{formal variable}}---it is \emph{not} an element of \(k\) or any particular set. A polynomial is simply a finite sequence of coefficients, and we add and multiply term by term using the familiar rules.
+}
+
+\nt{The adjective ``formal'' is important. When we write \(x^2 + 1 \in \RR[x]\), we are not thinking of \(x\) as a real number---we are thinking of \(x^2 + 1\) as a symbolic expression. However, we \emph{can} evaluate a polynomial at any element of \(k\) (or any field extension of \(k\)): given \(f(x) = a_0 + a_1 x + \cdots + a_n x^n\) and \(r \in k\), we define \(f(r) = a_0 + a_1 r + \cdots + a_n r^n \in k\).
+}
+
+The polynomial ring \(k[x]\) is indeed a ring: it is closed under addition and multiplication, has identity \(1\), and satisfies all the ring axioms. However, it is \emph{not} a field.
+
+\mprop{\(k[x]\) is not a field}{The polynomial ring \(k[x]\) has no multiplicative inverses for non-constant polynomials. For instance, \(x\) has no inverse in \(k[x]\).
+}
+
+\pf{Proof}{Suppose \(f(x) \in k[x]\) satisfies \(x \cdot f(x) = 1\). Then \(\deg(x \cdot f(x)) = 1 + \deg(f(x)) \geq 1\), but \(\deg(1) = 0\). Contradiction.
+}
+
+\subsection{The field of rational functions}
+
+To make \(k[x]\) into a field, we must allow ``fractions'' of polynomials, just as we pass from \(\ZZ\) to \(\QQ\).
+
+\dfn{Field of rational functions}{The \textbf{\emph{field of rational functions}} over \(k\) is
+\[k(x) \coloneqq \left\{\frac{p}{q} \;\middle|\; p, q \in k[x], \, q \neq 0 \right\}\bigg/\sim\]
+where \(\frac{p}{q} \sim \frac{p'}{q'}\) iff \(pq' = p'q\). Addition and multiplication are defined as for ordinary fractions.
+}
+
+This construction generalizes naturally to polynomials in any number of variables, giving \(k(x_1, \ldots, x_n)\), the field of rational functions in \(n\) variables.
+
+\subsection{Formal power series}
+
+Another way to extend \(k[x]\) is to allow \emph{infinite} sums---formal power series.
+
+\dfn{Formal power series}{The \textbf{\emph{ring of formal power series}} over \(k\) is
+\[k\llbracket x \rrbracket \coloneqq \left\{\sum_{i=0}^{\infty} a_i x^i \;\middle|\; a_i \in k \right\}.\]
+Addition and multiplication are defined term by term: given \(f = \sum a_i x^i\) and \(g = \sum b_i x^i\), we have \(f + g = \sum (a_i + b_i) x^i\) and \(fg = \sum c_k x^k\) where \(c_k = \sum_{i+j=k} a_i b_j\).
+}
+
+\nt{The product formula makes sense because each coefficient \(c_k\) is a \emph{finite} sum---only finitely many pairs \((i, j)\) satisfy \(i + j = k\) with \(i, j \geq 0\). This is why we call these ``formal'' power series: we never worry about convergence. The ring \(k\llbracket x \rrbracket\) contains \(k[x]\) as a subring (polynomials are power series with only finitely many nonzero coefficients).
+}
+
+Unlike \(k[x]\), the ring \(k\llbracket x \rrbracket\) has many more invertible elements.
+
+\mlemma{Invertibility in \(k\llbracket x \rrbracket\)}{A power series \(f = \sum_{i=0}^{\infty} a_i x^i \in k\llbracket x \rrbracket\) has a multiplicative inverse if and only if \(a_0 \neq 0\).
+}
+
+\pf{Proof}{(\(\Rightarrow\)) If \(fg = 1\) for some \(g = \sum b_i x^i\), then comparing constant terms gives \(a_0 b_0 = 1\), so \(a_0 \neq 0\).
+
+(\(\Leftarrow\)) Assume \(a_0 \neq 0\). We construct \(g = \sum b_i x^i\) satisfying \(fg = 1\) inductively.
+
+The constant term equation is \(a_0 b_0 = 1\), so \(b_0 = a_0^{-1}\) (which exists since \(k\) is a field).
+
+The coefficient of \(x^1\) equation is \(a_0 b_1 + a_1 b_0 = 0\), so \(b_1 = -a_0^{-1}(a_1 b_0) = -a_0^{-1} a_1 a_0^{-1}\).
+
+In general, the coefficient of \(x^n\) gives \(\sum_{i=0}^{n} a_i b_{n-i} = 0\) for \(n \geq 1\), i.e.,
+\[a_0 b_n + \sum_{i=1}^{n} a_i b_{n-i} = 0 \implies b_n = -a_0^{-1} \sum_{i=1}^{n} a_i b_{n-i}.\]
+Each \(b_n\) depends only on \(b_0, \ldots, b_{n-1}\), so we can solve inductively.
+}
+
+\ex{}{The geometric series: in \(k\llbracket x \rrbracket\), we have \((1 - x)^{-1} = 1 + x + x^2 + x^3 + \cdots = \sum_{i=0}^{\infty} x^i\). This is verified directly: \((1 - x)(1 + x + x^2 + \cdots) = 1\) since all higher terms cancel.
+}
+
+\subsection{Laurent series and field of fractions}
+
+Every nonzero element of \(k\llbracket x \rrbracket\) can be written as \(x^m(a_m + a_{m+1}x + \cdots)\) where \(a_m \neq 0\). To get a field, we need to invert \(x^m\)---i.e., allow negative powers.
+
+\dfn{Field of Laurent series}{The \textbf{\emph{field of Laurent series}} over \(k\) is
+\[k(\!(x)\!) \coloneqq \left\{\sum_{i=m}^{\infty} a_i x^i \;\middle|\; m \in \ZZ, \, a_i \in k \right\}.\]
+Elements are ``power series starting at some (possibly negative) power of \(x\).''
+}
+
+\mprop{\(k(\!(x)\!)\) is a field}{Every nonzero Laurent series has a multiplicative inverse.
+}
+
+\pf{Proof}{Let \(f = \sum_{i=m}^{\infty} a_i x^i\) with \(a_m \neq 0\). Then \(f = x^m g\) where \(g = a_m + a_{m+1}x + \cdots \in k\llbracket x \rrbracket\) has nonzero constant term. By the lemma, \(g^{-1}\) exists in \(k\llbracket x \rrbracket\). Thus \(f^{-1} = x^{-m} g^{-1} \in k(\!(x)\!)\).
+}
+
+\subsection{Roots of polynomials and field extensions}
+
+Given a polynomial \(f \in k[x]\) with \(\deg(f) \geq 1\), we can ask: does \(f\) have a root in \(k\)? If not, can we \emph{extend} \(k\) to a larger field \(K\) containing a root?
+
+\dfn{Root and field extension}{Let \(f \in k[x]\) and \(K\) be a field containing \(k\). An element \(r \in K\) is a \textbf{\emph{root}} of \(f\) if \(f(r) = 0\). We call \(K\) a \textbf{\emph{field extension}} of \(k\), written \(K/k\) or \(k \subset K\).
+}
+
+\ex{}{The polynomial \(x^2 - 2 \in \QQ[x]\) has no roots in \(\QQ\), but we can form the extension
+\[\QQ(\sqrt{2}) = \{a + b\sqrt{2} : a, b \in \QQ\},\]
+which is a field containing \(\QQ\) and the root \(\sqrt{2}\). To verify this is a field, we need to check multiplicative inverses: for \(a + b\sqrt{2} \neq 0\),
+\[\frac{1}{a + b\sqrt{2}} = \frac{a - b\sqrt{2}}{a^2 - 2b^2} = \frac{a}{a^2 - 2b^2} - \frac{b}{a^2 - 2b^2}\sqrt{2} \in \QQ(\sqrt{2}).\]
+Note that \(a^2 - 2b^2 \neq 0\) when \((a, b) \neq (0, 0)\), since \(\sqrt{2} \notin \QQ\).
+}
+
+\ex{}{Similarly, \(x^2 + 1 \in \RR[x]\) has no real roots. The extension
+\[\RR(i) = \RR(\sqrt{-1}) = \{a + bi : a, b \in \RR\} = \CC\]
+is the field of complex numbers, which contains roots of \(x^2 + 1\) (namely \(\pm i\)).
+}
+
+\dfn{Algebraically closed field}{A field \(k\) is \textbf{\emph{algebraically closed}} if every non-constant polynomial \(f \in k[x]\) has a root in \(k\). Equivalently, every polynomial factors completely into linear factors over \(k\).
+}
+
+\nt{The Fundamental Theorem of Algebra states that \(\CC\) is algebraically closed. Over an algebraically closed field, every non-constant polynomial has a root, and there are no further algebraic extensions. This is why \(\CC\) is often called the ``algebraic closure'' of \(\RR\). In contrast, \(\QQ\) is very far from algebraically closed---there are infinitely many distinct algebraic extensions of \(\QQ\).
+}
+
+
+\section{Characteristic of a Field}
+
+Every field \(k\) has a distinguished ring homomorphism from the integers, whose kernel determines an important invariant.
+
+\mprop{Universal map from \(\ZZ\)}{For any field \(k\), there is a unique ring homomorphism \(\varphi : \ZZ \to k\) defined by \(\varphi(1) = 1_k\). Explicitly, \(\varphi(n) = n \cdot 1_k\) (add \(1_k\) to itself \(n\) times for \(n > 0\); negate for \(n < 0\)).
+}
+
+\pf{Proof}{Uniqueness: Any ring homomorphism must satisfy \(\varphi(1) = 1_k\), and since \(\ZZ = \langle 1 \rangle\) as an additive group, \(\varphi\) is determined by its value on \(1\).
+
+Existence: Define \(\varphi(n) = n \cdot 1_k\). Then \(\varphi(m + n) = (m + n) \cdot 1_k = m \cdot 1_k + n \cdot 1_k = \varphi(m) + \varphi(n)\) and \(\varphi(mn) = (mn) \cdot 1_k = (m \cdot 1_k)(n \cdot 1_k) = \varphi(m)\varphi(n)\) (verify by induction). Also \(\varphi(1) = 1_k\).
+}
+
+The kernel of \(\varphi\) is a subgroup of \(\ZZ\), hence of the form \(n\ZZ\) for some \(n \geq 0\).
+
+\mprop{Kernel is zero or prime}{The kernel \(\ker(\varphi)\) equals \(n\ZZ\) where either \(n = 0\) or \(n = p\) is prime.
+}
+
+\pf{Proof}{Suppose \(n > 0\) and \(n\) is not prime, so \(n = ab\) with \(1 < a, b < n\). Then
+\[\varphi(n) = \varphi(ab) = \varphi(a)\varphi(b) = 0_k.\]
+In a field, \(xy = 0\) implies \(x = 0\) or \(y = 0\). So \(\varphi(a) = 0\) or \(\varphi(b) = 0\), meaning \(a \in \ker(\varphi)\) or \(b \in \ker(\varphi)\). But \(\ker(\varphi) = n\ZZ\) and \(a, b < n\), so \(a\) or \(b\) is in \(n\ZZ\) only if \(a = 0\) or \(b = 0\)---contradicting \(a, b > 1\).
+
+Thus if \(n > 0\), then \(n\) must be prime.
+}
+
+\dfn{Characteristic}{The \textbf{\emph{characteristic}} of a field \(k\), denoted \(\mathrm{char}(k)\), is:
+\begin{itemize}
+  \item \(0\) if \(\ker(\varphi) = \{0\}\), i.e., \(\varphi : \ZZ \hookrightarrow k\) is injective;
+  \item \(p\) if \(\ker(\varphi) = p\ZZ\) for a prime \(p\).
+\end{itemize}
+Equivalently, \(\mathrm{char}(k) = p\) means \(\underbrace{1_k + 1_k + \cdots + 1_k}_{p \text{ times}} = 0_k\), and \(p\) is the smallest such positive integer.
+}
+
+\ex{}{
+\begin{itemize}
+  \item \(\mathrm{char}(\QQ) = \mathrm{char}(\RR) = \mathrm{char}(\CC) = 0\). The map \(\varphi : \ZZ \to \QQ\) is injective.
+  \item \(\mathrm{char}(\ZZ/p) = p\) for prime \(p\). Indeed, \(p \cdot 1 = 0\) in \(\ZZ/p\).
+  \item \(\mathrm{char}(k(x)) = \mathrm{char}(k\llbracket x \rrbracket) = \mathrm{char}(k(\!(x)\!)) = \mathrm{char}(k)\).
+\end{itemize}
+}
+
+\nt{The field \(\ZZ/p\) is often denoted \(\mathbb{F}_p\) and called the \textbf{\emph{prime field}} of characteristic \(p\). Every field of characteristic \(p\) contains a copy of \(\mathbb{F}_p\); every field of characteristic \(0\) contains a copy of \(\QQ\). Thus \(\mathbb{F}_p\) and \(\QQ\) are the ``minimal'' fields in their respective characteristics.
+}
+
+\thm{Existence and uniqueness of finite fields}{For every prime \(p\) and \(n \geq 1\), there exists a unique (up to isomorphism) field with exactly \(p^n\) elements, denoted \(\mathbb{F}_{p^n}\) or \(\mathrm{GF}(p^n)\). These are \emph{all} the finite fields.
+}
+
+\nt{We will not prove this theorem here, but it has profound consequences. The finite field \(\mathbb{F}_{p^n}\) can be constructed as a splitting field of \(x^{p^n} - x\) over \(\mathbb{F}_p\). There are also infinite fields of characteristic \(p\)---for example, \(\mathbb{F}_p(x)\), the field of rational functions over \(\mathbb{F}_p\).
+}
+
+
+\section{Vector Spaces}
+
+We now arrive at the central structure of linear algebra. A vector space is a set with two operations---addition and scalar multiplication---satisfying axioms that generalize familiar properties of \(\RR^n\).
+
+\dfn{Vector space}{Fix a field \(k\). A \textbf{\emph{vector space over \(k\)}} (or \textbf{\emph{\(k\)-vector space}}) is a set \(V\) equipped with two operations:
+\begin{enumerate}
+  \item \textbf{Vector addition:} \(+ : V \times V \to V\);
+  \item \textbf{Scalar multiplication:} \(\cdot : k \times V \to V\);
+\end{enumerate}
+satisfying the following axioms:
+\begin{enumerate}
+  \item \((V, +)\) is an abelian group with identity \(0\) (the \textbf{\emph{zero vector}});
+  \item \(1 \cdot v = v\) for all \(v \in V\) (identity for scalar multiplication);
+  \item \((ab) \cdot v = a \cdot (b \cdot v)\) for all \(a, b \in k\) and \(v \in V\) (associativity);
+  \item \((a + b) \cdot v = a \cdot v + b \cdot v\) for all \(a, b \in k\) and \(v \in V\) (distributivity over scalar addition);
+  \item \(a \cdot (v + w) = a \cdot v + a \cdot w\) for all \(a \in k\) and \(v, w \in V\) (distributivity over vector addition).
+\end{enumerate}
+Elements of \(V\) are called \textbf{\emph{vectors}}; elements of \(k\) are called \textbf{\emph{scalars}}.
+}
+
+\nt{The distributive laws (4) and (5) connect the two operations. Note that axiom (1) implies \(0_V + v = v\) and \(v + (-v) = 0_V\), while axiom (2)-(5) give us things like \(0_k \cdot v = 0_V\) (proof: \(0_k \cdot v = (0_k + 0_k) \cdot v = 0_k \cdot v + 0_k \cdot v\), so \(0_k \cdot v = 0_V\) by cancellation). We also get \((-1) \cdot v = -v\).
+}
+
+\subsection{Fundamental examples}
+
+\ex{}{\textbf{The standard vector space \(k^n\):} For any \(n \geq 1\), the set
+\[k^n = \{(a_1, a_2, \ldots, a_n) : a_i \in k\}\]
+is a vector space with componentwise operations:
+\begin{align*}
+(a_1, \ldots, a_n) + (b_1, \ldots, b_n) &= (a_1 + b_1, \ldots, a_n + b_n), \\
+c \cdot (a_1, \ldots, a_n) &= (ca_1, \ldots, ca_n).
+\end{align*}
+This is the prototypical \(n\)-dimensional vector space.
+}
+
+\ex{}{\textbf{Infinite sequences \(k^\infty\):} The set of all sequences in \(k\),
+\[k^\infty = \{(a_i)_{i \in \NN} : a_i \in k\} = \{(a_1, a_2, a_3, \ldots) : a_i \in k\},\]
+is a vector space with componentwise operations. It contains the subspace of \textbf{\emph{eventually zero sequences}}---those with \(a_i = 0\) for all sufficiently large \(i\).
+}
+
+\ex{}{\textbf{Function spaces:} For any set \(S\), the set
+\[k^S = \{f : S \to k\}\]
+of all functions from \(S\) to \(k\) is a vector space with pointwise operations: \((f + g)(s) = f(s) + g(s)\) and \((c \cdot f)(s) = c \cdot f(s)\).
+
+When \(S = \NN\), we recover \(k^\infty\). When \(S = \{1, \ldots, n\}\), we recover \(k^n\).
+}
+
+\ex{}{\textbf{Polynomial and power series spaces:}
+\begin{itemize}
+  \item \(k[x]\) is a \(k\)-vector space (addition is polynomial addition; scalar multiplication is multiplying each coefficient by the scalar).
+  \item \(k\llbracket x \rrbracket\) is a \(k\)-vector space.
+  \item For each \(d \geq 0\), the set \(k[x]_{\leq d} = \{f \in k[x] : \deg(f) \leq d\}\) of polynomials of degree at most \(d\) is a \(k\)-vector space.
+\end{itemize}
+}
+
+\ex{}{\textbf{Spaces of maps \(\mathbb{R} \to \mathbb{R}\):} Consider \(V = \{f : \RR \to \RR\}\), all functions from \(\RR\) to \(\RR\). This contains many interesting subspaces:
+\begin{itemize}
+  \item Continuous functions \(C(\RR)\);
+  \item Differentiable functions \(C^1(\RR)\);
+  \item Smooth (infinitely differentiable) functions \(C^\infty(\RR)\);
+  \item Polynomials \(\RR[x]\).
+\end{itemize}
+Each is closed under addition and scalar multiplication, forming a vector space.
+}
+
+\subsection{Subspaces}
+
+\dfn{Subspace}{A \textbf{\emph{subspace}} of a vector space \(V\) is a nonempty subset \(W \subseteq V\) that is closed under addition and scalar multiplication:
+\begin{enumerate}
+  \item \(w_1, w_2 \in W \implies w_1 + w_2 \in W\);
+  \item \(w \in W, \, a \in k \implies a \cdot w \in W\).
+\end{enumerate}
+Equivalently, \(W\) is a subspace if it is a vector space under the inherited operations.
+}
+
+\mprop{Subspace criterion}{A nonempty subset \(W \subseteq V\) is a subspace if and only if \(a w_1 + b w_2 \in W\) for all \(a, b \in k\) and \(w_1, w_2 \in W\).
+}
+
+\pf{Proof}{(\(\Rightarrow\)) If \(W\) is a subspace, then \(a w_1 \in W\) and \(b w_2 \in W\) by scalar multiplication closure, and \(a w_1 + b w_2 \in W\) by addition closure.
+
+(\(\Leftarrow\)) Taking \(a = b = 1\) gives closure under addition. Taking \(b = 0\) gives closure under scalar multiplication.
+}
+
+\nt{The condition ``nonempty'' is essential. Alternatively, we can replace it with ``\(0 \in W\),'' which follows from taking \(a = 0\) in the scalar multiplication closure. So a subspace is precisely a nonempty subset closed under linear combinations.
+}
+
+\ex{}{
+\begin{itemize}
+  \item \(\{0\}\) and \(V\) itself are always subspaces (the \textbf{\emph{trivial subspaces}}).
+  \item In \(\RR^3\), subspaces are: \(\{0\}\), lines through the origin, planes through the origin, and \(\RR^3\).
+  \item In \(k[x]\), the polynomials of degree \(\leq n\) form a subspace. The polynomials of degree \emph{exactly} \(n\) do \emph{not} form a subspace (not closed under addition: \(x^n + (-x^n) = 0\)).
+\end{itemize}
+}
+
+
+\section{Span, Linear Independence, and Basis}
+
+These three concepts---span, linear independence, and basis---are the fundamental building blocks of linear algebra. They allow us to describe vector spaces in terms of generating sets and coordinates.
+
+\subsection{Linear combinations and span}
+
+\dfn{Linear combination}{A \textbf{\emph{linear combination}} of vectors \(v_1, \ldots, v_n \in V\) is any vector of the form
+\[a_1 v_1 + a_2 v_2 + \cdots + a_n v_n\]
+where \(a_1, \ldots, a_n \in k\) are scalars.
+}
+
+\dfn{Span}{Given vectors \(v_1, \ldots, v_n \in V\), the \textbf{\emph{span}} of \(\{v_1, \ldots, v_n\}\) is the set of all linear combinations:
+\[\operatorname{Span}(v_1, \ldots, v_n) = \{a_1 v_1 + \cdots + a_n v_n : a_i \in k\}.\]
+This is the \textbf{\emph{smallest subspace}} of \(V\) containing \(v_1, \ldots, v_n\).
+
+We say \(v_1, \ldots, v_n\) \textbf{\emph{span}} \(V\) (or are a \textbf{\emph{spanning set}} for \(V\)) if \(\operatorname{Span}(v_1, \ldots, v_n) = V\).
+}
+
+\mprop{Span is a subspace}{For any \(v_1, \ldots, v_n \in V\), the span \(\operatorname{Span}(v_1, \ldots, v_n)\) is a subspace of \(V\).
+}
+
+\pf{Proof}{Let \(W = \operatorname{Span}(v_1, \ldots, v_n)\). Clearly \(0 = 0 \cdot v_1 + \cdots + 0 \cdot v_n \in W\), so \(W \neq \emptyset\). For closure: if \(w = \sum a_i v_i\) and \(w' = \sum a_i' v_i\) are in \(W\), and \(c, c' \in k\), then
+\[cw + c'w' = \sum (ca_i + c'a_i') v_i \in W.\]
+}
+
+The span can also be defined for infinite (or even arbitrary) sets of vectors.
+
+\dfn{Span of an arbitrary set}{For \(S \subseteq V\), the \textbf{\emph{span}} of \(S\) is the set of all \emph{finite} linear combinations of elements of \(S\):
+\[\operatorname{Span}(S) = \left\{\sum_{i=1}^{n} a_i v_i : n \geq 0, \, a_i \in k, \, v_i \in S\right\}.\]
+When \(n = 0\), the empty sum is \(0\), so \(0 \in \operatorname{Span}(S)\) always.
+}
+
+\subsection{Linear independence}
+
+\dfn{Linear independence}{Vectors \(v_1, \ldots, v_n \in V\) are \textbf{\emph{linearly independent}} if the only way to write \(0\) as a linear combination is the trivial way:
+\[a_1 v_1 + a_2 v_2 + \cdots + a_n v_n = 0 \implies a_1 = a_2 = \cdots = a_n = 0.\]
+Otherwise, they are \textbf{\emph{linearly dependent}}---there exist scalars, not all zero, such that \(\sum a_i v_i = 0\).
+}
+
+\nt{Linear dependence means some vector can be expressed as a linear combination of the others. If \(a_1 v_1 + \cdots + a_n v_n = 0\) with (say) \(a_1 \neq 0\), then
+\[v_1 = -\frac{a_2}{a_1} v_2 - \cdots - \frac{a_n}{a_1} v_n.\]
+So \(v_1\) is ``redundant''---it's already in the span of the others.
+}
+
+\mprop{Equivalent characterizations of linear independence}{The following are equivalent for \(v_1, \ldots, v_n \in V\):
+\begin{enumerate}
+  \item \(v_1, \ldots, v_n\) are linearly independent.
+  \item No \(v_i\) is a linear combination of the others.
+  \item The linear map \(\phi : k^n \to V\) defined by \(\phi(a_1, \ldots, a_n) = \sum a_i v_i\) is injective.
+\end{enumerate}
+}
+
+\pf{Proof}{(1) \(\Leftrightarrow\) (3): \(\ker(\phi) = \{(a_1, \ldots, a_n) : \sum a_i v_i = 0\}\). Linear independence says \(\ker(\phi) = \{0\}\), which is equivalent to \(\phi\) being injective.
+
+(1) \(\Rightarrow\) (2): Suppose \(v_j = \sum_{i \neq j} b_i v_i\). Then \(\sum_{i \neq j} b_i v_i + (-1) v_j = 0\) is a nontrivial linear combination (coefficient of \(v_j\) is \(-1 \neq 0\)), contradicting independence.
+
+(2) \(\Rightarrow\) (1): Suppose \(\sum a_i v_i = 0\) with some \(a_j \neq 0\). Then \(v_j = -a_j^{-1} \sum_{i \neq j} a_i v_i\), contradicting (2).
+}
+
+Similarly, we can characterize spanning:
+
+\mprop{Characterization of spanning}{The following are equivalent:
+\begin{enumerate}
+  \item \(v_1, \ldots, v_n\) span \(V\).
+  \item Every \(v \in V\) can be written as \(\sum a_i v_i\) for some \(a_i \in k\).
+  \item The linear map \(\phi : k^n \to V\) defined by \(\phi(a_1, \ldots, a_n) = \sum a_i v_i\) is surjective.
+\end{enumerate}
+}
+
+\subsection{Basis}
+
+\dfn{Basis}{A \textbf{\emph{basis}} for \(V\) is a set \(\{v_1, \ldots, v_n\}\) of vectors that are both linearly independent and span \(V\). Equivalently, the linear map \(\phi : k^n \to V\) is \emph{bijective}.
+}
+
+\mprop{Unique representation}{If \(\{v_1, \ldots, v_n\}\) is a basis for \(V\), then every vector \(v \in V\) can be written \emph{uniquely} as
+\[v = a_1 v_1 + a_2 v_2 + \cdots + a_n v_n\]
+for some \(a_i \in k\). The scalars \((a_1, \ldots, a_n)\) are called the \textbf{\emph{coordinates}} of \(v\) with respect to this basis.
+}
+
+\pf{Proof}{Existence: Since \(\{v_i\}\) spans \(V\), every \(v\) is some linear combination.
+
+Uniqueness: If \(v = \sum a_i v_i = \sum a_i' v_i\), then \(\sum (a_i - a_i') v_i = 0\). By linear independence, \(a_i - a_i' = 0\) for all \(i\), so \(a_i = a_i'\).
+}
+
+\ex{}{\textbf{Standard basis of \(k^n\):} The vectors
+\[e_1 = (1, 0, \ldots, 0), \quad e_2 = (0, 1, 0, \ldots, 0), \quad \ldots, \quad e_n = (0, \ldots, 0, 1)\]
+form the \textbf{\emph{standard basis}} of \(k^n\). Any \((a_1, \ldots, a_n) = a_1 e_1 + \cdots + a_n e_n\).
+}
+
+\ex{}{\textbf{Non-standard basis of \(k^2\):} In \(k^2\), the vectors \((1, 0)\) and \((0, 1)\) form the standard basis. But so do \((1, 1)\) and \((1, -1)\) (for most \(k\)---we need \(\mathrm{char}(k) \neq 2\) for these to be independent).
+}
+
+\ex{}{\textbf{Basis of \(k[x]_{\leq n}\):} The polynomials \(\{1, x, x^2, \ldots, x^n\}\) form a basis for \(k[x]_{\leq n}\), the space of polynomials of degree \(\leq n\).
+}
+
+\qs{}{
+\begin{enumerate}
+  \item Does \(k[x]\) have a finite basis? What is a basis for \(k[x]\)?
+  \item Does \(k\llbracket x \rrbracket\) have a basis?
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} The polynomial ring \(k[x]\) does \emph{not} have a finite basis, because any finite set \(\{p_1, \ldots, p_n\}\) of polynomials has bounded degree, so cannot span polynomials of higher degree.
+
+However, \(k[x]\) has the infinite basis \(\{1, x, x^2, x^3, \ldots\}\). Every polynomial is a \emph{finite} linear combination of these monomials, and they are linearly independent (a nontrivial linear combination would give a nonzero polynomial equaling \(0\)).
+
+\textbf{(2)} This is subtle. By the axiom of choice, \(k\llbracket x \rrbracket\) has a basis (every vector space does). But this basis cannot be explicitly described---it is uncountably infinite and highly non-constructive. Unlike \(k[x]\), the monomials \(\{1, x, x^2, \ldots\}\) do \emph{not} form a basis of \(k\llbracket x \rrbracket\): while they are linearly independent, they do not span (a power series like \(\sum_{i=0}^\infty x^i\) is not a \emph{finite} linear combination of monomials).
+\end{solution}
+
+
+
+\section{Finite-Dimensional Vector Spaces and Dimension}
+
+The notion of \emph{dimension} is central to linear algebra. Unlike groups, where classification is intractable, finite-dimensional vector spaces are completely determined by a single integer---their dimension. We establish this remarkable fact through a sequence of lemmas about the interplay between spanning sets and linearly independent sets.
+
+\dfn{Finite-dimensional}{A vector space \(V\) is \textbf{\emph{finite-dimensional}} if there exists a finite spanning set for \(V\), i.e., vectors \(v_1, \ldots, v_n\) such that \(\operatorname{Span}(v_1, \ldots, v_n) = V\). Otherwise, \(V\) is \textbf{\emph{infinite-dimensional}}.
+}
+
+\subsection{Extracting bases from spanning sets}
+
+Our first key result shows that every spanning set contains a basis.
+
+\mlemma{Spanning sets contain bases}{If \(\{v_1, \ldots, v_n\}\) spans \(V\), then some subset of \(\{v_1, \ldots, v_n\}\) is a basis for \(V\).
+}
+
+\pf{Proof}{We construct a basis by iteratively removing redundant vectors.
+
+If \(\{v_1, \ldots, v_n\}\) is linearly independent, we are done---it is already a basis.
+
+Otherwise, there exists a nontrivial relation \(\sum_{i=1}^n a_i v_i = 0\) with some \(a_j \neq 0\). Then
+\[v_j = -\frac{1}{a_j} \sum_{i \neq j} a_i v_i \in \operatorname{Span}(\{v_i : i \neq j\}).\]
+So \(\{v_i : i \neq j\}\) still spans \(V\) (any linear combination involving \(v_j\) can be rewritten using the other vectors).
+
+Remove \(v_j\) and repeat. Since we start with finitely many vectors, this process terminates. When it does, the remaining vectors are linearly independent (else we could remove another) and still span \(V\), hence form a basis.
+}
+
+\cor{Finite-dimensional spaces have bases}{Every finite-dimensional vector space has a basis.
+}
+
+
+\subsection{Extending linearly independent sets to bases}
+
+The dual result shows that any linearly independent set can be enlarged to a basis.
+
+\mlemma{Linearly independent sets extend to bases}{If \(V\) is finite-dimensional and \(\{v_1, \ldots, v_m\}\) is linearly independent, then there exists a basis of \(V\) containing \(\{v_1, \ldots, v_m\}\).
+}
+
+\pf{Proof}{Let \(\{w_1, \ldots, w_r\}\) be a finite spanning set for \(V\) (exists by finite-dimensionality). We enlarge \(\{v_1, \ldots, v_m\}\) to a basis using vectors from \(\{w_j\}\).
+
+Define \(W_0 = \operatorname{Span}(v_1, \ldots, v_m)\), with basis \(\{v_1, \ldots, v_m\}\) (our independent set).
+
+\textbf{Induction step:} Suppose we have constructed a basis \(\mathcal{B}_{j-1}\) for \(W_{j-1} = \operatorname{Span}(v_1, \ldots, v_m, w_{i_1}, \ldots, w_{i_{j-1}})\).
+
+Consider \(w_j\):
+\begin{itemize}
+  \item If \(w_j \in W_{j-1}\), set \(W_j = W_{j-1}\) and \(\mathcal{B}_j = \mathcal{B}_{j-1}\).
+  \item If \(w_j \notin W_{j-1}\), then \(\mathcal{B}_{j-1} \cup \{w_j\}\) is linearly independent (otherwise \(w_j\) would be a linear combination of \(\mathcal{B}_{j-1}\), contradicting \(w_j \notin W_{j-1}\)). Set \(W_j = \operatorname{Span}(\mathcal{B}_{j-1} \cup \{w_j\})\) and \(\mathcal{B}_j = \mathcal{B}_{j-1} \cup \{w_j\}\).
+\end{itemize}
+
+After processing all \(w_j\), we have \(W_r = \operatorname{Span}(v_1, \ldots, v_m, w_1, \ldots, w_r) \supseteq \operatorname{Span}(w_1, \ldots, w_r) = V\). So \(\mathcal{B}_r\) is a linearly independent set spanning \(V\), i.e., a basis containing \(\{v_1, \ldots, v_m\}\).
+}
+
+\subsection{Invariance of basis size}
+
+The following theorem is fundamental: it shows that the size of a basis is intrinsic to the vector space, not dependent on the choice of basis.
+
+\thm{All bases have the same size}{If \(V\) has a basis with \(n\) elements and another basis with \(m\) elements, then \(m = n\).
+}
+
+\pf{Proof}{Let \(\{v_1, \ldots, v_n\}\) and \(\{w_1, \ldots, w_m\}\) be bases for \(V\). We show \(m \leq n\) and \(n \leq m\), hence \(m = n\).
+
+\textbf{Claim:} \(\{v_1, \ldots, v_{m-1}, w_j\}\) is a basis for some choice of reordering, for each \(j\) we process.
+
+We proceed by a ``replacement'' argument. Start with the basis \(\{v_1, \ldots, v_n\}\).
+
+Since \(w_1 \in V = \operatorname{Span}(v_1, \ldots, v_n)\), we can write \(w_1 = \sum_{i=1}^n a_i v_i\). Not all \(a_i = 0\) (else \(w_1 = 0\), contradicting independence of \(\{w_j\}\)). By reordering, assume \(a_n \neq 0\).
+
+Then \[v_n = a_n^{-1}(w_1 - \sum_{i=1}^{n-1} a_i v_i) \in \operatorname{Span}(v_1, \ldots, v_{n-1}, w_1).\]
+
+So \[\operatorname{Span}(v_1, \ldots, v_{n-1}, w_1) \supseteq \operatorname{Span}(v_1, \ldots, v_n) = V,\] and thus \(\{v_1, \ldots, v_{n-1}, w_1\}\) spans \(V\). Since it has \(n\) elements and spans, it contains a basis---but removing any element would give \(n-1\) vectors. We verify it's actually linearly independent: if \[\sum_{i=1}^{n-1} b_i v_i + c w_1 = 0\] with \(c \neq 0\), then \(w_1 \in \operatorname{Span}(v_1, \ldots, v_{n-1})\), so \(v_n \in \operatorname{Span}(v_1, \ldots, v_{n-1})\), contradicting independence of \(\{v_i\}\). Thus \(c = 0\), and then all \(b_i = 0\). So \(\{v_1, \ldots, v_{n-1}, w_1\}\) is a basis.
+
+Repeat: \(w_2 = \sum_{i=1}^{n-1} a_i v_i + c w_1\). Some \(a_i \neq 0\) (else \(w_2 \in \operatorname{Span}(w_1)\), contradicting independence). Replace that \(v_i\) with \(w_2\).
+
+Continue this process, replacing one \(v\) with one \(w\) each time. After \(m\) steps, we have a basis \[\{v_{i_1}, \ldots, v_{i_{n-m}}, w_1, \ldots, w_m\}\] (assuming \(m \leq n\)).
+
+If \(m > n\), the process would terminate before incorporating all \(w_j\), but then some \(w_j\) would be in the span of earlier \(w\)'s, contradicting independence. Hence \(m \leq n\).
+
+By symmetry, \(n \leq m\). Thus \(m = n\).
+}
+
+
+\dfn{Dimension}{The \textbf{\emph{dimension}} of a finite-dimensional vector space \(V\), denoted \(\dim(V)\) or \(\dim_k(V)\), is the number of elements in any basis. The theorem above shows this is well-defined.
+
+By convention, \(\dim(\{0\}) = 0\) (the empty set is a basis for the zero space).
+}
+
+\cor{Isomorphism with \(k^n\)}{Every finite-dimensional vector space \(V\) with \(\dim(V) = n\) is isomorphic to \(k^n\).
+}
+
+\pf{Proof}{Let \(\{v_1, \ldots, v_n\}\) be a basis for \(V\). The map
+\[\phi : k^n \to V, \quad (a_1, \ldots, a_n) \mapsto \sum_{i=1}^n a_i v_i\]
+is linear (easily verified), injective (by linear independence), and surjective (by spanning). Hence \(\phi\) is an isomorphism.
+}
+
+\nt{The isomorphism \(\phi : k^n \xrightarrow{\sim} V\) depends on the \emph{choice of basis}. Different bases give different isomorphisms. This is the key insight of linear algebra: choosing a basis amounts to choosing coordinates, and we represent elements of \(V\) by \textbf{\emph{column vectors}} \(\begin{pmatrix} a_1 \\ \vdots \\ a_n \end{pmatrix} \in k^n\).
+}
+
+\ex{}{\textbf{Dimensions:}
+\begin{itemize}
+  \item \(\dim(k^n) = n\). The standard basis has \(n\) elements.
+  \item \(\dim(k[x]_{\leq d}) = d + 1\). The monomials \(\{1, x, \ldots, x^d\}\) form a basis.
+  \item \(k[x]\) is infinite-dimensional: any finite set of polynomials has bounded degree and cannot span.
+  \item \(k\llbracket x \rrbracket\) is infinite-dimensional (and in a ``larger'' sense---its bases are uncountable).
+\end{itemize}
+}
+
+
+\section{Linear Maps}
+
+Having established the structure of vector spaces, we now study the morphisms between them. Just as group homomorphisms preserve the group operation, linear maps preserve both vector space operations.
+
+\dfn{Linear map}{Let \(V\) and \(W\) be vector spaces over \(k\). A \textbf{\emph{linear map}} (or \textbf{\emph{\(k\)-linear map}}, or \textbf{\emph{homomorphism of vector spaces}}) is a function \(\varphi : V \to W\) satisfying:
+\begin{enumerate}
+  \item \(\varphi(u + v) = \varphi(u) + \varphi(v)\) for all \(u, v \in V\) (additivity);
+  \item \(\varphi(\lambda v) = \lambda \varphi(v)\) for all \(\lambda \in k\) and \(v \in V\) (homogeneity).
+\end{enumerate}
+Equivalently, \(\varphi\) preserves all linear combinations:
+\[\varphi\left(\sum_{i=1}^n a_i v_i\right) = \sum_{i=1}^n a_i \varphi(v_i).\]
+}
+
+\nt{A linear map is completely determined by its values on a basis. If \(\{v_1, \ldots, v_n\}\) is a basis for \(V\), and we specify \(\varphi(v_i) = w_i \in W\) for each \(i\), then for any \(v = \sum a_i v_i\):
+\[\varphi(v) = \varphi\left(\sum a_i v_i\right) = \sum a_i \varphi(v_i) = \sum a_i w_i.\]
+This is the \textbf{\emph{universal property}} of bases: specifying a linear map from \(V\) is equivalent to choosing where to send the basis vectors.
+}
+
+
+\dfn{Space of linear maps}{The set of all linear maps from \(V\) to \(W\) is denoted
+\[\Hom_k(V, W) \quad \text{or simply} \quad \Hom(V, W).\]
+When \(V = W\), we write \(\End(V) = \Hom(V, V)\) and call elements \textbf{\emph{endomorphisms}}.
+}
+
+\mprop{\(\Hom(V, W)\) is a vector space}{The set \(\Hom(V, W)\) is itself a vector space over \(k\), with operations:
+\begin{itemize}
+  \item \textbf{Addition:} \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\) for all \(v \in V\);
+  \item \textbf{Scalar multiplication:} \((\lambda \varphi)(v) = \lambda \cdot \varphi(v)\) for all \(v \in V\).
+\end{itemize}
+}
+
+\pf{Proof}{We must verify that \(\varphi + \psi\) and \(\lambda \varphi\) are linear maps when \(\varphi, \psi\) are.
+
+For \(\varphi + \psi\): Let \(u, v \in V\) and \(\mu \in k\).
+\begin{align*}
+(\varphi + \psi)(u + v) &= \varphi(u + v) + \psi(u + v) = \varphi(u) + \varphi(v) + \psi(u) + \psi(v) \\
+&= (\varphi(u) + \psi(u)) + (\varphi(v) + \psi(v)) = (\varphi + \psi)(u) + (\varphi + \psi)(v). \\
+(\varphi + \psi)(\mu v) &= \varphi(\mu v) + \psi(\mu v) = \mu\varphi(v) + \mu\psi(v) = \mu(\varphi(v) + \psi(v)) = \mu(\varphi + \psi)(v).
+\end{align*}
+
+For \(\lambda \varphi\): Similarly,
+\begin{align*}
+(\lambda\varphi)(u + v) &= \lambda(\varphi(u + v)) = \lambda(\varphi(u) + \varphi(v)) = \lambda\varphi(u) + \lambda\varphi(v) = (\lambda\varphi)(u) + (\lambda\varphi)(v). \\
+(\lambda\varphi)(\mu v) &= \lambda(\varphi(\mu v)) = \lambda(\mu\varphi(v)) = \mu(\lambda\varphi(v)) = \mu(\lambda\varphi)(v).
+\end{align*}
+
+The vector space axioms for \(\Hom(V, W)\) follow from those of \(W\) (operations are defined pointwise). The zero vector is the zero map \(v \mapsto 0_W\), and additive inverses are \((-\varphi)(v) = -\varphi(v)\).
+}
+
+\nt{The verification that \(\varphi + \psi\) and \(\lambda\varphi\) are linear is ``rather boring, but worth checking if you're not sure.'' The operations on \(\Hom(V, W)\) are inherited pointwise from \(W\), so the axioms follow routinely.
+}
+
+
+\thm{Dimension of \(\Hom(V, W)\)}{If \(\dim(V) = n\) and \(\dim(W) = m\), then
+\[\dim(\Hom(V, W)) = mn.\]
+}
+
+The proof of this theorem will emerge naturally when we establish the correspondence between linear maps and matrices in the next section.
+
+\nt{We will soon see: if \(\dim(V) = n\) and \(\dim(W) = m\), then \(\dim(\Hom(V, W)) = mn\). In terms of bases for \(V\) and \(W\), linear maps become \(m \times n\) matrices!
+}
+
+\subsection{Dependence on the scalar field}
+
+The notions of basis, dimension, and linearity depend crucially on the choice of scalar field \(k\). The same set can be a vector space over different fields, with different dimensions.
+
+\ex{}{\textbf{\(\mathbb{C}\) as a vector space over different fields:} Consider \(\mathbb{C}\) as a vector space:
+\begin{itemize}
+  \item Over \(\mathbb{C}\): \(\dim_{\mathbb{C}}(\mathbb{C}) = 1\), with basis \(\{1\}\). Every complex number \(z\) is \(z \cdot 1\).
+  \item Over \(\mathbb{R}\): \(\dim_{\mathbb{R}}(\mathbb{C}) = 2\), with basis \(\{1, i\}\). Every complex number \(a + bi\) is the \(\mathbb{R}\)-linear combination \(a \cdot 1 + b \cdot i\).
+\end{itemize}
+}
+
+\nt{More generally, if \(k' \subset k\) is a subfield (e.g., \(\mathbb{R} \subset \mathbb{C}\) or \(\mathbb{Q} \subset \mathbb{R}\)), then any \(k\)-vector space \(V\) is automatically a \(k'\)-vector space by ``restriction of scalars''---we simply forget that we can multiply by elements of \(k \setminus k'\). The \(k'\)-dimension is always at least as large as the \(k\)-dimension.
+}
+
+\mprop{Linearity over subfields}{If \(V\) and \(W\) are \(k\)-vector spaces and \(k' \subset k\) is a subfield, then:
+\begin{enumerate}
+  \item \(V\) is a \(k'\)-vector space (by restriction of scalars).
+  \item Any \(k\)-linear map \(\varphi : V \to W\) is also \(k'\)-linear.
+  \item The converse fails: not every \(k'\)-linear map is \(k\)-linear.
+\end{enumerate}
+Thus \(\Hom_k(V, W) \subsetneq \Hom_{k'}(V, W)\) in general.
+}
+
+\ex{}{\textbf{Complex conjugation is \(\mathbb{R}\)-linear but not \(\mathbb{C}\)-linear:} Consider the map
+\[\overline{\phantom{z}} : \CC \to \CC, \quad z = a + bi \mapsto \bar{z} = a - bi.\]
+
+\textbf{\(\RR\)-linearity:} For \(z_1, z_2 \in \CC\) and \(r \in \RR\):
+\begin{itemize}
+  \item \(\overline{z_1 + z_2} = \bar{z}_1 + \bar{z}_2\) \checkmark
+  \item \(\overline{r \cdot z} = r \cdot \bar{z}\) (since \(\bar{r} = r\) for \(r \in \RR\)) \checkmark
+\end{itemize}
+
+\textbf{Not \(\CC\)-linear:} For \(\lambda = i\) and \(z = 1\):
+\[\overline{i \cdot 1} = \overline{i} = -i, \quad \text{but} \quad i \cdot \bar{1} = i \cdot 1 = i.\]
+Since \(-i \neq i\), complex conjugation is not \(\CC\)-linear.
+}
+
+This example illustrates a profound point: the ``natural'' maps between spaces can depend on what scalars we consider. Complex conjugation is an \(\RR\)-linear automorphism of \(\CC\) that is \emph{not} \(\CC\)-linear---it does not commute with multiplication by \(i\).
+
+
+
+\section{Matrix Representation of Linear Maps}
+
+The correspondence between linear maps and matrices is one of the most powerful ideas in linear algebra. It reduces abstract questions about linear maps to concrete computations with arrays of numbers.
+
+\subsection{The matrix of a linear map}
+
+Fix bases \(\mathcal{B} = (v_1, \ldots, v_n)\) for \(V\) and \(\mathcal{C} = (w_1, \ldots, w_m)\) for \(W\). Given a linear map \(\varphi : V \to W\), we can express each image \(\varphi(v_j)\) as a linear combination of the basis vectors of \(W\):
+\[\varphi(v_j) = \sum_{i=1}^m a_{ij} w_i = a_{1j} w_1 + a_{2j} w_2 + \cdots + a_{mj} w_m.\]
+
+\dfn{Matrix of a linear map}{The \textbf{\emph{matrix of \(\varphi\)}} with respect to bases \(\mathcal{B}\) and \(\mathcal{C}\) is the \(m \times n\) matrix
+\[A = (a_{ij}) = \begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{pmatrix} \in \mathcal{M}_{m \times n}(k).\]
+The \(j\)-th \textbf{\emph{column}} of \(A\) is the coordinate vector of \(\varphi(v_j)\) in the basis \(\mathcal{C}\).
+}
+
+\nt{The key insight: \textbf{columns of \(A\) are the images of basis vectors, expressed in coordinates.} This is worth memorizing: the \(j\)-th column of the matrix tells you where the \(j\)-th basis vector goes.
+}
+
+
+\subsection{Matrix-vector multiplication}
+
+The power of the matrix representation is that applying \(\varphi\) corresponds to matrix multiplication.
+
+Represent a vector \(x \in V\) by its coordinate column vector: if \(x = \sum_{j=1}^n x_j v_j\), we write
+\[X = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} \in k^n.\]
+Similarly, \(y = \varphi(x) \in W\) has coordinates \(Y = \begin{pmatrix} y_1 \\ \vdots \\ y_m \end{pmatrix}\) where \(y = \sum_{i=1}^m y_i w_i\).
+
+\mprop{Linear maps as matrix multiplication}{With the notation above, \(Y = AX\), i.e.,
+\[y_i = \sum_{j=1}^n a_{ij} x_j.\]
+}
+
+\pf{Proof}{Compute:
+\begin{align*}
+\varphi(x) &= \varphi\left(\sum_{j=1}^n x_j v_j\right) = \sum_{j=1}^n x_j \varphi(v_j) = \sum_{j=1}^n x_j \left(\sum_{i=1}^m a_{ij} w_i\right) \\
+&= \sum_{i=1}^m \left(\sum_{j=1}^n a_{ij} x_j\right) w_i.
+\end{align*}
+Reading off the coefficient of \(w_i\), we get \(y_i = \sum_{j=1}^n a_{ij} x_j\), which is exactly the \(i\)-th component of \(AX\).
+}
+
+\nt{As a memory aid: the isomorphism \(k^n \xrightarrow{\sim} V\) given by a basis can be written symbolically as
+\[(v_1 \; v_2 \; \cdots \; v_n) \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = \sum_{j=1}^n x_j v_j.\]
+Similarly, \(\varphi\) acts as
+\[\varphi((v_1 \; \cdots \; v_n) X) = (w_1 \; \cdots \; w_m) AX.\]
+This notation makes the matrix formula \(Y = AX\) visually clear.
+}
+
+
+\subsection{The isomorphism \(\Hom(V, W) \cong \mathcal{M}_{m \times n}(k)\)}
+
+\thm{Linear maps correspond to matrices}{Fix bases \(\mathcal{B}\) for \(V\) and \(\mathcal{C}\) for \(W\). The map
+\[\Phi : \Hom(V, W) \to \mathcal{M}_{m \times n}(k), \quad \varphi \mapsto [\varphi]_{\mathcal{B}}^{\mathcal{C}}\]
+sending a linear map to its matrix is an \textbf{\emph{isomorphism of vector spaces}}.
+}
+
+\pf{Proof}{We verify \(\Phi\) is linear, injective, and surjective.
+
+\textbf{Linearity:} Let \(\varphi, \psi \in \Hom(V, W)\) and \(\lambda \in k\). The \(j\)-th column of \([\varphi + \psi]\) is the coordinate vector of \((\varphi + \psi)(v_j) = \varphi(v_j) + \psi(v_j)\), which is the sum of the \(j\)-th columns of \([\varphi]\) and \([\psi]\). Hence \([\varphi + \psi] = [\varphi] + [\psi]\). Similarly \([\lambda\varphi] = \lambda[\varphi]\).
+
+\textbf{Injectivity:} If \([\varphi] = 0\) (the zero matrix), then every column is zero, meaning \(\varphi(v_j) = 0\) for all basis vectors \(v_j\). Since \(\varphi\) is linear and determined by its values on a basis, \(\varphi = 0\).
+
+\textbf{Surjectivity:} Given any matrix \(A \in \mathcal{M}_{m \times n}(k)\), define \(\varphi : V \to W\) by specifying \(\varphi(v_j) = \sum_i a_{ij} w_i\) (the \(j\)-th column of \(A\) gives the coordinates of \(\varphi(v_j)\)). Extend linearly. Then \([\varphi] = A\).
+}
+
+\cor{Dimension formula}{
+\[\dim(\Hom(V, W)) = \dim(\mathcal{M}_{m \times n}(k)) = mn.\]
+}
+
+\pf{Proof}{The space \(\mathcal{M}_{m \times n}(k)\) has the standard basis \(\{E_{ij}\}\), where \(E_{ij}\) is the matrix with \(1\) in position \((i, j)\) and \(0\) elsewhere. There are \(mn\) such matrices.
+}
+
+\nt{This beautiful result says: \textbf{linear maps are matrices, once we choose coordinates}. The abstract theory of linear maps reduces to the concrete theory of matrix computations. However, the matrix depends on the choice of bases---changing bases changes the matrix (we will study this ``change of basis'' in the near future).
+}
+
+The interplay between the abstract (linear maps) and the concrete (matrices) is the engine of linear algebra. Our goal is to understand how much of a linear map's structure is intrinsic (independent of basis choice) versus coordinate-dependent.
+
+
+\section{Change of basis}
+
+
+
+
+
+
+
+
+
+
+\end{document}

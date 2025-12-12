@@ -1,0 +1,44 @@
+% Studies-in-Algebra-and-Group-Theory - PSET 1
+% Author: S. D. V. Stephens
+% Date: 2025-12-09
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+\begin{document}
+
+\begin{titlebox}{Studies-in-Algebra-and-Group-Theory}\\[2mm]
+    \textbf{Name:} S. D. V. Stephens\\[2mm]
+    \textbf{Professor:} Prof. Denis Auroux\\[2mm]
+    \textbf{Date:}\today 
+\tcblower
+    \begin{center}
+    \vspace{4mm}
+    {\Huge\bfseries PSET 1}
+    \vspace{4mm}
+    \end{center}
+\end{titlebox}
+\vspace{10mm}
+
+\qs{}{Let $f:X\to Y$ be a map of sets. A function $g:Y\to X$ is called a
+left (resp.\ right) inverse of $f$ if $g\circ f=\mathrm{id}_X$ (resp.
+$f\circ g=\mathrm{id}_Y$). 
+\begin{enumerate}[a).]
+    \item Show that \(f\) permits a right inverse if and only if $f$ is surjective or onto. Show that in general a right inverse is not unique.
+    \item Show that \(f\) permits a left inverse if and only if $f$ is injective or one-to-one. Show that in general a left inverse is not unique.
+\end{enumerate}}
+
+\sol{\begin{proof} We split parts a). and b). into separate propositions:
+
+    \mprop{}{$f \circ g= \text{id}_Y \iff f$ is surjective. In general $\text{id}_Y$, the right identity function, is not unique.}
+        Let $f$ be a surjective function. For all $y, \, \exists x, $ such that $f(x)=y$; we define $g(y)$ to be such an $x$. Then, since $g(y)=x$, we have $f(x)=f(g(y))$ but $f(x)=y$ thus $y=f(g(y)) \forall y$ which is the definition of our identity function. Thus we have shown surjectivity implies $f \circ g=\text{id}_Y$. Now let $f\circ g=\text{id}_Y$, then since $\forall \, y, \, g(y)=x$, we have $f(g(y))=f(x) \implies y=f(x) \forall y$. Thus we have shown $f \circ g = \text{id}_Y \implies $ surjectivity. Since both cases are satisfied the proposition is true. In general, the right inverse is not unique---consider \(f: X \twoheadrightarrow Y\) such that \(X = \mathbb{N}\) and \(Y=\{0\}\); there exist infinitely many right inverses since any $x \in X$ can map to the only $y \in Y$.
+     
+    \mprop{}{$ g \circ f =\text{id}_X \iff $ is injective. In general $\text{id}_X$, the left identity function, is not unique.}
+     Let $f$ be an injective function. Let there be a $g:Y \to X$ such that $g(y)=x)$ Then for some $y_1=f(x_1)$, let there be a $g(y_n)=x_n$ given by $g : Y \to X$. Note that $g(y)$ can only have list of $x$s equal to the cardinality of the image of $f$; then we have $g(y_1)=g(f(x_1))$, note that $g(y_1)=x_1$, thus $x_1=g(f(x_1)) \forall x \in X$, which means that $g(f(x))=g \circ f=\text{id}_X$. Thus injectivity $\implies g \circ f =\text{id}_X$. Now let $g \circ f=\text{id}_X$, Let there exist a pair of functions such that $f(x_1)=f(x_2)$. We show that $\forall f(x_1)=f(x_2) \implies x_1=x_2$. Given \( f(x_1)=f(x_2) \implies g(f(x_1))=g(f(x_2))\), but $g(f(x))=\text{id}_X$, thus $x_1=x_2$. So $g \circ f \implies $ injectivity. To show that a left inverse lacks uniqueness consider $f : \{0,1\} \hookrightarrow \{a,b,c\}$, by pigeonhole principle, at least one $g(n)$ must map to the same number as another $g(n)$, thus our $g(y)=\text{id}_X$ is not unique.
+ \end{proof}}
+
+\qs{}{}
+
+\sol{}
+
+\end{document}

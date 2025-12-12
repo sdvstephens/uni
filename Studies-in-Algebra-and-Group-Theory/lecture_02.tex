@@ -1,224 +1,422 @@
-% Created 2025-11-30 Sun 10:53
-% Intended LaTeX compiler: pdflatex
-\documentclass[11pt]{report}
-\usepackage[utf8]{inputenc}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{hyperref}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage[capitalize]{cleveref}
-\usepackage{cancel}
-\usepackage{color}
-\usepackage{booktabs}
-\usepackage{longtable}
+% Studies-in-Algebra-and-Group-Theory - Lecture 2: Group Theory Basics
+% Author: S. D. V. Stephens
+% Date: 2025-12-09
+% Compile with: pdflatex -shell-escape
 
-%% ox-latex features:
-%   !announce-start, !guess-pollyglossia, !guess-babel, !guess-inputenc, maths,
-%   !announce-end.
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-%% end ox-latex features
-
-
+\documentclass{report}
 \input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
 \course{Studies-in-Algebra-and-Group-Theory}
-\date{}
-\title{Studies-in-Algebra-and-Group-Theory - Lecture 2: Group Theory Basics}
-\providecolor{url}{HTML}{0077bb}
-\providecolor{link}{HTML}{882255}
-\providecolor{cite}{HTML}{999933}
-\hypersetup{
-  pdfauthor={},
-  pdftitle={},
-  pdfkeywords={orgmode pdf latex},
-  pdfsubject={},
-  pdfcreator={},
-  pdflang={English},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite}
-\urlstyle{same}\begin{document}
 
-\lecture{2}{Group Theory Basics }
+\begin{document}
 
-\dfn{Groups}{A \textbf{\emph{group}} is a set \(S\) together with a map
+\lecture{2}{Group Theory Basics}
 
+Groups are the central object of abstract algebra, capturing the essence of symmetry and invertible operations. The definition is deceptively simple---three axioms---yet groups appear everywhere: in geometry (symmetries), number theory (modular arithmetic), topology (fundamental groups), physics (gauge theories), and even chemistry (molecular symmetries). This lecture develops the foundations rigorously.
+
+\section{The group axioms}
+
+\dfn{Groups}{A \textbf{\emph{group}} is a set \(G\) together with a map
 \[
-  m : S \times S \to S
+  m : G \times G \to G
 \]
-
-called a \textbf{\emph{law of composition}} (LOC) (also called \textbf{\emph{binary operation}}). Writing \(ab\) for \(m(a,b)\), the LOC has to satisfy three axioms (known as the group axioms):
+called a \textbf{\emph{law of composition}} (also \textbf{\emph{binary operation}}). Writing \(ab\) for \(m(a,b)\), the law of composition must satisfy three axioms:
 \begin{enumerate}
-\item (existence of identity): \(\exists e \in S\) called the \emph{identity} such that \(ea=ae=a, \, \forall a \in S\);
-\item (existence of inverse): \(\forall a \in S, \exists b\) such that \(ab=be=e\) (we often denote \(b\) as \(-a\) or \(a^{-1}\));
-\item (the associative law): \(\forall a,b,c \in S, \, a(bc)=(ab)c\).
+\item \textbf{Associativity:} \(\forall a,b,c \in G, \, (ab)c = a(bc)\).
+\item \textbf{Identity:} \(\exists e \in G\) such that \(ea = ae = a\) for all \(a \in G\).
+\item \textbf{Inverses:} \(\forall a \in G, \, \exists b \in G\) such that \(ab = ba = e\).
+\end{enumerate}
+We write \((G, m)\) or simply \(G\) for the group, and call \(|G|\) the \textbf{\emph{order}} of \(G\).
+}
+
+The axioms have immediate but important consequences that we now prove carefully.
+
+\mprop{Uniqueness of identity}{The identity element \(e\) is unique.
+}
+
+\pf{Proof}{Uniqueness of identity
+
+Suppose \(e\) and \(e'\) are both identities. Then \(e = ee'\) (since \(e'\) is an identity) and \(ee' = e'\) (since \(e\) is an identity). Thus \(e = e'\).
+}
+
+\mprop{Uniqueness of inverses}{For each \(a \in G\), the inverse is unique. We denote it \(a^{-1}\) (or \(-a\) in additive notation).
+}
+
+\pf{Proof}{Uniqueness of inverses
+
+Suppose \(b\) and \(c\) are both inverses of \(a\), so \(ab = ba = e\) and \(ac = ca = e\). Then:
+\[b = be = b(ac) = (ba)c = ec = c.\]
+}
+
+\mprop{Cancellation laws}{In a group \(G\):
+\begin{enumerate}
+    \item \textbf{Left cancellation:} \(ab = ac \implies b = c\).
+    \item \textbf{Right cancellation:} \(ba = ca \implies b = c\).
 \end{enumerate}
 }
 
-Now some notes: from the definition it quickly follows that the identity of a group is unique, and this is easy to show. Due to inverses, we have been gifted with the \emph{cancellation law}, \(ab=ab' \implies b=b'\). Finally, \((S,m)\) is our pair which constructs our group, however, it is often that we will simply use one letter to denote the group (often \(G\) or the same letter used with the underlying set, e.g., \(S\)). Instead of using \(|G|\) to denote cardinality, we will often use it---in the context of groups---to denote the underlying set; the cardinality of the group/ underlying set, then, too, undergoes a name change---it is known as the \emph{order} of the group.
+\pf{Proof}{Proof of cancellation
 
-\nt{It is customary to use \(+\) as the representative operation for commutative laws (i.e., when it is the case that the group is not only associative, but also commutative). This does not, however, imply that multiplication is reserved for non-commutativity.
-}
-\pagebreak
-\subsection{Group Variants}
-\label{sec:orga7a1db1}
-
-There are special cases of group-like-structures with more or less group axioms, here we list a few which we will define informally:
-
-\dfn{Abelian groups}{An abelian group is a group \(G\) such that all \(a,b \in G\) commute under the law of composition.
+For left cancellation: if \(ab = ac\), multiply both sides on the left by \(a^{-1}\): \(a^{-1}(ab) = a^{-1}(ac)\), so \((a^{-1}a)b = (a^{-1}a)c\), giving \(eb = ec\), i.e., \(b = c\). Right cancellation is similar.
 }
 
-\dfn{Monoids}{A \textbf{\emph{monoid}} is an algebraic structure with the same underlying structure as a group (i.e., set and LOC) and two out of three of its axioms---namely missing inverses.
+\mprop{Inverse of products}{For all \(a, b \in G\): \((ab)^{-1} = b^{-1}a^{-1}\). Note the reversal of order!
 }
 
-\dfn{Semigroup}{A \textbf{\emph{semigroup}} is an algebraic structure with the same underlying structure as a group (i.e., set and LOC) and two out of three of its axioms---namely missing associativity.
+\pf{Proof}{Proof of inverse formula
+
+We verify \((ab)(b^{-1}a^{-1}) = e\): \((ab)(b^{-1}a^{-1}) = a(bb^{-1})a^{-1} = aea^{-1} = aa^{-1} = e\). Similarly for the other side.
 }
 
-\ex{}{\(\ZZ / n \coloneqq \{0,1,2,\ldots ,n-1\}\), with a group law given by addition mod \(n\), where
+\mprop{Inverse of inverse}{For all \(a \in G\): \((a^{-1})^{-1} = a\).
+}
 
+\pf{Proof}{Proof of double inverse
+
+By definition, \(a^{-1}\) satisfies \(a \cdot a^{-1} = e\). This says \(a\) is an inverse of \(a^{-1}\), so by uniqueness, \((a^{-1})^{-1} = a\).
+}
+
+\nt{It is customary to use additive notation (\(+\), \(0\), \(-a\)) for abelian groups and multiplicative notation (\(\cdot\), \(1\) or \(e\), \(a^{-1}\)) in general. This does \emph{not} mean that multiplication implies non-commutativity!
+}
+
+\subsection{Group variants and related structures}
+
+Groups sit in a hierarchy of algebraic structures with fewer or more axioms.
+
+\dfn{Abelian groups}{A group \(G\) is \textbf{\emph{abelian}} (or \textbf{\emph{commutative}}) if \(ab = ba\) for all \(a, b \in G\).
+}
+
+\dfn{Monoid}{A \textbf{\emph{monoid}} is a set with an associative binary operation and an identity element, but inverses are not required. Example: \((\mathbb{N}, +)\) with identity 0, or \((\mathbb{Z}, \times)\) with identity 1.
+}
+
+\dfn{Semigroup}{A \textbf{\emph{semigroup}} is a set with an associative binary operation---no identity or inverses required. Example: \((\mathbb{Z}_{>0}, +)\).
+}
+
+\nt{There's a pattern here: Group = Monoid + Inverses = Semigroup + Identity + Inverses. Category theory provides a unifying framework: a group is a category with one object where every morphism is invertible; a monoid is a category with one object (morphisms need not be invertible).
+}
+
+\section{Fundamental examples}
+
+\subsection{Integers and modular arithmetic}
+
+\ex{The integers}{The set \((\mathbb{Z}, +)\) is an abelian group with identity \(0\) and inverse \(-n\) for each \(n\). This is the prototypical infinite cyclic group.
+}
+
+\ex{Integers mod \(n\)}{\(\mathbb{Z}/n\mathbb{Z} = \{0, 1, 2, \ldots, n-1\}\) with addition mod \(n\):
 \[
-m(a,b)\coloneqq \begin{cases}
-    a + b, & \text{if } a+b\le n-1 \\
-    a+b-n, & \text{if not.}
-  \end{cases}
+a + b \coloneqq \begin{cases}
+    a + b & \text{if } a + b < n \\
+    a + b - n & \text{if } a + b \ge n.
+\end{cases}
 \]
+Identity is \(0\), inverse of \(a\) is \(n - a\) (mod \(n\)). This is an abelian group of order \(n\).
 }
 
-\ex{}{\(\QQ^*,\RR^*,\CC^*\) under multiplication as LOC. Identity \(1\), inverse \(\frac{1}{x}\). Inside \(\CC^*\) the unit circle \(S^1=\{z \in \CC \mid |z|=1\}\) is also a group under multiplication. All of these are abelian.
+\mprop{Units mod \(n\)}{The set \((\mathbb{Z}/n\mathbb{Z})^\times = \{a \in \mathbb{Z}/n\mathbb{Z} : \gcd(a, n) = 1\}\) forms a group under multiplication mod \(n\). Its order is \(\varphi(n)\), Euler's totient function.
 }
 
-\begin{nt}
-While it seems like the abelian pattern would continue as we construct higher dimensional sets comprised of \(\RR\), in fact, as we move to quaternions we run into our first non-abelian group constructed by \(\RR\) under multiplication.
-\end{nt}
+\pf{Proof}{Proof that units form a group
 
-Before we move onto more examples, some terminology updates are due:
+\textbf{Closure:} If \(\gcd(a, n) = \gcd(b, n) = 1\), then \(\gcd(ab, n) = 1\) (if a prime \(p\) divides both \(ab\) and \(n\), it divides \(a\) or \(b\), contradicting coprimality).
 
-\dfn{Permutations of a set}{A permutation of a set \(A\) is a bijection \(f : A\leftrightarrow A\), to form a group we use composition (functional or relational?) as our LOC and call this group \(\text{Perm}(A)\). Note that for \(\text{Perm}(A)\) its order, if finite, is given by \(n!\) where \(n\) is the order of \(A\).
+\textbf{Identity:} \(1\) is coprime to \(n\).
+
+\textbf{Inverses:} If \(\gcd(a, n) = 1\), then by Bézout's identity, \(\exists r, s\) with \(ra + sn = 1\). Thus \(ra \equiv 1 \pmod{n}\), so \(r\) is a multiplicative inverse.
 }
 
-\dfn{Symmetric groups}{A symmetric group on \(n\) elements is given by \(S_n=\text{Perm}(\{1,\ldots ,n\})\).
+\subsection{Multiplicative groups of fields}
+
+\ex{Multiplicative groups}{\(\mathbb{Q}^* = \mathbb{Q} \setminus \{0\}\), \(\mathbb{R}^* = \mathbb{R} \setminus \{0\}\), and \(\mathbb{C}^* = \mathbb{C} \setminus \{0\}\) are abelian groups under multiplication, with identity \(1\) and inverse \(1/x\).
 }
 
-\ex{Symmetries of an equilateral triangle}{\(S_{3}\) can be thought of as symmetries of a triangle comprised of rotations and reflections (3 of each, with one of the rotations being the identity).
+\ex{The circle group}{The unit circle \(S^1 = \{z \in \mathbb{C} : |z| = 1\}\) is a group under multiplication. It is isomorphic to \(\mathbb{R}/\mathbb{Z}\) via \(t \mapsto e^{2\pi i t}\). This is a \emph{compact} abelian group and plays a fundamental role in Fourier analysis and representation theory.
+}
+
+\ex{Roots of unity}{For each \(n \ge 1\), the \(n\)th roots of unity \(\mu_n = \{z \in \mathbb{C} : z^n = 1\} = \{e^{2\pi i k/n} : k = 0, 1, \ldots, n-1\}\) form a cyclic group of order \(n\) under multiplication. We have \(\mu_n \cong \mathbb{Z}/n\mathbb{Z}\).
+}
+
+\subsection{Symmetric and permutation groups}
+
+\dfn{Permutation group}{A \textbf{\emph{permutation}} of a set \(X\) is a bijection \(\sigma : X \to X\). The set of all permutations of \(X\) forms a group \(\Sym(X)\) under composition, with identity \(\id_X\) and inverse \(\sigma^{-1}\).
+}
+
+\dfn{Symmetric group}{The \textbf{\emph{symmetric group}} on \(n\) letters is \(S_n = \Sym(\{1, 2, \ldots, n\})\). It has order \(n!\) and is non-abelian for \(n \ge 3\).
+}
+
+\ex{Symmetries of a triangle}{\(S_3\) can be visualized as symmetries of an equilateral triangle: 3 rotations (including identity) and 3 reflections.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.8]
-    % Define vertices of equilateral triangle
     \coordinate (A) at (90:1.5);
     \coordinate (B) at (210:1.5);
     \coordinate (C) at (330:1.5);
-
-    % Define midpoints for reflection lines
     \coordinate (MA) at ($(B)!0.5!(C)$);
     \coordinate (MB) at ($(A)!0.5!(C)$);
     \coordinate (MC) at ($(A)!0.5!(B)$);
-
-    % Draw reflection lines (dashed)
     \draw[dashed, gray] (A) -- (MA);
     \draw[dashed, gray] (B) -- (MB);
     \draw[dashed, gray] (C) -- (MC);
-
-    % Draw the triangle
     \draw[thick] (A) -- (B) -- (C) -- cycle;
-
-    % Draw vertices as dots
     \fill (A) circle (1.5pt);
     \fill (B) circle (1.5pt);
     \fill (C) circle (1.5pt);
-
-    % Draw rotation arrow in center
     \draw[-{Stealth}, thick] (0,0.3) arc (90:330:0.3);
 \end{tikzpicture}
 \end{center}
 
-Symmetries, then, permute the vertices, and every permutation of the set of vertices arises from exactly one symmetry. Thus, \(S_{3}\) occurs as the group of symmetries of a triangle. The other groups in \(\RR^2\) that arise from symmetries are called dihedral groups, and the groups comprised of symmetries in \(\RR^3\) are called octahedral groups. We will return to these at a later point.
+Labeling vertices \(1, 2, 3\), rotations give permutations \(e, (123), (132)\) and reflections give \((12), (13), (23)\). Thus \(|S_3| = 6\).
 }
 
-\ex{Matrix groups}{We have some special type of matrix groups, it is okay if you do not know much about them at the moment, we will dive into detail about them later; note that the following groups are all using the LOC of matrix multiplication. The first such group is the \textbf{\emph{general linear group}} given by \(\text{GL}_n(\RR) \coloneqq \{\text{invertible } n \times n \text{ matrices with real coefficients}\}\), the second is known as the \textbf{\emph{special linear group}} given by \(\text{SL}_n (\RR)\coloneqq \{n\times n \text{ real matrices with determinant }1\}\), there also exists these for \(\CC\), and in fact for any \(\FF\) as we will later show from \(\GL(n,\FF)\) (you do not need to know what this means for now).
+\subsection{Matrix groups}
+
+\dfn{General linear group}{The \textbf{\emph{general linear group}} \(\GL_n(\mathbb{F})\) is the group of invertible \(n \times n\) matrices over a field \(\mathbb{F}\), under matrix multiplication. A matrix is invertible iff its determinant is nonzero.
 }
 
-A group that has the property of being generated by an element (in example 2.0.3, the element that generates is a single symmetry) such that the entire group can be obtained by adding said element and/ or its inverse to itself repeatedly is said to be \textbf{\emph{cyclic}}.
-\section{Constructions}
-\label{sec:orgab6fbbe}
-
-A natural question that arises in the course of group study asks, \emph{how can we construct new groups from existing groups?} That is to say, how can one \emph{combine} groups? We combine groups using \emph{products} given by \(G \times H\) such that \(G,H\) are both groups; the underlying set is given by ordinary Cartesian product, and the law of composition is said to be given termwise; i.e.,
-
-\[
-  (a,b)\cdot (a',b')\coloneqq (aa',bb')
-.\]
-
-There are times we may use the term \emph{sum} for the combination of \(G\) and \(H\), written \(G \oplus H\), but we usually have more specific uses for this term (though this may not \emph{always} be the case). For construction on more than two groups we simply have
-
-\[
-  G_{1}\times \ldots G_n \coloneqq \{(a_{1},\ldots ,a_n)\mid a_i \in G_i\}
-\]
-
-with LOC given by
-
-\[
-(a_{1},\ldots ,a_n)\cdot (b_{1},\ldots, b_n)\coloneqq (a_{1}b_{1},\ldots ,a_nb_n)
-.\]
-
-When taking the product of \(n\) groups (i.e., \(G^n\) (e.g., \(\ZZ^n\))) we usually denote this via
-
-\[
-  \bigoplus^n_{i=1}G_i \text{ or } \prod_{i=1}^{n}G_i
-.\]
-
-When given infinitely many groups, our summation symbol takes on a special property, wherein \(\prod_{i=1}^{\infty} G_i=\{(a_{1},a_{2},\ldots )\mid a_i \in G_i\}\), but \(\bigoplus_{i=1}^{\infty}G_i=\{(a_{1},\ldots )\mid a_i \in G_i, \text{ where all but finitely many } a_i \text{ are identity}\}\). We can see this best exemplified with some polynomials:
-
-\ex{Power series and polynomial groups}{Consider \(G_{0}=G_{1}=\ldots =(\RR,+)\) for \((a_{0},a_{1},\ldots )\) by \(\sum^n_i a_ix^i\), then
-
-\[
-   \prod^{\infty}_{i=0}\RR=\RR[[x]], \text{ i.e., formal power series } \sum_{i=0}^{\infty}a_ix^i \text{ under addition}
-,\]
-
-and
-
-\[
-\bigoplus^{\infty}_{i=0}\RR=\RR[x], \text{ i.e., polynomials } \sum_{\text{finite}}a_ix^i
-.\]
-}
-\section{Subgroups and Homomorphisms}
-\label{sec:org19d4e2e}
-
-Similar to how we have had subsets, we, too, have \textbf{\emph{subgroups}}!
-
-\dfn{Subgroups and proper subgroups}{A \textbf{\emph{subgroup}} \(H\) of \(G\) is a non-empty subset \(H\subset G\) which is closed under the given law of composition---that is to say, \(\forall a,b \in H \implies ab \in H\)---and inversion---i.e., \(\forall a \in H \implies a^{-1}\in H\). Since \(H \neq \emptyset\), those 2 conditions imply \(e \in H\). Thus \(H\) under the same operation as \(G\) is a group within its own right. We say that \(H\) is a \textbf{\emph{proper subgroup}} if \(H \subset G\) but \(H\neq G\).
+\dfn{Special linear group}{The \textbf{\emph{special linear group}} \(\SL_n(\mathbb{F}) = \{A \in \GL_n(\mathbb{F}) : \det(A) = 1\}\) is a subgroup of \(\GL_n(\mathbb{F})\).
 }
 
-\thm{}{Let \(S\) be a subgroup of \((\ZZ,+)\) (sometimes represented as \(\ZZ^+\)). Either \(S=\{0\}\)---the trivial subgroup---or it is the form \(\ZZ a\) such that \(a\) is the smallest positive integer in \(S\).
+\nt{Matrix groups are our first examples of \emph{Lie groups}---groups that are also smooth manifolds. They are central to representation theory: a representation of \(G\) is a homomorphism \(\rho : G \to \GL_n(\mathbb{F})\), making \(G\) act on \(\mathbb{F}^n\) by linear transformations. This perspective unifies group theory with linear algebra.
 }
 
-\pf{Proof}{Refer to Artin Ch.2, Thm.2.3.3.
+\ex{Non-abelian example}{In \(\GL_2(\mathbb{R})\), let \(A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\) and \(B = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}\). Then:
+\[AB = \begin{pmatrix} 2 & 1 \\ 1 & 1 \end{pmatrix} \neq \begin{pmatrix} 1 & 1 \\ 1 & 2 \end{pmatrix} = BA.\]
+So \(\GL_2(\mathbb{R})\) is non-abelian.
 }
 
+\section{Constructions: Products and sums}
 
-\mprop{}{Let \(a,b \in \ZZ\), not both zero, and let \(d\) be their greatest common divisor, the positive integer that generates the subgroup \(S=\ZZ a+\ZZ b\). So \(\ZZ d=\ZZ a+\ZZ b\). Then
+How do we build new groups from existing ones?
+
+\subsection{Direct products}
+
+\dfn{Direct product}{Given groups \(G\) and \(H\), the \textbf{\emph{direct product}} \(G \times H\) is the Cartesian product with componentwise operation:
+\[(a, b) \cdot (a', b') = (aa', bb').\]
+Identity is \((e_G, e_H)\), inverse of \((a, b)\) is \((a^{-1}, b^{-1})\).
+}
+
+\mprop{Direct product is a group}{The direct product \(G \times H\) satisfies all group axioms. Moreover, \(|G \times H| = |G| \cdot |H|\) (for finite groups).
+}
+
+\pf{Proof}{Verification of group axioms for \(G \times H\)
+
+\textbf{Associativity:} \(((a,b)(a',b'))(a'',b'') = (aa',bb')(a'',b'') = (aa'a'', bb'b'')\). Similarly, \((a,b)((a',b')(a'',b'')) = (a,b)(a'a'',b'b'') = (aa'a'', bb'b'')\). Equal by associativity in \(G\) and \(H\).
+
+\textbf{Identity:} \((e_G, e_H)(a,b) = (e_Ga, e_Hb) = (a,b)\), and similarly on the right.
+
+\textbf{Inverses:} \((a,b)(a^{-1},b^{-1}) = (aa^{-1}, bb^{-1}) = (e_G, e_H)\).
+}
+
+\ex{}{We have \(\mathbb{Z}/2 \times \mathbb{Z}/3 \cong \mathbb{Z}/6\) (since \(\gcd(2,3) = 1\)), but \(\mathbb{Z}/2 \times \mathbb{Z}/2 \not\cong \mathbb{Z}/4\) (the former has no element of order 4).
+}
+
+This generalizes to arbitrary (even infinite) collections of groups.
+
+\dfn{Arbitrary direct products}{For a family of groups \(\{G_i\}_{i \in I}\), the \textbf{\emph{direct product}} is:
+\[\prod_{i \in I} G_i = \{(a_i)_{i \in I} : a_i \in G_i\}\]
+with componentwise operations.
+}
+
+\dfn{Direct sum}{The \textbf{\emph{direct sum}} (for abelian groups) is the subgroup:
+\[\bigoplus_{i \in I} G_i = \{(a_i)_{i \in I} \in \prod_{i \in I} G_i : a_i = e_{G_i} \text{ for all but finitely many } i\}.\]
+}
+
+\nt{For finite index sets, \(\prod = \bigoplus\). For infinite sets, they differ crucially.
+}
+
+\ex{Power series vs polynomials}{Taking \(G_i = (\mathbb{R}, +)\) for all \(i \in \mathbb{N}\):
+\[\prod_{i=0}^{\infty} \mathbb{R} \cong \mathbb{R}[[x]] \quad \text{(formal power series under addition)}\]
+\[\bigoplus_{i=0}^{\infty} \mathbb{R} \cong \mathbb{R}[x] \quad \text{(polynomials under addition)}\]
+A power series \(\sum_{i=0}^\infty a_i x^i\) can have infinitely many nonzero terms; a polynomial cannot.
+}
+
+\qs{}{
 \begin{enumerate}
-\item \(d\) divides \(a\) and \(b\);
-\item if an integer \(n\) divides both \(a\) and \(b\), it, too, divides \(d\);
-\item there are integers \(r\) and \(s\) such that \(d=ra+sb\).
+    \item Prove that \(\mathbb{Z}/m \times \mathbb{Z}/n \cong \mathbb{Z}/mn\) if and only if \(\gcd(m, n) = 1\).
+    \item Find all groups of order 4 up to isomorphism.
+    \item Prove that \(G \times H \cong H \times G\) for any groups \(G, H\).
 \end{enumerate}
 }
 
-\cor{}{A pair \(a,b \in \ZZ\) is relatively prime \(\iff\) there are integers \(r\) and \(s\) such that \(ra+sb=1\).
+\begin{solution}
+\textbf{(1)} (\(\Leftarrow\)) Assume \(\gcd(m,n) = 1\). The element \((1, 1) \in \mathbb{Z}/m \times \mathbb{Z}/n\) has order \(\lcm(m, n) = mn\) (since the order of \((a, b)\) is \(\lcm(\ord(a), \ord(b))\)). Thus \(\mathbb{Z}/m \times \mathbb{Z}/n\) contains an element of order \(mn = |G|\), so it's cyclic, hence \(\cong \mathbb{Z}/mn\).
+
+(\(\Rightarrow\)) If \(d = \gcd(m, n) > 1\), then for any \((a, b) \in \mathbb{Z}/m \times \mathbb{Z}/n\), we have \(\frac{mn}{d} \cdot (a, b) = (\frac{mn}{d} a, \frac{mn}{d} b) = (0, 0)\) since \(m \mid \frac{mn}{d}\) and \(n \mid \frac{mn}{d}\). So every element has order dividing \(\frac{mn}{d} < mn\), meaning no element has order \(mn\). But \(\mathbb{Z}/mn\) has an element of order \(mn\), so they're not isomorphic.
+
+\textbf{(2)} Let \(G\) have order 4. Every element has order dividing 4, so orders are 1, 2, or 4.
+
+\emph{Case 1:} \(G\) has an element \(a\) of order 4. Then \(G = \{e, a, a^2, a^3\} = \langle a \rangle \cong \mathbb{Z}/4\).
+
+\emph{Case 2:} Every non-identity element has order 2. Then \(G = \{e, a, b, c\}\) with \(a^2 = b^2 = c^2 = e\). What is \(ab\)? It's not \(e\) (else \(a = b^{-1} = b\)), not \(a\) (else \(b = e\)), not \(b\) (else \(a = e\)). So \(ab = c\). Similarly \(ba = c\) (check: \((ab)(ba) = a(bb)a = a^2 = e\), so \(ba = (ab)^{-1} = ab\) since \(ab\) has order 2). So \(G\) is abelian, and \(G \cong \mathbb{Z}/2 \times \mathbb{Z}/2\) (Klein four-group).
+
+\textbf{(3)} Define \(\varphi : G \times H \to H \times G\) by \(\varphi(g, h) = (h, g)\). This is clearly a bijection. It's a homomorphism: \(\varphi((g_1, h_1)(g_2, h_2)) = \varphi(g_1g_2, h_1h_2) = (h_1h_2, g_1g_2) = (h_1, g_1)(h_2, g_2) = \varphi(g_1, h_1)\varphi(g_2, h_2)\).
+\end{solution}
+
+\section{Subgroups}
+
+\dfn{Subgroup}{A \textbf{\emph{subgroup}} of a group \(G\) is a nonempty subset \(H \subseteq G\) such that:
+\begin{enumerate}
+    \item \textbf{Closure:} \(a, b \in H \implies ab \in H\);
+    \item \textbf{Inverses:} \(a \in H \implies a^{-1} \in H\).
+\end{enumerate}
+We write \(H \le G\) (or \(H < G\) if \(H \ne G\), a \textbf{\emph{proper subgroup}}).
 }
 
-\cor{}{Let \(p \in \PP\). If \(p\) divides a product of \(ab \in \ZZ\), then \(p\) divides \(a\) XOR \(p\) divides \(b\).
+\mprop{Subgroup criterion}{A nonempty subset \(H \subseteq G\) is a subgroup iff \(a, b \in H \implies ab^{-1} \in H\).
 }
 
-\dfn{Homomorphisms and isomorphisms}{Given two groups \(G,H\), a \textbf{\emph{homomorphism}} (abbr. homom. or hom.) \(\varphi : G \to H\) is a map which respects the law of composition and is such that \(\forall a,b \in G, \varphi (ab)=\varphi (a)\varphi (b)\). This implies \(\varphi (e_G)=e_H\) and \(\varphi (a\inv )=\varphi (a)\inv\). An \textbf{\emph{isomorphism}} (abbr. isom.) is a bijective homomorphism. If \(G\) and \(H\) are isomorphic, they are essentially the ``same'' group structure-wise, even if its elements and laws may have different names!
+\pf{Proof}{One-step subgroup test
+
+(\(\Rightarrow\)) If \(H \le G\) and \(a, b \in H\), then \(b^{-1} \in H\) (inverses) and \(ab^{-1} \in H\) (closure).
+
+(\(\Leftarrow\)) Assume the condition. Since \(H \ne \emptyset\), pick \(a \in H\). Then \(e = aa^{-1} \in H\). For any \(b \in H\), \(b^{-1} = eb^{-1} \in H\). For \(a, b \in H\), we have \(b^{-1} \in H\), so \(ab = a(b^{-1})^{-1} \in H\).
 }
 
-\nt{A pedantic way to state that \(\varphi (ab) = \varphi (a)\varphi (b)\) is by a \textbf{\emph{commutative diagram}}. This means that \(G\times G \mapsto G \mapsto H\) gives the same map of \(G \times G \mapsto H \times H \mapsto H\) under \(m_G, \varphi\) and \(\varphi \times \varphi , m_H\), respectively. This is to say, it does not matter if we multiply first or apply \(\varphi\) first.
+\ex{Subgroups of \(\mathbb{Z}\)}{Every subgroup of \((\mathbb{Z}, +)\) has the form \(n\mathbb{Z} = \{\ldots, -2n, -n, 0, n, 2n, \ldots\}\) for some \(n \ge 0\). These form a chain: \(\mathbb{Z} = 1\mathbb{Z} \supset 2\mathbb{Z} \supset 4\mathbb{Z} \supset 8\mathbb{Z} \supset \cdots\) (not all subgroups are comparable, though: \(2\mathbb{Z}\) and \(3\mathbb{Z}\) are incomparable).
+}
+
+\thm{Subgroups of \(\mathbb{Z}\)}{Let \(H\) be a subgroup of \((\mathbb{Z}, +)\). Then either \(H = \{0\}\) or \(H = n\mathbb{Z}\) where \(n\) is the smallest positive element of \(H\).
+}
+
+\pf{Proof}{Classification of subgroups of \(\mathbb{Z}\)
+
+If \(H = \{0\}\), we're done. Otherwise, \(H\) contains some nonzero element \(a\); then \(-a \in H\) too, so \(H\) contains a positive element. Let \(n\) be the smallest positive element of \(H\).
+
+We show \(H = n\mathbb{Z}\). Clearly \(n\mathbb{Z} \subseteq H\) since \(H\) is closed under addition: \(n \in H \implies 2n = n + n \in H \implies 3n \in H \implies \ldots\), and \(-n \in H \implies -2n \in H \implies \ldots\)
+
+For \(H \subseteq n\mathbb{Z}\): take any \(m \in H\). By division algorithm, \(m = qn + r\) with \(0 \le r < n\). Then \(r = m - qn \in H\) (since \(m, qn \in H\)). By minimality of \(n\), we must have \(r = 0\), so \(m = qn \in n\mathbb{Z}\).
+}
+
+\mprop{Greatest common divisor}{Let \(a, b \in \mathbb{Z}\), not both zero, and let \(d = \gcd(a, b)\). Then:
+\begin{enumerate}
+    \item \(\mathbb{Z}a + \mathbb{Z}b = \{ra + sb : r, s \in \mathbb{Z}\} = d\mathbb{Z}\);
+    \item \(d\) divides both \(a\) and \(b\);
+    \item If \(n\) divides both \(a\) and \(b\), then \(n\) divides \(d\);
+    \item \(\exists r, s \in \mathbb{Z}\) such that \(d = ra + sb\) (Bézout's identity).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of GCD properties
+
+The set \(S = \mathbb{Z}a + \mathbb{Z}b\) is a subgroup of \(\mathbb{Z}\) (verify: closed under addition and negation). By the theorem, \(S = d\mathbb{Z}\) for some \(d \ge 0\). Since \(a = 1 \cdot a + 0 \cdot b \in S\) and \(b \in S\), and \(S = d\mathbb{Z}\), we have \(d \mid a\) and \(d \mid b\). Since \(d \in S\), we have \(d = ra + sb\) for some \(r, s\). If \(n \mid a\) and \(n \mid b\), then \(n \mid (ra + sb) = d\). These properties characterize \(d = \gcd(a, b)\).
+}
+
+\cor{Coprimality criterion}{\(a\) and \(b\) are coprime (i.e., \(\gcd(a,b) = 1\)) iff \(\exists r, s \in \mathbb{Z}\) with \(ra + sb = 1\).
+}
+
+\cor{Euclid's lemma}{If \(p\) is prime and \(p \mid ab\), then \(p \mid a\) or \(p \mid b\).
+}
+
+\pf{Proof}{Proof of Euclid's lemma
+
+Suppose \(p \nmid a\). Since \(p\) is prime, \(\gcd(p, a) = 1\). By Bézout, \(\exists r, s\) with \(rp + sa = 1\). Multiply by \(b\): \(rpb + sab = b\). Since \(p \mid rpb\) and \(p \mid ab\), we have \(p \mid b\).
+}
+
+\subsection{Generated subgroups and cyclic groups}
+
+\dfn{Subgroup generated by a set}{For \(S \subseteq G\), the \textbf{\emph{subgroup generated by \(S\)}}, denoted \(\langle S \rangle\), is the smallest subgroup of \(G\) containing \(S\). Explicitly:
+\[\langle S \rangle = \{s_1^{\epsilon_1} s_2^{\epsilon_2} \cdots s_k^{\epsilon_k} : k \ge 0, \, s_i \in S, \, \epsilon_i \in \{1, -1\}\}.\]
+}
+
+\dfn{Cyclic groups}{A group \(G\) is \textbf{\emph{cyclic}} if \(G = \langle a \rangle\) for some \(a \in G\). The element \(a\) is called a \textbf{\emph{generator}}.
+}
+
+\dfn{Order of an element}{The \textbf{\emph{order}} of \(a \in G\), denoted \(\ord(a)\) or \(|a|\), is the smallest positive integer \(n\) such that \(a^n = e\), or \(\infty\) if no such \(n\) exists.
+}
+
+\mprop{Structure of cyclic groups}{Let \(G = \langle a \rangle\).
+\begin{enumerate}
+    \item If \(\ord(a) = \infty\), then \(G \cong \mathbb{Z}\) via \(n \mapsto a^n\).
+    \item If \(\ord(a) = n < \infty\), then \(G = \{e, a, a^2, \ldots, a^{n-1}\}\) and \(G \cong \mathbb{Z}/n\mathbb{Z}\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of cyclic group structure
+
+Define \(\varphi : \mathbb{Z} \to G\) by \(\varphi(k) = a^k\). This is a homomorphism: \(\varphi(k + l) = a^{k+l} = a^k a^l = \varphi(k)\varphi(l)\). It's surjective since \(G = \langle a \rangle\).
+
+\textbf{Case 1:} \(\ord(a) = \infty\). If \(\varphi(k) = \varphi(l)\) with \(k > l\), then \(a^{k-l} = e\), contradicting infinite order. So \(\varphi\) is injective, hence an isomorphism \(\mathbb{Z} \xrightarrow{\sim} G\).
+
+\textbf{Case 2:} \(\ord(a) = n\). Then \(\ker(\varphi) = \{k \in \mathbb{Z} : a^k = e\}\). Since \(a^n = e\), we have \(n\mathbb{Z} \subseteq \ker(\varphi)\). Conversely, if \(a^k = e\), write \(k = qn + r\) with \(0 \le r < n\). Then \(a^r = a^{k-qn} = a^k (a^n)^{-q} = e\). By minimality of \(n\), \(r = 0\), so \(k \in n\mathbb{Z}\). Thus \(\ker(\varphi) = n\mathbb{Z}\), and \(G \cong \mathbb{Z}/n\mathbb{Z}\) by the First Isomorphism Theorem.
+}
+
+\mprop{Subgroups of cyclic groups}{Every subgroup of a cyclic group is cyclic. If \(G = \langle a \rangle\) has order \(n\), the subgroups of \(G\) are exactly \(\langle a^d \rangle\) for divisors \(d \mid n\), and \(|\langle a^d \rangle| = n/d\).
+}
+
+\pf{Proof}{Subgroups of cyclic groups
+
+Let \(H \le \langle a \rangle\). If \(H = \{e\}\), it's cyclic. Otherwise, let \(d\) be the smallest positive integer with \(a^d \in H\). We claim \(H = \langle a^d \rangle\).
+
+Clearly \(\langle a^d \rangle \subseteq H\). For the reverse: take \(a^k \in H\). Write \(k = qd + r\) with \(0 \le r < d\). Then \(a^r = a^k (a^d)^{-q} \in H\). By minimality of \(d\), \(r = 0\), so \(a^k = (a^d)^q \in \langle a^d \rangle\).
+
+If \(|G| = n\), then \(a^d\) has order \(n/\gcd(d, n)\). The subgroups correspond to divisors via \(d \leftrightarrow \langle a^{n/d} \rangle\) of order \(d\).
+}
+
+\qs{}{
+\begin{enumerate}
+    \item Find all subgroups of \(\mathbb{Z}/12\mathbb{Z}\) and draw the subgroup lattice.
+    \item Prove that \(\mathbb{Z}/p\mathbb{Z}\) has no proper nontrivial subgroups for \(p\) prime.
+    \item How many generators does \(\mathbb{Z}/n\mathbb{Z}\) have?
+    \item Prove: if \(G\) is a group where every element satisfies \(x^2 = e\), then \(G\) is abelian.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} Divisors of 12: 1, 2, 3, 4, 6, 12. Subgroups: \(\langle 0 \rangle = \{0\}\), \(\langle 6 \rangle = \{0, 6\}\), \(\langle 4 \rangle = \{0, 4, 8\}\), \(\langle 3 \rangle = \{0, 3, 6, 9\}\), \(\langle 2 \rangle = \{0, 2, 4, 6, 8, 10\}\), \(\langle 1 \rangle = \mathbb{Z}/12\).
+
+Lattice (larger subgroups higher):
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \node (Z12) at (0,3) {\(\mathbb{Z}/12\)};
+  \node (Z6) at (-1.5,2) {\(\langle 2 \rangle\)};
+  \node (Z4) at (1.5,2) {\(\langle 3 \rangle\)};
+  \node (Z3) at (-1.5,1) {\(\langle 4 \rangle\)};
+  \node (Z2) at (1.5,1) {\(\langle 6 \rangle\)};
+  \node (Z1) at (0,0) {\(\{0\}\)};
+  \draw (Z12) -- (Z6) -- (Z3) -- (Z1);
+  \draw (Z12) -- (Z4) -- (Z2) -- (Z1);
+  \draw (Z6) -- (Z2);
+  \draw (Z4) -- (Z3);
+\end{tikzpicture}
+\end{center}
+
+\textbf{(2)} By Lagrange's theorem, the order of any subgroup divides \(p\). So subgroups have order 1 or \(p\), meaning \(\{0\}\) or \(\mathbb{Z}/p\).
+
+\textbf{(3)} \(a\) generates \(\mathbb{Z}/n\) iff \(\ord(a) = n\) iff \(\gcd(a, n) = 1\). The count is \(\varphi(n)\), Euler's totient.
+
+\textbf{(4)} For any \(a, b \in G\): \(ab = (ab)^{-1} = b^{-1}a^{-1} = ba\) (using \(x^{-1} = x\) since \(x^2 = e\)). So \(G\) is abelian.
+\end{solution}
+
+\section{Homomorphisms}
+
+\dfn{Homomorphism}{A \textbf{\emph{homomorphism}} \(\varphi : G \to H\) between groups is a map satisfying
+\[\varphi(ab) = \varphi(a)\varphi(b) \quad \text{for all } a, b \in G.\]
+}
+
+\mprop{Basic properties of homomorphisms}{Let \(\varphi : G \to H\) be a homomorphism.
+\begin{enumerate}
+    \item \(\varphi(e_G) = e_H\).
+    \item \(\varphi(a^{-1}) = \varphi(a)^{-1}\) for all \(a \in G\).
+    \item \(\varphi(a^n) = \varphi(a)^n\) for all \(n \in \mathbb{Z}\).
+    \item If \(K \le G\), then \(\varphi(K) \le H\).
+    \item If \(L \le H\), then \(\varphi^{-1}(L) \le G\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proofs of homomorphism properties
+
+\textbf{(1)} \(\varphi(e_G) = \varphi(e_G e_G) = \varphi(e_G)\varphi(e_G)\). Multiply both sides by \(\varphi(e_G)^{-1}\): \(e_H = \varphi(e_G)\).
+
+\textbf{(2)} \(\varphi(a)\varphi(a^{-1}) = \varphi(aa^{-1}) = \varphi(e_G) = e_H\). So \(\varphi(a^{-1})\) is the inverse of \(\varphi(a)\).
+
+\textbf{(3)} For \(n > 0\): induction. For \(n = 0\): part (1). For \(n < 0\): \(\varphi(a^n) = \varphi((a^{-1})^{-n}) = \varphi(a^{-1})^{-n} = (\varphi(a)^{-1})^{-n} = \varphi(a)^n\).
+
+\textbf{(4)} For \(\varphi(a), \varphi(b) \in \varphi(K)\) (with \(a, b \in K\)): \(\varphi(a)\varphi(b)^{-1} = \varphi(a)\varphi(b^{-1}) = \varphi(ab^{-1}) \in \varphi(K)\) since \(ab^{-1} \in K\).
+
+\textbf{(5)} For \(a, b \in \varphi^{-1}(L)\): \(\varphi(ab^{-1}) = \varphi(a)\varphi(b)^{-1} \in L\) (since \(L \le H\)), so \(ab^{-1} \in \varphi^{-1}(L)\).
+}
+
+\nt{The homomorphism condition can be expressed as a \emph{commutative diagram}: the two paths \(G \times G \xrightarrow{m_G} G \xrightarrow{\varphi} H\) and \(G \times G \xrightarrow{\varphi \times \varphi} H \times H \xrightarrow{m_H} H\) give the same result.
 
 \begin{center}
 \begin{tikzcd}[ampersand replacement=\&]
@@ -226,40 +424,148 @@ Similar to how we have had subsets, we, too, have \textbf{\emph{subgroups}}!
   G \arrow[r, "\varphi"'] \& H
 \end{tikzcd}
 \end{center}
+
+This diagrammatic perspective is fundamental to category theory.
 }
 
-\dfn{Automorphism}{An \textbf{\emph{automorphism}} is an isomorphism (and thereby a homomorphism) \(G \to G\).
-}
-
-\ex{Isomorphisms}{\begin{enumerate}
-\item All groups of order \(2\) are isomorphic! So,
-
-\[
-   S_{2}=\left(\{\text{id},(12)\},\circ\right) \cong \left(\{\pm 1\}, \times \right) \cong \left(\ZZ/ 2 , +\right) \cong \ldots
-   ,\]
-
-which can be seen and demonstrated via the Cayley table:
-\begin{center}
-\begin{tabular}{|c|c|c|}
-  \toprule
-  m & e & x \\
-  \midrule
-  e & e & x \\
-  \midrule
-  x & x & e \\
-  \bottomrule
-\end{tabular}
-\end{center}
-\item \((\RR,+)\xrightarrow[\text{exp}]{\sim} (\RR_+,\times )\)
-\item \((\RR/ \ZZ, +) \xrightarrow[\text{exp}(2 \pi i t)]{\sim} (S^1,\times )\)
-\item \(S_{3}\cong D_{3}\), i.e., symmetries of an equilateral triangle.
+\dfn{Types of homomorphisms}{Let \(\varphi : G \to H\) be a homomorphism.
+\begin{enumerate}
+    \item \(\varphi\) is a \textbf{\emph{monomorphism}} (or \textbf{\emph{embedding}}) if it's injective.
+    \item \(\varphi\) is an \textbf{\emph{epimorphism}} if it's surjective.
+    \item \(\varphi\) is an \textbf{\emph{isomorphism}} if it's bijective. We write \(G \cong H\).
+    \item An isomorphism \(G \to G\) is called an \textbf{\emph{automorphism}}. The set of all automorphisms of \(G\), denoted \(\Aut(G)\), forms a group under composition.
 \end{enumerate}
 }
 
-\ex{Homomorphisms}{\begin{enumerate}
-\item \(\ZZ\surjto \ZZ/ n, \, a \mapsto a \text{ mod } n\) (remainder of Euclidean division by \(n\))
-\item if \(n \mid m\), \(\ZZ / m \surjto \ZZ / n\), similarly. (e.g., \(\ZZ / 100 \to \ZZ/ 10\) w/ last two digits and last digit per group, respectively).
-\item determinant, \(\text{GL}_n(\RR) \to (\RR^*,\times)\)---\(\det(AB)=\det(A)\det(B)\).
+\ex{Important homomorphisms}{
+\begin{enumerate}
+    \item \textbf{Reduction mod \(n\):} \(\pi : \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\), \(\pi(a) = a \mod n\). Surjective, kernel \(n\mathbb{Z}\).
+    \item \textbf{Quotient mod \(n\):} If \(n \mid m\), then \(\mathbb{Z}/m\mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\), \(a \mapsto a \mod n\). Example: last-two-digits to last-digit, \(\mathbb{Z}/100 \to \mathbb{Z}/10\).
+    \item \textbf{Determinant:} \(\det : \GL_n(\mathbb{R}) \to \mathbb{R}^*\). Homomorphism since \(\det(AB) = \det(A)\det(B)\). Kernel is \(\SL_n(\mathbb{R})\).
+    \item \textbf{Exponential:} \(\exp : (\mathbb{R}, +) \to (\mathbb{R}_{>0}, \times)\), \(x \mapsto e^x\). Isomorphism with inverse \(\ln\).
+    \item \textbf{Complex exponential:} \(\exp : (\mathbb{R}, +) \to (S^1, \times)\), \(t \mapsto e^{2\pi i t}\). Surjective, kernel \(\mathbb{Z}\). Induces \(\mathbb{R}/\mathbb{Z} \cong S^1\).
 \end{enumerate}
 }
+
+\subsection{Isomorphisms and invariants}
+
+\dfn{Isomorphic groups}{Groups \(G\) and \(H\) are \textbf{\emph{isomorphic}}, written \(G \cong H\), if there exists an isomorphism \(\varphi : G \to H\). Isomorphic groups are ``the same'' for all group-theoretic purposes.
+}
+
+What properties are preserved by isomorphisms? These are called \emph{invariants}.
+
+\mprop{Isomorphism invariants}{If \(G \cong H\), then:
+\begin{enumerate}
+    \item \(|G| = |H|\) (same order);
+    \item \(G\) is abelian iff \(H\) is abelian;
+    \item \(G\) is cyclic iff \(H\) is cyclic;
+    \item For each \(n\), \(G\) and \(H\) have the same number of elements of order \(n\);
+    \item For each \(n\), \(G\) and \(H\) have the same number of subgroups of order \(n\).
+\end{enumerate}
+}
+
+\pf{Proof}{Why these are invariants
+
+Let \(\varphi : G \xrightarrow{\sim} H\) be an isomorphism.
+
+\textbf{(1)} Bijections preserve cardinality.
+
+\textbf{(2)} If \(G\) is abelian and \(h_1, h_2 \in H\), write \(h_i = \varphi(g_i)\). Then \(h_1 h_2 = \varphi(g_1)\varphi(g_2) = \varphi(g_1 g_2) = \varphi(g_2 g_1) = \varphi(g_2)\varphi(g_1) = h_2 h_1\).
+
+\textbf{(3)} If \(G = \langle a \rangle\), then \(H = \varphi(G) = \varphi(\langle a \rangle) = \langle \varphi(a) \rangle\).
+
+\textbf{(4)} \(\ord(\varphi(a)) = \ord(a)\) since \(\varphi(a)^n = \varphi(a^n) = e_H \iff a^n = e_G\).
+
+\textbf{(5)} \(\varphi\) induces a bijection between subgroups of \(G\) and subgroups of \(H\).
+}
+
+\ex{Non-isomorphic groups of same order}{\(\mathbb{Z}/4\) and \(\mathbb{Z}/2 \times \mathbb{Z}/2\) both have order 4, but:
+\begin{itemize}
+    \item \(\mathbb{Z}/4\) has an element of order 4 (namely, 1);
+    \item \(\mathbb{Z}/2 \times \mathbb{Z}/2\) has no element of order 4 (all non-identity elements have order 2).
+\end{itemize}
+So they're not isomorphic. These are the only groups of order 4 up to isomorphism.
+}
+
+\ex{All groups of order 2 are isomorphic}{If \(|G| = 2\), write \(G = \{e, x\}\). Then \(x \ne e\), so \(x^2 \ne x\) (else \(x = e\)). Thus \(x^2 = e\), and \(G = \langle x \rangle \cong \mathbb{Z}/2\).
+}
+
+\qs{}{
+\begin{enumerate}
+    \item Prove that \(\Aut(\mathbb{Z}/n\mathbb{Z}) \cong (\mathbb{Z}/n\mathbb{Z})^\times\).
+    \item Find \(\Aut(\mathbb{Z})\).
+    \item Prove that if \(\varphi : G \to H\) is an isomorphism, then \(\varphi^{-1} : H \to G\) is also an isomorphism.
+    \item Prove that ``is isomorphic to'' is an equivalence relation on groups.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} An automorphism \(\varphi\) of \(\mathbb{Z}/n\) is determined by \(\varphi(1)\), since \(\varphi(k) = k\varphi(1)\). We need \(\varphi(1)\) to generate \(\mathbb{Z}/n\), i.e., \(\gcd(\varphi(1), n) = 1\), i.e., \(\varphi(1) \in (\mathbb{Z}/n)^\times\). Conversely, any \(a \in (\mathbb{Z}/n)^\times\) defines an automorphism \(\varphi_a : k \mapsto ka\). The map \(a \mapsto \varphi_a\) is an isomorphism \((\mathbb{Z}/n)^\times \to \Aut(\mathbb{Z}/n)\) (check it's a homomorphism and bijection).
+
+\textbf{(2)} An automorphism of \(\mathbb{Z}\) is determined by \(\varphi(1)\). We need \(\langle \varphi(1) \rangle = \mathbb{Z}\), so \(\varphi(1) = \pm 1\). Thus \(\Aut(\mathbb{Z}) = \{\id, -\id\} \cong \mathbb{Z}/2\).
+
+\textbf{(3)} \(\varphi^{-1}\) is a bijection. For \(h_1, h_2 \in H\), let \(g_i = \varphi^{-1}(h_i)\). Then \(\varphi^{-1}(h_1 h_2) = \varphi^{-1}(\varphi(g_1)\varphi(g_2)) = \varphi^{-1}(\varphi(g_1 g_2)) = g_1 g_2 = \varphi^{-1}(h_1)\varphi^{-1}(h_2)\).
+
+\textbf{(4)} Reflexive: \(\id_G : G \to G\) is an isomorphism. Symmetric: if \(\varphi : G \to H\) is an isomorphism, so is \(\varphi^{-1} : H \to G\) by part (3). Transitive: if \(\varphi : G \to H\) and \(\psi : H \to K\) are isomorphisms, so is \(\psi \circ \varphi : G \to K\).
+\end{solution}
+
+\section{The order of an element and its properties}
+
+We've introduced order; now we develop its theory more fully.
+
+\mprop{Powers and order}{Let \(a \in G\) have finite order \(n\). Then:
+\begin{enumerate}
+    \item \(a^k = e \iff n \mid k\).
+    \item \(a^i = a^j \iff n \mid (i - j)\).
+    \item The elements \(e, a, a^2, \ldots, a^{n-1}\) are all distinct.
+\end{enumerate}
+}
+
+\pf{Proof}{Properties of order
+
+\textbf{(1)} (\(\Leftarrow\)) If \(k = mn\), then \(a^k = (a^n)^m = e^m = e\). (\(\Rightarrow\)) Write \(k = qn + r\) with \(0 \le r < n\). Then \(e = a^k = a^{qn+r} = (a^n)^q a^r = a^r\). By minimality of \(n\), \(r = 0\), so \(n \mid k\).
+
+\textbf{(2)} \(a^i = a^j \iff a^{i-j} = e \iff n \mid (i-j)\) by (1).
+
+\textbf{(3)} If \(a^i = a^j\) for \(0 \le i < j < n\), then \(a^{j-i} = e\) with \(0 < j - i < n\), contradicting minimality of \(n\).
+}
+
+\mprop{Order of powers}{Let \(\ord(a) = n\). Then \(\ord(a^k) = \frac{n}{\gcd(k, n)}\).
+}
+
+\pf{Proof}{Order of powers
+
+Let \(d = \gcd(k, n)\). We show \(\ord(a^k) = n/d\).
+
+First, \((a^k)^{n/d} = a^{kn/d} = (a^n)^{k/d} = e\), so \(\ord(a^k) \mid n/d\).
+
+Conversely, let \(m = \ord(a^k)\). Then \(a^{km} = e\), so \(n \mid km\). Write \(k = d \cdot k'\) and \(n = d \cdot n'\) where \(\gcd(k', n') = 1\). Then \(dn' \mid d k' m\), so \(n' \mid k'm\). Since \(\gcd(k', n') = 1\), we have \(n' \mid m\), i.e., \(n/d \mid m\). Thus \(m = n/d\).
+}
+
+\cor{Generators of cyclic groups}{In \(\langle a \rangle\) of order \(n\), the element \(a^k\) is a generator iff \(\gcd(k, n) = 1\).
+}
+
+\ex{}{In \(\mathbb{Z}/12\), the generators are \(1, 5, 7, 11\) (the four elements coprime to 12). The element \(4\) has order \(12/\gcd(4,12) = 12/4 = 3\).
+}
+
+\qs{}{
+\begin{enumerate}
+    \item In a group \(G\), if \(a^{12} = e\) and \(a^8 = e\), what are the possible orders of \(a\)?
+    \item Prove: if \(\ord(a) = n\) and \(\ord(b) = m\) with \(\gcd(n,m) = 1\) and \(ab = ba\), then \(\ord(ab) = nm\).
+    \item Find the order of \((2, 3)\) in \(\mathbb{Z}/6 \times \mathbb{Z}/8\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} \(\ord(a)\) divides both 12 and 8, so \(\ord(a) \mid \gcd(12, 8) = 4\). Possible orders: 1, 2, 4.
+
+\textbf{(2)} Let \(k = \ord(ab)\). Then \(e = (ab)^{nm} = a^{nm}b^{nm} = (a^n)^m (b^m)^n = e\) (using commutativity), so \(k \mid nm\).
+
+Now \(e = (ab)^{kn} = a^{kn}b^{kn} = b^{kn}\) (since \(a^n = e\)), so \(m \mid kn\). Since \(\gcd(m,n) = 1\), \(m \mid k\). Similarly, \(n \mid k\). Since \(\gcd(m,n) = 1\), \(mn \mid k\). Thus \(k = mn\).
+
+\textbf{(3)} \(\ord(2, 3) = \lcm(\ord(2), \ord(3)) = \lcm(6/\gcd(2,6), 8/\gcd(3,8)) = \lcm(3, 8) = 24\).
+\end{solution}
+
+
+
 \end{document}

@@ -1,0 +1,18 @@
+{
+  "semester": "Spring 2025",
+  "default_format": "org",
+  "author": "S. D. V. Stephens",
+  "excluded_dirs": [
+    "scripts",
+    "tester",
+    ".academic",
+    "__pycache__"
+  ],
+  "courses": {
+    "Final-Reviews": {
+      "code": "REV101",
+      "instructor": "",
+      "schedule": ""
+    }
+  }
+}

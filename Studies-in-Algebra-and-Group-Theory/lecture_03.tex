@@ -1,56 +1,19 @@
-% Created 2025-11-30 Sun 10:54
-% Intended LaTeX compiler: pdflatex
-\documentclass[11pt]{report}
-\usepackage[utf8]{inputenc}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{hyperref}
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage[capitalize]{cleveref}
-\usepackage{cancel}
-\usepackage{color}
-\usepackage{booktabs}
-\usepackage{longtable}
+% Studies-in-Algebra-and-Group-Theory - Lecture 3: Group Relations
+% Author: S. D. V. Stephens
+% Date: 2025-12-09
+% Compile with: pdflatex -shell-escape
 
-%% ox-latex features:
-%   !announce-start, !guess-pollyglossia, !guess-babel, !guess-inputenc, maths,
-%   !announce-end.
-
-\usepackage{amsmath}
-\usepackage{amssymb}
-
-%% end ox-latex features
-
-
+\documentclass{report}
 \input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
 \course{Studies-in-Algebra-and-Group-Theory}
-\date{}
-\title{Studies-in-Algebra-and-Group-Theory - Lecture 3: Group Relations}
-\providecolor{url}{HTML}{0077bb}
-\providecolor{link}{HTML}{882255}
-\providecolor{cite}{HTML}{999933}
-\hypersetup{
-  pdfauthor={},
-  pdftitle={},
-  pdfkeywords={orgmode pdf latex},
-  pdfsubject={},
-  pdfcreator={},
-  pdflang={English},
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=link,
-  urlcolor=url,
-  citecolor=cite}
-\urlstyle{same}\begin{document}
+\begin{document}
 
 \lecture{3}{Group Relations}
+  .We say that two sets have the same \textbf{\emph{cardinality}} if \(\exists f : X \injto Y\), and we write \(|X| \le |Y|\). This allows us to inter-relate cardinality and function relations via a special theorem.
 
-We say that two sets have the same \textbf{\emph{cardinality}} if \(\exists f : X \injto Y\), and we write \(|X| \le |Y|\). This allows us to inter-relate cardinality and function relations via a special theorem.
-
-\thm{Schröder-Berstein Theorem}{If \(\exists f : X \injto Y\) and \(g : X \injto Y\) then \(|X| = |Y|\).
+\thm{Schröder-Berstein Theorem}{If \(\exists f : X \injto Y\) and \(g : Y \injto X\) then \(|X| = |Y|\).
 }
 
 The Schröder-Berstein theorem provides some immediate results for allowing explicit bijections.
@@ -58,7 +21,7 @@ The Schröder-Berstein theorem provides some immediate results for allowing expl
 \mprop{Cardinality of \(\mathbb{N}, \mathbb{Z}, \mathbb{Q}\) to any power}{Using Schröder-Berstein we can create explicit bijections \(f : \mathbb{Z} \leftrightarrow \mathbb{N}\) given by \(n \mapsto \begin{cases} 2n & \text{if } n \ge 0; \\ -(2n+1) & \text{if } n < 0. \end{cases}\)
 }
 
-\mprop{\(|\mathbb{N} \times \mathbb{N}| = |\mathbb{N}| = \mathbb{N}^n\)}{We create the explicit bijection via \(f : \mathbb{N} \times \mathbb{N} \leftrightarrow \mathbb{N}, \, (k,1) \mapsto 2^k(2l+1)-1\). It follows then that \(\mathbb{N}^a, \mathbb{Z}^b, \mathbb{Q}^c, \forall a,b,c \in \mathbb{N}\).
+\mprop{\(|\mathbb{N} \times \mathbb{N}| = |\mathbb{N}| = \mathbb{N}^n\)}{We create the explicit bijection via \(f : \mathbb{N} \times \mathbb{N} \leftrightarrow \mathbb{N}, \, (k,1) \mapsto 2^k(2l+1)-1\). It follows then that \(\mathbb{N}^a, \mathbb{Z}^b, \mathbb{Q}^c, \forall a,b,c \in \mathbb{N}\) permits a similar bijection.
 }
 
 \pf{Proof}{Proof of Prop. 3.1.2
@@ -110,35 +73,912 @@ A \mapsto \left(\mathbb{1}_A : x \mapsto \begin{cases}
 
 Note that if \(S\) is finite then \(|S| = n\) and \(\mcP(S) = 2^n\). This naturally leads us into our next theorem regarding the infinitude of the cardinality of \(S\) in relation to \(\mcP(S)\).
 \section{Quotient groups}
-\label{sec:org8b13864}
 
 Consider \(\mathbb{Z} / n\). Under the equivalence relation congruence mod \(n\) we can take the sum of the various subsets that mod \(n\) partitions \(\mathbb{Z}\) into as the law of composition given by \((a + n\mathbb{Z}) + (b + n\mathbb{Z}) = a + b + n\mathbb{Z}\). Notice that we can let \(T\) be the set of equivalence classes under mod \(n\), and thus we have a homomorphic map from \(\mathbb{Z} \to T\). Finally, \(T = \mathbb{Z} / n\).
 
-Why stop at integers? What if we want to make congruence mod \(H\) where is a subgroup \(H \subset G\)? Under what cases, given that we \emph{can} make mod \(H\) equivalence classes (we will define this in a bit) is the quotient map \(G \to T\) a homomorphism?
-\subsection{Congruence mod \(H\)}
-\label{sec:org7b261cb}
+Why stop at integers? What if we want to make congruence mod \(H\) where \(H\) is a subgroup \(H \subset G\)? Under what cases, given that we \emph{can} make mod \(H\) equivalence classes (we will define this in a bit) is the quotient map \(G \to T\) a homomorphism? This question is \emph{the} question of quotient groups, and its answer---normality---is one of the most important concepts in all of group theory.
 
-For any two elements \(a, b \in G\) we define \(a \sim b \iff ab^{-1} \in H\), this is to say that \(a \in bH\). We thus have a \(a \sim a\) since \(e \in H\), \(a \sim b \implies ab^{-1} \in H\), and \(ba^{-1} = (ab^{-1})^{-1} \in H\), thus \(b \sim a\). Finally, \(a \sim b, b \sim c\) meaning that \(ab^{-1}\) and \(bc^{-1}\)
-\section{Symmetry group}
-\label{sec:org602b397}
+\subsection{Congruence mod \(H\) and cosets}
 
-\section{More group relations}
-\label{sec:orge7f63f3}
+For any two elements \(a, b \in G\) we define \(a \sim b \iff ab^{-1} \in H\), this is to say that \(a \in bH\). We thus have \(a \sim a\) since \(e \in H\), \(a \sim b \implies ab^{-1} \in H\), and \(ba^{-1} = (ab^{-1})^{-1} \in H\), thus \(b \sim a\). Finally, \(a \sim b, b \sim c\) meaning that \(ab^{-1}\) and \(bc^{-1}\) are both in \(H\), so \(ac^{-1} = (ab^{-1})(bc^{-1}) \in H\) since \(H\) is closed under the group operation, thus \(a \sim c\) and transitivity holds. We have shown congruence mod \(H\) is indeed an equivalence relation.
 
-\subsection{Kernels, images, and order}
-\label{sec:org0c559bb}
-
-\dfn{Kernel}{The \textbf{\emph{kernel}} of a group homomorphism, \(\varphi : G \to H\), is given by \(\ker(\varphi) = \{a \in G \mid \varphi(a) = e_H\}\).
+\dfn{Cosets}{Given a subgroup \(H \subset G\) and an element \(a \in G\), the \textbf{\emph{left coset}} of \(H\) containing \(a\) is the set \(aH = \{ah \mid h \in H\}\). Similarly, the \textbf{\emph{right coset}} is \(Ha = \{ha \mid h \in H\}\). The equivalence classes under congruence mod \(H\) are precisely the left cosets of \(H\).
 }
 
-\mprop{}{The kernel is a subgroup of \(G\) and \(\varphi\) is injective \(\iff \ker(\varphi) = \{e_G\}\) (\(\varphi(a) = \varphi(b) \iff a^{-1}b \in \ker(\varphi)\)).
+\mprop{Cosets partition \(G\)}{The left cosets of \(H\) form a partition of \(G\). Every element \(g \in G\) belongs to exactly one coset, namely \(gH\), and two cosets \(aH, bH\) are either identical or disjoint.
 }
 
-\dfn{Image of group homomorphisms}{The image of a group homomorphism \(\varphi : G \to H\) is \(\Img(\varphi) = \varphi(G) = \{b \in H \mid \exists a \in G : \varphi(a) = b\}\). This is a subgroup of \(H\) and \(\varphi\) is surjective \(\iff \Img(\varphi) = H\).
+\pf{Proof}{Proof of coset partition
+
+This follows immediately from the fact that cosets are equivalence classes: \(g \in gH\) since \(g = ge\) and \(e \in H\). For disjointness, suppose \(aH \cap bH \neq \emptyset\), so there exists \(c \in aH \cap bH\). Then \(c = ah_1 = bh_2\) for some \(h_1, h_2 \in H\), which gives \(a = bh_2h_1^{-1} \in bH\). For any \(ah \in aH\), we have \(ah = bh_2h_1^{-1}h \in bH\), so \(aH \subseteq bH\). By symmetry \(bH \subseteq aH\), thus \(aH = bH\).
 }
 
-\nt{If \(\varphi\) is injective, then \(G\) is isomorphic to the subgroup \(\Img(\varphi) \subset H\). (if the isom. is given by the map \(G \to \Img(\varphi), \, a \mapsto \varphi(a)\)).
+Here is the key observation that makes quotient theory work: all cosets have the same size!
+
+\mprop{Cosets are equinumerous}{For any \(a \in G\), the map \(\lambda_a : H \to aH\) given by \(h \mapsto ah\) is a bijection. In particular, \(|aH| = |H|\) for all \(a \in G\).
 }
-\subsection{Finite symmetric groups}
-\label{sec:orgc9ca09b}
+
+\pf{Proof}{Proof of coset bijection
+
+Surjectivity is immediate from the definition of \(aH\). For injectivity, suppose \(ah_1 = ah_2\). Left-multiplying by \(a^{-1}\) gives \(h_1 = h_2\). (This is just left-translation, which is always a bijection in a group---a fact we will revisit when discussing group actions.)
+}
+
+\thm{Lagrange's Theorem}{Let \(G\) be a finite group and \(H \subset G\) a subgroup. Then \(|H|\) divides \(|G|\), and the quotient \(|G|/|H| = [G:H]\) equals the number of distinct left cosets of \(H\) in \(G\).
+}
+
+\pf{Proof}{Proof of Lagrange's Theorem
+
+The left cosets of \(H\) partition \(G\) into disjoint subsets, each of cardinality \(|H|\). If there are \(k\) distinct cosets, then \(|G| = k \cdot |H|\), so \(|H| \mid |G|\) and \(k = [G:H]\).
+}
+
+\dfn{Index}{The \textbf{\emph{index}} of a subgroup \(H\) in \(G\), denoted \([G:H]\), is the number of distinct left cosets of \(H\) in \(G\). For finite groups, \([G:H] = |G|/|H|\).
+}
+
+\nt{Lagrange's theorem has immediate corollaries: the order of any element divides \(|G|\) (since \(\langle g \rangle\) is a subgroup), and groups of prime order are cyclic (the only subgroups have order 1 or \(p\)). The converse of Lagrange is false in general: \(A_4\) has order 12 but no subgroup of order 6. However, for abelian groups and more generally for solvable groups, partial converses exist---a theme we'll explore later.
+}
+
+Now the million dollar question: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be \emph{well-defined}, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
+
+\ex{}{Consider \(G = S_3\) and \(H = \{e, (12)\}\). We have three left cosets: \(H = \{e, (12)\}\), \((13)H = \{(13), (132)\}\), and \((23)H = \{(23), (123)\}\). Take representatives \(a = (13)\) and \(a' = (132)\) from the same coset; both satisfy \(aH = a'H = (13)H\). Now take \(b = (23)\). We compute:
+\begin{align*}
+ab &= (13)(23) = (132), \quad \text{so } abH = (132)H = (13)H \\
+a'b &= (132)(23) = (13), \quad \text{so } a'bH = (13)H
+\end{align*}
+Okay, this worked! But now try \(b = (13)\) and \(b' = (132)\) (same coset), with \(a = (23)\):
+\begin{align*}
+ab &= (23)(13) = (123), \quad \text{so } abH = (123)H = (23)H \\
+ab' &= (23)(132) = (12), \quad \text{so } ab'H = (12)H = H
+\end{align*}
+Disaster! We got \((23)H \neq H\), so coset multiplication is not well-defined for this \(H\).
+}
+
+What went wrong? The issue is that \(H = \{e, (12)\}\) is not ``symmetric'' enough---left cosets and right cosets differ. For instance, \((13)H = \{(13), (132)\}\) but \(H(13) = \{(13), (123)\}\).
+
+\subsection{Normal subgroups and quotient groups}
+
+\dfn{Normal subgroup}{A subgroup \(N \subset G\) is \textbf{\emph{normal}} (written \(N \trianglelefteq G\)) if any of the following equivalent conditions hold:
+\begin{enumerate}
+    \item \(gNg^{-1} = N\) for all \(g \in G\) (conjugation preserves \(N\));
+    \item \(gN = Ng\) for all \(g \in G\) (left cosets equal right cosets);
+    \item \(gNg^{-1} \subseteq N\) for all \(g \in G\) (one inclusion suffices);
+    \item \(N\) is the kernel of some homomorphism \(\varphi : G \to H\).
+\end{enumerate}
+}
+
+\pf{Proof}{Equivalence of normality conditions
+
+(1) \(\Rightarrow\) (2): If \(gNg^{-1} = N\), then \(gN = Ng\) by right-multiplying by \(g\).
+
+(2) \(\Rightarrow\) (3): If \(gN = Ng\), then for \(n \in N\), we have \(gn \in gN = Ng\), so \(gn = n'g\) for some \(n' \in N\), giving \(gng^{-1} = n' \in N\).
+
+(3) \(\Rightarrow\) (1): We have \(gNg^{-1} \subseteq N\) by assumption. For the reverse, take \(n \in N\). We want \(n \in gNg^{-1}\), i.e., \(g^{-1}ng \in N\). But applying (3) with \(g^{-1}\): \(g^{-1}N(g^{-1})^{-1} = g^{-1}Ng \subseteq N\), so \(g^{-1}ng \in N\).
+
+(4) \(\Rightarrow\) (1): If \(N = \ker(\varphi)\), then for \(n \in N\) and \(g \in G\): \(\varphi(gng^{-1}) = \varphi(g)\varphi(n)\varphi(g)^{-1} = \varphi(g) e_H \varphi(g)^{-1} = e_H\), so \(gng^{-1} \in \ker(\varphi) = N\).
+
+(1) \(\Rightarrow\) (4): This is the content of the next theorem---every normal subgroup is a kernel!
+}
+
+\thm{Quotient groups exist for normal subgroups}{If \(N \trianglelefteq G\), then \(G/N\) is a group under the operation \((aN)(bN) = abN\), called the \textbf{\emph{quotient group}}. The map \(\pi : G \to G/N\) given by \(\pi(g) = gN\) is a surjective homomorphism (the \textbf{\emph{canonical projection}}) with \(\ker(\pi) = N\).
+}
+
+\pf{Proof}{Proof of quotient group structure
+
+\textbf{Well-definedness:} Suppose \(aN = a'N\) and \(bN = b'N\), so \(a' = an_1\) and \(b' = bn_2\) for some \(n_1, n_2 \in N\). Then 
+\[a'b' = an_1bn_2 = a(n_1b)n_2.\]
+Since \(N\) is normal, \(n_1b = bn_3\) for some \(n_3 \in N\) (because \(bN = Nb\) implies \(n_1 \in Nb\), so \(n_1 = bn_3\)... wait, let me be more careful). We have \(n_1b \in Nb = bN\), so \(n_1b = bn_3\) for some \(n_3 \in N\). Thus \(a'b' = abn_3n_2 \in abN\), so \(a'b'N = abN\).
+
+\textbf{Group axioms:} Associativity: \((aN \cdot bN) \cdot cN = abN \cdot cN = (ab)cN = a(bc)N = aN \cdot bcN = aN \cdot (bN \cdot cN)\). Identity: \(eN = N\) satisfies \(N \cdot aN = eaN = aN\). Inverses: \((aN)^{-1} = a^{-1}N\) since \(aN \cdot a^{-1}N = aa^{-1}N = N\).
+
+\textbf{The projection:} \(\pi(ab) = abN = aN \cdot bN = \pi(a)\pi(b)\), so \(\pi\) is a homomorphism. Surjectivity is clear. Finally, \(\ker(\pi) = \{g \in G : gN = N\} = \{g \in G : g \in N\} = N\).
+}
+
+\qs{}{Let \(G\) be a group and \(Z(G) = \{z \in G : zg = gz \text{ for all } g \in G\}\) the center of \(G\).
+\begin{enumerate}
+    \item Prove that \(Z(G) \trianglelefteq G\).
+    \item Prove that if \(G/Z(G)\) is cyclic, then \(G\) is abelian.
+    \item Find \(Z(D_4)\) and describe \(D_4/Z(D_4)\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} We verify normality via condition (1). For any \(z \in Z(G)\) and \(g \in G\), we have \(gzg^{-1} = zgg^{-1} = z \in Z(G)\) (using that \(z\) commutes with everything). Thus \(gZ(G)g^{-1} \subseteq Z(G)\) for all \(g\), so \(Z(G) \trianglelefteq G\).
+
+\textbf{(2)} Suppose \(G/Z(G) = \langle aZ(G) \rangle\) is cyclic. Then every element of \(G\) has the form \(a^k z\) for some \(k \in \mathbb{Z}\) and \(z \in Z(G)\). Take any two elements \(g = a^i z_1\) and \(h = a^j z_2\). Then:
+\[gh = a^i z_1 a^j z_2 = a^i a^j z_1 z_2 = a^{i+j} z_1 z_2\]
+(since \(z_1\) commutes with \(a^j\) and \(z_2\)), and similarly \(hg = a^{j+i} z_2 z_1 = a^{i+j} z_1 z_2 = gh\) (since \(z_1, z_2\) commute with everything and with each other). Thus \(G\) is abelian.
+
+\textbf{(3)} Recall \(D_4 = \{e, r, r^2, r^3, s, sr, sr^2, sr^3\}\) with \(r^4 = s^2 = e\) and \(srs = r^{-1}\). For \(z \in Z(D_4)\), we need \(zr = rz\) and \(zs = sz\). 
+
+For rotations: \(r^k \in Z(D_4)\) requires \(sr^k = r^ks\). We have \(sr^k = r^{-k}s\) (by induction using \(srs = r^{-1}\)), so \(r^{-k}s = r^ks\), giving \(r^{2k} = e\), so \(k \in \{0, 2\}\). Thus \(e, r^2\) are central among rotations.
+
+For reflections: \(sr^j \in Z(D_4)\) requires \(r(sr^j) = (sr^j)r\), i.e., \(rsr^j = sr^{j+1}\). But \(rsr^j = r \cdot r^{-j}s = r^{1-j}s\), so we need \(r^{1-j}s = sr^{j+1}\), giving \(r^{1-j} = r^{-(j+1)} = r^{-j-1}\), so \(r^{2} = e\), contradiction since \(r\) has order 4. No reflections are central.
+
+Therefore \(Z(D_4) = \{e, r^2\} \cong \mathbb{Z}/2\). The quotient \(D_4/Z(D_4)\) has order \(8/2 = 4\). The cosets are \(\{e, r^2\}, \{r, r^3\}, \{s, sr^2\}, \{sr, sr^3\}\). One can verify this is \(\cong \mathbb{Z}/2 \times \mathbb{Z}/2\) (the Klein four-group), not \(\mathbb{Z}/4\), since every non-identity element has order 2 in the quotient.
+\end{solution}
+
+As a final remark before moving onto our next topic, I wish to introduce the concept of simple groups. Simply put, no pun intended, a simple group is a group that cannot be decomposed into further normal subgroups other than the trivial subgroup and itself. Formally:
+
+\dfn{Simple groups}{We say a group is \emph{simple} if it has no normal subgroups other than itself and the trivial subgroup.}
+
+\section{Group actions and symmetry}
+
+The notion of a group ``acting'' on a set is perhaps the single most important concept connecting abstract algebra to the rest of mathematics. When we study symmetries of geometric objects, solutions to polynomial equations, or even the structure of groups themselves, we are studying group actions. This section develops the theory systematically---pay close attention, as these ideas will reappear throughout when we discuss representation theory (where groups act on vector spaces via linear maps).
+
+\subsection{Group actions}
+
+\dfn{Group action}{A \textbf{\emph{(left) group action}} of a group \(G\) on a set \(X\) is a map \(G \times X \to X\), written \((g, x) \mapsto g \cdot x\), satisfying:
+\begin{enumerate}
+    \item \(e \cdot x = x\) for all \(x \in X\) (identity acts trivially);
+    \item \((gh) \cdot x = g \cdot (h \cdot x)\) for all \(g, h \in G\) and \(x \in X\) (compatibility).
+\end{enumerate}
+We say \(G\) \textbf{\emph{acts on}} \(X\), or that \(X\) is a \textbf{\emph{\(G\)-set}}.
+}
+
+\nt{There is an equivalent, perhaps more illuminating, formulation: a group action is a homomorphism \(\rho : G \to \Sym(X)\), where \(\Sym(X)\) is the group of all bijections \(X \to X\). Given an action, define \(\rho(g)(x) = g \cdot x\); the axioms ensure each \(\rho(g)\) is a bijection (with inverse \(\rho(g^{-1})\)) and that \(\rho\) is a homomorphism. Conversely, any such homomorphism defines an action. This perspective is crucial: \emph{group actions are the same as representations of \(G\) into symmetric groups}.
+}
+
+\ex{}{Some fundamental examples of group actions:
+\begin{enumerate}
+    \item \textbf{Left multiplication:} \(G\) acts on itself by \(g \cdot h = gh\). This action is always faithful (only \(e\) acts trivially) and transitive (any element can be sent to any other).
+    \item \textbf{Conjugation:} \(G\) acts on itself by \(g \cdot h = ghg^{-1}\). The kernel is \(Z(G)\), the center.
+    \item \textbf{Conjugation on subgroups:} \(G\) acts on the set of its subgroups by \(g \cdot H = gHg^{-1}\). Normal subgroups are precisely the fixed points!
+    \item \textbf{Coset action:} If \(H \subset G\), then \(G\) acts on \(G/H\) (left cosets) by \(g \cdot (aH) = (ga)H\).
+    \item \textbf{Linear actions:} \(\GL_n(\mathbb{R})\) acts on \(\mathbb{R}^n\) by matrix multiplication. This is the prototype for representation theory.
+\end{enumerate}
+}
+
+\dfn{Orbits and stabilizers}{Let \(G\) act on \(X\). For \(x \in X\):
+\begin{enumerate}
+    \item The \textbf{\emph{orbit}} of \(x\) is \(G \cdot x = \{g \cdot x : g \in G\} \subseteq X\).
+    \item The \textbf{\emph{stabilizer}} (or \textbf{\emph{isotropy group}}) of \(x\) is \(G_x = \Stab_G(x) = \{g \in G : g \cdot x = x\} \subseteq G\).
+\end{enumerate}
+}
+
+\mprop{Stabilizers are subgroups}{For any \(x \in X\), the stabilizer \(G_x\) is a subgroup of \(G\).
+}
+
+\pf{Proof}{Proof that stabilizers are subgroups
+
+Identity: \(e \cdot x = x\), so \(e \in G_x\). Closure: if \(g, h \in G_x\), then \((gh) \cdot x = g \cdot (h \cdot x) = g \cdot x = x\), so \(gh \in G_x\). Inverses: if \(g \in G_x\), then \(x = e \cdot x = (g^{-1}g) \cdot x = g^{-1} \cdot (g \cdot x) = g^{-1} \cdot x\), so \(g^{-1} \in G_x\).
+}
+
+\mprop{Orbits partition \(X\)}{The orbits of a group action form a partition of \(X\). Define \(x \sim y\) iff \(y = g \cdot x\) for some \(g \in G\); this is an equivalence relation whose equivalence classes are exactly the orbits.
+}
+
+\pf{Proof}{Proof that orbits partition
+
+Reflexivity: \(x = e \cdot x\), so \(x \sim x\). Symmetry: if \(y = g \cdot x\), then \(x = g^{-1} \cdot y\), so \(y \sim x\) implies \(x \sim y\). Transitivity: if \(y = g \cdot x\) and \(z = h \cdot y\), then \(z = h \cdot (g \cdot x) = (hg) \cdot x\), so \(x \sim z\).
+}
+
+The following theorem is one of the most useful results in all of group theory. It connects the size of an orbit to the index of a stabilizer.
+
+\thm{Orbit-Stabilizer Theorem}{Let \(G\) act on \(X\) and let \(x \in X\). There is a bijection between the orbit \(G \cdot x\) and the set of left cosets \(G/G_x\), given by \(g \cdot x \mapsto gG_x\). In particular, if \(G\) is finite,
+\[|G \cdot x| = [G : G_x] = \frac{|G|}{|G_x|}.\]
+}
+
+\pf{Proof}{Proof of Orbit-Stabilizer
+
+Define \(\varphi : G/G_x \to G \cdot x\) by \(\varphi(gG_x) = g \cdot x\). 
+
+\textbf{Well-defined:} If \(gG_x = hG_x\), then \(h = gk\) for some \(k \in G_x\), so \(h \cdot x = (gk) \cdot x = g \cdot (k \cdot x) = g \cdot x\).
+
+\textbf{Injective:} If \(g \cdot x = h \cdot x\), then \(h^{-1}g \cdot x = x\), so \(h^{-1}g \in G_x\), giving \(gG_x = hG_x\).
+
+\textbf{Surjective:} Every element of \(G \cdot x\) has the form \(g \cdot x = \varphi(gG_x)\).
+}
+
+\ex{}{Consider \(S_4\) acting on \(\{1,2,3,4\}\) in the natural way. Take \(x = 1\). The orbit is \(S_4 \cdot 1 = \{1,2,3,4\}\) (any element can be sent to any other). The stabilizer is \((S_4)_1 = \{\sigma \in S_4 : \sigma(1) = 1\}\), which consists of all permutations of \(\{2,3,4\}\), so \((S_4)_1 \cong S_3\) and \(|(S_4)_1| = 6\). Check: \(|S_4 \cdot 1| = 4 = 24/6 = |S_4|/|(S_4)_1|\). \checkmark
+}
+
+\subsection{Cayley's theorem and applications}
+
+\thm{Cayley's Theorem}{Every group \(G\) is isomorphic to a subgroup of \(\Sym(G)\). If \(|G| = n\), then \(G\) embeds into \(S_n\).
+}
+
+\pf{Proof}{Proof of Cayley's Theorem
+
+Consider the left multiplication action of \(G\) on itself: \(g \cdot h = gh\). This gives a homomorphism \(\rho : G \to \Sym(G)\) where \(\rho(g)\) is the bijection \(h \mapsto gh\). 
+
+\textbf{Injectivity:} If \(\rho(g) = \rho(g')\), then for all \(h \in G\), \(gh = g'h\). Taking \(h = e\): \(g = g'\). Thus \(\ker(\rho) = \{e\}\), so \(\rho\) is injective.
+
+By the First Isomorphism Theorem, \(G \cong \Img(\rho) \subset \Sym(G)\). If \(|G| = n\), then \(\Sym(G) \cong S_n\).
+}
+
+\nt{Cayley's theorem is simultaneously profound and useless. Profound: every abstract group is ``really'' a permutation group; the group axioms capture exactly the structure of bijection composition. Useless: the embedding is almost always far larger than necessary. \(S_n\) has order \(n!\), so embedding a group of order \(n\) into \(S_n\) wastes enormous space. Better embeddings come from finding smaller faithful actions.
+}
+
+\mprop{Improved Cayley embedding}{Let \(H \subset G\) with \([G:H] = n\). The action of \(G\) on \(G/H\) gives a homomorphism \(\rho : G \to S_n\) with \(\ker(\rho) = \bigcap_{g \in G} gHg^{-1}\), the largest normal subgroup of \(G\) contained in \(H\).
+}
+
+\pf{Proof}{Proof of improved embedding
+
+The action \(g \cdot (aH) = (ga)H\) is well-defined (check!). The kernel consists of all \(g\) fixing every coset: \(gaH = aH\) for all \(a\), i.e., \(a^{-1}ga \in H\) for all \(a\), i.e., \(g \in aHa^{-1}\) for all \(a\). Thus \(\ker(\rho) = \bigcap_{a \in G} aHa^{-1}\).
+}
+
+\ex{}{Let \(G = S_4\) and \(H = S_3\) (permutations fixing 4). Then \([G:H] = 4\), and the action on \(G/H\) identifies with the natural action on \(\{1,2,3,4\}\). The kernel is trivial (since the natural action is faithful), recovering the identity \(S_4 \hookrightarrow S_4\). But: if we take \(G = A_5\) and \(H = A_4\) (stabilizer of a point), then \([G:H] = 5\) and we get \(A_5 \hookrightarrow S_5\). Since \(|A_5| = 60 < 120 = |S_5|\), this is a non-surjective embedding, showing \(A_5\) as a proper subgroup of \(S_5\).
+}
+
+\qs{}{Let \(G\) be a group of order \(2p\) where \(p\) is an odd prime.
+\begin{enumerate}
+    \item Prove that \(G\) has a unique subgroup of order \(p\), which is therefore normal.
+    \item Conclude that \(G \cong \mathbb{Z}/2p\) or \(G \cong D_p\) (the dihedral group of order \(2p\)).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} By Cauchy's theorem (or direct counting), \(G\) has an element \(a\) of order \(p\), so \(H = \langle a \rangle\) is a subgroup of order \(p\). Since \([G:H] = 2\), we have \(H \trianglelefteq G\) (index 2 subgroups are always normal: \(G = H \sqcup gH = H \sqcup Hg\) for any \(g \notin H\), so \(gH = Hg\)).
+
+For uniqueness: suppose \(K\) is another subgroup of order \(p\). Since \(|H| = |K| = p\) is prime, \(H \cap K\) is a subgroup of both with order dividing \(p\), so \(|H \cap K| \in \{1, p\}\). If \(|H \cap K| = p\), then \(H = K\). Otherwise, \(H \cap K = \{e\}\), and since elements of \(H\) and \(K\) (excluding \(e\)) have order \(p\), we have \(|H \cup K| = 1 + (p-1) + (p-1) = 2p - 1\) elements of orders 1 or \(p\). But then \(G\) has only one element not in \(H \cup K\), call it \(b\). We must have \(b^2 \in H \cup K\) (since \(b \notin H \cup K\)), but \(b\) has order dividing \(2p\)... this gets complicated. Easier: if \(H \neq K\), then \(HK\) is a subgroup (since \(H \trianglelefteq G\)) of order \(|H||K|/|H \cap K| = p^2 > 2p = |G|\), contradiction.
+
+\textbf{(2)} Let \(H = \langle a \rangle \cong \mathbb{Z}/p\) be the unique subgroup of order \(p\). Pick \(b \in G \setminus H\); then \(b\) has order 2 (if \(|b| = p\), then \(b \in H\) by uniqueness; if \(|b| = 2p\), then \(G = \langle b \rangle\) is cyclic and \(G \cong \mathbb{Z}/2p\)).
+
+Assume \(|b| = 2\). Since \(H \trianglelefteq G\), conjugation by \(b\) gives an automorphism of \(H \cong \mathbb{Z}/p\). We have \(bab^{-1} = a^k\) for some \(k\). Since \(b^2 = e\): \(a = b^2 a b^{-2} = b(bab^{-1})b^{-1} = ba^kb^{-1} = (bab^{-1})^k = a^{k^2}\), so \(k^2 \equiv 1 \pmod{p}\), giving \(k \equiv \pm 1 \pmod{p}\).
+
+If \(k \equiv 1\): then \(bab^{-1} = a\), so \(ab = ba\), and \(G = \langle a, b \rangle\) is abelian of order \(2p\) with \(|a| = p, |b| = 2\), so \(G \cong \mathbb{Z}/p \times \mathbb{Z}/2 \cong \mathbb{Z}/2p\).
+
+If \(k \equiv -1\): then \(bab^{-1} = a^{-1}\), i.e., \(ba = a^{-1}b\). This is exactly the dihedral relation! We have \(G = \langle a, b : a^p = b^2 = e, \, bab^{-1} = a^{-1} \rangle \cong D_p\).
+\end{solution}
+
+\section{The isomorphism theorems}
+
+The isomorphism theorems are the structural backbone of group theory. They describe how quotients, subgroups, and homomorphisms interact. These results will reappear essentially unchanged when we study rings, modules, and vector spaces---they are instances of a more general phenomenon that category theory makes precise.
+
+\subsection{Kernels, images, and the First Isomorphism Theorem}
+
+\dfn{Kernel}{The \textbf{\emph{kernel}} of a group homomorphism \(\varphi : G \to H\) is 
+\[\ker(\varphi) = \{g \in G : \varphi(g) = e_H\} = \varphi^{-1}(\{e_H\}).\]
+}
+
+\dfn{Image}{The \textbf{\emph{image}} of a group homomorphism \(\varphi : G \to H\) is 
+\[\Img(\varphi) = \varphi(G) = \{h \in H : \exists g \in G, \, \varphi(g) = h\}.\]
+}
+
+\mprop{Basic properties of kernels and images}{Let \(\varphi : G \to H\) be a homomorphism.
+\begin{enumerate}
+    \item \(\ker(\varphi)\) is a normal subgroup of \(G\).
+    \item \(\Img(\varphi)\) is a subgroup of \(H\) (not necessarily normal).
+    \item \(\varphi\) is injective \(\iff \ker(\varphi) = \{e_G\}\).
+    \item \(\varphi(g_1) = \varphi(g_2) \iff g_1^{-1}g_2 \in \ker(\varphi) \iff g_1 \ker(\varphi) = g_2 \ker(\varphi)\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proofs of kernel/image properties
+
+\textbf{(1)} First, \(\ker(\varphi)\) is a subgroup: \(\varphi(e) = e\), so \(e \in \ker(\varphi)\); if \(\varphi(a) = \varphi(b) = e\), then \(\varphi(ab) = ee = e\); if \(\varphi(a) = e\), then \(\varphi(a^{-1}) = \varphi(a)^{-1} = e^{-1} = e\). For normality: if \(k \in \ker(\varphi)\), then \(\varphi(gkg^{-1}) = \varphi(g)\varphi(k)\varphi(g)^{-1} = \varphi(g) \cdot e \cdot \varphi(g)^{-1} = e\).
+
+\textbf{(2)} Subgroup: \(e = \varphi(e) \in \Img(\varphi)\); if \(\varphi(a), \varphi(b) \in \Img(\varphi)\), then \(\varphi(a)\varphi(b) = \varphi(ab) \in \Img(\varphi)\); \(\varphi(a)^{-1} = \varphi(a^{-1}) \in \Img(\varphi)\).
+
+\textbf{(3)} If \(\ker(\varphi) = \{e\}\) and \(\varphi(g_1) = \varphi(g_2)\), then \(\varphi(g_1^{-1}g_2) = e\), so \(g_1^{-1}g_2 = e\), giving \(g_1 = g_2\). Conversely, if \(\varphi\) is injective and \(k \in \ker(\varphi)\), then \(\varphi(k) = e = \varphi(e)\), so \(k = e\).
+
+\textbf{(4)} \(\varphi(g_1) = \varphi(g_2) \iff \varphi(g_1)^{-1}\varphi(g_2) = e \iff \varphi(g_1^{-1}g_2) = e \iff g_1^{-1}g_2 \in \ker(\varphi)\). The last equivalence with cosets is the definition of coset equality.
+}
+
+\thm{First Isomorphism Theorem}{Let \(\varphi : G \to H\) be a homomorphism. Then:
+\begin{enumerate}
+    \item \(\ker(\varphi) \trianglelefteq G\);
+    \item The map \(\bar{\varphi} : G/\ker(\varphi) \to H\) defined by \(\bar{\varphi}(g\ker(\varphi)) = \varphi(g)\) is a well-defined injective homomorphism;
+    \item \(\Img(\bar{\varphi}) = \Img(\varphi)\), so \(G/\ker(\varphi) \cong \Img(\varphi)\).
+\end{enumerate}
+In slogan form: \emph{the image of a homomorphism is isomorphic to the domain modulo the kernel.}
+}
+
+\pf{Proof}{Proof of First Isomorphism Theorem
+
+Part (1) was proved above. For (2): \(\bar{\varphi}\) is well-defined because \(g_1\ker(\varphi) = g_2\ker(\varphi)\) implies \(\varphi(g_1) = \varphi(g_2)\) by property (4). It's a homomorphism: \(\bar{\varphi}(g_1K \cdot g_2K) = \bar{\varphi}(g_1g_2K) = \varphi(g_1g_2) = \varphi(g_1)\varphi(g_2) = \bar{\varphi}(g_1K)\bar{\varphi}(g_2K)\) (writing \(K = \ker(\varphi)\)). It's injective: \(\bar{\varphi}(gK) = e \implies \varphi(g) = e \implies g \in K \implies gK = K\).
+
+For (3): \(\Img(\bar{\varphi}) = \{\bar{\varphi}(gK) : g \in G\} = \{\varphi(g) : g \in G\} = \Img(\varphi)\). Since \(\bar{\varphi}\) is an injective homomorphism onto \(\Img(\varphi)\), it's an isomorphism \(G/\ker(\varphi) \xrightarrow{\sim} \Img(\varphi)\).
+}
+
+\nt{The First Isomorphism Theorem is sometimes called the ``fundamental theorem of homomorphisms.'' It says that every homomorphism \(\varphi : G \to H\) factors as \(G \twoheadrightarrow G/\ker(\varphi) \xrightarrow{\sim} \Img(\varphi) \hookrightarrow H\): a surjection, followed by an isomorphism, followed by an inclusion. This factorization is unique and natural---in the categorical sense, which you'll see later.
+}
+
+\subsection{The Second and Third Isomorphism Theorems}
+
+\thm{Second Isomorphism Theorem (Diamond Theorem)}{Let \(G\) be a group, \(H \subset G\) a subgroup, and \(N \trianglelefteq G\) a normal subgroup. Then:
+\begin{enumerate}
+    \item \(HN = \{hn : h \in H, n \in N\}\) is a subgroup of \(G\);
+    \item \(H \cap N \trianglelefteq H\);
+    \item \(H / (H \cap N) \cong HN / N\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of Second Isomorphism Theorem
+
+\textbf{(1)} \(HN\) is a subgroup: \(e = e \cdot e \in HN\). For closure: \((h_1n_1)(h_2n_2) = h_1(n_1h_2)n_2\). Since \(N\) is normal, \(n_1h_2 = h_2n_3\) for some \(n_3 \in N\), so \((h_1n_1)(h_2n_2) = h_1h_2n_3n_2 \in HN\). For inverses: \((hn)^{-1} = n^{-1}h^{-1} = h^{-1}(h n^{-1} h^{-1}) \in HN\) since \(hn^{-1}h^{-1} \in N\) by normality.
+
+\textbf{(2)} \(H \cap N\) is a subgroup of \(H\) (intersection of subgroups). For normality in \(H\): if \(x \in H \cap N\) and \(h \in H\), then \(hxh^{-1} \in H\) (since \(H\) is a subgroup) and \(hxh^{-1} \in N\) (since \(N \trianglelefteq G\)), so \(hxh^{-1} \in H \cap N\).
+
+\textbf{(3)} Define \(\varphi : H \to HN/N\) by \(\varphi(h) = hN\). This is a homomorphism: \(\varphi(h_1h_2) = h_1h_2N = (h_1N)(h_2N) = \varphi(h_1)\varphi(h_2)\). 
+
+\emph{Surjectivity:} Any element of \(HN/N\) has the form \(hnN = hN\) (since \(n \in N\)), which equals \(\varphi(h)\).
+
+\emph{Kernel:} \(\ker(\varphi) = \{h \in H : hN = N\} = \{h \in H : h \in N\} = H \cap N\).
+
+By the First Isomorphism Theorem, \(H/(H \cap N) = H/\ker(\varphi) \cong \Img(\varphi) = HN/N\).
+}
+
+\nt{The name ``Diamond Theorem'' comes from the lattice diagram: draw \(G\) at top, \(HN\) below it, \(H\) and \(N\) below \(HN\) on left and right, and \(H \cap N\) at the bottom. The isomorphism \(H/(H \cap N) \cong HN/N\) says the ``left edge'' quotient equals the ``right edge'' quotient. This is a manifestation of a general principle called the \emph{modular law} in lattice theory.
+}
+
+\thm{Third Isomorphism Theorem}{Let \(G\) be a group and \(N \subset M\) be normal subgroups of \(G\) (so \(N \trianglelefteq G\) and \(M \trianglelefteq G\) with \(N \subset M\)). Then:
+\begin{enumerate}
+    \item \(M/N \trianglelefteq G/N\);
+    \item \((G/N) / (M/N) \cong G/M\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of Third Isomorphism Theorem
+
+\textbf{(1)} Elements of \(G/N\) are cosets \(gN\); elements of \(M/N\) are cosets \(mN\) for \(m \in M\). We verify \(M/N \trianglelefteq G/N\): for \(gN \in G/N\) and \(mN \in M/N\), we have \((gN)(mN)(gN)^{-1} = gmg^{-1}N\). Since \(M \trianglelefteq G\), \(gmg^{-1} \in M\), so \(gmg^{-1}N \in M/N\).
+
+\textbf{(2)} Define \(\pi : G/N \to G/M\) by \(\pi(gN) = gM\). 
+
+\emph{Well-defined:} If \(g_1N = g_2N\), then \(g_1^{-1}g_2 \in N \subset M\), so \(g_1M = g_2M\).
+
+\emph{Homomorphism:} \(\pi(g_1N \cdot g_2N) = \pi(g_1g_2N) = g_1g_2M = (g_1M)(g_2M) = \pi(g_1N)\pi(g_2N)\).
+
+\emph{Surjective:} For any \(gM \in G/M\), we have \(\pi(gN) = gM\).
+
+\emph{Kernel:} \(\ker(\pi) = \{gN : gM = M\} = \{gN : g \in M\} = M/N\).
+
+By the First Isomorphism Theorem, \((G/N)/\ker(\pi) = (G/N)/(M/N) \cong \Img(\pi) = G/M\).
+}
+
+\nt{The Third Isomorphism Theorem says ``quotients of quotients are quotients'': \((G/N)/(M/N) \cong G/M\). The \(N\)'s ``cancel.'' This is exactly what you'd hope for, and it's a sign that quotient groups are a natural and well-behaved construction.
+}
+
+\subsection{The Correspondence Theorem}
+
+The final structural theorem describes the relationship between subgroups of a quotient and subgroups of the original group.
+
+\thm{Correspondence Theorem (Fourth Isomorphism Theorem)}{Let \(N \trianglelefteq G\) and \(\pi : G \to G/N\) be the canonical projection. There is a bijection
+\[\{\text{subgroups of } G \text{ containing } N\} \longleftrightarrow \{\text{subgroups of } G/N\}\]
+given by \(H \mapsto H/N = \pi(H)\) with inverse \(\bar{H} \mapsto \pi^{-1}(\bar{H})\). Moreover:
+\begin{enumerate}
+    \item \(H_1 \subset H_2 \iff H_1/N \subset H_2/N\), and \([H_2 : H_1] = [H_2/N : H_1/N]\);
+    \item \(H \trianglelefteq G \iff H/N \trianglelefteq G/N\).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of Correspondence Theorem
+
+Given \(H \supset N\), we have \(H/N = \{hN : h \in H\}\), which is a subgroup of \(G/N\). Given a subgroup \(\bar{H} \subset G/N\), define \(H = \pi^{-1}(\bar{H}) = \{g \in G : gN \in \bar{H}\}\). This contains \(N\) (since \(eN = N \in \bar{H}\)) and is a subgroup.
+
+These operations are inverses: starting with \(H \supset N\), we get \(\pi^{-1}(H/N) = \{g : gN \in H/N\} = \{g : gN = hN \text{ for some } h \in H\} = \{g : g \in hN \text{ for some } h \in H\} = HN = H\) (since \(N \subset H\)).
+
+Starting with \(\bar{H} \subset G/N\): \(\pi(\pi^{-1}(\bar{H})) = \{gN : gN \in \bar{H}\} = \bar{H}\).
+
+\textbf{(1)} \(H_1 \subset H_2 \implies H_1/N \subset H_2/N\) is clear. Conversely, if \(H_1/N \subset H_2/N\) and \(h \in H_1\), then \(hN \in H_1/N \subset H_2/N\), so \(hN = h'N\) for some \(h' \in H_2\), giving \(h \in h'N \subset H_2\). The index statement follows since the correspondence preserves cosets.
+
+\textbf{(2)} If \(H \trianglelefteq G\), then for \(gN \in G/N\) and \(hN \in H/N\): \((gN)(hN)(gN)^{-1} = ghg^{-1}N \in H/N\) since \(ghg^{-1} \in H\). Conversely, if \(H/N \trianglelefteq G/N\), then for \(g \in G, h \in H\): \(ghg^{-1}N = (gN)(hN)(gN)^{-1} \in H/N\), so \(ghg^{-1} \in H\).
+}
+
+\qs{}{Let \(G = \mathbb{Z}\) and \(N = 12\mathbb{Z}\).
+\begin{enumerate}
+    \item List all subgroups of \(G/N \cong \mathbb{Z}/12\).
+    \item For each, find the corresponding subgroup of \(\mathbb{Z}\) containing \(12\mathbb{Z}\).
+    \item Which of these are normal in \(\mathbb{Z}\)? (Trick question!)
+    \item Verify the Third Isomorphism Theorem: check that \((\mathbb{Z}/12\mathbb{Z})/(4\mathbb{Z}/12\mathbb{Z}) \cong \mathbb{Z}/4\mathbb{Z}\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} \(\mathbb{Z}/12\) is cyclic of order 12, so its subgroups correspond to divisors of 12: they are \(\langle \bar{0} \rangle, \langle \bar{6} \rangle, \langle \bar{4} \rangle, \langle \bar{3} \rangle, \langle \bar{2} \rangle, \langle \bar{1} \rangle\) of orders 1, 2, 3, 4, 6, 12 respectively.
+
+\textbf{(2)} The corresponding subgroups of \(\mathbb{Z}\) are those containing \(12\mathbb{Z}\), i.e., of the form \(d\mathbb{Z}\) where \(d \mid 12\): 
+\begin{align*}
+\langle \bar{0} \rangle &\leftrightarrow 12\mathbb{Z}, \quad \langle \bar{6} \rangle \leftrightarrow 6\mathbb{Z}, \quad \langle \bar{4} \rangle \leftrightarrow 4\mathbb{Z}, \\
+\langle \bar{3} \rangle &\leftrightarrow 3\mathbb{Z}, \quad \langle \bar{2} \rangle \leftrightarrow 2\mathbb{Z}, \quad \langle \bar{1} \rangle \leftrightarrow \mathbb{Z}.
+\end{align*}
+
+\textbf{(3)} All subgroups of \(\mathbb{Z}\) are normal because \(\mathbb{Z}\) is abelian!
+
+\textbf{(4)} We have \(4\mathbb{Z}/12\mathbb{Z} = \{\bar{0}, \bar{4}, \bar{8}\} \cong \mathbb{Z}/3\). The quotient \((\mathbb{Z}/12)/(4\mathbb{Z}/12\mathbb{Z})\) has order \(12/3 = 4\). Explicitly, the cosets are \(\bar{0} + 4\mathbb{Z}/12\mathbb{Z} = \{\bar{0}, \bar{4}, \bar{8}\}\), \(\bar{1} + \cdots = \{\bar{1}, \bar{5}, \bar{9}\}\), \(\bar{2} + \cdots = \{\bar{2}, \bar{6}, \bar{10}\}\), \(\bar{3} + \cdots = \{\bar{3}, \bar{7}, \bar{11}\}\). This is cyclic of order 4, generated by \(\bar{1} + 4\mathbb{Z}/12\mathbb{Z}\), hence \(\cong \mathbb{Z}/4\).
+
+The Third Isomorphism Theorem says \((\mathbb{Z}/12\mathbb{Z})/(4\mathbb{Z}/12\mathbb{Z}) \cong \mathbb{Z}/4\mathbb{Z}\), which checks out!
+\end{solution}
+
+\section{The symmetric group}
+
+The symmetric group \(S_n\) is arguably the most important finite group. By Cayley's theorem, every finite group embeds in some \(S_n\). But \(S_n\) is also interesting in its own right: its structure illuminates concepts like conjugacy classes, normal subgroups, and simplicity. Moreover, symmetric groups connect to linear algebra through the sign homomorphism and determinants, and to Galois theory through their role in permuting roots of polynomials.
+
+\subsection{Cycle structure and decomposition}
+
+\dfn{Symmetric group}{The \textbf{\emph{symmetric group}} \(S_n\) is the group of all bijections \(\sigma : \{1, \ldots, n\} \to \{1, \ldots, n\}\) under composition. It has order \(n!\).
+}
+
+\dfn{Cycle notation}{A \textbf{\emph{\(k\)-cycle}} (or cycle of length \(k\)) is a permutation \((a_1 \, a_2 \, \cdots \, a_k)\) that acts by \(a_1 \mapsto a_2 \mapsto \cdots \mapsto a_k \mapsto a_1\) and fixes all other elements. A 2-cycle is called a \textbf{\emph{transposition}}. Two cycles are \textbf{\emph{disjoint}} if they have no elements in common; disjoint cycles commute.
+}
+
+\thm{Cycle Decomposition Theorem}{Every permutation \(\sigma \in S_n\) can be written as a product of disjoint cycles, uniquely up to the order of the factors. The decomposition is obtained by writing out the orbits of \(\sigma\) acting on \(\{1, \ldots, n\}\).
+}
+
+\pf{Proof}{Existence and uniqueness of cycle decomposition
+
+\textbf{Existence:} Consider the action of \(\langle \sigma \rangle\) on \(\{1, \ldots, n\}\). The orbits partition \(\{1, \ldots, n\}\). For each orbit \(\{a_1, a_2, \ldots, a_k\}\) where \(\sigma(a_i) = a_{i+1}\) (indices mod \(k\)), define the cycle \(c = (a_1 \, a_2 \, \cdots \, a_k)\). Fixed points give 1-cycles (usually omitted). Since orbits are disjoint, these cycles are disjoint. 
+
+To verify \(\sigma\) equals the product of these cycles: for any \(i\), if \(i\) is in the orbit giving cycle \(c\), then \(c(i) = \sigma(i)\) and all other cycles fix \(i\), so the product sends \(i \mapsto \sigma(i)\).
+
+\textbf{Uniqueness:} Suppose \(\sigma = c_1 c_2 \cdots c_r = d_1 d_2 \cdots d_s\) are two decompositions into disjoint cycles. For any \(i\), exactly one \(c_j\) moves \(i\) (the others fix it), and that \(c_j\) must generate the orbit of \(i\) under \(\sigma\). Similarly for the \(d\)'s. Thus \(c_j\) and the \(d_k\) containing \(i\) describe the same orbit, hence are the same cycle (up to cyclic rotation of the notation).
+}
+
+\dfn{Cycle type}{The \textbf{\emph{cycle type}} of \(\sigma \in S_n\) is the partition of \(n\) given by the lengths of the cycles in its disjoint cycle decomposition (including 1-cycles for fixed points). We write it as \((1^{m_1} 2^{m_2} \cdots n^{m_n})\) where \(m_k\) is the number of \(k\)-cycles.
+}
+
+\ex{}{In \(S_6\), the permutation \(\sigma = (1\,3\,5)(2\,4)\) has cycle type \((1^1 2^1 3^1)\) since there's one fixed point (6), one 2-cycle, and one 3-cycle. The identity has cycle type \((1^6)\). A single 6-cycle has type \((6^1)\).
+}
+
+\subsection{Conjugacy in \(S_n\)}
+
+Conjugacy classes are fundamental to representation theory. In \(S_n\), they have an elegant characterization.
+
+\thm{Conjugacy in \(S_n\)}{Two permutations in \(S_n\) are conjugate if and only if they have the same cycle type.
+}
+
+\pf{Proof}{Proof of conjugacy classification
+
+\textbf{Key computation:} Let \(\tau \in S_n\) and \((a_1 \, a_2 \, \cdots \, a_k)\) be a cycle. Then 
+\[\tau (a_1 \, a_2 \, \cdots \, a_k) \tau^{-1} = (\tau(a_1) \, \tau(a_2) \, \cdots \, \tau(a_k)).\]
+Proof: For any \(i\), if \(i = \tau(a_j)\), then \(\tau (a_1 \cdots a_k) \tau^{-1}(i) = \tau(a_{j+1}) = \tau(a_{j+1})\). If \(i \notin \{\tau(a_1), \ldots, \tau(a_k)\}\), then \(\tau^{-1}(i) \notin \{a_1, \ldots, a_k\}\), so the cycle fixes \(\tau^{-1}(i)\), and conjugation gives \(\tau(\tau^{-1}(i)) = i\).
+
+\textbf{Same type \(\Rightarrow\) conjugate:} Let \(\sigma = (a_1 \cdots a_{k_1})(b_1 \cdots b_{k_2}) \cdots\) and \(\rho = (c_1 \cdots c_{k_1})(d_1 \cdots d_{k_2}) \cdots\) have the same cycle type. Define \(\tau\) by \(\tau(a_i) = c_i, \tau(b_j) = d_j\), etc. Then by the key computation, \(\tau \sigma \tau^{-1} = \rho\).
+
+\textbf{Conjugate \(\Rightarrow\) same type:} If \(\rho = \tau \sigma \tau^{-1}\), write \(\sigma\) as a product of disjoint cycles. By the key computation, \(\rho\) is the product of the conjugated cycles, which have the same lengths. Disjointness is preserved since \(\tau\) is a bijection.
+}
+
+\mprop{Number of conjugacy classes in \(S_n\)}{The number of conjugacy classes in \(S_n\) equals \(p(n)\), the number of partitions of \(n\). For example, \(p(1) = 1, p(2) = 2, p(3) = 3, p(4) = 5, p(5) = 7, p(6) = 11\).
+}
+
+\nt{This beautiful fact---conjugacy classes correspond to partitions---is one reason why the representation theory of \(S_n\) is so rich. The irreducible representations of \(S_n\) are also indexed by partitions of \(n\), and the character table can be computed combinatorially. This is a whole subject in itself.
+}
+
+\subsection{The sign homomorphism and alternating group}
+
+Every permutation can be written as a product of transpositions. The number of transpositions is not unique, but its parity is!
+
+\mprop{Transposition generation}{\(S_n\) is generated by transpositions. More precisely, every \(k\)-cycle can be written as a product of \(k-1\) transpositions:
+\[(a_1 \, a_2 \, \cdots \, a_k) = (a_1 \, a_k)(a_1 \, a_{k-1}) \cdots (a_1 \, a_2).\]
+}
+
+\pf{Proof}{Verification of transposition decomposition
+
+Apply the right side to \(a_1\): \((a_1 \, a_2)\) sends \(a_1 \mapsto a_2\), then subsequent transpositions fix \(a_2\). So \(a_1 \mapsto a_2\). \checkmark
+
+Apply to \(a_j\) for \(2 \le j \le k-1\): transpositions \((a_1 \, a_2), \ldots, (a_1 \, a_{j-1})\) fix \(a_j\). Then \((a_1 \, a_j)\) sends \(a_j \mapsto a_1\). Then \((a_1 \, a_{j+1})\) sends \(a_1 \mapsto a_{j+1}\). Subsequent transpositions fix \(a_{j+1}\). So \(a_j \mapsto a_{j+1}\). \checkmark
+
+Apply to \(a_k\): all transpositions except \((a_1 \, a_k)\) fix \(a_k\), which sends \(a_k \mapsto a_1\). \checkmark
+}
+
+\thm{Well-definedness of parity}{If \(\sigma = \tau_1 \cdots \tau_r = \tau_1' \cdots \tau_s'\) are two expressions of \(\sigma\) as products of transpositions, then \(r \equiv s \pmod{2}\).
+}
+
+\pf{Proof}{Proof of parity well-definedness
+
+Consider the polynomial \(P(x_1, \ldots, x_n) = \prod_{1 \le i < j \le n} (x_i - x_j)\). For \(\sigma \in S_n\), define \(\sigma \cdot P = \prod_{i < j} (x_{\sigma(i)} - x_{\sigma(j)})\). Each factor \((x_{\sigma(i)} - x_{\sigma(j)})\) equals \(\pm(x_k - x_l)\) for some \(k < l\), so \(\sigma \cdot P = \pm P\).
+
+For a transposition \(\tau = (a \, b)\) with \(a < b\): the factor \((x_a - x_b)\) becomes \((x_b - x_a) = -(x_a - x_b)\). For \(i < a < b < j\), the factor \((x_i - x_j)\) is unchanged. For \(i < a\), the factors \((x_i - x_a)\) and \((x_i - x_b)\) are swapped, contributing no sign change. Similarly for other cases. Careful counting shows \(\tau \cdot P = -P\) (the key is that one factor picks up a sign, and swaps come in pairs).
+
+Thus if \(\sigma = \tau_1 \cdots \tau_r\), then \(\sigma \cdot P = (-1)^r P\). If also \(\sigma = \tau_1' \cdots \tau_s'\), then \((-1)^r = (-1)^s\), so \(r \equiv s \pmod 2\).
+}
+
+\dfn{Sign of a permutation}{The \textbf{\emph{sign}} (or \textbf{\emph{signature}}) of \(\sigma \in S_n\) is \(\sgn(\sigma) = (-1)^r\) where \(\sigma = \tau_1 \cdots \tau_r\) is any expression as a product of transpositions. Equivalently, \(\sgn(\sigma) = (-1)^{n - c(\sigma)}\) where \(c(\sigma)\) is the number of cycles (including 1-cycles). A permutation is \textbf{\emph{even}} if \(\sgn(\sigma) = 1\) and \textbf{\emph{odd}} if \(\sgn(\sigma) = -1\).
+}
+
+\thm{Sign is a homomorphism}{The map \(\sgn : S_n \to \{1, -1\}\) is a surjective group homomorphism.
+}
+
+\pf{Proof}{Proof that sign is a homomorphism
+
+If \(\sigma = \tau_1 \cdots \tau_r\) and \(\rho = \tau_1' \cdots \tau_s'\), then \(\sigma\rho = \tau_1 \cdots \tau_r \tau_1' \cdots \tau_s'\), a product of \(r + s\) transpositions. Thus \(\sgn(\sigma\rho) = (-1)^{r+s} = (-1)^r (-1)^s = \sgn(\sigma)\sgn(\rho)\). Surjectivity: any transposition has sign \(-1\).
+}
+
+\dfn{Alternating group}{The \textbf{\emph{alternating group}} \(A_n = \ker(\sgn) = \{\sigma \in S_n : \sgn(\sigma) = 1\}\) is the group of even permutations.
+}
+
+\mprop{Properties of \(A_n\)}{We have:
+\begin{enumerate}
+    \item \(A_n \trianglelefteq S_n\) with index \([S_n : A_n] = 2\), so \(|A_n| = n!/2\).
+    \item \(S_n / A_n \cong \mathbb{Z}/2\).
+    \item \(A_n\) is generated by 3-cycles. In fact, \(A_n = \langle (1\,2\,3), (1\,2\,4), \ldots, (1\,2\,n) \rangle\).
+    \item For \(n \ge 5\), \(A_n\) is \textbf{\emph{simple}} (has no proper nontrivial normal subgroups).
+\end{enumerate}
+}
+
+\pf{Proof}{Proof of \(A_n\) properties (1)-(3)
+
+\textbf{(1)-(2)} follow from the First Isomorphism Theorem: \(S_n / \ker(\sgn) \cong \Img(\sgn) = \{1, -1\} \cong \mathbb{Z}/2\).
+
+\textbf{(3)} Every even permutation is a product of an even number of transpositions. We can pair them: \((a\,b)(c\,d)\). If \(\{a,b\} \cap \{c,d\} = \emptyset\), then \((a\,b)(c\,d) = (a\,c\,b)(a\,c\,d)\) (verify!). If \(\{a,b\} \cap \{c,d\} = \{b\} = \{c\}\), then \((a\,b)(b\,d) = (a\,b\,d)\). Thus \(A_n\) is generated by 3-cycles. For the specific generating set: \[(a\,b\,c) = (1\,2\,a)(1\,2\,b)(1\,2\,c)(1\,2\,a)^{-1}(1\,2\,b)^{-1}\] (if \(a,b,c\) all differ from 1,2; similar manipulations handle other cases).
+}
+
+\nt{The simplicity of \(A_n\) for \(n \ge 5\) is a deep result with profound consequences. It implies that \(A_n\) has no quotients except \(\{e\}\) and itself, which means \(A_n\) is ``irreducible'' in a sense. Via Galois theory, this simplicity is precisely why the general quintic polynomial has no solution in radicals: the Galois group of the ``generic'' degree-\(n\) polynomial is \(S_n\), and solvability by radicals requires a composition series with abelian quotients. For \(n \ge 5\), \(A_n\) blocks this because it's simple and non-abelian. We will prove simplicity later, after developing more machinery.
+}
+
+\nt{Connection to linear algebra: the sign homomorphism is intimately related to the determinant. For a matrix \(A \in \GL_n(\mathbb{R})\), we have \(\det(A) = \sum_{\sigma \in S_n} \sgn(\sigma) \prod_{i=1}^n a_{i,\sigma(i)}\). The sign ensures the determinant is alternating in the rows (swapping rows negates the determinant). This is no coincidence: the determinant is the unique alternating multilinear function on \(n\) vectors with \(\det(I) = 1\), and ``alternating'' is encoded by the sign.
+}
+
+\qs{}{
+\begin{enumerate}
+    \item Compute the cycle type and sign of \(\sigma = (1\,2\,3)(4\,5)(1\,4)(2\,5\,3)\) in \(S_5\). (First simplify!)
+    \item How many elements of \(S_7\) have cycle type \((1^1 2^1 4^1)\)?
+    \item Prove that the only normal subgroups of \(S_3\) are \(\{e\}, A_3, S_3\).
+    \item Let \(H = \{e, (1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)\} \subset S_4\). Prove \(H \cong \mathbb{Z}/2 \times \mathbb{Z}/2\) and \(H \trianglelefteq S_4\). What is \(S_4/H\)?
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} First, multiply the cycles right-to-left. Trace each element:
+\begin{align*}
+1 &\mapsto 4 \mapsto 5 \mapsto 5 \mapsto 4 \mapsto 1: \text{wait, let's be systematic.}
+\end{align*}
+Write \(\sigma = (1\,2\,3)(4\,5)(1\,4)(2\,5\,3)\). Reading right-to-left: start with \((2\,5\,3)\), then \((1\,4)\), then \((4\,5)\), then \((1\,2\,3)\).
+
+Trace 1: \(1 \xrightarrow{(2\,5\,3)} 1 \xrightarrow{(1\,4)} 4 \xrightarrow{(4\,5)} 5 \xrightarrow{(1\,2\,3)} 5\). So \(1 \mapsto 5\).
+
+Trace 2: \(2 \xrightarrow{(2\,5\,3)} 5 \xrightarrow{(1\,4)} 5 \xrightarrow{(4\,5)} 4 \xrightarrow{(1\,2\,3)} 4\). So \(2 \mapsto 4\).
+
+Trace 3: \(3 \xrightarrow{(2\,5\,3)} 2 \xrightarrow{(1\,4)} 2 \xrightarrow{(4\,5)} 2 \xrightarrow{(1\,2\,3)} 3\). So \(3 \mapsto 3\) (fixed).
+
+Trace 4: \(4 \xrightarrow{(2\,5\,3)} 4 \xrightarrow{(1\,4)} 1 \xrightarrow{(4\,5)} 1 \xrightarrow{(1\,2\,3)} 2\). So \(4 \mapsto 2\).
+
+Trace 5: \(5 \xrightarrow{(2\,5\,3)} 3 \xrightarrow{(1\,4)} 3 \xrightarrow{(4\,5)} 3 \xrightarrow{(1\,2\,3)} 1\). So \(5 \mapsto 1\).
+
+Thus \(\sigma = (1\,5)(2\,4)\), cycle type \((1^1 2^2)\). Sign: two 2-cycles = two transpositions, so \(\sgn(\sigma) = (-1)^2 = 1\) (even).
+
+\textbf{(2)} Cycle type \((1^1 2^1 4^1)\) means one fixed point, one 2-cycle, one 4-cycle. Choose the fixed point: 7 ways. Choose 4 elements for the 4-cycle from the remaining 6: \(\binom{6}{4} = 15\) ways. Arrange them in a 4-cycle: \((4-1)! = 6\) ways. The remaining 2 elements form the 2-cycle: 1 way. Total: \(7 \cdot 15 \cdot 6 \cdot 1 = 630\).
+
+\textbf{(3)} \(S_3\) has order 6. By Lagrange, subgroups have order 1, 2, 3, or 6. Normal subgroups must be unions of conjugacy classes. Conjugacy classes in \(S_3\): \(\{e\}\) (size 1), \(\{(12), (13), (23)\}\) (size 3), \(\{(123), (132)\}\) (size 2). 
+
+A normal subgroup of order 2 would need size-1 and size-1 classes, but \(\{e\}\) has size 1 and we'd need another element with a size-1 class---none exist. A normal subgroup of order 3 must be \(\{e\} \cup \{(123), (132)\} = A_3\). \checkmark
+
+\textbf{(4)} Check \(H\) is a subgroup: \((1\,2)(3\,4) \cdot (1\,3)(2\,4) = (1\,4)(2\,3)\), etc.---closure holds (verify all products give elements of \(H\)). Each non-identity element has order 2. So \(H \cong \mathbb{Z}/2 \times \mathbb{Z}/2\) (Klein four-group).
+
+Normality: \(H\) consists of \(e\) plus all products of two disjoint transpositions. These form a conjugacy class in \(S_4\) (cycle type \((2^2)\)), so \(H\) is a union of conjugacy classes, hence normal.
+
+\(S_4/H\) has order \(24/4 = 6\). The quotient is non-abelian (since \(S_4\) is non-abelian and \(H\) is not all of \(S_4\)), so \(S_4/H \cong S_3\). Explicitly: \(S_4\) acts on the three partitions \(\{\{1,2\},\{3,4\}\}, \{\{1,3\},\{2,4\}\}, \{\{1,4\},\{2,3\}\}\), and \(H\) is the kernel.
+\end{solution}
+
+\section{Exact sequences}
+
+The isomorphism theorems reveal a pattern: kernels and images of homomorphisms are intimately related. Exact sequences provide elegant language to express these relationships, and form the foundation of \emph{homological algebra}---a subject that permeates modern mathematics from algebraic topology to representation theory to algebraic geometry. We introduce the basic concepts here.
+
+\subsection{Exact sequences and their meaning}
+
+\dfn{Exact sequence}{A sequence of groups and homomorphisms
+\[
+\cdots \xrightarrow{} G_{i-1} \xrightarrow{\varphi_{i-1}} G_i \xrightarrow{\varphi_i} G_{i+1} \xrightarrow{} \cdots
+\]
+is \textbf{\emph{exact at \(G_i\)}} if \(\Img(\varphi_{i-1}) = \ker(\varphi_i)\). The sequence is \textbf{\emph{exact}} if it is exact at every group (except possibly the endpoints).
+}
+
+The condition \(\Img(\varphi_{i-1}) = \ker(\varphi_i)\) says: ``everything that comes from the left dies when we go right.'' This is stronger than \(\Img(\varphi_{i-1}) \subseteq \ker(\varphi_i)\) (which just says \(\varphi_i \circ \varphi_{i-1} = 0\), i.e., the composition is the zero map).
+
+\ex{Exactness encodes injectivity and surjectivity}{Consider short sequences with trivial groups \(\{e\}\):
+\begin{enumerate}
+    \item \(\{e\} \xrightarrow{} A \xrightarrow{\varphi} B\) is exact at \(A\) iff \(\ker(\varphi) = \Img(\{e\} \to A) = \{e_A\}\), i.e., \(\varphi\) is \textbf{injective}.
+    \item \(A \xrightarrow{\varphi} B \xrightarrow{} \{e\}\) is exact at \(B\) iff \(\Img(\varphi) = \ker(B \to \{e\}) = B\), i.e., \(\varphi\) is \textbf{surjective}.
+    \item \(\{e\} \xrightarrow{} A \xrightarrow{\varphi} B \xrightarrow{} \{e\}\) is exact iff \(\varphi\) is an \textbf{isomorphism}.
+\end{enumerate}
+}
+
+\subsection{Short exact sequences}
+
+The most important type of exact sequence is the \emph{short exact sequence}, which captures the structure of quotient groups.
+
+\dfn{Short exact sequence}{A \textbf{\emph{short exact sequence}} (SES) is an exact sequence of the form
+\[
+\{e\} \xrightarrow{} N \xrightarrow{\iota} G \xrightarrow{\pi} Q \xrightarrow{} \{e\}
+\]
+where exactness means: \(\iota\) is injective, \(\pi\) is surjective, and \(\Img(\iota) = \ker(\pi)\).
+}
+
+\nt{We often write a short exact sequence as \(1 \to N \to G \to Q \to 1\) (using 1 for the trivial group in multiplicative notation) or \(0 \to N \to G \to Q \to 0\) (in additive notation for abelian groups).
+}
+
+\mprop{Short exact sequences and quotients}{A sequence \(1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} Q \to 1\) is exact if and only if:
+\begin{enumerate}
+    \item \(\iota\) identifies \(N\) with a normal subgroup of \(G\) (namely \(\iota(N) = \ker(\pi) \trianglelefteq G\));
+    \item \(\pi\) induces an isomorphism \(G/\iota(N) \cong Q\).
+\end{enumerate}
+In other words, short exact sequences encode the statement ``\(G/N \cong Q\)'' or ``\(G\) is an extension of \(Q\) by \(N\).''
+}
+
+\pf{Proof}{Proof of SES characterization
+
+(\(\Rightarrow\)) Suppose the sequence is exact. Then \(\iota\) is injective, so \(N \cong \iota(N) \subseteq G\). Exactness at \(G\) gives \(\iota(N) = \ker(\pi)\), which is normal in \(G\). By the First Isomorphism Theorem, \(G/\ker(\pi) \cong \Img(\pi) = Q\) (using surjectivity of \(\pi\)).
+
+(\(\Leftarrow\)) If \(\iota(N) \trianglelefteq G\) and \(G/\iota(N) \cong Q\), take \(\pi : G \to G/\iota(N) \cong Q\) to be the quotient map (composed with the isomorphism). Then \(\ker(\pi) = \iota(N) = \Img(\iota)\), giving exactness.
+}
+
+\ex{Fundamental examples of short exact sequences}{
+\begin{enumerate}
+    \item \textbf{Integers mod \(n\):} \(0 \to n\mathbb{Z} \xrightarrow{\iota} \mathbb{Z} \xrightarrow{\pi} \mathbb{Z}/n\mathbb{Z} \to 0\), where \(\iota\) is inclusion and \(\pi\) is reduction mod \(n\).
+    
+    \item \textbf{Determinant:} \(1 \to \SL_n(\mathbb{R}) \xrightarrow{\iota} \GL_n(\mathbb{R}) \xrightarrow{\det} \mathbb{R}^* \to 1\). The kernel of det is exactly \(\SL_n\).
+    
+    \item \textbf{Sign:} \(1 \to A_n \xrightarrow{\iota} S_n \xrightarrow{\sgn} \{\pm 1\} \to 1\). The alternating group is the kernel of the sign homomorphism.
+    
+    \item \textbf{Center:} For any group \(G\), we have \(1 \to Z(G) \xrightarrow{\iota} G \xrightarrow{\pi} G/Z(G) \to 1\). The quotient \(G/Z(G)\) is called the \emph{inner automorphism group} (it acts on \(G\) by conjugation).
+    
+    \item \textbf{Product decomposition:} \(1 \to N \xrightarrow{\iota} N \times Q \xrightarrow{\pi} Q \to 1\), where \(\iota(n) = (n, e)\) and \(\pi(n, q) = q\). This is a ``trivial'' extension.
+\end{enumerate}
+}
+
+\subsection{Splitting and semidirect products}
+
+When does a short exact sequence ``come from'' a direct product? This leads to the important notion of splitting.
+
+\dfn{Split exact sequence}{A short exact sequence \(1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} Q \to 1\) is \textbf{\emph{split}} (or \textbf{\emph{splits}}) if any of the following equivalent conditions holds:
+\begin{enumerate}
+    \item There exists a homomorphism \(s : Q \to G\) with \(\pi \circ s = \id_Q\) (a \textbf{\emph{section}} or \textbf{\emph{right inverse}});
+    \item There exists a homomorphism \(r : G \to N\) with \(r \circ \iota = \id_N\) (a \textbf{\emph{retraction}} or \textbf{\emph{left inverse}});
+    \item \(G \cong N \rtimes Q\) for some semidirect product structure.
+\end{enumerate}
+}
+
+\nt{For abelian groups, split exact sequences correspond exactly to direct products: if \(1 \to A \to B \to C \to 1\) splits with \(A, B, C\) abelian, then \(B \cong A \times C\). For non-abelian groups, the situation is more subtle---we get \emph{semidirect} products, which we'll study in detail later.
+}
+
+\ex{Split vs non-split}{
+\begin{enumerate}
+    \item \textbf{Splits:} \(1 \to A_3 \to S_3 \to \mathbb{Z}/2 \to 1\). A section \(s : \mathbb{Z}/2 \to S_3\) sends the generator to any transposition, e.g., \(s(1) = (12)\). Thus \(S_3 \cong A_3 \rtimes \mathbb{Z}/2\).
+    
+    \item \textbf{Does not split:} \(0 \to \mathbb{Z}/2 \xrightarrow{\times 2} \mathbb{Z}/4 \xrightarrow{\mod 2} \mathbb{Z}/2 \to 0\). If it split, we'd have \(\mathbb{Z}/4 \cong \mathbb{Z}/2 \times \mathbb{Z}/2\), but \(\mathbb{Z}/4\) has an element of order 4 while \(\mathbb{Z}/2 \times \mathbb{Z}/2\) doesn't. The sequence is exact but not split.
+\end{enumerate}
+}
+
+\mprop{Splitting lemma (partial)}{If \(1 \to N \xrightarrow{\iota} G \xrightarrow{\pi} Q \to 1\) has a section \(s : Q \to G\), then every element \(g \in G\) can be written uniquely as \(g = \iota(n) \cdot s(q)\) for some \(n \in N\) and \(q \in Q\).
+}
+
+\pf{Proof}{Proof of splitting decomposition
+
+\textbf{Existence:} Given \(g \in G\), let \(q = \pi(g) \in Q\). Then \(\pi(g \cdot s(q)^{-1}) = \pi(g) \cdot \pi(s(q))^{-1} = q \cdot q^{-1} = e_Q\), so \(g \cdot s(q)^{-1} \in \ker(\pi) = \iota(N)\). Thus \(g \cdot s(q)^{-1} = \iota(n)\) for some \(n \in N\), giving \(g = \iota(n) \cdot s(q)\).
+
+\textbf{Uniqueness:} Suppose \(\iota(n_1) \cdot s(q_1) = \iota(n_2) \cdot s(q_2)\). Apply \(\pi\): \(e \cdot q_1 = e \cdot q_2\), so \(q_1 = q_2\). Then \(\iota(n_1) = \iota(n_2)\), and since \(\iota\) is injective, \(n_1 = n_2\).
+}
+
+\subsection{The extension problem}
+
+The short exact sequence perspective leads to a fundamental question in group theory.
+
+\dfn{Group extension}{Given groups \(N\) and \(Q\), an \textbf{\emph{extension of \(Q\) by \(N\)}} is a group \(G\) fitting into a short exact sequence \(1 \to N \to G \to Q \to 1\).
+}
+
+The \textbf{\emph{extension problem}} asks: given \(N\) and \(Q\), classify all groups \(G\) that are extensions of \(Q\) by \(N\). This is a deep problem that leads to:
+\begin{enumerate}
+    \item \emph{Semidirect products} (when the sequence splits);
+    \item \emph{Group cohomology} \(H^2(Q, N)\) (classifying non-split extensions);
+    \item The structure theory of finite groups (building groups from simple groups).
+\end{enumerate}
+
+\ex{Extensions of \(\mathbb{Z}/2\) by \(\mathbb{Z}/2\)}{What groups \(G\) fit into \(1 \to \mathbb{Z}/2 \to G \to \mathbb{Z}/2 \to 1\)? Such \(G\) has order 4. We know there are exactly two groups of order 4: \(\mathbb{Z}/4\) and \(\mathbb{Z}/2 \times \mathbb{Z}/2\). Both work:
+\begin{itemize}
+    \item \(\mathbb{Z}/4\): the sequence \(0 \to \mathbb{Z}/2 \xrightarrow{\times 2} \mathbb{Z}/4 \to \mathbb{Z}/2 \to 0\) (non-split).
+    \item \(\mathbb{Z}/2 \times \mathbb{Z}/2\): the sequence \(0 \to \mathbb{Z}/2 \to \mathbb{Z}/2 \times \mathbb{Z}/2 \to \mathbb{Z}/2 \to 0\) (split).
+\end{itemize}
+So there are exactly two extensions, corresponding to the two groups of order 4.
+}
+
+\qs{}{
+\begin{enumerate}
+    \item Verify that \(1 \to \mathbb{Z} \xrightarrow{\times n} \mathbb{Z} \xrightarrow{\mod n} \mathbb{Z}/n \to 1\) is exact.
+    \item Show that the sequence \(1 \to \langle r \rangle \to D_n \to \mathbb{Z}/2 \to 1\) is exact, where \(\langle r \rangle \cong \mathbb{Z}/n\) is the rotation subgroup. Does it split?
+    \item Let \(G\) be a group with normal subgroup \(N\). Prove that the sequence \(1 \to N \to G \to G/N \to 1\) is exact (with the obvious maps).
+    \item Suppose \(1 \to A \xrightarrow{f} B \xrightarrow{g} C \to 1\) and \(1 \to C \xrightarrow{h} D \xrightarrow{k} E \to 1\) are exact. Prove that \(1 \to A \xrightarrow{f} B \xrightarrow{h \circ g} D \xrightarrow{k} E \to 1\) is exact.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} Let \(\iota : \mathbb{Z} \to \mathbb{Z}\) be \(\iota(k) = nk\) and \(\pi : \mathbb{Z} \to \mathbb{Z}/n\) be reduction mod \(n\).
+
+\emph{Exactness at first \(\mathbb{Z}\):} \(\ker(\iota) = \{k : nk = 0\} = \{0\}\), and \(\Img(1 \to \mathbb{Z}) = \{0\}\). \checkmark
+
+\emph{Exactness at second \(\mathbb{Z}\):} \(\Img(\iota) = n\mathbb{Z}\) and \(\ker(\pi) = n\mathbb{Z}\). \checkmark
+
+\emph{Exactness at \(\mathbb{Z}/n\):} \(\Img(\pi) = \mathbb{Z}/n\) and \(\ker(\mathbb{Z}/n \to 1) = \mathbb{Z}/n\). \checkmark
+
+\textbf{(2)} The rotation subgroup \(\langle r \rangle = \{e, r, r^2, \ldots, r^{n-1}\}\) is normal in \(D_n\) (we showed this earlier). The quotient \(D_n / \langle r \rangle\) has order \(2n/n = 2\), so \(D_n/\langle r \rangle \cong \mathbb{Z}/2\). The sequence \(1 \to \langle r \rangle \xrightarrow{\iota} D_n \xrightarrow{\pi} \mathbb{Z}/2 \to 1\) is exact.
+
+\emph{Does it split?} Yes! Define \(s : \mathbb{Z}/2 \to D_n\) by \(s(0) = e\) and \(s(1) = s\) (a reflection). Then \(\pi(s(1)) = \pi(s) = 1\) (since \(s \notin \langle r \rangle\)), so \(\pi \circ s = \id\). Thus \(D_n \cong \mathbb{Z}/n \rtimes \mathbb{Z}/2\).
+
+\textbf{(3)} Let \(\iota : N \hookrightarrow G\) be inclusion and \(\pi : G \to G/N\) be the quotient map.
+
+\emph{Exactness at \(N\):} \(\iota\) is injective, so \(\ker(\iota) = \{e\} = \Img(1 \to N)\). \checkmark
+
+\emph{Exactness at \(G\):} \(\Img(\iota) = N\) and \(\ker(\pi) = N\). \checkmark
+
+\emph{Exactness at \(G/N\):} \(\pi\) is surjective, so \(\Img(\pi) = G/N = \ker(G/N \to 1)\). \checkmark
+
+\textbf{(4)} We check exactness at each position.
+
+\emph{At \(A\):} Same as the original sequence---\(f\) is injective.
+
+\emph{At \(B\):} We need \(\Img(f) = \ker(h \circ g)\). We have \(\Img(f) = \ker(g)\) (exactness of first sequence). If \(b \in \ker(g)\), then \(g(b) = e_C\), so \((h \circ g)(b) = h(e_C) = e_D\), giving \(b \in \ker(h \circ g)\). Conversely, if \((h \circ g)(b) = e_D\), then \(h(g(b)) = e_D\), so \(g(b) \in \ker(h) = \{e_C\}\) (since \(h\) is injective). Thus \(g(b) = e_C\), so \(b \in \ker(g) = \Img(f)\).
+
+\emph{At \(D\):} We need \(\Img(h \circ g) = \ker(k)\). From exactness of second sequence, \(\Img(h) = \ker(k)\). Since \(g\) is surjective, \(\Img(h \circ g) = h(g(B)) = h(C) = \Img(h) = \ker(k)\). \checkmark
+
+\emph{At \(E\):} Same as the original sequence---\(k\) is surjective.
+\end{solution}
+
+\nt{Exact sequences are the beginning of \emph{homological algebra}. The ideas extend to longer exact sequences, to \emph{chain complexes} (sequences where consecutive compositions are zero, not necessarily exact), and to \emph{derived functors} that measure the failure of exactness. In representation theory, exact sequences of representations encode how representations decompose. In topology, the \emph{long exact sequence of a fibration} is a powerful tool. The language you've learned here will reappear throughout mathematics.
+}
+
+\section{Free groups and presentations}
+
+Every group we've seen so far has been defined concretely: permutations, matrices, integers mod \(n\). But there's a fundamentally different approach: describe a group by \emph{generators} and \emph{relations}. This leads to \emph{group presentations}, which are both computationally useful and theoretically profound. The key player is the \emph{free group}---the ``most general'' group on a given set of generators.
+
+\subsection{Words and reduced words}
+
+\dfn{Alphabet and words}{Let \(S\) be a set (the \textbf{\emph{alphabet}} or \textbf{\emph{generating set}}). Define \(S^{-1} = \{s^{-1} : s \in S\}\), a formal set of ``inverse symbols'' disjoint from \(S\). A \textbf{\emph{word}} in \(S\) is a finite sequence
+\[w = a_1^{\epsilon_1} a_2^{\epsilon_2} \cdots a_n^{\epsilon_n}\]
+where each \(a_i \in S\) and \(\epsilon_i \in \{1, -1\}\). The \textbf{\emph{empty word}}, denoted \(e\) or \(\varepsilon\), is the word with no letters.
+}
+
+\ex{}{If \(S = \{a, b\}\), then \(ab^{-1}a^{-1}ba\), \(aaab\), \(b^{-1}b^{-1}a\), and \(e\) are all words. We write \(a^3\) for \(aaa\) and \(a^{-2}\) for \(a^{-1}a^{-1}\).
+}
+
+\dfn{Concatenation}{The \textbf{\emph{concatenation}} of words \(w_1 = a_1 \cdots a_m\) and \(w_2 = b_1 \cdots b_n\) is \(w_1 w_2 = a_1 \cdots a_m b_1 \cdots b_n\). This operation is associative with identity \(e\).
+}
+
+Now, we want words to form a group. The issue: \(aa^{-1}\) should equal \(e\), but as sequences they're different. We need to identify words that ``should be equal.''
+
+\dfn{Elementary reduction}{An \textbf{\emph{elementary reduction}} of a word \(w\) is the operation of removing a subword of the form \(ss^{-1}\) or \(s^{-1}s\) (for \(s \in S\)). A word is \textbf{\emph{reduced}} if it contains no such subwords---i.e., no letter is immediately followed by its inverse.
+}
+
+\ex{}{The word \(ab^{-1}ba^{-1}a\) reduces as follows:
+\[ab^{-1}ba^{-1}a \to ab^{-1}b \cdot e \cdot a^{-1}a \to ab^{-1}b \to a \cdot e = a.\]
+Wait, let me be more careful: \(ab^{-1}ba^{-1}a\). We have \(b^{-1}b\), so reduce to \(a \cdot e \cdot a^{-1}a = aa^{-1}a\). Then \(aa^{-1}\) reduces to \(e\), leaving \(a\). So the reduced form is \(a\).
+}
+
+\thm{Unique reduced form}{Every word can be reduced to a unique reduced word by a sequence of elementary reductions. The order of reductions doesn't matter.
+}
+
+\pf{Proof}{Sketch of unique reduction
+
+\textbf{Termination:} Each reduction decreases the length by 2, so the process terminates.
+
+\textbf{Uniqueness (sketch):} This is the key point. Suppose \(w\) reduces to both \(u\) and \(v\). We use the \emph{diamond lemma}: if we can perform two different reductions \(w \to w_1\) and \(w \to w_2\), then there exists \(w'\) reachable from both \(w_1\) and \(w_2\). 
+
+The only interesting case is when the two reductions overlap, e.g., \(w = \cdots s s^{-1} s \cdots\). Reducing \(ss^{-1}\) gives \(\cdots s \cdots\); reducing \(s^{-1}s\) also gives \(\cdots s \cdots\). They agree! So all reduction paths lead to the same result.
+}
+
+\subsection{The free group}
+
+\dfn{Free group}{The \textbf{\emph{free group on \(S\)}}, denoted \(F(S)\) or \(F_n\) (where \(n = |S|\)), is the set of reduced words in \(S\) with the group operation:
+\[w_1 \cdot w_2 = \text{reduce}(w_1 w_2).\]
+The identity is the empty word \(e\), and the inverse of \(a_1^{\epsilon_1} \cdots a_n^{\epsilon_n}\) is \(a_n^{-\epsilon_n} \cdots a_1^{-\epsilon_1}\).
+}
+
+\mprop{Free group is a group}{The free group \(F(S)\) satisfies the group axioms.
+}
+
+\pf{Proof}{Verification of group axioms for \(F(S)\)
+
+\textbf{Closure:} The product of two reduced words, after reduction, is a reduced word.
+
+\textbf{Associativity:} This is subtle! We need \((w_1 \cdot w_2) \cdot w_3 = w_1 \cdot (w_2 \cdot w_3)\). Both equal the reduction of \(w_1 w_2 w_3\)---but the reductions might happen in different orders. By uniqueness of reduced form, they give the same result.
+
+\textbf{Identity:} \(e \cdot w = \text{reduce}(ew) = \text{reduce}(w) = w\) (since \(w\) is already reduced). Similarly \(w \cdot e = w\).
+
+\textbf{Inverses:} Let \(w = a_1^{\epsilon_1} \cdots a_n^{\epsilon_n}\) and \(w^{-1} = a_n^{-\epsilon_n} \cdots a_1^{-\epsilon_1}\). Then \(ww^{-1} = a_1^{\epsilon_1} \cdots a_n^{\epsilon_n} a_n^{-\epsilon_n} \cdots a_1^{-\epsilon_1}\). Reducing: \(a_n^{\epsilon_n} a_n^{-\epsilon_n}\) cancels, then \(a_{n-1}^{\epsilon_{n-1}} a_{n-1}^{-\epsilon_{n-1}}\) cancels, etc., until we get \(e\).
+}
+
+\ex{Free group on one generator}{\(F(\{a\}) = F_1\) consists of reduced words in \(a, a^{-1}\): these are \(\ldots, a^{-2}, a^{-1}, e, a, a^2, \ldots\). This is just \(\{a^n : n \in \mathbb{Z}\}\) with \(a^m \cdot a^n = a^{m+n}\). So \(F_1 \cong \mathbb{Z}\).
+}
+
+\ex{Free group on two generators}{\(F_2 = F(\{a, b\})\) is much more interesting. Elements include \(e, a, b, a^{-1}, b^{-1}, ab, ba, a^2, ab^{-1}, aba, bab^{-1}a^{-1}, \ldots\)---infinitely many distinct reduced words. Notably, \(ab \ne ba\) (both are reduced but different), so \(F_2\) is non-abelian. In fact, \(F_2\) contains copies of every countable free group!
+}
+
+\subsection{The universal property}
+
+The free group is ``free'' because it has no relations other than the group axioms. This is captured by a \emph{universal property}.
+
+\thm{Universal property of free groups}{Let \(F(S)\) be the free group on \(S\), and let \(\iota : S \to F(S)\) be the inclusion \(s \mapsto s\) (the one-letter word). For any group \(G\) and any function \(f : S \to G\), there exists a unique homomorphism \(\tilde{f} : F(S) \to G\) such that \(\tilde{f} \circ \iota = f\).
+
+\begin{center}
+\begin{tikzcd}[ampersand replacement=\&]
+  S \arrow[r, "\iota"] \arrow[dr, "f"'] \& F(S) \arrow[d, dashed, "\exists ! \tilde{f}"] \\
+  \& G
+\end{tikzcd}
+\end{center}
+}
+
+\pf{Proof}{Proof of universal property
+
+\textbf{Existence:} Define \(\tilde{f}(a_1^{\epsilon_1} \cdots a_n^{\epsilon_n}) = f(a_1)^{\epsilon_1} \cdots f(a_n)^{\epsilon_n}\). This is well-defined on reduced words and is a homomorphism: \(\tilde{f}(w_1 w_2) = \tilde{f}(w_1)\tilde{f}(w_2)\) because the reductions in \(F(S)\) correspond to the group relations \(f(s)f(s)^{-1} = e_G\) in \(G\).
+
+\textbf{Uniqueness:} Any homomorphism \(\varphi : F(S) \to G\) with \(\varphi(s) = f(s)\) for all \(s \in S\) must satisfy \(\varphi(a_1^{\epsilon_1} \cdots a_n^{\epsilon_n}) = \varphi(a_1)^{\epsilon_1} \cdots \varphi(a_n)^{\epsilon_n} = f(a_1)^{\epsilon_1} \cdots f(a_n)^{\epsilon_n} = \tilde{f}(w)\).
+}
+
+\nt{The universal property says: to define a homomorphism \emph{out} of \(F(S)\), you just need to say where the generators go---there are no constraints! Any choice of images for \(S\) in any group \(G\) extends uniquely to a homomorphism. This is why \(F(S)\) is ``free''---you have complete freedom in defining maps from it. Categorically, the free group functor is \emph{left adjoint} to the forgetful functor from groups to sets.
+}
+
+\subsection{Group presentations}
+
+The universal property immediately gives us a way to describe groups by generators and relations.
+
+\dfn{Group presentation}{A \textbf{\emph{presentation}} of a group \(G\) is an expression
+\[G = \langle S \mid R \rangle\]
+where \(S\) is a set of \textbf{\emph{generators}} and \(R \subseteq F(S)\) is a set of \textbf{\emph{relators}}. This means \(G \cong F(S) / N\), where \(N = \langle\!\langle R \rangle\!\rangle\) is the \textbf{\emph{normal closure}} of \(R\)---the smallest normal subgroup of \(F(S)\) containing \(R\).
+
+Equivalently, if \(R = \{r_1, r_2, \ldots\}\), we write \(G = \langle S \mid r_1 = e, r_2 = e, \ldots \rangle\) or \(G = \langle S \mid r_1, r_2, \ldots \rangle\).
+}
+
+\nt{The normal closure \(\langle\!\langle R \rangle\!\rangle\) consists of all products of conjugates of elements of \(R\) and their inverses: \(\langle\!\langle R \rangle\!\rangle = \{g_1 r_1^{\pm 1} g_1^{-1} \cdots g_k r_k^{\pm 1} g_k^{-1} : g_i \in F(S), r_i \in R\}\). We need normal closure (not just the subgroup generated by \(R\)) because we're quotienting, and quotients require normal subgroups.
+}
+
+\ex{Presentations of familiar groups}{
+\begin{enumerate}
+    \item \textbf{Cyclic group:} \(\mathbb{Z}/n = \langle a \mid a^n \rangle\). One generator, one relation.
+    
+    \item \textbf{Infinite cyclic:} \(\mathbb{Z} = \langle a \mid \rangle\) (no relations). The free group on one generator.
+    
+    \item \textbf{Klein four-group:} \(\mathbb{Z}/2 \times \mathbb{Z}/2 = \langle a, b \mid a^2, b^2, aba^{-1}b^{-1} \rangle\). The last relation says \(ab = ba\) (commutativity).
+    
+    \item \textbf{Dihedral group:} \(D_n = \langle r, s \mid r^n, s^2, srs^{-1}r \rangle\). The last relation says \(srs^{-1} = r^{-1}\), i.e., \(sr = r^{-1}s\).
+    
+    \item \textbf{Symmetric group:} \(S_n = \langle s_1, \ldots, s_{n-1} \mid s_i^2, (s_i s_{i+1})^3, (s_i s_j)^2 \text{ for } |i-j| \ge 2 \rangle\), where \(s_i = (i \,\, i+1)\). These are the \emph{Coxeter relations}.
+    
+    \item \textbf{Free abelian group:} \(\mathbb{Z}^n = \langle a_1, \ldots, a_n \mid [a_i, a_j] \text{ for all } i, j \rangle\), where \([a, b] = aba^{-1}b^{-1}\) is the commutator.
+\end{enumerate}
+}
+
+\mprop{Every group has a presentation}{For any group \(G\), there exist \(S\) and \(R\) such that \(G \cong \langle S \mid R \rangle\).
+}
+
+\pf{Proof}{Existence of presentation
+
+Take \(S = G\) (yes, all of \(G\)!) and define \(f : S \to G\) by \(f(g) = g\). By the universal property, this extends to a surjective homomorphism \(\tilde{f} : F(G) \to G\). Let \(R = \ker(\tilde{f})\). Then \(G \cong F(G)/R = \langle G \mid R \rangle\).
+
+This is a ``stupid'' presentation (huge!), but it exists. Finding nice presentations is an art.
+}
+
+\subsection{The word problem}
+
+Presentations raise a fundamental computational question.
+
+\dfn{Word problem}{Given a presentation \(G = \langle S \mid R \rangle\) and two words \(w_1, w_2\) in \(S\), the \textbf{\emph{word problem}} asks: do \(w_1\) and \(w_2\) represent the same element of \(G\)? Equivalently: is \(w_1 w_2^{-1}\) in the normal closure of \(R\)?
+}
+
+\thm{Undecidability of the word problem (Novikov-Boone)}{There exists a finitely presented group \(G = \langle S \mid R \rangle\) (with \(S, R\) finite) for which the word problem is \textbf{undecidable}---no algorithm can determine, for all pairs of words, whether they're equal in \(G\).
+}
+
+\nt{This is a remarkable and sobering result. Group presentations look like a nice computational tool, but they're actually extremely powerful---so powerful that they can encode arbitrary computation. The word problem for \(G\) can simulate a Turing machine! This doesn't mean presentations are useless; for specific groups (like \(S_n\), \(D_n\), free groups), the word problem is decidable. But there's no universal algorithm.
+}
+
+\qs{}{
+\begin{enumerate}
+    \item Prove that \(F_2\) contains a subgroup isomorphic to \(F_3\).
+    \item Show that \(\langle a, b \mid aba^{-1}b^{-1} \rangle \cong \mathbb{Z}^2\).
+    \item Find a presentation for the quaternion group \(Q_8 = \{\pm 1, \pm i, \pm j, \pm k\}\).
+    \item Prove that \(\langle a, b \mid a^2, b^3, (ab)^2 \rangle \cong S_3\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} In \(F_2 = F(\{a, b\})\), consider the subgroup \(H = \langle a^2, ab, b^2 \rangle\). We claim \(H \cong F_3\).
+
+To see this, define \(f : \{x, y, z\} \to F_2\) by \(f(x) = a^2, f(y) = ab, f(z) = b^2\). By the universal property, this extends to a homomorphism \(\tilde{f} : F_3 \to F_2\) with image \(H\). To show \(\tilde{f}\) is injective, we must show no nontrivial reduced word in \(x, y, z\) maps to \(e\).
+
+Suppose \(w(x, y, z) \mapsto e\) in \(F_2\). Substituting: \(w(a^2, ab, b^2) = e\) as a reduced word in \(a, b\). The key observation: \(a^2, ab, b^2\) have the property that no product of them (with exponents \(\pm 1\)) reduces to \(e\) unless the product was empty. (This can be shown by analyzing how cancellation works---the words have distinct ``shapes.'') This is the \emph{Schreier basis} approach. Thus \(\tilde{f}\) is injective, and \(H \cong F_3\).
+
+\textbf{(2)} The presentation \(G = \langle a, b \mid aba^{-1}b^{-1} \rangle\) has one relation: \(aba^{-1}b^{-1} = e\), i.e., \(ab = ba\). So \(G\) is the free group on \(a, b\) modulo the relation that \(a\) and \(b\) commute. This is exactly the \emph{free abelian group} on two generators, which is \(\mathbb{Z}^2\).
+
+Explicitly: define \(\varphi : G \to \mathbb{Z}^2\) by \(\varphi(a) = (1, 0)\) and \(\varphi(b) = (0, 1)\). This is well-defined (the relation \(ab = ba\) holds in \(\mathbb{Z}^2\)). It's surjective since \((1,0), (0,1)\) generate \(\mathbb{Z}^2\). For injectivity: any element of \(G\) can be written as \(a^m b^n\) (using commutativity to collect), and \(\varphi(a^m b^n) = (m, n)\); if this equals \((0,0)\), then \(m = n = 0\).
+
+\textbf{(3)} The quaternion group \(Q_8\) has elements \(\{1, -1, i, -i, j, -j, k, -k\}\) with relations \(i^2 = j^2 = k^2 = ijk = -1\).
+
+A presentation: \(Q_8 = \langle i, j \mid i^4, i^2 j^{-2}, iji^{-1}j \rangle\).
+
+Let's verify: \(i^4 = 1\) says \(i\) has order dividing 4 (actually 4). \(i^2 = j^2\) says both square to the same element (which will be \(-1\)). \(iji^{-1}j = e\) means \(ij = j^{-1}i^{-1} = j^{-1}i^3 = j^{-1}(i^{-1}) = (ji)^{-1}\), which combined with \(i^2 = j^2\) gives \(ij = k\) where \(k = i^{-1}j^{-1}\), and one can derive all the quaternion relations.
+
+Alternative (cleaner): \(Q_8 = \langle x, y \mid x^4, x^2 y^{-2}, yxy^{-1}x \rangle\).
+
+\textbf{(4)} Let \(G = \langle a, b \mid a^2, b^3, (ab)^2 \rangle\). We have \(|a| \mid 2\), \(|b| \mid 3\), and \((ab)^2 = e\) means \(abab = e\), so \(ab = b^{-1}a^{-1} = b^{-1}a = b^2 a\) (using \(a^2 = e\)).
+
+So \(ab = b^2 a\), i.e., \(aba^{-1} = b^2 = b^{-1}\). This is exactly the dihedral relation! Compare with \(D_3 = \langle r, s \mid r^3, s^2, srs^{-1} = r^{-1} \rangle\). Setting \(r = b, s = a\), we get the same relations. Thus \(G \cong D_3 \cong S_3\).
+\end{solution}
+
+
+
 \end{document}

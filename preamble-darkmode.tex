@@ -1,0 +1,222 @@
+% preamble-darkmode.tex
+% Dark mode extension for lecture notes
+% Usage: \input{~/university/preamble-darkmode.tex} AFTER preamble.tex
+%
+% This provides:
+% - Dark background with light text
+% - Material Design color palette
+% - Ocean blue gradient colors (p1-p9)
+% - Enhanced TikZ/PGFPlots for dark backgrounds
+% - qq tcolorbox environment
+% - tkz-euclide for geometric constructions
+
+% ===========================================
+% DARK MODE PACKAGE
+% ===========================================
+\usepackage{darkmode}
+\enabledarkmode
+
+% ===========================================
+% ADDITIONAL PACKAGES
+% ===========================================
+\usepackage{changepage}
+\usepackage{ulem}
+\usepackage{colortbl}
+\usepackage{tkz-euclide}
+\usepackage{capt-of}
+
+% ===========================================
+% EXTENDED TIKZ LIBRARIES
+% ===========================================
+\usetikzlibrary{patterns,3d,backgrounds}
+\usepgfplotslibrary{groupplots}
+
+% Upgrade pgfplots compatibility
+\pgfplotsset{compat=1.18}
+
+% ===========================================
+% OCEAN BLUE GRADIENT (p1-p9)
+% ===========================================
+\definecolor{p1}{HTML}{caf0f8}
+\definecolor{p2}{HTML}{ade8f4}
+\definecolor{p3}{HTML}{90e0ef}
+\definecolor{p4}{HTML}{48cae4}
+\definecolor{p5}{HTML}{00b4d8}
+\definecolor{p6}{HTML}{0096c7}
+\definecolor{p7}{HTML}{0077b6}
+\definecolor{p8}{HTML}{023e8a}
+\definecolor{p9}{HTML}{03045e}
+
+% Dark background color
+\definecolor{pag}{HTML}{293133}
+
+% ===========================================
+% MATERIAL DESIGN COLORS
+% ===========================================
+% Note: myred, myyellow already defined in main preamble
+% These are additional/alternate versions
+\definecolor{matred}{HTML}{f44336}
+\definecolor{matpink}{HTML}{e81e63}
+\definecolor{matpurple}{HTML}{9c27b0}
+\definecolor{matdeeppurple}{HTML}{673ab7}
+\definecolor{matindigo}{HTML}{3f51b5}
+\definecolor{matblue}{HTML}{2196f3}
+\definecolor{matlightblue}{HTML}{03a9f4}
+\definecolor{matcyan}{HTML}{00bcd4}
+\definecolor{matteal}{HTML}{009688}
+\definecolor{matgreen}{HTML}{4caf50}
+\definecolor{matlightgreen}{HTML}{8bc34a}
+\definecolor{matlime}{HTML}{cddc39}
+\definecolor{matyellow}{HTML}{ffeb3b}
+\definecolor{matamber}{HTML}{ffc107}
+\definecolor{matorange}{HTML}{ff9800}
+\definecolor{matdeeporange}{HTML}{ff5722}
+\definecolor{matbrown}{HTML}{795548}
+\definecolor{matgray}{HTML}{9e9e9e}
+\definecolor{matbluegray}{HTML}{607d8b}
+
+% ===========================================
+% COLORLET FOR TIKZ
+% ===========================================
+\colorlet{xcol}{blue!60!black}
+
+% ===========================================
+% DARK MODE TCOLORBOX
+% ===========================================
+\newtcolorbox{qq}[2][]{%
+    boxrule=0.75pt,
+    sharp corners,
+    colframe=white,
+    colback=pag,
+    coltext=white,
+    #1,
+}
+
+% Dark definition box
+\newtcolorbox{darkdfn}[2][]{%
+    enhanced,
+    boxrule=1pt,
+    sharp corners,
+    colframe=p5,
+    colback=pag,
+    coltext=white,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=#2,
+    #1,
+}
+
+% Dark theorem box
+\newtcolorbox{darkthm}[2][]{%
+    enhanced,
+    boxrule=1pt,
+    sharp corners,
+    colframe=matpurple,
+    colback=pag,
+    coltext=white,
+    coltitle=white,
+    fonttitle=\bfseries,
+    title=#2,
+    #1,
+}
+
+% ===========================================
+% TIKZ 3D FIX
+% ===========================================
+% Small fix for canvas is xy plane at z
+% https://tex.stackexchange.com/a/48776/121799
+\makeatletter
+\tikzoption{canvas is xy plane at z}[]{%
+    \def\tikz@plane@origin{\pgfpointxyz{0}{0}{#1}}%
+    \def\tikz@plane@x{\pgfpointxyz{1}{0}{#1}}%
+    \def\tikz@plane@y{\pgfpointxyz{0}{1}{#1}}%
+    \tikz@canvas@is@plane}
+\makeatother
+
+% ===========================================
+% CONDITIONAL LINE TIKZSET
+% ===========================================
+\tikzset{
+    conditional line/.style 2 args={
+        /utils/exec={\pgfmathsetmacro{\xcoordA}{#1}},
+        /utils/exec={\pgfmathsetmacro{\xcoordB}{#2}},
+        insert path={
+            \ifdim\xcoordA pt>\xcoordB pt
+            (\xcoordA,0) -- (\xcoordB,0)
+            \fi
+        },
+    },
+}
+
+% ===========================================
+% PGFPLOTS DARK MODE DEFAULTS
+% ===========================================
+\pgfplotsset{
+    dark axis/.style={
+        axis line style={white},
+        tick style={white},
+        label style={white},
+        grid style={pag!70},
+        every axis label/.append style={white},
+        every tick label/.append style={white},
+    },
+}
+
+% ===========================================
+% TIKZ EXTERNALIZATION (for fast compilation)
+% ===========================================
+% This creates .md5 cache files for figures
+% Requires: pdflatex -shell-escape
+%
+% To enable, add AFTER loading this file:
+%   \enabletikzexternalize
+%
+\newcommand{\enabletikzexternalize}{%
+  \usetikzlibrary{external}%
+  \tikzexternalize[prefix=figures/]%
+}
+
+% ===========================================
+% CONVENIENT SHORTCUTS FOR DARK PLOTS
+% ===========================================
+\newcommand{\darkplot}[1]{%
+    \begin{tikzpicture}
+    \begin{axis}[
+        dark axis,
+        grid=both,
+        major grid style={line width=.2pt,draw=pag!70},
+        #1
+    ]
+}
+
+
+% ===========================================
+% QUICK GEOMETRY MACROS (tkz-euclide)
+% ===========================================
+% Draw a point: \point{name}{x}{y}
+\newcommand{\gpoint}[3]{\tkzDefPoint(#2,#3){#1}}
+
+% Draw line through points: \gline{A}{B}
+\newcommand{\gline}[2]{\tkzDrawLine[color=p4](#1,#2)}
+
+% Draw circle: \gcircle{center}{radius}
+\newcommand{\gcircle}[2]{\tkzDrawCircle[color=p5](#1,#2)}
+
+% Mark angle: \gangle{A}{B}{C}
+\newcommand{\gangle}[3]{\tkzMarkAngle[color=p3,size=0.5](#1,#2,#3)}
+
+% ===========================================
+% USAGE EXAMPLE
+% ===========================================
+% In your document:
+%
+% \begin{tikzpicture}
+%   \begin{axis}[dark axis, ...]
+%     \addplot[p4, thick] {sin(deg(x))};
+%   \end{axis}
+% \end{tikzpicture}
+%
+% Or with qq box:
+% \begin{qq}{My Title}
+%   Content here in dark box
+% \end{qq}
