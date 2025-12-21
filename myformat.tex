@@ -1,0 +1,19 @@
+% myformat.tex - Precompiled format for fast LaTeX compilation
+% Build with: pdftex -ini -jobname="myformat" "&pdflatex" myformat.tex
+%
+% This precompiles all packages so individual lectures compile in <1 second
+
+\documentclass{report}
+
+% Define flag so lecture files know we're using the precompiled format
+\newcommand{\usingprecompiledformat}{}
+
+% Load full preamble (non-preview mode)
+\input{/Users/stephens1/university/preamble.tex}
+\input{/Users/stephens1/university/preamble-darkmode.tex}
+
+% Include docmute for master.tex compilation
+\usepackage{docmute}
+
+% Dump the format - everything above is now precompiled
+\dump

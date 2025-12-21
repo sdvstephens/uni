@@ -1,0 +1,56 @@
+#!/bin/bash
+# pdflatex-fast - Drop-in replacement for pdflatex using precompiled format
+# Place this in your PATH and use it instead of pdflatex
+
+FORMAT="/Users/stephens1/university/myformat"
+TEXFILE=""
+EXTRA_ARGS=""
+JOBNAME=""
+
+# Parse arguments to find the .tex file and -jobname
+for arg in "$@"; do
+    case "$arg" in
+        -jobname=*)
+            JOBNAME="${arg#-jobname=}"
+            EXTRA_ARGS="$EXTRA_ARGS $arg"
+            ;;
+        *.tex)
+            TEXFILE="$arg"
+            ;;
+        *)
+            EXTRA_ARGS="$EXTRA_ARGS $arg"
+            ;;
+    esac
+done
+
+if [ -z "$TEXFILE" ]; then
+    # No .tex file found, just pass through to regular pdflatex
+    exec /Library/TeX/texbin/pdflatex "$@"
+fi
+
+# Get basename if no jobname specified
+if [ -z "$JOBNAME" ]; then
+    JOBNAME=$(basename "$TEXFILE" .tex)
+fi
+
+# Create temp file with preamble stripped
+TMPFILE=$(mktemp /tmp/fastlatex.XXXXXX.tex)
+trap "rm -f $TMPFILE" EXIT
+
+# Strip everything until \course or \begin{document}
+awk '
+    BEGIN { printing = 0 }
+    /^\\course\{/ { printing = 1 }
+    /^\\begin\{document\}/ { if (!printing) printing = 1 }
+    printing { print }
+' "$TEXFILE" > "$TMPFILE"
+
+# Check if file was stripped (has content)
+if [ ! -s "$TMPFILE" ]; then
+    # Temp file is empty, file doesn't match expected format
+    # Fall back to regular pdflatex
+    exec /Library/TeX/texbin/pdflatex "$@"
+fi
+
+# Run pdflatex with format
+exec /Library/TeX/texbin/pdflatex -fmt="$FORMAT" -jobname="$JOBNAME" $EXTRA_ARGS "$TMPFILE"

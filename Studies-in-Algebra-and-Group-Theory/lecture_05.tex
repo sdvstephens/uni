@@ -1,0 +1,318 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 5: Continued
+% Author: S. D. V. Stephens
+% Date: 2025-12-21
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{5}{Linear Maps}
+
+Having established the structure of vector spaces, we now study the morphisms between them. Just as group homomorphisms preserve the group operation, linear maps preserve both vector space operations.
+
+\dfn{Linear map}{Let \(V\) and \(W\) be vector spaces over \(k\). A \textbf{\emph{linear map}} (or \textbf{\emph{\(k\)-linear map}}, or \textbf{\emph{homomorphism of vector spaces}}) is a function \(\varphi : V \to W\) satisfying:
+\begin{enumerate}
+  \item \(\varphi(u + v) = \varphi(u) + \varphi(v)\) for all \(u, v \in V\) (additivity);
+  \item \(\varphi(\lambda v) = \lambda \varphi(v)\) for all \(\lambda \in k\) and \(v \in V\) (homogeneity).
+\end{enumerate}
+Equivalently, \(\varphi\) preserves all linear combinations:
+\[\varphi\left(\sum_{i=1}^n a_i v_i\right) = \sum_{i=1}^n a_i \varphi(v_i).\]
+}
+
+\nt{A linear map is completely determined by its values on a basis. If \(\{v_1, \ldots, v_n\}\) is a basis for \(V\), and we specify \(\varphi(v_i) = w_i \in W\) for each \(i\), then for any \(v = \sum a_i v_i\):
+\[\varphi(v) = \varphi\left(\sum a_i v_i\right) = \sum a_i \varphi(v_i) = \sum a_i w_i.\]
+This is the \textbf{\emph{universal property}} of bases: specifying a linear map from \(V\) is equivalent to choosing where to send the basis vectors.
+}
+
+
+\dfn{Space of linear maps}{The set of all linear maps from \(V\) to \(W\) is denoted
+\[\Hom_k(V, W) \quad \text{or simply} \quad \Hom(V, W).\]
+When \(V = W\), we write \(\End(V) = \Hom(V, V)\) and call elements \textbf{\emph{endomorphisms}}.
+}
+
+\mprop{\(\Hom(V, W)\) is a vector space}{The set \(\Hom(V, W)\) is itself a vector space over \(k\), with operations:
+\begin{itemize}
+  \item \textbf{Addition:} \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\) for all \(v \in V\);
+  \item \textbf{Scalar multiplication:} \((\lambda \varphi)(v) = \lambda \cdot \varphi(v)\) for all \(v \in V\).
+\end{itemize}
+}
+
+\pf{Proof}{We must verify that \(\varphi + \psi\) and \(\lambda \varphi\) are linear maps when \(\varphi, \psi\) are.
+
+For \(\varphi + \psi\): Let \(u, v \in V\) and \(\mu \in k\).
+\begin{align*}
+(\varphi + \psi)(u + v) &= \varphi(u + v) + \psi(u + v) = \varphi(u) + \varphi(v) + \psi(u) + \psi(v) \\
+&= (\varphi(u) + \psi(u)) + (\varphi(v) + \psi(v)) = (\varphi + \psi)(u) + (\varphi + \psi)(v). \\
+(\varphi + \psi)(\mu v) &= \varphi(\mu v) + \psi(\mu v) = \mu\varphi(v) + \mu\psi(v) = \mu(\varphi(v) + \psi(v)) = \mu(\varphi + \psi)(v).
+\end{align*}
+
+For \(\lambda \varphi\): Similarly,
+\begin{align*}
+(\lambda\varphi)(u + v) &= \lambda(\varphi(u + v)) = \lambda(\varphi(u) + \varphi(v)) = \lambda\varphi(u) + \lambda\varphi(v) = (\lambda\varphi)(u) + (\lambda\varphi)(v). \\
+(\lambda\varphi)(\mu v) &= \lambda(\varphi(\mu v)) = \lambda(\mu\varphi(v)) = \mu(\lambda\varphi(v)) = \mu(\lambda\varphi)(v).
+\end{align*}
+
+The vector space axioms for \(\Hom(V, W)\) follow from those of \(W\) (operations are defined pointwise). The zero vector is the zero map \(v \mapsto 0_W\), and additive inverses are \((-\varphi)(v) = -\varphi(v)\).
+}
+
+\nt{The verification that \(\varphi + \psi\) and \(\lambda\varphi\) are linear is ``rather boring, but worth checking if you're not sure.'' The operations on \(\Hom(V, W)\) are inherited pointwise from \(W\), so the axioms follow routinely.
+}
+
+
+\thm{Dimension of \(\Hom(V, W)\)}{If \(\dim(V) = n\) and \(\dim(W) = m\), then
+\[\dim(\Hom(V, W)) = mn.\]
+}
+
+The proof of this theorem will emerge naturally when we establish the correspondence between linear maps and matrices in the next section.
+
+\nt{We will soon see: if \(\dim(V) = n\) and \(\dim(W) = m\), then \(\dim(\Hom(V, W)) = mn\). In terms of bases for \(V\) and \(W\), linear maps become \(m \times n\) matrices!
+}
+
+\subsection{Dependence on the scalar field}
+
+The notions of basis, dimension, and linearity depend crucially on the choice of scalar field \(k\). The same set can be a vector space over different fields, with different dimensions.
+
+\ex{}{\textbf{\(\mathbb{C}\) as a vector space over different fields:} Consider \(\mathbb{C}\) as a vector space:
+\begin{itemize}
+  \item Over \(\mathbb{C}\): \(\dim_{\mathbb{C}}(\mathbb{C}) = 1\), with basis \(\{1\}\). Every complex number \(z\) is \(z \cdot 1\).
+  \item Over \(\mathbb{R}\): \(\dim_{\mathbb{R}}(\mathbb{C}) = 2\), with basis \(\{1, i\}\). Every complex number \(a + bi\) is the \(\mathbb{R}\)-linear combination \(a \cdot 1 + b \cdot i\).
+\end{itemize}
+}
+
+\nt{More generally, if \(k' \subset k\) is a subfield (e.g., \(\mathbb{R} \subset \mathbb{C}\) or \(\mathbb{Q} \subset \mathbb{R}\)), then any \(k\)-vector space \(V\) is automatically a \(k'\)-vector space by ``restriction of scalars''---we simply forget that we can multiply by elements of \(k \setminus k'\). The \(k'\)-dimension is always at least as large as the \(k\)-dimension.
+}
+
+\mprop{Linearity over subfields}{If \(V\) and \(W\) are \(k\)-vector spaces and \(k' \subset k\) is a subfield, then:
+\begin{enumerate}
+  \item \(V\) is a \(k'\)-vector space (by restriction of scalars).
+  \item Any \(k\)-linear map \(\varphi : V \to W\) is also \(k'\)-linear.
+  \item The converse fails: not every \(k'\)-linear map is \(k\)-linear.
+\end{enumerate}
+Thus \(\Hom_k(V, W) \subsetneq \Hom_{k'}(V, W)\) in general.
+}
+
+\ex{}{\textbf{Complex conjugation is \(\mathbb{R}\)-linear but not \(\mathbb{C}\)-linear:} Consider the map
+\[\overline{\phantom{z}} : \CC \to \CC, \quad z = a + bi \mapsto \bar{z} = a - bi.\]
+
+\textbf{\(\RR\)-linearity:} For \(z_1, z_2 \in \CC\) and \(r \in \RR\):
+\begin{itemize}
+  \item \(\overline{z_1 + z_2} = \bar{z}_1 + \bar{z}_2\) \checkmark
+  \item \(\overline{r \cdot z} = r \cdot \bar{z}\) (since \(\bar{r} = r\) for \(r \in \RR\)) \checkmark
+\end{itemize}
+
+\textbf{Not \(\CC\)-linear:} For \(\lambda = i\) and \(z = 1\):
+\[\overline{i \cdot 1} = \overline{i} = -i, \quad \text{but} \quad i \cdot \bar{1} = i \cdot 1 = i.\]
+Since \(-i \neq i\), complex conjugation is not \(\CC\)-linear.
+}
+
+This example illustrates a profound point: the ``natural'' maps between spaces can depend on what scalars we consider. Complex conjugation is an \(\RR\)-linear automorphism of \(\CC\) that is \emph{not} \(\CC\)-linear---it does not commute with multiplication by \(i\).
+
+
+
+\section{Matrix Representation of Linear Maps}
+
+The correspondence between linear maps and matrices is one of the most powerful ideas in linear algebra. It reduces abstract questions about linear maps to concrete computations with arrays of numbers.
+
+\subsection{The matrix of a linear map}
+
+Fix bases \(\mathcal{B} = (v_1, \ldots, v_n)\) for \(V\) and \(\mathcal{C} = (w_1, \ldots, w_m)\) for \(W\). Given a linear map \(\varphi : V \to W\), we can express each image \(\varphi(v_j)\) as a linear combination of the basis vectors of \(W\):
+\[\varphi(v_j) = \sum_{i=1}^m a_{ij} w_i = a_{1j} w_1 + a_{2j} w_2 + \cdots + a_{mj} w_m.\]
+
+\dfn{Matrix of a linear map}{The \textbf{\emph{matrix of \(\varphi\)}} with respect to bases \(\mathcal{B}\) and \(\mathcal{C}\) is the \(m \times n\) matrix
+\[A = (a_{ij}) = \begin{pmatrix} a_{11} & a_{12} & \cdots & a_{1n} \\ a_{21} & a_{22} & \cdots & a_{2n} \\ \vdots & \vdots & \ddots & \vdots \\ a_{m1} & a_{m2} & \cdots & a_{mn} \end{pmatrix} \in \mathcal{M}_{m \times n}(k).\]
+The \(j\)-th \textbf{\emph{column}} of \(A\) is the coordinate vector of \(\varphi(v_j)\) in the basis \(\mathcal{C}\).
+}
+
+\nt{The key insight: \textbf{columns of \(A\) are the images of basis vectors, expressed in coordinates.} This is worth memorizing: the \(j\)-th column of the matrix tells you where the \(j\)-th basis vector goes.
+}
+
+
+\subsection{Matrix-vector multiplication}
+
+The power of the matrix representation is that applying \(\varphi\) corresponds to matrix multiplication.
+
+Represent a vector \(x \in V\) by its coordinate column vector: if \(x = \sum_{j=1}^n x_j v_j\), we write
+\[X = \begin{pmatrix} x_1 \\ x_2 \\ \vdots \\ x_n \end{pmatrix} \in k^n.\]
+Similarly, \(y = \varphi(x) \in W\) has coordinates \(Y = \begin{pmatrix} y_1 \\ \vdots \\ y_m \end{pmatrix}\) where \(y = \sum_{i=1}^m y_i w_i\).
+
+\mprop{Linear maps as matrix multiplication}{With the notation above, \(Y = AX\), i.e.,
+\[y_i = \sum_{j=1}^n a_{ij} x_j.\]
+}
+
+\pf{Proof}{Compute:
+\begin{align*}
+\varphi(x) &= \varphi\left(\sum_{j=1}^n x_j v_j\right) = \sum_{j=1}^n x_j \varphi(v_j) = \sum_{j=1}^n x_j \left(\sum_{i=1}^m a_{ij} w_i\right) \\
+&= \sum_{i=1}^m \left(\sum_{j=1}^n a_{ij} x_j\right) w_i.
+\end{align*}
+Reading off the coefficient of \(w_i\), we get \(y_i = \sum_{j=1}^n a_{ij} x_j\), which is exactly the \(i\)-th component of \(AX\).
+}
+
+\nt{As a memory aid: the isomorphism \(k^n \xrightarrow{\sim} V\) given by a basis can be written symbolically as
+\[(v_1 \; v_2 \; \cdots \; v_n) \begin{pmatrix} x_1 \\ \vdots \\ x_n \end{pmatrix} = \sum_{j=1}^n x_j v_j.\]
+Similarly, \(\varphi\) acts as
+\[\varphi((v_1 \; \cdots \; v_n) X) = (w_1 \; \cdots \; w_m) AX.\]
+This notation makes the matrix formula \(Y = AX\) visually clear.
+}
+
+
+\subsection{The isomorphism \(\Hom(V, W) \cong \mathcal{M}_{m \times n}(k)\)}
+
+\thm{Linear maps correspond to matrices}{Fix bases \(\mathcal{B}\) for \(V\) and \(\mathcal{C}\) for \(W\). The map
+\[\Phi : \Hom(V, W) \to \mathcal{M}_{m \times n}(k), \quad \varphi \mapsto [\varphi]_{\mathcal{B}}^{\mathcal{C}}\]
+sending a linear map to its matrix is an \textbf{\emph{isomorphism of vector spaces}}.
+}
+
+\pf{Proof}{We verify \(\Phi\) is linear, injective, and surjective.
+
+\textbf{Linearity:} Let \(\varphi, \psi \in \Hom(V, W)\) and \(\lambda \in k\). The \(j\)-th column of \([\varphi + \psi]\) is the coordinate vector of \((\varphi + \psi)(v_j) = \varphi(v_j) + \psi(v_j)\), which is the sum of the \(j\)-th columns of \([\varphi]\) and \([\psi]\). Hence \([\varphi + \psi] = [\varphi] + [\psi]\). Similarly \([\lambda\varphi] = \lambda[\varphi]\).
+
+\textbf{Injectivity:} If \([\varphi] = 0\) (the zero matrix), then every column is zero, meaning \(\varphi(v_j) = 0\) for all basis vectors \(v_j\). Since \(\varphi\) is linear and determined by its values on a basis, \(\varphi = 0\).
+
+\textbf{Surjectivity:} Given any matrix \(A \in \mathcal{M}_{m \times n}(k)\), define \(\varphi : V \to W\) by specifying \(\varphi(v_j) = \sum_i a_{ij} w_i\) (the \(j\)-th column of \(A\) gives the coordinates of \(\varphi(v_j)\)). Extend linearly. Then \([\varphi] = A\).
+}
+
+\cor{Dimension formula}{
+\[\dim(\Hom(V, W)) = \dim(\mathcal{M}_{m \times n}(k)) = mn.\]
+}
+
+\pf{Proof}{The space \(\mathcal{M}_{m \times n}(k)\) has the standard basis \(\{E_{ij}\}\), where \(E_{ij}\) is the matrix with \(1\) in position \((i, j)\) and \(0\) elsewhere. There are \(mn\) such matrices.
+}
+
+\nt{This result says: \textbf{linear maps are matrices, once we choose coordinates}. The abstract theory of linear maps reduces to the concrete theory of matrix computations. However, the matrix depends on the choice of bases---changing bases changes the matrix (we will study this ``change of basis'' in the near future).
+}
+
+The interplay between the abstract (linear maps) and the concrete (matrices) is what makes linear algebra, well linear algebra (duh). Our goal is to understand how much of a linear map's structure is intrinsic (independent of basis choice) versus coordinate-dependent.
+
+
+\section{Change of basis}
+
+What if we want to choose a different basis for \( V \) and/ or \( W \)? That is to say, what if we want to take vectors expressable in one basis to the same vectors expressed in another basis? Well, say that we are given two bases: \( (v_i) \) and \( (v_i') \) in \( V \). If given an expression of \( (v_i) \) we want to plug in and get an expression in terms of \( v'_i \), we write this as
+\[
+v'_j=\sum_{n}^{i=1}p_{ij}v_i
+.\] 
+
+So we get an \( n \times  m \) matrix \(P \) with entries \( (p_{ij}) \), whose \( j^\text{th} \) column is the expression of \( v'_j \) in the basis \( (v_i) \) as a column vector. So symbolically, we can think of this as \( (v_i')=(v_i)P \). So \( (v_i')X'=(v_i)PX' \), i.e. the element of \( V \) represented by a column vector \( X' \) in new basis \( (v'_i) \) is represented by \( X=PX' \) in the old basis \( (v_i) \) . We can think of this more conceptually as \( P \) being a linear map---i.e. a matrix transformation---by \( P = \mcM (\text{id}_V,(v_i'),(v_i)) \). Breaking this down, we have the identity mapping taking the vector to itself (from one basis to another, but the same vector(s)); thus we are taking things from \( (v_i') \), here, to the targets of \( (v_i) \). We can additionally do the same for \( W \) in reverse! Let \( Q = \mcM (\text{id}_W,(w_i)(w_i'))\), i.e. \( (w_i)=(w_i')Q \). Hence: \[ \varphi ((v_i'))X' =\varphi ((v_i)PX')=(w_i)APX'=(w'_i)QAPX'.\]
+That is to say, \( \mcM(\varphi ,(v'),(w'))=QAP \).
+
+\nt{Matrix of identity from \( (v_i) \) to \( (v_i') \) would be \( P^{-1} \) which is the matrix such that \( pp^{-1} \) is the identity matrix.}
+
+If \( V=W \) and we change basis using a single new basis \( (v_i') \) for both domain and codomain, then a remarkable simplification occurs. Let \(\varphi \in \End(V) = \Hom(V, V)\) be an \textbf{\emph{endomorphism}} (a linear map from a space to itself). With \(P = \mcM(\text{id}_V, (v_i'), (v_i))\) as above, and using the \emph{same} basis change for both domain and codomain, we have \(Q = P\) (since we're using \((v_i)\) and \((v_i')\) for \(W\) as well). Thus the formula \(\mcM(\varphi, (v'), (w')) = QAP\) becomes:
+
+\thm{Change of basis for endomorphisms}{Let \(\varphi \in \End(V)\), let \(\mathcal{B} = (v_1, \ldots, v_n)\) and \(\mathcal{B}' = (v_1', \ldots, v_n')\) be two bases of \(V\), and let \(P = \mcM(\text{id}_V, \mathcal{B}', \mathcal{B})\) be the change-of-basis matrix. If \(A = \mcM(\varphi, \mathcal{B})\) and \(A' = \mcM(\varphi, \mathcal{B}')\), then
+\[A' = P^{-1}AP.\]
+}
+
+\pf{Proof}{We have established that \(\mcM(\varphi, \mathcal{B}', \mathcal{B}') = QAP\) where \(Q = \mcM(\text{id}_V, (v_i), (v_i'))\). But \(Q = P^{-1}\) since applying \(P\) then \(Q\) (or vice versa) gives the identity transformation on coordinate vectors. Explicitly: if \(X' = P^{-1}X\) converts old coordinates to new, and \(X = PX'\) converts new to old, then composing identity maps gives \(\mcM(\text{id}_V, (v_i), (v_i')) = P^{-1}\).
+
+Thus \(A' = P^{-1}AP\).
+}
+
+This formula tells us that the matrices representing the \emph{same} linear operator in different bases are related by \textbf{\emph{conjugation}} by an invertible matrix.
+
+\subsection{Similar matrices}
+
+\dfn{Similar matrices}{Two \(n \times n\) matrices \(A\) and \(B\) over a field \(k\) are \textbf{\emph{similar}} if there exists an invertible matrix \(P \in \GL_n(k)\) such that
+\[B = P^{-1}AP.\]
+We write \(A \sim B\).
+}
+
+\mprop{Similarity is an equivalence relation}{The similarity relation on \(\mathcal{M}_{n \times n}(k)\) is an equivalence relation:
+\begin{enumerate}
+  \item \textbf{Reflexive:} \(A \sim A\) (take \(P = I\)).
+  \item \textbf{Symmetric:} If \(A \sim B\), then \(B \sim A\) (if \(B = P^{-1}AP\), then \(A = PBP^{-1} = (P^{-1})^{-1}B(P^{-1})\)).
+  \item \textbf{Transitive:} If \(A \sim B\) and \(B \sim C\), then \(A \sim C\) (if \(B = P^{-1}AP\) and \(C = Q^{-1}BQ\), then \(C = Q^{-1}P^{-1}APQ = (PQ)^{-1}A(PQ)\)).
+\end{enumerate}
+}
+
+As we can see, similarity classes of matrices correspond exactly to linear operators on \(k^n\): two matrices are similar if and only if they represent the same linear operator in different bases.
+
+\nt{From the categorical perspective, similar matrices represent the same morphism in \(\mathbf{Vect}_k\)---they are simply different coordinate descriptions of one intrinsic object. This is why similarity-invariant properties (trace, determinant, eigenvalues, rank) are so important: they are properties of the \emph{operator itself}, not of any particular matrix representation.
+}
+
+\subsection{Invariants under similarity}
+
+What properties of a matrix are preserved under similarity? These are called \textbf{\emph{similarity invariants}}---they depend only on the underlying linear operator, not on the choice of basis.
+
+\dfn{Trace of a matrix}{The \textbf{\emph{trace}} of an \(n \times n\) matrix \(A = (a_{ij})\) is the sum of its diagonal entries:
+\[Tr(A) = \sum_{i=1}^{n} a_{ii} = a_{11} + a_{22} + \cdots + a_{nn}.\]
+}
+
+\mlemma{Cyclic property of trace}{For any matrices \(A\) and \(B\) such that both \(AB\) and \(BA\) are defined and square, we have \(Tr(AB) = Tr(BA)\).
+}
+
+\pf{Proof}{Let \(A\) be \(m \times n\) and \(B\) be \(n \times m\). Then
+\[Tr(AB) = \sum_{i=1}^{m} (AB)_{ii} = \sum_{i=1}^{m} \sum_{j=1}^{n} a_{ij} b_{ji}.\]
+Similarly,
+\[Tr(BA) = \sum_{j=1}^{n} (BA)_{jj} = \sum_{j=1}^{n} \sum_{i=1}^{m} b_{ji} a_{ij}.\]
+These double sums are identical (just reorder the summation), so \(Tr(AB) = Tr(BA)\).
+}
+
+\mprop{Trace is a similarity invariant}{If \(A \sim B\), then \(Tr(A) = Tr(B)\). In particular, the trace of a linear operator \(\varphi \in \End(V)\) is well-defined: \(Tr(\varphi) \coloneqq Tr(\mcM(\varphi, \mathcal{B}))\) for any basis \(\mathcal{B}\).
+}
+
+\pf{Proof}{If \(B = P^{-1}AP\), then using the cyclic property:
+\[Tr(B) = Tr(P^{-1}AP) = Tr((P^{-1}A)P) = Tr(P(P^{-1}A)) = Tr((PP^{-1})A) = Tr(A).\]
+}
+
+\mprop{Determinant is a similarity invariant}{If \(A \sim B\), then \(\det(A) = \det(B)\). Hence the determinant of a linear operator is well-defined.
+}
+
+\pf{Proof}{If \(B = P^{-1}AP\), then by the multiplicativity of determinants:
+\[\det(B) = \det(P^{-1}AP) = \det(P^{-1})\det(A)\det(P) = \frac{1}{\det(P)} \cdot \det(A) \cdot \det(P) = \det(A).\]
+}
+
+\mprop{Eigenvalues are similarity invariants}{If \(A \sim B\), then \(A\) and \(B\) have the same eigenvalues (with the same algebraic multiplicities). In particular, the eigenvalues of a linear operator are intrinsic to the operator, not dependent on the choice of basis.
+}
+
+\pf{Proof}{A scalar \(\lambda\) is an eigenvalue of \(A\) if and only if \(\det(A - \lambda I) = 0\). If \(B = P^{-1}AP\), then
+\[B - \lambda I = P^{-1}AP - \lambda P^{-1}IP = P^{-1}(A - \lambda I)P.\]
+Thus \(B - \lambda I \sim A - \lambda I\), so \(\det(B - \lambda I) = \det(A - \lambda I)\) by the previous result. Hence \(A\) and \(B\) have identical characteristic polynomials, and therefore the same eigenvalues with the same multiplicities.
+}
+
+\nt{Rank is also a similarity invariant: \(\rank(P^{-1}AP) = \rank(A)\) since multiplying by invertible matrices doesn't change rank. More sophisticated invariants include the \textbf{\emph{minimal polynomial}}, the \textbf{\emph{Jordan normal form}}, and the \textbf{\emph{rational canonical form}}---these completely classify operators up to similarity over algebraically closed fields. We will encounter these when we study eigenvalues in depth.
+}
+
+\ex{}{Let \(A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\) and \(B = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}\) over \(\RR\). Both have \(Tr = 4\), \(\det = 4\), and eigenvalue \(\lambda = 2\) with multiplicity 2. Yet \(A \not\sim B\)! The reason: \(B = 2I\), so \(P^{-1}BP = P^{-1}(2I)P = 2I = B\) for any \(P\). Since \(A \neq B\), they cannot be similar.
+
+This shows that trace, determinant, and eigenvalues are \emph{necessary} but not \emph{sufficient} conditions for similarity. The difference lies in the \textbf{\emph{geometric multiplicity}} of the eigenvalue 2: for \(B\), the eigenspace \(E_2 = \ker(B - 2I) = \RR^2\) has dimension 2; for \(A\), \(E_2 = \ker(A - 2I) = \ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \operatorname{Span}\{(1, 0)\}\) has dimension 1. Geometric multiplicity is also a similarity invariant!
+}
+
+\qs{}{
+\begin{enumerate}
+  \item Let \(\varphi : \RR^2 \to \RR^2\) be the linear map with matrix \(A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}\) with respect to the standard basis. Find the matrix of \(\varphi\) with respect to the basis \(\mathcal{B}' = \{(1, 1), (1, -1)\}\).
+  \item Prove that an \(n \times n\) matrix \(A\) is similar to a diagonal matrix if and only if there exists a basis of \(k^n\) consisting of eigenvectors of \(A\).
+  \item Show that \(Tr(AB) = Tr(BA)\) but in general \(\det(A + B) \neq \det(A) + \det(B)\). Give a counterexample.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} First, find the change-of-basis matrix \(P\) from \(\mathcal{B}'\) to the standard basis \(\mathcal{E}\). The columns of \(P\) are the vectors of \(\mathcal{B}'\) expressed in \(\mathcal{E}\):
+\[P = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.\]
+Then \(P^{-1} = \frac{1}{-2}\begin{pmatrix} -1 & -1 \\ -1 & 1 \end{pmatrix} = \begin{pmatrix} 1/2 & 1/2 \\ 1/2 & -1/2 \end{pmatrix}\).
+
+The matrix of \(\varphi\) with respect to \(\mathcal{B}'\) is:
+\[A' = P^{-1}AP = \begin{pmatrix} 1/2 & 1/2 \\ 1/2 & -1/2 \end{pmatrix} \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}.\]
+
+Computing \(AP\) first: \(AP = \begin{pmatrix} 3 & -1 \\ 7 & -1 \end{pmatrix}\).
+
+Then \(P^{-1}(AP) = \begin{pmatrix} 1/2 & 1/2 \\ 1/2 & -1/2 \end{pmatrix}\begin{pmatrix} 3 & -1 \\ 7 & -1 \end{pmatrix} = \begin{pmatrix} 5 & -1 \\ -2 & 0 \end{pmatrix}\).
+
+So \(A' = \begin{pmatrix} 5 & -1 \\ -2 & 0 \end{pmatrix}\). We can verify: \(Tr(A') = 5 = Tr(A)\) and \(\det(A') = 0 - 2 = -2 = \det(A)\). \checkmark
+
+\textbf{(2)} (\(\Rightarrow\)) Suppose \(A\) is similar to a diagonal matrix \(D = \diag(\lambda_1, \ldots, \lambda_n)\), so \(D = P^{-1}AP\) for some invertible \(P\). Let \(v_i\) be the \(i\)-th column of \(P\). Then \(AP = PD\), which gives \(Av_i = \lambda_i v_i\). So each column of \(P\) is an eigenvector of \(A\). Since \(P\) is invertible, its columns form a basis of \(k^n\).
+
+(\(\Leftarrow\)) Suppose \(\{v_1, \ldots, v_n\}\) is a basis of eigenvectors with \(Av_i = \lambda_i v_i\). Let \(P\) be the matrix with columns \(v_i\). Then \(AP = PD\) where \(D = \diag(\lambda_1, \ldots, \lambda_n)\), so \(D = P^{-1}AP\).
+
+\textbf{(3)} We proved \(Tr(AB) = Tr(BA)\) above. For the determinant counterexample:
+\[A = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad B = \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.\]
+Then \(\det(A) = 0\), \(\det(B) = 0\), but \(A + B = I\), so \(\det(A + B) = 1 \neq 0 = \det(A) + \det(B)\).
+\end{solution}
+
+
+
+\end{document}

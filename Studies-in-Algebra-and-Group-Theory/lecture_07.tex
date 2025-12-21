@@ -1,0 +1,437 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 7: More maps and spaces
+% Author: S. D. V. Stephens
+% Date: 2025-12-21
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{7}{More maps and spaces}
+
+\subsection{Annihilators Revisited}
+
+The annihilator provides a precise duality between subspaces of \(V\) and subspaces of \(V^*\).
+
+\dfn{Annihilator}{For a subspace \(U \subseteq V\), the \textbf{annihilator} of \(U\) is
+\[\operatorname{Ann}(U) = U^\circ = \{\ell \in V^* : \ell(u) = 0 \text{ for all } u \in U\}.\]}
+
+\thm{Dimension of the annihilator}{If \(V\) is finite-dimensional and \(U \subseteq V\) is a subspace, then
+\[\dim(\operatorname{Ann}(U)) = \dim(V) - \dim(U).\]}
+
+\pf{Proof}{The restriction map \(\rho : V^* \to U^*\) defined by \(\rho(\ell) = \ell|_U\) is a linear map with \(\ker(\rho) = \operatorname{Ann}(U)\). We claim \(\rho\) is surjective: given \(\psi \in U^*\), extend a basis of \(U\) to a basis of \(V\), define \(\ell\) to agree with \(\psi\) on \(U\) and be zero on the complementary basis vectors. Then \(\rho(\ell) = \psi\).
+
+By rank-nullity:
+\[\dim(V^*) = \dim(\operatorname{Ann}(U)) + \dim(U^*).\]
+Since \(\dim(V^*) = \dim(V)\) and \(\dim(U^*) = \dim(U)\), we get \(\dim(\operatorname{Ann}(U)) = \dim(V) - \dim(U)\).
+}
+
+\thm{Annihilator isomorphism}{For a subspace \(U \subseteq V\), there is a natural isomorphism
+\[\operatorname{Ann}(U) \cong (V/U)^*.\]}
+
+\pf{Proof}{Define \(\Phi : \operatorname{Ann}(U) \to (V/U)^*\) by \(\Phi(\ell)(v + U) = \ell(v)\). 
+
+\textbf{Well-defined:} If \(v + U = v' + U\), then \(v - v' \in U\), so \(\ell(v) - \ell(v') = \ell(v - v') = 0\) since \(\ell \in \operatorname{Ann}(U)\).
+
+\textbf{Injective:} If \(\Phi(\ell) = 0\), then \(\ell(v) = 0\) for all \(v \in V\), so \(\ell = 0\).
+
+\textbf{Surjective:} Given \(\psi \in (V/U)^*\), define \(\ell = \psi \circ q\) where \(q : V \to V/U\) is the quotient map. Then \(\ell \in \operatorname{Ann}(U)\) and \(\Phi(\ell) = \psi\).
+}
+
+
+
+\section{Quotient Spaces}
+
+Quotient spaces provide a systematic way to ``collapse'' a subspace to zero, creating a smaller vector space that captures the structure ``perpendicular'' to the subspace. This construction is fundamental in linear algebra and pervades abstract algebra.
+
+\subsection{Construction of the Quotient Space}
+
+\dfn{Cosets and quotient space}{Let \(V\) be a vector space over \(k\) and \(U \subseteq V\) a subspace. For \(v \in V\), the \textbf{coset} of \(v\) modulo \(U\) is
+\[v + U = \{v + u : u \in U\}.\]
+The \textbf{quotient space} is the set of all cosets:
+\[V/U = \{v + U : v \in V\}.\]}
+
+\nt{Two cosets \(v + U\) and \(w + U\) are equal if and only if \(v - w \in U\). Equivalently, the cosets partition \(V\) into equivalence classes under the relation \(v \sim w \Leftrightarrow v - w \in U\).}
+
+\mprop{Vector space structure on the quotient}{The quotient \(V/U\) becomes a vector space over \(k\) under the operations:
+\begin{enumerate}
+  \item \textbf{Addition:} \((v + U) + (w + U) = (v + w) + U\).
+  \item \textbf{Scalar multiplication:} \(\lambda(v + U) = (\lambda v) + U\).
+\end{enumerate}
+The zero element is \(0 + U = U\), and \(-(v + U) = (-v) + U\).}
+
+\pf{Proof}{The key is \emph{well-definedness}: if \(v + U = v' + U\) and \(w + U = w' + U\), then \(v - v' \in U\) and \(w - w' \in U\), so \((v + w) - (v' + w') = (v - v') + (w - w') \in U\), meaning \((v + w) + U = (v' + w') + U\).
+
+Similarly for scalar multiplication: if \(v + U = v' + U\), then \(v - v' \in U\), so \(\lambda(v - v') = \lambda v - \lambda v' \in U\), giving \(\lambda v + U = \lambda v' + U\).
+
+The vector space axioms follow from those in \(V\).
+}
+
+\subsection{The Quotient Map and Exact Sequences}
+
+\dfn{Quotient map}{The \textbf{quotient map} (or \textbf{canonical projection}) is \(q : V \to V/U\) defined by \(q(v) = v + U\).}
+
+\mprop{Properties of the quotient map}{The quotient map \(q : V \to V/U\) satisfies:
+\begin{enumerate}
+  \item \(q\) is linear.
+  \item \(q\) is surjective.
+  \item \(\ker(q) = U\).
+\end{enumerate}
+}
+
+
+\pf{Proof}{(1) \(q(v + \lambda w) = (v + \lambda w) + U = (v + U) + \lambda(w + U) = q(v) + \lambda q(w)\).
+
+(2) Every coset \(v + U\) is \(q(v)\).
+
+(3) \(v \in \ker(q) \Leftrightarrow v + U = 0 + U \Leftrightarrow v \in U\).
+}
+
+\nt{This gives a \textbf{short exact sequence}:
+\[0 \longrightarrow U \xlongrightarrow{\iota} V \xlongrightarrow{q} V/U \longrightarrow 0\]
+where \(\iota : U \hookrightarrow V\) is the inclusion. ``Exact'' means: \(\Img(\iota) = \ker(q)\), \(\iota\) is injective, and \(q\) is surjective. Short exact sequences are a central organizing principle in algebra.}
+
+\thm{Dimension of the quotient space}{If \(V\) is finite-dimensional and \(U \subseteq V\) is a subspace, then
+\[\dim(V/U) = \dim(V) - \dim(U).\]}
+
+\pf{Proof}{Apply rank-nullity to \(q : V \to V/U\):
+\[\dim(V) = \dim(\ker(q)) + \dim(\Img(q)) = \dim(U) + \dim(V/U).\]
+}
+
+\ex{Concrete example}{Let \(V = \RR^3\) and \(U = \operatorname{Span}\{(1, 0, 0)\}\), the \(x\)-axis. Then \(V/U \cong \RR^2\):
+
+The coset \((a, b, c) + U\) consists of all points \(\{(a + t, b, c) : t \in \RR\}\)---a horizontal line through \((a, b, c)\). Two points have the same coset iff they have the same \(y\) and \(z\) coordinates. The map \((a, b, c) + U \mapsto (b, c)\) is an isomorphism \(V/U \xrightarrow{\sim} \RR^2\).
+}
+
+\subsection{Universal Property of the Quotient}
+
+The quotient space is characterized by a universal property that explains its importance.
+
+\thm{Universal property of the quotient}{Let \(\varphi : V \to W\) be a linear map with \(U \subseteq \ker(\varphi)\). Then there exists a unique linear map \(\bar{\varphi} : V/U \to W\) such that \(\varphi = \bar{\varphi} \circ q\):
+\[\begin{tikzcd}[ampersand replacement=\&]
+V \ar[r, "\varphi"] \ar[d, "q"'] \& W \\
+V/U \ar[ur, dashed, "\exists! \bar{\varphi}"']
+\end{tikzcd}\]
+Moreover, \(\bar{\varphi}\) is defined by \(\bar{\varphi}(v + U) = \varphi(v)\).}
+
+\pf{Proof}{\textbf{Well-defined:} If \(v + U = v' + U\), then \(v - v' \in U \subseteq \ker(\varphi)\), so \(\varphi(v) = \varphi(v')\).
+
+\textbf{Linearity:} \(\bar{\varphi}((v + U) + \lambda(w + U)) = \bar{\varphi}((v + \lambda w) + U) = \varphi(v + \lambda w) = \varphi(v) + \lambda \varphi(w) = \bar{\varphi}(v + U) + \lambda \bar{\varphi}(w + U)\).
+
+\textbf{Uniqueness:} Any \(\psi : V/U \to W\) with \(\varphi = \psi \circ q\) must satisfy \(\psi(v + U) = \psi(q(v)) = \varphi(v) = \bar{\varphi}(v + U)\).
+}
+
+
+\cor{First Isomorphism Theorem}{For any linear map \(\varphi : V \to W\):
+\[V/\ker(\varphi) \cong \Img(\varphi).\]
+The isomorphism is \(\bar{\varphi} : v + \ker(\varphi) \mapsto \varphi(v)\).}
+
+\pf{Proof}{By the universal property, \(\bar{\varphi} : V/\ker(\varphi) \to W\) is well-defined. Its image is exactly \(\Img(\varphi)\). Injectivity: if \(\bar{\varphi}(v + \ker(\varphi)) = 0\), then \(\varphi(v) = 0\), so \(v \in \ker(\varphi)\), meaning \(v + \ker(\varphi) = 0 + \ker(\varphi)\).
+}
+
+\nt{This theorem is remarkably useful. It says that every surjective linear map \(\varphi : V \twoheadrightarrow W\) is ``really'' a quotient map: \(V \to V/\ker(\varphi) \cong W\). Dually, every injective map \(\iota : U \hookrightarrow V\) makes \(U\) isomorphic to a subspace of \(V\).}
+
+\subsection{Correspondence Between Subspaces}
+
+The quotient construction establishes a bijection between certain subspaces.
+
+\thm{Lattice correspondence}{Let \(U \subseteq V\) be a subspace. There is a bijection
+\[\{\text{subspaces } W \subseteq V \text{ with } U \subseteq W\} \longleftrightarrow \{\text{subspaces of } V/U\}\]
+given by:
+\begin{itemize}
+  \item Forward: \(W \mapsto W/U = \{w + U : w \in W\}\).
+  \item Backward: \(\bar{W} \mapsto q^{-1}(\bar{W}) = \{v \in V : v + U \in \bar{W}\}\).
+\end{itemize}
+Moreover, this bijection preserves inclusions: \(W_1 \subseteq W_2 \Leftrightarrow W_1/U \subseteq W_2/U\).}
+
+\pf{Proof}{We verify the maps are inverses.
+
+\textbf{Forward then backward:} Starting with \(W \supseteq U\), we get \(W/U\), then \(q^{-1}(W/U) = \{v \in V : v + U \in W/U\}\). But \(v + U \in W/U\) iff \(v + U = w + U\) for some \(w \in W\), iff \(v - w \in U \subseteq W\), iff \(v \in W\). So \(q^{-1}(W/U) = W\).
+
+\textbf{Backward then forward:} Starting with \(\bar{W} \subseteq V/U\), let \(W = q^{-1}(\bar{W})\). Note \(U = q^{-1}(0) \subseteq q^{-1}(\bar{W}) = W\). Then \(W/U = q(W) = q(q^{-1}(\bar{W})) = \bar{W}\) (surjectivity of \(q\) ensures \(q(q^{-1}(S)) = S\) for any \(S \subseteq V/U\)).
+}
+
+\nt{Maximal proper subspaces of \(V\) containing \(U\) correspond to maximal proper subspaces of \(V/U\)---i.e., hyperplanes (codimension-1 subspaces). This perspective becomes useful in algebraic geometry and representation theory.}
+
+
+
+\section{Linear Operators and Endomorphisms}
+
+When the domain and codomain of a linear map coincide, we gain additional algebraic structure: the ability to compose maps with themselves.
+
+\subsection{The Ring of Endomorphisms}
+
+\dfn{Linear operator / Endomorphism}{A \textbf{linear operator} or \textbf{endomorphism} of a vector space \(V\) is a linear map \(\varphi : V \to V\). We write
+\[\End(V) = \Hom(V, V)\]
+for the set of all endomorphisms of \(V\).}
+
+\mprop{Ring structure on \(\End(V)\)}{\(\End(V)\) is a \textbf{ring} (with identity) under:
+\begin{itemize}
+  \item \textbf{Addition:} \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\).
+  \item \textbf{Multiplication:} \((\varphi \circ \psi)(v) = \varphi(\psi(v))\) (composition).
+  \item \textbf{Identity:} The identity map \(\id_V\).
+\end{itemize}
+Moreover, \(\End(V)\) is a \(k\)-algebra: multiplication distributes over scalar multiplication.}
+
+\pf{Proof}{Addition makes \(\End(V)\) an abelian group (it's a subgroup of \(\Hom(V, V)\) as a vector space). Composition is associative with identity \(\id_V\). Distributivity: \(\varphi \circ (\psi + \rho) = \varphi \circ \psi + \varphi \circ \rho\) and \((\varphi + \psi) \circ \rho = \varphi \circ \rho + \psi \circ \rho\). These follow from linearity.
+}
+
+\nt{The ring \(\End(V)\) is \emph{noncommutative} unless \(\dim(V) \leq 1\). For \(V = k^n\), \(\End(V) \cong M_n(k)\), the ring of \(n \times n\) matrices. The noncommutativity of matrix multiplication reflects the noncommutativity of \(\End(V)\).}
+
+\subsection{Polynomials of Operators}
+
+Since endomorphisms can be composed, we can form ``powers'' and evaluate polynomials.
+
+\dfn{Powers and polynomials of operators}{For \(\varphi \in \End(V)\) and \(n \in \ZZ_{\geq 0}\):
+\[\varphi^0 = \id_V, \quad \varphi^n = \underbrace{\varphi \circ \varphi \circ \cdots \circ \varphi}_{n \text{ times}}.\]
+For a polynomial \(p(x) = a_0 + a_1 x + \cdots + a_n x^n \in k[x]\), define
+\[p(\varphi) = a_0 \id_V + a_1 \varphi + \cdots + a_n \varphi^n \in \End(V).\]}
+
+\mprop{Evaluation homomorphism}{The map \(\ev_\varphi : k[x] \to \End(V)\) defined by \(p(x) \mapsto p(\varphi)\) is a ring homomorphism. That is:
+\begin{enumerate}
+  \item \((p + q)(\varphi) = p(\varphi) + q(\varphi)\).
+  \item \((pq)(\varphi) = p(\varphi) \circ q(\varphi)\).
+  \item \(1(\varphi) = \id_V\).
+\end{enumerate}
+}
+
+
+\pf{Proof}{(1) and (3) are immediate. For (2), let \(p(x) = \sum a_i x^i\) and \(q(x) = \sum b_j x^j\). Then \((pq)(x) = \sum_{k} c_k x^k\) where \(c_k = \sum_{i+j=k} a_i b_j\). So
+\[(pq)(\varphi) = \sum_k c_k \varphi^k = \sum_k \left(\sum_{i+j=k} a_i b_j\right) \varphi^k = \left(\sum_i a_i \varphi^i\right) \circ \left(\sum_j b_j \varphi^j\right) = p(\varphi) \circ q(\varphi).\]
+}
+
+\nt{This makes \(\End(V)\) a \(k[x]\)-module: \(p(x) \cdot v = p(\varphi)(v)\). The study of this module structure (particularly the kernel of \(\ev_\varphi\), called the \emph{minimal polynomial}) is central to the theory of canonical forms.}
+
+\section{Invariant Subspaces}
+
+Understanding an operator often begins with finding subspaces on which its behavior is simpler.
+
+\dfn{Invariant subspace}{A subspace \(W \subseteq V\) is \textbf{invariant} under \(\varphi \in \End(V)\) (or \textbf{\(\varphi\)-invariant}) if
+\[\varphi(W) \subseteq W,\]
+i.e., \(\varphi(w) \in W\) for all \(w \in W\).}
+
+\ex{Basic examples of invariant subspaces}{For any \(\varphi \in \End(V)\):
+\begin{itemize}
+  \item \(\{0\}\) and \(V\) are always \(\varphi\)-invariant.
+  \item \(\ker(\varphi)\) is \(\varphi\)-invariant: if \(\varphi(v) = 0\), then \(\varphi(\varphi(v)) = \varphi(0) = 0\).
+  \item \(\Img(\varphi)\) is \(\varphi\)-invariant: \(\varphi(\Img(\varphi)) = \Img(\varphi^2) \subseteq \Img(\varphi)\).
+  \item More generally, \(\ker(\varphi^n)\) and \(\Img(\varphi^n)\) are \(\varphi\)-invariant for all \(n \geq 0\).
+\end{itemize}
+}
+
+\mprop{Restriction to an invariant subspace}{If \(W \subseteq V\) is \(\varphi\)-invariant, the \textbf{restriction} \(\varphi|_W : W \to W\) is a well-defined linear operator on \(W\).}
+
+\subsection{Block Diagonal Structure}
+
+Invariant subspaces lead to simpler matrix representations.
+
+\thm{Direct sum of invariant subspaces}{Suppose \(V = V_1 \oplus V_2\) where both \(V_1\) and \(V_2\) are \(\varphi\)-invariant. Choose bases \(\mathcal{B}_1 = \{e_1, \ldots, e_m\}\) of \(V_1\) and \(\mathcal{B}_2 = \{e_{m+1}, \ldots, e_n\}\) of \(V_2\), forming a basis \(\mathcal{B} = \mathcal{B}_1 \cup \mathcal{B}_2\) of \(V\). Then the matrix of \(\varphi\) with respect to \(\mathcal{B}\) is \textbf{block diagonal}:
+\[\mcM(\varphi; \mathcal{B}) = \begin{pmatrix} A_1 & 0 \\ 0 & A_2 \end{pmatrix}\]
+where \(A_1 = \mcM(\varphi|_{V_1}; \mathcal{B}_1)\) and \(A_2 = \mcM(\varphi|_{V_2}; \mathcal{B}_2)\).}
+
+\pf{Proof}{For \(i \leq m\): \(\varphi(e_i) \in V_1\) (by \(\varphi\)-invariance), so \(\varphi(e_i)\) is a linear combination of \(e_1, \ldots, e_m\) only. For \(i > m\): \(\varphi(e_i) \in V_2\), so \(\varphi(e_i)\) is a linear combination of \(e_{m+1}, \ldots, e_n\) only. This gives the block structure.
+}
+
+
+\nt{Conversely, if a matrix is block diagonal with blocks \(A_1\) and \(A_2\), then the spans of the corresponding basis vectors are invariant subspaces. The goal of much of spectral theory is to decompose \(V\) into a direct sum of invariant subspaces on which \(\varphi\) acts simply.}
+
+\cor{Block triangular from one invariant subspace}{If \(V_1\) is \(\varphi\)-invariant (but we don't assume \(V_1\) has an invariant complement), then extending a basis of \(V_1\) to a basis of \(V\) gives a \textbf{block upper-triangular} matrix:
+\[\mcM(\varphi) = \begin{pmatrix} A_1 & * \\ 0 & A_2 \end{pmatrix}.\]
+The upper-right block \(*\) may be nonzero; it measures the ``interaction'' between \(V_1\) and \(V/V_1\).}
+
+\section{Eigenvalues and Eigenvectors}
+
+The simplest invariant subspaces are one-dimensional. These give rise to the fundamental notion of eigenvalues.
+
+\subsection{Definitions and Basic Properties}
+
+\dfn{Eigenvector and eigenvalue}{Let \(\varphi \in \End(V)\). A nonzero vector \(v \in V\) is an \textbf{eigenvector} of \(\varphi\) if
+\[\varphi(v) = \lambda v\]
+for some scalar \(\lambda \in k\). The scalar \(\lambda\) is called the \textbf{eigenvalue} corresponding to \(v\).}
+
+\nt{The condition \(\varphi(v) = \lambda v\) says that \(\varphi\) acts on the line spanned by \(v\) as scaling by \(\lambda\). Equivalently, \(\operatorname{Span}\{v\}\) is a one-dimensional \(\varphi\)-invariant subspace. Conversely, any one-dimensional invariant subspace \(U = \operatorname{Span}\{v\}\) consists of eigenvectors (with the same eigenvalue) plus zero.}
+
+\mprop{Characterization of eigenvalues}{For \(\varphi \in \End(V)\) and \(\lambda \in k\), the following are equivalent:
+\begin{enumerate}
+  \item \(\lambda\) is an eigenvalue of \(\varphi\).
+  \item \(\varphi - \lambda \id_V\) is not injective.
+  \item \(\ker(\varphi - \lambda \id_V) \neq \{0\}\).
+  \item (If \(V\) is finite-dimensional) \(\varphi - \lambda \id_V\) is not surjective.
+  \item (If \(V\) is finite-dimensional) \(\det(\varphi - \lambda \id_V) = 0\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) \(\Leftrightarrow\) (2) \(\Leftrightarrow\) (3): \(\lambda\) is an eigenvalue iff there exists nonzero \(v\) with \(\varphi(v) = \lambda v\), iff \((\varphi - \lambda \id)(v) = 0\) for some nonzero \(v\), iff \(\ker(\varphi - \lambda \id) \neq \{0\}\).
+
+(3) \(\Leftrightarrow\) (4) \(\Leftrightarrow\) (5): In finite dimensions, a linear operator is injective iff surjective iff invertible iff has nonzero determinant. So \(\ker(\varphi - \lambda \id) \neq \{0\}\) iff \(\det(\varphi - \lambda \id) = 0\).
+}
+
+\dfn{Eigenspace}{For an eigenvalue \(\lambda\) of \(\varphi\), the \textbf{eigenspace} is
+\[E(\lambda, \varphi) = \ker(\varphi - \lambda \id_V) = \{v \in V : \varphi(v) = \lambda v\}.\]
+This is a subspace of \(V\) (it includes 0, though 0 is not an eigenvector).}
+
+
+\thm{Eigenvectors with distinct eigenvalues are linearly independent}{Let \(v_1, \ldots, v_m\) be eigenvectors of \(\varphi\) with distinct eigenvalues \(\lambda_1, \ldots, \lambda_m\). Then \(v_1, \ldots, v_m\) are linearly independent.}
+
+\pf{Proof}{Induction on \(m\). Base case \(m = 1\): a single eigenvector is nonzero, hence linearly independent.
+
+Suppose the result holds for \(m - 1\) eigenvectors. Assume \(\sum_{i=1}^m c_i v_i = 0\). Apply \(\varphi\):
+\[\sum_{i=1}^m c_i \lambda_i v_i = 0.\]
+Multiply the original equation by \(\lambda_m\) and subtract:
+\[\sum_{i=1}^{m-1} c_i (\lambda_i - \lambda_m) v_i = 0.\]
+By the induction hypothesis (since \(v_1, \ldots, v_{m-1}\) are eigenvectors with distinct eigenvalues \(\lambda_1, \ldots, \lambda_{m-1}\)), we have \(c_i(\lambda_i - \lambda_m) = 0\) for \(i < m\). Since \(\lambda_i \neq \lambda_m\), we get \(c_i = 0\). Substituting back: \(c_m v_m = 0\), so \(c_m = 0\) (since \(v_m \neq 0\)).
+}
+
+\cor{Bound on number of eigenvalues}{A linear operator on an \(n\)-dimensional space has at most \(n\) distinct eigenvalues.}
+
+\pf{Proof}{If \(\lambda_1, \ldots, \lambda_m\) are distinct eigenvalues with eigenvectors \(v_1, \ldots, v_m\), then \(v_1, \ldots, v_m\) are linearly independent. In an \(n\)-dimensional space, any linearly independent set has at most \(n\) elements.
+}
+
+\cor{Sum of eigenspaces is direct}{If \(\lambda_1, \ldots, \lambda_m\) are distinct eigenvalues of \(\varphi\), then
+\[E(\lambda_1, \varphi) + \cdots + E(\lambda_m, \varphi) = E(\lambda_1, \varphi) \oplus \cdots \oplus E(\lambda_m, \varphi).\]
+is a direct sum. Furthermore, \(\sum_i \dim E(\lambda_i, \varphi) \leq \dim V\).}
+
+\subsection{Diagonalizable Operators}
+
+The best-case scenario: \(V\) has a basis of eigenvectors.
+
+\dfn{Diagonalizable operator}{An operator \(\varphi \in \End(V)\) is \textbf{diagonalizable} if there exists a basis of \(V\) consisting entirely of eigenvectors of \(\varphi\). Equivalently, \(\varphi\) has a diagonal matrix with respect to some basis.}
+
+\nt{If \(\{v_1, \ldots, v_n\}\) is a basis of eigenvectors with \(\varphi(v_i) = \lambda_i v_i\), then the matrix of \(\varphi\) is
+\[\mcM(\varphi) = \begin{pmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{pmatrix}.\]
+The eigenvalues appear on the diagonal (possibly with repetition).}
+
+\thm{Characterizations of diagonalizability}{For \(\varphi \in \End(V)\) with \(\dim(V) = n\) and distinct eigenvalues \(\lambda_1, \ldots, \lambda_m\), the following are equivalent:
+\begin{enumerate}
+  \item \(\varphi\) is diagonalizable.
+  \item \(V\) has a basis of eigenvectors of \(\varphi\).
+  \item \(V = E(\lambda_1, \varphi) \oplus \cdots \oplus E(\lambda_m, \varphi)\).
+  \item \(\dim E(\lambda_1, \varphi) + \cdots + \dim E(\lambda_m, \varphi) = n\).
+\end{enumerate}
+}
+
+
+\pf{Proof}{(1) \(\Leftrightarrow\) (2): By definition.
+
+(2) \(\Rightarrow\) (3): If \(V\) has a basis of eigenvectors, partition it by eigenvalue. Each part is a basis of the corresponding eigenspace, and together they span \(V\).
+
+(3) \(\Rightarrow\) (4): Take dimensions: \(\dim V = \dim(E_1 \oplus \cdots \oplus E_m) = \sum \dim E_i\).
+
+(4) \(\Rightarrow\) (2): The sum \(E_1 + \cdots + E_m\) is direct (earlier corollary), and has dimension \(\sum \dim E_i = n = \dim V\). So \(E_1 \oplus \cdots \oplus E_m = V\). Combining bases of each \(E_i\) gives a basis of \(V\) consisting of eigenvectors.
+}
+
+\cor{Enough distinct eigenvalues implies diagonalizability}{If \(\varphi \in \End(V)\) has \(\dim(V)\) distinct eigenvalues, then \(\varphi\) is diagonalizable.}
+
+\pf{Proof}{Each eigenspace has dimension at least 1 (it contains an eigenvector). With \(n = \dim V\) distinct eigenvalues, \(\sum \dim E(\lambda_i) \geq n\). But this sum is also \(\leq n\), so equality holds, and criterion (4) above is satisfied.
+}
+
+\subsection{Examples: Diagonalizable and Non-Diagonalizable}
+
+\ex{Diagonal matrices}{The identity matrix \(I_n\) has eigenvalue \(1\) with eigenspace all of \(k^n\). More generally, a diagonal matrix \(\diag(\lambda_1, \ldots, \lambda_n)\) has the standard basis vectors as eigenvectors with eigenvalues \(\lambda_1, \ldots, \lambda_n\). Such a matrix is (trivially) diagonalizable---it's already diagonal!}
+
+\ex{A non-diagonalizable matrix}{Consider \(\varphi : \RR^2 \to \RR^2\) with matrix
+\[A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}.\]
+The eigenvalues satisfy \(\det(A - \lambda I) = (1 - \lambda)^2 = 0\), so \(\lambda = 1\) is the only eigenvalue.
+
+The eigenspace: \(E(1, \varphi) = \ker(A - I) = \ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \operatorname{Span}\{e_1\}\).
+
+This has dimension 1, but \(\dim(\RR^2) = 2\). So \(\varphi\) is \textbf{not diagonalizable}.
+
+Geometrically, \(\varphi\) is a ``shear'': it fixes the \(x\)-axis pointwise and slides other points parallel to the \(x\)-axis. The only eigenvector direction is along the \(x\)-axis.}
+
+\ex{No eigenvectors over \(\RR\)}{Consider rotation by $90^\circ$ in \(\RR^2\):
+\[R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}.\]
+The characteristic polynomial is \(\det(R - \lambda I) = \lambda^2 + 1\), which has no real roots. So \(R\) has \emph{no eigenvalues} over \(\RR\), hence no eigenvectors. Over \(\CC\), the eigenvalues are \(\pm i\) with eigenvectors \((1, \mp i)^T\), and \(R\) is diagonalizable as a complex matrix. The eigenfairy doesn't visit \( \mathbb{R} \) (sad).
+
+This illustrates that diagonalizability depends on the scalar field!}
+
+\nt{The rotation example shows that not every operator is diagonalizable. Even over \(\CC\), where every polynomial has roots, an operator may fail to be diagonalizable (like the shear above). Understanding non-diagonalizable operators requires the theory of Jordan normal form, which we'll develop later.}
+
+
+\qs{Exercises on quotient spaces, operators, and eigenvalues}{
+\begin{enumerate}
+  \item Let \(V = \RR^4\) and \(U = \{(x, y, z, w) : x + y = 0, z = w\}\). Find \(\dim(U)\), \(\dim(V/U)\), and describe \(V/U\) explicitly.
+  
+  \item Prove that if \(\varphi, \psi \in \End(V)\) commute (\(\varphi \circ \psi = \psi \circ \varphi\)), then every eigenspace of \(\varphi\) is \(\psi\)-invariant.
+  
+  \item Let \(\varphi \in \End(V)\) be diagonalizable with eigenvalues \(\lambda_1, \ldots, \lambda_m\). Prove that \(p(\varphi) = 0\) where \(p(x) = \prod_{i=1}^m (x - \lambda_i)\).
+  
+  \item Show that the quotient map \(q : V \to V/U\) induces a bijection between \(\{\text{linear maps } V/U \to W\}\) and \(\{\text{linear maps } V \to W \text{ vanishing on } U\}\).
+  
+  \item Let \(A = \begin{pmatrix} 4 & 2 \\ 1 & 3 \end{pmatrix}\). Find the eigenvalues and eigenspaces of \(A\). Is \(A\) diagonalizable? If so, find a matrix \(P\) such that \(P^{-1}AP\) is diagonal.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} The constraints \(x + y = 0\) and \(z = w\) give 2 independent linear equations on \(\RR^4\), so \(\dim(U) = 4 - 2 = 2\). A basis: \(\{(-1, 1, 0, 0), (0, 0, 1, 1)\}\).
+
+By the dimension formula: \(\dim(V/U) = \dim(V) - \dim(U) = 4 - 2 = 2\).
+
+The map \(\pi : \RR^4 \to \RR^2\) defined by \(\pi(x, y, z, w) = (x + y, z - w)\) has \(\ker(\pi) = U\). By the first isomorphism theorem, \(V/U \cong \RR^2\). Explicitly, the coset \((x, y, z, w) + U\) is determined by \((x + y, z - w)\).
+
+\textbf{(2)} Let \(v\) be an eigenvector of \(\varphi\) with eigenvalue \(\lambda\): \(\varphi(v) = \lambda v\). We need \(\psi(v) \in E(\lambda, \varphi)\), i.e., \(\varphi(\psi(v)) = \lambda \psi(v)\).
+
+Compute: \(\varphi(\psi(v)) = \psi(\varphi(v)) = \psi(\lambda v) = \lambda \psi(v)\). $\checkmark$
+
+(We used commutativity in the first equality.)
+
+\textbf{(3)} Let \(p(x) = \prod_{i=1}^m (x - \lambda_i)\). Since \(\varphi\) is diagonalizable, \(V = \bigoplus_{i=1}^m E(\lambda_i, \varphi)\). For any eigenvector \(v \in E(\lambda_j, \varphi)\):
+\[(\varphi - \lambda_j \id)(v) = 0.\]
+So \(p(\varphi)(v) = (\varphi - \lambda_1) \cdots (\varphi - \lambda_m)(v) = 0\) because one factor gives zero.
+
+Since this holds for all eigenvectors and they span \(V\), we have \(p(\varphi) = 0\).
+
+\textbf{(4)} Define \(\Phi : \Hom(V/U, W) \to \{T \in \Hom(V, W) : U \subseteq \ker(T)\}\) by \(\Phi(\bar{T}) = \bar{T} \circ q\).
+
+\emph{Injective:} If \(\bar{T} \circ q = 0\), then \(\bar{T}(v + U) = \bar{T}(q(v)) = 0\) for all \(v\), so \(\bar{T} = 0\).
+
+\emph{Surjective:} Given \(T : V \to W\) with \(U \subseteq \ker(T)\), define \(\bar{T} : V/U \to W\) by \(\bar{T}(v + U) = T(v)\). Well-defined because \(v - v' \in U \Rightarrow T(v) = T(v')\). Then \(\Phi(\bar{T}) = \bar{T} \circ q = T\).
+
+\textbf{(5)} Characteristic polynomial: \(\det(A - \lambda I) = (4 - \lambda)(3 - \lambda) - 2 = \lambda^2 - 7\lambda + 10 = (\lambda - 5)(\lambda - 2)\).
+
+Eigenvalues: \(\lambda_1 = 5\), \(\lambda_2 = 2\).
+
+Eigenspaces:
+\begin{itemize}
+\item \(\lambda = 5\): \((A - 5I)v = 0\) gives \(\begin{pmatrix} -1 & 2 \\ 1 & -2 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} = 0\), so \(x = 2y\). Eigenspace: \(\operatorname{Span}\{(2, 1)^T\}\).
+\item \(\lambda = 2\): \((A - 2I)v = 0\) gives \(\begin{pmatrix} 2 & 2 \\ 1 & 1 \end{pmatrix}\begin{pmatrix} x \\ y \end{pmatrix} = 0\), so \(x = -y\). Eigenspace: \(\operatorname{Span}\{(1, -1)^T\}\).
+\end{itemize}
+
+Since we have 2 linearly independent eigenvectors in \(\RR^2\), \(A\) is diagonalizable.
+
+Let \(P = \begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}\) (columns are eigenvectors). Then \(P^{-1}AP = \begin{pmatrix} 5 & 0 \\ 0 & 2 \end{pmatrix}\).
+\end{solution}
+
+
+\section{Let's get general up in here!}
+
+
+We want to look at general eigenvectors: things that are not \textit{actually} eigenvectors but "kinda want to be" in a generalized sense. What in tarnation does that mean!? Simplest Eigenspace is just \( 0 \), so let's focus on that to get an understanding:
+
+\dfn{Generalized kernal}{The \emph{generalized kernal} of \( \varphi \) is \( \text{gker}(\varphi ) = \{v \in  V \mid \exists m>0 \text{ s.t. } \varphi ^m(v)=0\}  \). These are all the vecrtors that are evnetually sent to \( 0 \) by repeatedly applying \( \varphi  \).}
+
+\nt{We note that \( \text{gker}(\varphi ) \) is not standard notation. Auroux likes it though, so that is what we are going with! \textit{If you meet a stranger on the street and bring up gker be sure to tell them what you mean, lest they be confused}.}
+
+The difference between the kernal and generalized kernal can be summed up by this: you are in the kernal if you go to \( 0 \) in one step; if you apply itterative steps---\( \varphi ^m \)---and end up at \( 0 \) you are in the generalized kernal. If I look at the kernal of \( \varphi  \) I notice that it is in the kernal of \( \varphi ^2 \); then too this holds for more! They may or may not get larger but they are subsets:\[
+  \Ker(\varphi ) \subset \Ker (\varphi ^2) \subset \Ker \varphi  \subset \ldots 
+\] 
+\mprop{}{If \( \Ker (\varphi ^m) = \Ker (\varphi^{m+1}) \) then there is no strictly larger kernal.}
+\pf{Proof}{\( \varphi ^{m+2}(v)=\varphi ^{m+1}(\varphi (V))=0 \iff \varphi (v)=\Ker \varphi ^m \iff \varphi ^m(\varphi (v))=\varphi ^{m+1}(v)=0 \). So \( \Ker (\varphi ^{m+1})=\Ker (\varphi ^{m+2}).\) Since the sequence stops increasing after at most \( n= \dim V \) steps, \( \text{gker}(\varphi )=\Ker \varphi ^n \).}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
