@@ -76,7 +76,40 @@ Note that if \(S\) is finite then \(|S| = n\) and \(\mcP(S) = 2^n\). This natura
 
 Consider \(\mathbb{Z} / n\). Under the equivalence relation congruence mod \(n\) we can take the sum of the various subsets that mod \(n\) partitions \(\mathbb{Z}\) into as the law of composition given by \((a + n\mathbb{Z}) + (b + n\mathbb{Z}) = a + b + n\mathbb{Z}\). Notice that we can let \(T\) be the set of equivalence classes under mod \(n\), and thus we have a homomorphic map from \(\mathbb{Z} \to T\). Finally, \(T = \mathbb{Z} / n\).
 
-Why stop at integers? What if we want to make congruence mod \(H\) where \(H\) is a subgroup \(H \subset G\)? Under what cases, given that we \emph{can} make mod \(H\) equivalence classes (we will define this in a bit) is the quotient map \(G \to T\) a homomorphism? This question is \emph{the} question of quotient groups, and its answer---normality---is one of the most important concepts in all of group theory.
+Why stop at integers? What if we want to make congruence mod \(H\) where \(H\) is a subgroup \(H \subset G\)? Under what cases, given that we \emph{can} make mod \(H\) equivalence classes (we will define this in a bit) is the quotient map \(G \to T\) a homomorphism? This question is the question of quotient groups, and its answer---normality---is of note and importance to much of group theory (i.e. it is foundational material).
+\pagebreak
+\ex{Quotient subgroups of \( S_{3} \)}{ Note that \( S_{3} \) is isomorphic to \( \mathbb{Z}/6 \), thus we may think of of the subgroups as such: 
+  \[
+    S_{3} \cong \mathbb{Z}/6 \cong \mathbb{Z}/3 \times  \mathbb{Z}/ 2
+  \] 
+  and since \( \mathbb{Z}/6 \)'s elements \( (03) \) form \( \mathbb{Z}/2 \) with \( \{e ,\mu \} \mapsto (03)\mapsto \{ \pm 1\} \), we have similar happening for \( (024) \). 
+  \begin{center}
+  \begin{tikzpicture}[
+    every node/.style={inner sep=2pt},
+    scale=1.2
+  ]
+  % Top
+  \node (S3) at (0,2) {$S_3$};
+  
+  % Middle row - order 2 subgroups
+  \node (a) at (-2,1) {$\langle \rho  \rangle$};
+  \node (b) at (-0.7,1) {$\langle \mu \rangle$};
+  \node (ab) at (0.7,1) {$\langle \rho  \mu \beta\rangle$};
+  \node (a2b) at (2,1) {$\langle \rho ^2 \mu \rangle$};
+  
+  % Bottom
+  \node (e) at (0,0) {$\{e\}$};
+  
+  % Edges
+  \draw (S3) -- (a);
+  \draw (S3) -- (b);
+  \draw (S3) -- (ab);
+  \draw (S3) -- (a2b);
+  \draw (a) -- (e);
+  \draw (b) -- (e);
+  \draw (ab) -- (e);
+  \draw (a2b) -- (e);
+\end{tikzpicture}\end{center}}
 
 \subsection{Congruence mod \(H\) and cosets}
 
@@ -117,7 +150,7 @@ The left cosets of \(H\) partition \(G\) into disjoint subsets, each of cardinal
 \nt{Lagrange's theorem has immediate corollaries: the order of any element divides \(|G|\) (since \(\langle g \rangle\) is a subgroup), and groups of prime order are cyclic (the only subgroups have order 1 or \(p\)). The converse of Lagrange is false in general: \(A_4\) has order 12 but no subgroup of order 6. However, for abelian groups and more generally for solvable groups, partial converses exist---a theme we'll explore later.
 }
 
-Now the million dollar question: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be \emph{well-defined}, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
+A question naturally arises then: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be \emph{well-defined}, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
 
 \ex{}{Consider \(G = S_3\) and \(H = \{e, (12)\}\). We have three left cosets: \(H = \{e, (12)\}\), \((13)H = \{(13), (132)\}\), and \((23)H = \{(23), (123)\}\). Take representatives \(a = (13)\) and \(a' = (132)\) from the same coset; both satisfy \(aH = a'H = (13)H\). Now take \(b = (23)\). We compute:
 \begin{align*}

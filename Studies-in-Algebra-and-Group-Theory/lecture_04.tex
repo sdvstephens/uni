@@ -9,9 +9,6 @@
 
 \course{Studies-in-Algebra-and-Group-Theory}
 
-\DeclareMathOperator{\diag}{diag}
-\DeclareMathOperator{\nullity}{null}
-\DeclareMathOperator{\ev}{ev}
 \begin{document}
 
 \lecture{4}{Vector Spaces and Linear Algebra}
@@ -288,7 +285,7 @@ Equivalently, \(W\) is a subspace if it is a vector space under the inherited op
 (\(\Leftarrow\)) Taking \(a = b = 1\) gives closure under addition. Taking \(b = 0\) gives closure under scalar multiplication.
 }
 
-\nt{The condition ``nonempty'' is essential. Alternatively, we can replace it with ``\(0 \in W\),'' which follows from taking \(a = 0\) in the scalar multiplication closure. So a subspace is precisely a nonempty subset closed under linear combinations.
+\nt{The condition ``nonempty'' is required. Alternatively, we can replace it with ``\(0 \in W\),'' which follows from taking \(a = 0\) in the scalar multiplication closure. So a subspace is precisely a nonempty subset closed under linear combinations.
 }
 
 \ex{}{
@@ -297,6 +294,111 @@ Equivalently, \(W\) is a subspace if it is a vector space under the inherited op
   \item In \(\RR^3\), subspaces are: \(\{0\}\), lines through the origin, planes through the origin, and \(\RR^3\).
   \item In \(k[x]\), the polynomials of degree \(\leq n\) form a subspace. The polynomials of degree \emph{exactly} \(n\) do \emph{not} form a subspace (not closed under addition: \(x^n + (-x^n) = 0\)).
 \end{itemize}
+}
+
+
+\subsection{Direct Sums of Subspaces}
+
+When can we decompose a vector space into ``independent'' pieces? The notion of direct sum captures exactly this.
+
+\dfn{Sum of subspaces}{Given subspaces \(U, W \subseteq V\), their \textbf{\emph{sum}} is
+\[U + W = \{u + w : u \in U, \, w \in W\}.\]
+This is the smallest subspace of \(V\) containing both \(U\) and \(W\).
+}
+
+\mprop{Sum is a subspace}{For subspaces \(U, W \subseteq V\), the sum \(U + W\) is a subspace of \(V\).
+}
+
+\pf{Proof}{Let \(v_1 = u_1 + w_1\) and \(v_2 = u_2 + w_2\) be elements of \(U + W\), and let \(\lambda \in k\). Then
+\[v_1 + v_2 = (u_1 + u_2) + (w_1 + w_2) \in U + W\]
+since \(u_1 + u_2 \in U\) and \(w_1 + w_2 \in W\). Similarly, \(\lambda v_1 = \lambda u_1 + \lambda w_1 \in U + W\). The zero vector \(0 = 0 + 0 \in U + W\).
+}
+
+\dfn{Direct sum of subspaces}{The sum \(U + W\) is called a \textbf{\emph{direct sum}}, written \(U \oplus W\), if \(U \cap W = \{0\}\). Equivalently, every element of \(U + W\) can be written \emph{uniquely} as \(u + w\) with \(u \in U\) and \(w \in W\).
+}
+
+\mprop{Characterizations of direct sum}{For subspaces \(U, W \subseteq V\), the following are equivalent:
+\begin{enumerate}
+  \item \(U + W\) is a direct sum (i.e., \(U \cap W = \{0\}\)).
+  \item Every \(v \in U + W\) has a unique representation \(v = u + w\) with \(u \in U\), \(w \in W\).
+  \item \(u + w = 0\) with \(u \in U\), \(w \in W\) implies \(u = w = 0\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) \(\Rightarrow\) (2): Suppose \(v = u_1 + w_1 = u_2 + w_2\). Then \(u_1 - u_2 = w_2 - w_1\). The left side is in \(U\), the right side is in \(W\), so both are in \(U \cap W = \{0\}\). Thus \(u_1 = u_2\) and \(w_1 = w_2\).
+
+(2) \(\Rightarrow\) (3): If \(u + w = 0\), then \(u + w = 0 + 0\). By uniqueness, \(u = 0\) and \(w = 0\).
+
+(3) \(\Rightarrow\) (1): If \(v \in U \cap W\), then \(v + (-v) = 0\) with \(v \in U\) and \(-v \in W\). By (3), \(v = 0\).
+}
+
+\thm{Dimension formula for sums}{For finite-dimensional subspaces \(U, W \subseteq V\):
+\[\dim(U + W) = \dim(U) + \dim(W) - \dim(U \cap W).\]
+In particular, if \(U + W = U \oplus W\) is a direct sum, then \(\dim(U \oplus W) = \dim(U) + \dim(W)\).
+}
+
+\pf{Proof}{Let \(\{v_1, \ldots, v_k\}\) be a basis of \(U \cap W\). Extend to a basis \(\{v_1, \ldots, v_k, u_1, \ldots, u_m\}\) of \(U\) and to a basis \(\{v_1, \ldots, v_k, w_1, \ldots, w_n\}\) of \(W\).
+
+\textbf{Claim:} \(\{v_1, \ldots, v_k, u_1, \ldots, u_m, w_1, \ldots, w_n\}\) is a basis of \(U + W\).
+
+\emph{Spanning:} Any \(x \in U + W\) is \(x = u + w\) with \(u \in U\), \(w \in W\). Express \(u\) and \(w\) in terms of the bases above; the result is a linear combination of all the listed vectors.
+
+\emph{Independence:} Suppose \(\sum a_i v_i + \sum b_j u_j + \sum c_\ell w_\ell = 0\). Then
+\[\sum c_\ell w_\ell = -\sum a_i v_i - \sum b_j u_j \in U.\]
+But \(\sum c_\ell w_\ell \in W\), so \(\sum c_\ell w_\ell \in U \cap W = \operatorname{Span}\{v_1, \ldots, v_k\}\). Since \(\{v_1, \ldots, v_k, w_1, \ldots, w_n\}\) is independent, all \(c_\ell = 0\). Similarly, all \(b_j = 0\), and then all \(a_i = 0\).
+
+Thus \(\dim(U + W) = k + m + n = (k + m) + (k + n) - k = \dim(U) + \dim(W) - \dim(U \cap W)\).
+}
+
+\dfn{Internal direct sum decomposition}{We say \(V\) is the \textbf{\emph{(internal) direct sum}} of subspaces \(U\) and \(W\), written \(V = U \oplus W\), if:
+\begin{enumerate}
+  \item \(V = U + W\) (every vector is a sum of elements from \(U\) and \(W\)), and
+  \item \(U \cap W = \{0\}\) (the decomposition is unique).
+\end{enumerate}
+More generally, \(V = U_1 \oplus U_2 \oplus \cdots \oplus U_n\) if every \(v \in V\) can be written uniquely as \(v = u_1 + u_2 + \cdots + u_n\) with \(u_i \in U_i\).
+}
+
+\ex{}{
+\begin{itemize}
+  \item In \(\RR^3\), let \(U = \{(x, 0, 0) : x \in \RR\}\) (the \(x\)-axis) and \(W = \{(0, y, z) : y, z \in \RR\}\) (the \(yz\)-plane). Then \(\RR^3 = U \oplus W\).
+  \item Let \(V = k^n\) and \(U = \operatorname{Span}\{e_1, \ldots, e_m\}\), \(W = \operatorname{Span}\{e_{m+1}, \ldots, e_n\}\). Then \(k^n = U \oplus W\).
+  \item If \(V\) is the space of \(n \times n\) matrices, let \(S\) = symmetric matrices and \(A\) = antisymmetric matrices. Then \(V = S \oplus A\) (any matrix \(M = \frac{1}{2}(M + M^T) + \frac{1}{2}(M - M^T)\)).
+\end{itemize}
+}
+
+\nt{When we diagonalize a linear operator, we decompose the vector space as a direct sum of eigenspaces. When we study quotient spaces, we often use the fact that \(V = U \oplus W\) implies \(V/U \cong W\); if that doesn't make sense right now, don't worry, we'll get to it. The direct sum structure makes computations tractable by breaking a problem into independent pieces.
+}
+
+
+\subsection{External Direct Sums and Products}
+
+We can also construct new vector spaces from old ones by taking products or direct sums ``externally.''
+
+\dfn{Direct product (external direct sum)}{Given vector spaces \(V_1, \ldots, V_n\) over the same field \(k\), their \textbf{\emph{direct product}} (or \textbf{\emph{external direct sum}}) is
+\[V_1 \times V_2 \times \cdots \times V_n = \{(v_1, v_2, \ldots, v_n) : v_i \in V_i\}\]
+with componentwise operations:
+\begin{align*}
+(v_1, \ldots, v_n) + (w_1, \ldots, w_n) &= (v_1 + w_1, \ldots, v_n + w_n), \\
+\lambda(v_1, \ldots, v_n) &= (\lambda v_1, \ldots, \lambda v_n).
+\end{align*}
+This is also denoted \(V_1 \oplus V_2 \oplus \cdots \oplus V_n\) or \(\bigoplus_{i=1}^n V_i\).
+}
+
+\mprop{Dimension of direct product}{If each \(V_i\) is finite-dimensional, then
+\[\dim(V_1 \times \cdots \times V_n) = \dim(V_1) + \cdots + \dim(V_n).\]
+}
+
+\pf{Proof}{If \(\mathcal{B}_i = \{v_{i,1}, \ldots, v_{i,d_i}\}\) is a basis of \(V_i\), then
+\[\{(v_{1,1}, 0, \ldots, 0), \ldots, (v_{1,d_1}, 0, \ldots, 0), (0, v_{2,1}, 0, \ldots, 0), \ldots, (0, \ldots, 0, v_{n,d_n})\}\]
+is a basis of \(V_1 \times \cdots \times V_n\). This has \(d_1 + \cdots + d_n\) elements.
+}
+
+\nt{The external direct sum \(V_1 \times V_2\) and the internal direct sum \(U \oplus W \subseteq V\) are related as follows: if \(V = U \oplus W\), then the map
+\[U \times W \to V, \quad (u, w) \mapsto u + w\]
+is an isomorphism. Conversely, \(V_1 \times V_2\) contains copies of \(V_1\) and \(V_2\) as subspaces (embedded as \(V_1 \times \{0\}\) and \(\{0\} \times V_2\)), and \(V_1 \times V_2\) is their internal direct sum.
+}
+
+\ex{}{The space \(\RR^{m+n}\) is isomorphic to \(\RR^m \times \RR^n\) via \((x_1, \ldots, x_m, y_1, \ldots, y_n) \mapsto ((x_1, \ldots, x_m), (y_1, \ldots, y_n))\). This is why we freely identify \(\RR^m \oplus \RR^n\) with \(\RR^{m+n}\).
 }
 
 
@@ -414,7 +516,7 @@ However, \(k[x]\) has the infinite basis \(\{1, x, x^2, x^3, \ldots\}\). Every p
 
 \section{Finite-Dimensional Vector Spaces and Dimension}
 
-The notion of \emph{dimension} is central to linear algebra. Unlike groups, where classification is intractable, finite-dimensional vector spaces are completely determined by a single integer---their dimension. We establish this remarkable fact through a sequence of lemmas about the interplay between spanning sets and linearly independent sets.
+The notion of \emph{dimension} will appear constantly throughout linear algebra and beyond. Unlike groups, where classification is intractable, finite-dimensional vector spaces are completely determined by a single integer---their dimension. We establish this remarkable fact through a sequence of lemmas about the interplay between spanning sets and linearly independent sets.
 
 \dfn{Finite-dimensional}{A vector space \(V\) is \textbf{\emph{finite-dimensional}} if there exists a finite spanning set for \(V\), i.e., vectors \(v_1, \ldots, v_n\) such that \(\operatorname{Span}(v_1, \ldots, v_n) = V\). Otherwise, \(V\) is \textbf{\emph{infinite-dimensional}}.
 }
@@ -693,7 +795,7 @@ sending a linear map to its matrix is an \textbf{\emph{isomorphism of vector spa
 \nt{This result says: \textbf{linear maps are matrices, once we choose coordinates}. The abstract theory of linear maps reduces to the concrete theory of matrix computations. However, the matrix depends on the choice of bases---changing bases changes the matrix (we will study this ``change of basis'' in the near future).
 }
 
-The interplay between the abstract (linear maps) and the concrete (matrices) is the engine of linear algebra. Our goal is to understand how much of a linear map's structure is intrinsic (independent of basis choice) versus coordinate-dependent.
+The interplay between the abstract (linear maps) and the concrete (matrices) is what makes linear algebra, well linear algebra (duh). Our goal is to understand how much of a linear map's structure is intrinsic (independent of basis choice) versus coordinate-dependent.
 
 
 \section{Change of basis}
@@ -736,7 +838,7 @@ We write \(A \sim B\).
 \end{enumerate}
 }
 
-The main insight here is that similarity classes of matrices correspond exactly to linear operators on \(k^n\): two matrices are similar if and only if they represent the same linear operator in different bases.
+As we can see, similarity classes of matrices correspond exactly to linear operators on \(k^n\): two matrices are similar if and only if they represent the same linear operator in different bases.
 
 \nt{From the categorical perspective, similar matrices represent the same morphism in \(\mathbf{Vect}_k\)---they are simply different coordinate descriptions of one intrinsic object. This is why similarity-invariant properties (trace, determinant, eigenvalues, rank) are so important: they are properties of the \emph{operator itself}, not of any particular matrix representation.
 }
@@ -823,7 +925,7 @@ Then \(\det(A) = 0\), \(\det(B) = 0\), but \(A + B = I\), so \(\det(A + B) = 1 \
 
 \section{Kernel and Image}
 
-Every linear map carries two intrinsic subspaces that reveal its fundamental structure: the \emph{kernel} (what gets annihilated) and the \emph{image} (what gets hit). These are the linear-algebraic analogues of concepts we've seen before: the kernel of a group homomorphism and the image of any function. The interplay between kernel and image is governed by the \textbf{\emph{Rank-Nullity Theorem}}.
+Every linear map carries two intrinsic subspaces that reveal its fundamental structure: the \emph{kernel} (what gets annihilated) and the \emph{image} (what gets hit). These are the linear-algebraic analogues of concepts we've seen before: the kernel of a group homomorphism and the image of any function. The intermingling betwixt (what a fun word) kernel and image is governed by the \textbf{\emph{Rank-Nullity Theorem}}.
 
 \nt{From the categorical viewpoint, kernel and image are two ways to ``measure'' a morphism. The kernel measures the \emph{failure of injectivity}---how much information the map destroys. The image measures the \emph{failure of surjectivity}---how much of the codomain the map misses. The Rank-Nullity Theorem says these two failures are complementary: the more a linear map kills, the less it can produce, and vice versa. A linear map \(\varphi : V \to W\) is completely determined by: (1) which subspace it kills (the kernel), and (2) which subspace it hits (the image). Once you know these, there's essentially only one way to fill in the rest---the map restricted to any complement of the kernel is an isomorphism onto the image. This is different from nonlinear maps, where knowing the zero set tells you almost nothing about the map's behavior elsewhere.
 }
@@ -880,7 +982,7 @@ so \(u - v \in \ker(\varphi) = \{0\}\). Thus \(u - v = 0\), i.e., \(u = v\). Hen
 \cor{}{An injective linear map from \(V\) to \(W\) embeds \(V\) as a subspace of \(W\). More precisely, if \(\varphi : V \to W\) is injective, then \(V \cong \Img(\varphi) \subseteq W\).
 }
 
-\nt{The kernel doesn't just detect injectivity---it \emph{measures the failure of injectivity} in a precise sense. Two vectors \(u, v \in V\) have the same image under \(\varphi\) if and only if \(u - v \in \ker(\varphi)\). Thus the fibers of \(\varphi\) (preimages of points) are exactly the cosets \(v + \ker(\varphi)\). The map \(\varphi\) is injective precisely when these cosets are singletons, i.e., when \(\ker(\varphi) = \{0\}\). This is why we can ``mod out by the kernel'' to obtain an injective map---the quotient \(V/\ker(\varphi)\) collapses each fiber to a point.
+\nt{Here the kernal has a role more that merely verifying injectivity---it \emph{measures the failure of injectivity} in a precise sense. Two vectors \(u, v \in V\) have the same image under \(\varphi\) if and only if \(u - v \in \ker(\varphi)\). Thus the fibers of \(\varphi\) (preimages of points) are exactly the cosets \(v + \ker(\varphi)\). The map \(\varphi\) is injective precisely when these cosets are singletons, i.e., when \(\ker(\varphi) = \{0\}\). This is why we can ``mod out by the kernel'' to obtain an injective map---the quotient \(V/\ker(\varphi)\) collapses each fiber to a point.
 }
 
 \subsection{The Image (Range)}
@@ -1462,7 +1564,7 @@ Moreover, this bijection preserves inclusions: \(W_1 \subseteq W_2 \Leftrightarr
 \textbf{Backward then forward:} Starting with \(\bar{W} \subseteq V/U\), let \(W = q^{-1}(\bar{W})\). Note \(U = q^{-1}(0) \subseteq q^{-1}(\bar{W}) = W\). Then \(W/U = q(W) = q(q^{-1}(\bar{W})) = \bar{W}\) (surjectivity of \(q\) ensures \(q(q^{-1}(S)) = S\) for any \(S \subseteq V/U\)).
 }
 
-\nt{This correspondence is fundamental. For instance, maximal proper subspaces of \(V\) containing \(U\) correspond to maximal proper subspaces of \(V/U\)---i.e., hyperplanes (codimension-1 subspaces). This perspective is crucial in algebraic geometry and representation theory.}
+\nt{Maximal proper subspaces of \(V\) containing \(U\) correspond to maximal proper subspaces of \(V/U\)---i.e., hyperplanes (codimension-1 subspaces). This perspective becomes useful in algebraic geometry and representation theory.}
 
 
 
@@ -1652,9 +1754,9 @@ Geometrically, \(\varphi\) is a ``shear'': it fixes the \(x\)-axis pointwise and
 
 \ex{No eigenvectors over \(\RR\)}{Consider rotation by $90^\circ$ in \(\RR^2\):
 \[R = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}.\]
-The characteristic polynomial is \(\det(R - \lambda I) = \lambda^2 + 1\), which has no real roots. So \(R\) has \emph{no eigenvalues} over \(\RR\), hence no eigenvectors. Over \(\CC\), the eigenvalues are \(\pm i\) with eigenvectors \((1, \mp i)^T\), and \(R\) is diagonalizable as a complex matrix.
+The characteristic polynomial is \(\det(R - \lambda I) = \lambda^2 + 1\), which has no real roots. So \(R\) has \emph{no eigenvalues} over \(\RR\), hence no eigenvectors. Over \(\CC\), the eigenvalues are \(\pm i\) with eigenvectors \((1, \mp i)^T\), and \(R\) is diagonalizable as a complex matrix. The eigenfairy doesn't visit \( \mathbb{R} \) (sad).
 
-This illustrates a crucial point: diagonalizability depends on the scalar field!}
+This illustrates that diagonalizability depends on the scalar field!}
 
 \nt{The rotation example shows that not every operator is diagonalizable. Even over \(\CC\), where every polynomial has roots, an operator may fail to be diagonalizable (like the shear above). Understanding non-diagonalizable operators requires the theory of Jordan normal form, which we'll develop later.}
 
@@ -1712,6 +1814,21 @@ Since we have 2 linearly independent eigenvectors in \(\RR^2\), \(A\) is diagona
 
 Let \(P = \begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}\) (columns are eigenvectors). Then \(P^{-1}AP = \begin{pmatrix} 5 & 0 \\ 0 & 2 \end{pmatrix}\).
 \end{solution}
+
+
+\section{Let's get general up in here!}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
