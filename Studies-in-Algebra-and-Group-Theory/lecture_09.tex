@@ -1,0 +1,1012 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 9: Inner Product Spaces
+% Author: S. D. V. Stephens
+% Date: 2026-01-19
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{9}{Inner Product Spaces}
+
+So far we have studied vector spaces equipped only with their linear structure. Adding geometric notions---length, angle, orthogonality---requires additional data: an \emph{inner product}. This structure transforms abstract linear algebra into something closer to Euclidean geometry, while revealing that many geometric intuitions extend far beyond \(\RR^n\).
+
+We begin with the more general notion of bilinear forms, then specialize to the symmetric positive-definite case (inner products over \(\RR\)) and its complex analogue (Hermitian inner products over \(\CC\)).
+
+
+\section{Inner Products}
+
+\subsection{Bilinear Forms}
+
+Before defining inner products, we study the broader class of bilinear forms. This generality clarifies which properties of inner products come from bilinearity alone and which require symmetry or positivity.
+
+\dfn{Bilinear form}{Let \(V\) be a vector space over a field \(k\). A \textbf{bilinear form} on \(V\) is a map \(b : V \times V \to k\) that is linear in each variable:
+\begin{enumerate}[(i)]
+    \item \(b(\lambda v, w) = \lambda b(v, w) = b(v, \lambda w)\) for all \(\lambda \in k\), \(v, w \in V\).
+    \item \(b(u + v, w) = b(u, w) + b(v, w)\) for all \(u, v, w \in V\).
+    \item \(b(u, v + w) = b(u, v) + b(u, w)\) for all \(u, v, w \in V\).
+\end{enumerate}
+}
+
+\nt{A bilinear form is \emph{not} a linear map \(V \times V \to k\). If we view \(V \times V\) as a vector space (the external direct sum \(V \oplus V\)), a linear map would satisfy \(b(\lambda(v, w)) = \lambda b(v, w)\), i.e., \(b(\lambda v, \lambda w) = \lambda b(v, w)\). But bilinearity gives \(b(\lambda v, \lambda w) = \lambda^2 b(v, w)\). The tensor product \(V \otimes V\) is the correct domain for linearizing bilinear maps.}
+
+\dfn{Symmetric and skew-symmetric forms}{A bilinear form \(b\) is:
+\begin{itemize}
+    \item \textbf{Symmetric} if \(b(v, w) = b(w, v)\) for all \(v, w \in V\).
+    \item \textbf{Skew-symmetric} (or \textbf{alternating}) if \(b(v, w) = -b(w, v)\) for all \(v, w \in V\).
+\end{itemize}
+}
+
+\ex{The standard dot product}{On \(k^n\), the map \(b(v, w) = \sum_{i=1}^n v_i w_i\) is a symmetric bilinear form. This is the ``dot product'' familiar from calculus.
+}
+
+\ex{A skew-symmetric form}{On \(k^2\), define \(b((x_1, x_2), (y_1, y_2)) = x_1 y_2 - x_2 y_1\). This equals \(\det \begin{pmatrix} x_1 & y_1 \\ x_2 & y_2 \end{pmatrix}\) and is skew-symmetric. Geometrically, it computes signed area.
+}
+
+
+\subsubsection{Matrix Representation}
+
+Given a basis \(\{e_1, \ldots, e_n\}\) of \(V\), a bilinear form \(b\) is determined by the values \(a_{ij} = b(e_i, e_j)\). By bilinearity:
+\[b\left(\sum_i x_i e_i, \sum_j y_j e_j\right) = \sum_{i,j} x_i y_j \, b(e_i, e_j) = \sum_{i,j} a_{ij} x_i y_j.\]
+Writing \(x = (x_1, \ldots, x_n)^T\) and \(y = (y_1, \ldots, y_n)^T\) as column vectors, this is:
+\[b(x, y) = x^T A y\]
+where \(A = (a_{ij})\) is the \textbf{matrix of \(b\)} with respect to the chosen basis.
+
+\mprop{Symmetry and the matrix}{
+\begin{enumerate}[(i)]
+    \item \(b\) is symmetric if and only if \(A = A^T\).
+    \item \(b\) is skew-symmetric if and only if \(A = -A^T\).
+\end{enumerate}
+}
+
+\pf{Proof}{We have \(b(v, w) = v^T A w\) and \(b(w, v) = w^T A v = (w^T A v)^T = v^T A^T w\). So \(b(v, w) = b(w, v)\) for all \(v, w\) iff \(v^T A w = v^T A^T w\) for all \(v, w\), iff \(A = A^T\). The skew-symmetric case is similar.
+}
+
+\subsubsection{Bilinear Forms and the Dual Space}
+
+There is a natural connection between bilinear forms and linear maps to the dual space.
+
+\mprop{The map \(\varphi_b : V \to V^*\)}{Given a bilinear form \(b : V \times V \to k\), define \(\varphi_b : V \to V^*\) by
+\[\varphi_b(v) = b(v, \cdot) \in V^*,\]
+i.e., \(\varphi_b(v)\) is the linear functional \(w \mapsto b(v, w)\). Then \(\varphi_b\) is a linear map.
+}
+
+\pf{Proof}{For \(v_1, v_2 \in V\) and \(\lambda \in k\):
+\[\varphi_b(v_1 + \lambda v_2)(w) = b(v_1 + \lambda v_2, w) = b(v_1, w) + \lambda b(v_2, w) = (\varphi_b(v_1) + \lambda \varphi_b(v_2))(w).\]
+So \(\varphi_b(v_1 + \lambda v_2) = \varphi_b(v_1) + \lambda \varphi_b(v_2)\).
+}
+
+Conversely, any linear map \(\varphi : V \to V^*\) determines a bilinear form \(b(v, w) = \varphi(v)(w)\).
+
+\thm{Bilinear forms and \(\Hom(V, V^*)\)}{The map \(b \mapsto \varphi_b\) defines an isomorphism of vector spaces
+\[B(V) \xrightarrow{\sim} \Hom(V, V^*)\]
+where \(B(V)\) denotes the space of bilinear forms on \(V\).
+}
+
+\dfn{Rank and nondegeneracy}{The \textbf{rank} of a bilinear form \(b\) is \(\rank(\varphi_b) = \dim(\Img(\varphi_b))\). Equivalently, it is the rank of the matrix \(A\) in any basis.
+
+The form \(b\) is \textbf{nondegenerate} if \(\varphi_b\) is an isomorphism, i.e., if \(\ker(\varphi_b) = \{0\}\). Equivalently, \(b\) is nondegenerate iff \(A\) is invertible.
+}
+
+\nt{For \(V\) finite-dimensional, \(\dim V = \dim V^*\), so \(\varphi_b\) is an isomorphism iff it is injective iff it is surjective. Nondegeneracy means: if \(b(v, w) = 0\) for all \(w \in V\), then \(v = 0\).}
+
+\mprop{Dimension of the space of bilinear forms}{If \(\dim V = n\), then \(\dim B(V) = n^2\).}
+
+\pf{Proof}{We have \(B(V) \cong \Hom(V, V^*)\). Since \(\dim V^* = n\), we get \(\dim \Hom(V, V^*) = n \cdot n = n^2\). Alternatively, a bilinear form is determined by an \(n \times n\) matrix.
+}
+
+
+\subsection{Inner Products over the reals}
+
+To do geometry, we need more than bilinearity. The key additional properties are symmetry (so that \(b(v, w) = b(w, v)\)) and positive-definiteness (so that ``length'' is always nonnegative).
+
+\dfn{Inner product (real case)}{Let \(V\) be a vector space over \(\RR\). An \textbf{inner product} on \(V\) is a bilinear form \(\langle \cdot, \cdot \rangle : V \times V \to \RR\) satisfying:
+\begin{enumerate}[(i)]
+    \item \textbf{Symmetry:} \(\langle v, w \rangle = \langle w, v \rangle\) for all \(v, w \in V\).
+    \item \textbf{Positive-definiteness:} \(\langle v, v \rangle \geq 0\) for all \(v \in V\), with equality iff \(v = 0\).
+\end{enumerate}
+A vector space equipped with an inner product is called an \textbf{inner product space}.
+}
+
+\nt{Positive-definiteness only makes sense over an \emph{ordered} field where ``\(\geq 0\)'' is meaningful. In practice, this means \(\RR\). We cannot directly define inner products over \(\CC\) or finite fields using this definition---we will see the complex workaround shortly.}
+
+\ex{The standard inner product on \(\RR^n\)}{The dot product
+\[\langle v, w \rangle = \sum_{i=1}^n v_i w_i = v^T w\]
+is an inner product. Symmetry is clear, and \(\langle v, v \rangle = \sum v_i^2 \geq 0\) with equality iff all \(v_i = 0\).
+}
+
+\ex{A weighted inner product}{On \(\RR^n\), for positive constants \(c_1, \ldots, c_n > 0\), define
+\[\langle v, w \rangle = \sum_{i=1}^n c_i v_i w_i.\]
+This is an inner product (check!). Different weights emphasize different coordinates.
+}
+
+\mprop{Inner products are nondegenerate}{Every inner product is nondegenerate.}
+
+\pf{Proof}{Suppose \(\langle v, w \rangle = 0\) for all \(w \in V\). Taking \(w = v\), we get \(\langle v, v \rangle = 0\). By positive-definiteness, \(v = 0\).
+}
+
+\nt{The converse is false: a nondegenerate symmetric bilinear form need not be positive-definite. For example, the Minkowski metric \(b(v, w) = v_1 w_1 - v_2 w_2 - v_3 w_3 - v_4 w_4\) on \(\RR^4\) is nondegenerate and symmetric, but \(b(v, v)\) can be negative.}
+
+
+\subsection{Hermitian Inner Products over the complexes}
+
+Why can't we directly use the same definition over \(\CC\)? If \(b\) is a bilinear form on a complex vector space with \(b(v, v) \geq 0\), consider \(b(iv, iv) = i^2 b(v, v) = -b(v, v)\). So if \(b(v, v) > 0\), then \(b(iv, iv) < 0\). Bilinearity and positive-definiteness are incompatible over \(\CC\).
+
+The solution is to weaken bilinearity: we require linearity in one variable and \emph{conjugate}-linearity in the other.
+
+\dfn{Sesquilinear form}{A map \(H : V \times V \to \CC\) on a complex vector space \(V\) is \textbf{sesquilinear} if:
+\begin{enumerate}[(i)]
+    \item \(H(u + v, w) = H(u, w) + H(v, w)\) and \(H(u, v + w) = H(u, v) + H(u, w)\).
+    \item \(H(\lambda u, v) = \lambda H(u, v)\) for \(\lambda \in \CC\).
+    \item \(H(u, \lambda v) = \ol{\lambda} H(u, v)\) for \(\lambda \in \CC\).
+\end{enumerate}
+That is, \(H\) is linear in the first argument and conjugate-linear in the second.
+}
+
+\nt{Some authors (including Axler) use the opposite convention: conjugate-linear in the first argument, linear in the second. The choice is a matter of convention; we follow Artin here.}
+
+\dfn{Hermitian form}{A sesquilinear form \(H\) is \textbf{Hermitian} (or \textbf{conjugate-symmetric}) if
+\[H(u, v) = \ol{H(v, u)}\]
+for all \(u, v \in V\).
+}
+
+\nt{Conjugate-symmetry implies \(H(v, v) = \ol{H(v, v)}\), so \(H(v, v) \in \RR\) for all \(v\). This makes positive-definiteness meaningful.}
+
+\dfn{Hermitian inner product}{A \textbf{Hermitian inner product} on a complex vector space \(V\) is a sesquilinear form \(H : V \times V \to \CC\) that is:
+\begin{enumerate}[(i)]
+    \item \textbf{Conjugate-symmetric:} \(H(u, v) = \ol{H(v, u)}\).
+    \item \textbf{Positive-definite:} \(H(v, v) \geq 0\) for all \(v\), with equality iff \(v = 0\).
+\end{enumerate}
+}
+
+\ex{The standard Hermitian inner product on \(\CC^n\)}{Define
+\[H(z, w) = \sum_{i=1}^n z_i \ol{w_i} = z^* w\]
+where \(z^* = \ol{z}^T\) is the conjugate transpose. Then:
+\begin{itemize}
+    \item \(H(w, z) = \sum w_i \ol{z_i} = \ol{\sum z_i \ol{w_i}} = \ol{H(z, w)}\).
+    \item \(H(z, z) = \sum |z_i|^2 \geq 0\), with equality iff \(z = 0\).
+\end{itemize}
+}
+
+\mprop{The map \(\varphi_H : V \to V^*\)}{For a Hermitian form \(H\), the map \(\varphi_H(v) = H(v, \cdot)\) is a \textbf{conjugate-linear} map \(V \to V^*\):
+\[\varphi_H(\lambda v) = \ol{\lambda} \varphi_H(v).\]
+If \(H\) is positive-definite, then \(\varphi_H\) is injective (and hence bijective when \(V\) is finite-dimensional).
+}
+
+\nt{Various properties carry over from the real case. A positive-definite Hermitian form is nondegenerate. Given a subspace \(W \subseteq V\), its orthogonal complement \(W^\perp = \{v \in V : H(v, w) = 0 \; \forall w \in W\}\) is a subspace, and \(V = W \oplus W^\perp\) when \(H\) is positive-definite.}
+
+
+\subsection{Norms and the Cauchy-Schwarz Inequality}
+
+An inner product induces a notion of length via the norm.
+
+\dfn{Norm}{Let \(V\) be an inner product space (real or Hermitian). The \textbf{norm} of a vector \(v \in V\) is
+\[\|v\| = \sqrt{\langle v, v \rangle}.\]
+This is well-defined since \(\langle v, v \rangle \geq 0\).
+}
+
+\dfn{Orthogonality}{Vectors \(v, w \in V\) are \textbf{orthogonal}, written \(v \perp w\), if \(\langle v, w \rangle = 0\).}
+
+\mprop{Basic properties of the norm}{
+\begin{enumerate}[(i)]
+    \item \(\|v\| \geq 0\), with equality iff \(v = 0\).
+    \item \(\|\lambda v\| = |\lambda| \|v\|\) for \(\lambda \in k\).
+    \item (Pythagorean theorem) If \(v \perp w\), then \(\|v + w\|^2 = \|v\|^2 + \|w\|^2\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) and (ii) follow from the definitions. For (iii):
+\[\|v + w\|^2 = \langle v + w, v + w \rangle = \|v\|^2 + \langle v, w \rangle + \langle w, v \rangle + \|w\|^2 = \|v\|^2 + \|w\|^2\]
+since \(\langle v, w \rangle = 0 = \langle w, v \rangle\) (using symmetry/conjugate-symmetry).
+}
+
+The Pythagorean theorem suggests that orthogonal vectors behave like legs of a right triangle. More generally:
+
+\[\|v - w\|^2 = \|v\|^2 + \|w\|^2 - 2\operatorname{Re}\langle v, w \rangle.\]
+
+This motivates defining the angle between nonzero vectors. But first we need to know that \(|\langle v, w \rangle| \leq \|v\| \|w\|\) so that the ratio lies in \([-1, 1]\).
+
+\thm{Cauchy--Schwarz inequality}{For all \(u, v\) in an inner product space,
+\[|\langle u, v \rangle| \leq \|u\| \|v\|,\]
+with equality iff \(u\) and \(v\) are linearly dependent.
+}
+
+\pf{Proof}{The inequality is trivial if \(u = 0\). Assume \(u \neq 0\); by scaling, we may assume \(\|u\| = 1\).
+
+Decompose \(v\) along \(u\): let \(S = \operatorname{span}(u)\). Since \(\langle \cdot, \cdot \rangle\) is nondegenerate and \(\dim S = 1\), we have \(V = S \oplus S^\perp\). Write
+\[v = v_1 + v_2, \quad v_1 = \langle v, u \rangle u \in S, \quad v_2 = v - \langle v, u \rangle u \in S^\perp.\]
+Then \(v_1 \perp v_2\), so by the Pythagorean theorem:
+\[\|v\|^2 = \|v_1\|^2 + \|v_2\|^2 \geq \|v_1\|^2 = |\langle v, u \rangle|^2 \|u\|^2 = |\langle v, u \rangle|^2.\]
+Taking square roots gives \(\|v\| \geq |\langle v, u \rangle| = |\langle u, v \rangle|\), which is the inequality for \(\|u\| = 1\).
+
+Equality holds iff \(v_2 = 0\), i.e., \(v \in S = \operatorname{span}(u)\).
+}
+
+\dfn{Angle between vectors}{For nonzero vectors \(v, w\) in a real inner product space, the \textbf{angle} \(\theta\) between them is defined by
+\[\cos \theta = \frac{\langle v, w \rangle}{\|v\| \|w\|}, \quad \theta \in [0, \pi].\]
+The Cauchy--Schwarz inequality ensures this ratio lies in \([-1, 1]\).
+}
+
+\cor{Triangle inequality}{For all \(u, v\) in an inner product space,
+\[\|u + v\| \leq \|u\| + \|v\|.\]
+}
+
+\pf{Proof}{
+\begin{align*}
+\|u + v\|^2 &= \|u\|^2 + 2\operatorname{Re}\langle u, v \rangle + \|v\|^2 \\
+&\leq \|u\|^2 + 2|\langle u, v \rangle| + \|v\|^2 \\
+&\leq \|u\|^2 + 2\|u\|\|v\| + \|v\|^2 = (\|u\| + \|v\|)^2. \qedhere
+\end{align*}
+}
+
+
+\subsection{Orthogonality and Orthogonal Complements}
+
+\dfn{Orthogonal complement}{Let \(V\) be an inner product space and \(S \subseteq V\) a subset. The \textbf{orthogonal complement} of \(S\) is
+\[S^\perp = \{v \in V : \langle v, w \rangle = 0 \; \forall w \in S\}.\]
+}
+
+\mprop{Basic properties of orthogonal complements}{
+\begin{enumerate}[(i)]
+    \item \(S^\perp\) is a subspace of \(V\) (even if \(S\) is not).
+    \item \(S \subseteq T \implies T^\perp \subseteq S^\perp\).
+    \item \(S \subseteq (S^\perp)^\perp\).
+    \item \(\{0\}^\perp = V\) and \(V^\perp = \{0\}\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) If \(v_1, v_2 \in S^\perp\) and \(\lambda \in k\), then for any \(w \in S\):
+\[\langle v_1 + \lambda v_2, w \rangle = \langle v_1, w \rangle + \lambda \langle v_2, w \rangle = 0 + \lambda \cdot 0 = 0.\]
+(ii)--(iv) are immediate from the definition.
+}
+
+\nt{For a general bilinear form (not necessarily symmetric), we must distinguish ``left-orthogonal'' (\(b(v, w) = 0\) for all \(w \in S\)) from ``right-orthogonal'' (\(b(w, v) = 0\) for all \(w \in S\)). For symmetric forms and inner products, these coincide.}
+
+The key result is that an inner product space decomposes as \(V = S \oplus S^\perp\) for any subspace \(S\).
+
+\mlemma{Dimension of orthogonal complement}{Let \(b\) be a nondegenerate bilinear form on a finite-dimensional space \(V\), and let \(S \subseteq V\) be a subspace. Then
+\[\dim S^\perp = \dim V - \dim S.\]
+If \(b\) is an inner product (positive-definite), then \(S \cap S^\perp = \{0\}\).
+}
+
+\pf{Proof}{Consider the composition
+\[V \xrightarrow{\varphi_b} V^* \xrightarrow{r} S^*\]
+where \(\varphi_b(v) = b(v, \cdot)\) and \(r : V^* \to S^*\) is restriction. The kernel of \(r \circ \varphi_b\) is exactly \(S^\perp\).
+
+By rank-nullity: \(\dim S^\perp = \dim V - \rank(r \circ \varphi_b)\).
+
+Since \(\varphi_b\) is an isomorphism (nondegeneracy) and \(r\) is surjective, \(r \circ \varphi_b\) is surjective. Thus \(\rank(r \circ \varphi_b) = \dim S^* = \dim S\), giving \(\dim S^\perp = \dim V - \dim S\).
+
+For the second claim: if \(v \in S \cap S^\perp\), then \(\langle v, v \rangle = 0\). By positive-definiteness, \(v = 0\).
+}
+
+\thm{Orthogonal decomposition}{Let \(V\) be a finite-dimensional inner product space and \(S \subseteq V\) a subspace. Then
+\[V = S \oplus S^\perp.\]
+}
+
+\pf{Proof}{By the lemma, \(\dim S + \dim S^\perp = \dim V\) and \(S \cap S^\perp = \{0\}\). The dimension formula for sums gives
+\[\dim(S + S^\perp) = \dim S + \dim S^\perp - \dim(S \cap S^\perp) = \dim V.\]
+So \(S + S^\perp = V\), and the sum is direct since \(S \cap S^\perp = \{0\}\).
+}
+
+\ex{Standard orthogonal complement in \(\RR^n\)}{Let \(V = \RR^n\) with the standard inner product \(\langle v, w \rangle = \sum v_i w_i\). If \(S\) is a subspace, then \(S^\perp\) is the ``usual'' orthogonal complement: vectors perpendicular to every vector in \(S\).
+
+For instance, if \(S = \operatorname{span}((1, 0, 0))\) in \(\RR^3\), then \(S^\perp = \{(0, y, z) : y, z \in \RR\}\).
+}
+
+\ex{Skew-symmetric forms can have \(S^\perp = S\)}{Let \(V = k^2\) with the skew-symmetric form \(b((x_1, x_2), (y_1, y_2)) = x_1 y_2 - x_2 y_1\). Let \(S\) be any 1-dimensional subspace spanned by a nonzero vector \(v\).
+
+For any \(w \in k^2\), we have \(b(v, w) = 0 \iff \det(v \mid w) = 0 \iff w \in \operatorname{span}(v) = S\).
+
+So \(S^\perp = S\). In particular, \(S \cap S^\perp = S \neq \{0\}\), and \(V \neq S \oplus S^\perp\). This cannot happen for inner products.
+}
+
+
+
+\section{Orthonormal Bases}
+
+\subsection{The Gram-Schmidt Process}
+
+In an inner product space, we can ask for bases that respect the geometry: bases whose vectors are mutually orthogonal and have unit length.
+
+\dfn{Orthonormal basis}{Let \(V\) be a finite-dimensional inner product space. A basis \(\{v_1, \ldots, v_n\}\) of \(V\) is \textbf{orthonormal} if
+\[\langle v_i, v_j \rangle = \delta_{ij} = \begin{cases} 1 & i = j \\ 0 & i \neq j \end{cases}.\]
+Equivalently, \(\|v_i\| = 1\) for all \(i\), and \(v_i \perp v_j\) for \(i \neq j\).
+}
+
+\nt{In an orthonormal basis, the inner product takes a simple form: if \(v = \sum x_i e_i\) and \(w = \sum y_j e_j\), then
+\[\langle v, w \rangle = \sum_{i,j} x_i \ol{y_j} \langle e_i, e_j \rangle = \sum_i x_i \ol{y_i}.\]
+For real spaces, this is just \(x^T y\). For complex spaces with Hermitian inner product, it is \(x^* y\).}
+
+\thm{Existence of orthonormal bases}{Every finite-dimensional inner product space has an orthonormal basis.}
+
+We give two proofs: one by induction, one constructive (Gram--Schmidt).
+
+\pf{Proof 1 (Induction on dimension)}{Let \(\dim V = n\). If \(n = 0\), the empty set is an orthonormal basis. For \(n \geq 1\):
+
+Pick any nonzero \(v \in V\) and set \(v_1 = v / \|v\|\), so \(\|v_1\| = 1\). Let \(S = \operatorname{span}(v_1)\). By the orthogonal decomposition theorem, \(V = S \oplus S^\perp\), and \(\dim S^\perp = n - 1\).
+
+The restriction of \(\langle \cdot, \cdot \rangle\) to \(S^\perp\) is still an inner product (check positive-definiteness). By induction, \(S^\perp\) has an orthonormal basis \(\{v_2, \ldots, v_n\}\).
+
+Then \(\{v_1, v_2, \ldots, v_n\}\) is an orthonormal basis of \(V\): the \(v_i\) are orthonormal in \(S^\perp\), and \(v_1 \perp v_i\) for \(i \geq 2\) since \(v_i \in S^\perp\).
+}
+
+\pf{Proof 2 (Gram--Schmidt)}{Start with any basis \(\{w_1, \ldots, w_n\}\) of \(V\). We inductively construct orthonormal vectors \(v_1, \ldots, v_n\) such that \(\operatorname{span}(v_1, \ldots, v_k) = \operatorname{span}(w_1, \ldots, w_k)\) for each \(k\).
+
+\textbf{Step 1:} Set \(v_1 = w_1 / \|w_1\|\).
+
+\textbf{Step \(j\):} Given orthonormal \(v_1, \ldots, v_{j-1}\), define
+\[u_j = w_j - \sum_{i=1}^{j-1} \langle w_j, v_i \rangle v_i.\]
+This subtracts from \(w_j\) its projections onto each \(v_i\), leaving a vector orthogonal to \(\operatorname{span}(v_1, \ldots, v_{j-1})\).
+
+Since \(w_j \notin \operatorname{span}(w_1, \ldots, w_{j-1}) = \operatorname{span}(v_1, \ldots, v_{j-1})\) (linear independence), we have \(u_j \neq 0\). Set
+\[v_j = \frac{u_j}{\|u_j\|}.\]
+
+By construction, \(v_j \perp v_i\) for \(i < j\), and \(\|v_j\| = 1\). The span condition holds since \(v_j \in \operatorname{span}(w_1, \ldots, w_j)\) and \(w_j \in \operatorname{span}(v_1, \ldots, v_j)\).
+}
+
+
+\cor{Isomorphism with standard space}{Every \(n\)-dimensional real inner product space is isomorphic to \((\RR^n, \text{standard inner product})\) as an inner product space. Similarly, every \(n\)-dimensional Hermitian inner product space is isomorphic to \((\CC^n, \text{standard Hermitian product})\).
+}
+
+\pf{Proof}{Let \(\{v_1, \ldots, v_n\}\) be an orthonormal basis. The coordinate map \(\varphi : V \to k^n\) sending \(v = \sum a_i v_i\) to \((a_1, \ldots, a_n)\) is a linear isomorphism. Moreover,
+\[\langle v, w \rangle = \langle \sum a_i v_i, \sum b_j v_j \rangle = \sum_{i,j} a_i \ol{b_j} \delta_{ij} = \sum_i a_i \ol{b_i}\]
+which is the standard inner product of the coordinate vectors.
+}
+
+\nt{This says that all \(n\)-dimensional inner product spaces (over the same field) are ``the same.'' The choice of orthonormal basis corresponds to the choice of isomorphism with standard space. Different orthonormal bases give different coordinate systems, all equally valid.}
+
+\ex{Gram--Schmidt in \(\RR^3\)}{Apply Gram--Schmidt to the basis \(w_1 = (1, 1, 0)\), \(w_2 = (1, 0, 1)\), \(w_3 = (0, 1, 1)\) of \(\RR^3\).
+
+\textbf{Step 1:} \(\|w_1\| = \sqrt{2}\), so \(v_1 = \frac{1}{\sqrt{2}}(1, 1, 0)\).
+
+\textbf{Step 2:} \(\langle w_2, v_1 \rangle = \frac{1}{\sqrt{2}}(1 + 0 + 0) = \frac{1}{\sqrt{2}}\).
+\[u_2 = w_2 - \frac{1}{\sqrt{2}} v_1 = (1, 0, 1) - \frac{1}{2}(1, 1, 0) = \left(\frac{1}{2}, -\frac{1}{2}, 1\right).\]
+\(\|u_2\|^2 = \frac{1}{4} + \frac{1}{4} + 1 = \frac{3}{2}\), so \(v_2 = \sqrt{\frac{2}{3}}\left(\frac{1}{2}, -\frac{1}{2}, 1\right) = \frac{1}{\sqrt{6}}(1, -1, 2)\).
+
+\textbf{Step 3:} Compute projections and proceed similarly to get \(v_3\).
+}
+
+\subsection{Orthogonal Projections}
+
+The orthogonal decomposition \(V = S \oplus S^\perp\) gives a canonical way to project onto \(S\).
+
+\dfn{Orthogonal projection}{Let \(V\) be an inner product space and \(S \subseteq V\) a subspace. The \textbf{orthogonal projection} onto \(S\) is the linear map \(\pi_S : V \to V\) defined by: for \(v = v_S + v_{S^\perp}\) with \(v_S \in S\) and \(v_{S^\perp} \in S^\perp\),
+\[\pi_S(v) = v_S.\]
+}
+
+\mprop{Properties of orthogonal projections}{Let \(\pi_S : V \to V\) be the orthogonal projection onto \(S\).
+\begin{enumerate}[(i)]
+    \item \(\Img(\pi_S) = S\) and \(\Ker(\pi_S) = S^\perp\).
+    \item \(\pi_S^2 = \pi_S\) (i.e., \(\pi_S\) is idempotent).
+    \item \(\pi_S^* = \pi_S\) (i.e., \(\pi_S\) is self-adjoint; see \S9.3).
+    \item \(\pi_{S^\perp} = \id - \pi_S\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) follows from the definition. For (ii): if \(v = v_S + v_{S^\perp}\), then \(\pi_S(v) = v_S \in S\), so \(\pi_S(\pi_S(v)) = \pi_S(v_S) = v_S\). (iv) is immediate from \(v = \pi_S(v) + \pi_{S^\perp}(v)\).
+}
+
+\mprop{Formula in orthonormal basis}{If \(\{e_1, \ldots, e_k\}\) is an orthonormal basis of \(S\), then
+\[\pi_S(v) = \sum_{i=1}^k \langle v, e_i \rangle e_i.\]
+}
+
+\pf{Proof}{Let \(w = \sum_{i=1}^k \langle v, e_i \rangle e_i \in S\). We show \(v - w \in S^\perp\): for any \(j \leq k\),
+\[\langle v - w, e_j \rangle = \langle v, e_j \rangle - \sum_i \langle v, e_i \rangle \langle e_i, e_j \rangle = \langle v, e_j \rangle - \langle v, e_j \rangle = 0.\]
+Since \(\{e_j\}\) spans \(S\), we have \(v - w \perp S\), so \(v - w \in S^\perp\). Thus \(w = \pi_S(v)\).
+}
+
+\mprop{Best approximation}{For \(v \in V\) and \(S \subseteq V\) a subspace, the projection \(\pi_S(v)\) is the unique vector in \(S\) minimizing \(\|v - s\|\) over \(s \in S\).
+}
+
+\pf{Proof}{For any \(s \in S\), write \(s = \pi_S(v) + (s - \pi_S(v))\) where \(s - \pi_S(v) \in S\). Then:
+\[\|v - s\|^2 = \|(v - \pi_S(v)) - (s - \pi_S(v))\|^2.\]
+Since \(v - \pi_S(v) \in S^\perp\) and \(s - \pi_S(v) \in S\), these are orthogonal:
+\[\|v - s\|^2 = \|v - \pi_S(v)\|^2 + \|s - \pi_S(v)\|^2 \geq \|v - \pi_S(v)\|^2,\]
+with equality iff \(s = \pi_S(v)\).
+}
+
+
+
+\section{The Adjoint}
+
+\subsection{Definition and Existence}
+
+Given a linear operator on an inner product space, we can define its ``adjoint'' by transposing the role of the two arguments in the inner product.
+
+\dfn{Adjoint operator}{Let \((V, \langle \cdot, \cdot \rangle)\) be a finite-dimensional inner product space and \(T : V \to V\) a linear operator. The \textbf{adjoint} of \(T\) is the unique linear operator \(T^* : V \to V\) satisfying
+\[\langle v, T(w) \rangle = \langle T^*(v), w \rangle\]
+for all \(v, w \in V\).
+}
+
+\thm{Existence and uniqueness of the adjoint}{For any linear operator \(T\) on a finite-dimensional inner product space, the adjoint \(T^*\) exists and is unique.}
+
+\pf{Proof (Existence)}{Fix \(v \in V\). The map \(w \mapsto \langle v, T(w) \rangle\) is a linear functional on \(V\).
+
+Since the inner product is nondegenerate, the map \(\varphi : V \to V^*\) defined by \(\varphi(u) = \langle u, \cdot \rangle\) is an isomorphism. Thus there exists a unique \(u \in V\) with \(\langle u, w \rangle = \langle v, T(w) \rangle\) for all \(w\). Define \(T^*(v) = u\).
+
+We must check \(T^*\) is linear. For \(v_1, v_2 \in V\) and \(\lambda \in k\):
+\[\langle T^*(v_1 + \lambda v_2), w \rangle = \langle v_1 + \lambda v_2, T(w) \rangle = \langle v_1, T(w) \rangle + \ol{\lambda} \langle v_2, T(w) \rangle\]
+\[= \langle T^*(v_1), w \rangle + \ol{\lambda} \langle T^*(v_2), w \rangle = \langle T^*(v_1) + \lambda T^*(v_2), w \rangle.\]
+(In the real case, \(\ol{\lambda} = \lambda\).) Since this holds for all \(w\), we get \(T^*(v_1 + \lambda v_2) = T^*(v_1) + \lambda T^*(v_2)\).
+
+\textbf{Uniqueness:} If \(S\) also satisfies \(\langle v, T(w) \rangle = \langle S(v), w \rangle\), then \(\langle T^*(v) - S(v), w \rangle = 0\) for all \(w\), so \(T^*(v) = S(v)\) by nondegeneracy.
+}
+
+\nt{Alternatively, the adjoint can be described as follows. The inner product gives an isomorphism \(\varphi : V \xrightarrow{\sim} V^*\), \(\varphi(v) = \langle v, \cdot \rangle\). The transpose \(T^t : V^* \to V^*\) is defined by \(T^t(\ell) = \ell \circ T\). Then
+\[T^* = \varphi^{-1} \circ T^t \circ \varphi.\]
+This shows the adjoint is the ``conjugate'' of the transpose by the inner-product isomorphism.}
+
+
+\subsection{Properties of the Adjoint}
+
+\mprop{Algebraic properties of the adjoint}{Let \(S, T : V \to V\) be linear operators on an inner product space, and \(\lambda \in k\). Then:
+\begin{enumerate}[(i)]
+    \item \((T^*)^* = T\).
+    \item \((S + T)^* = S^* + T^*\).
+    \item \((\lambda T)^* = \ol{\lambda} T^*\).
+    \item \((ST)^* = T^* S^*\).
+    \item \((\id)^* = \id\).
+\end{enumerate}
+}
+
+\pf{Proof}{Each follows from manipulating the defining equation \(\langle v, T(w) \rangle = \langle T^*(v), w \rangle\).
+
+(i) \(\langle v, T^*(w) \rangle = \ol{\langle T^*(w), v \rangle} = \ol{\langle w, T(v) \rangle} = \langle T(v), w \rangle\). So \((T^*)^* = T\).
+
+(iv) \(\langle v, (ST)(w) \rangle = \langle v, S(T(w)) \rangle = \langle S^*(v), T(w) \rangle = \langle T^*(S^*(v)), w \rangle = \langle (T^* S^*)(v), w \rangle\).
+}
+
+\nt{Property (iv) shows that taking adjoints reverses order, just like taking transposes or inverses. The map \(T \mapsto T^*\) is a conjugate-linear anti-automorphism of \(\End(V)\).}
+
+\subsubsection{Matrix of the Adjoint}
+
+\thm{Matrix of the adjoint}{Let \(\{e_1, \ldots, e_n\}\) be an orthonormal basis of \(V\), and let \(M = M(T)\) be the matrix of \(T\) in this basis. Then the matrix of \(T^*\) is:
+\[M(T^*) = \begin{cases} M^T & \text{(real inner product)} \\ M^* = \ol{M}^T & \text{(Hermitian inner product)} \end{cases}\]
+where \(M^*\) denotes the conjugate transpose.
+}
+
+\pf{Proof}{The \((i, j)\)-entry of \(M(T)\) is the coefficient of \(e_i\) in \(T(e_j)\), which equals \(\langle T(e_j), e_i \rangle = \ol{\langle e_i, T(e_j) \rangle}\).
+
+The \((i, j)\)-entry of \(M(T^*)\) is \(\langle T^*(e_j), e_i \rangle\).
+
+Using the defining property:
+\[\langle T^*(e_j), e_i \rangle = \langle e_j, T(e_i) \rangle = \ol{\langle T(e_i), e_j \rangle}.\]
+The \((j, i)\)-entry of \(M(T)\) is \(\langle T(e_i), e_j \rangle\), so
+\[M(T^*)_{ij} = \ol{M(T)_{ji}} = (M^*)_{ij}. \qedhere\]
+}
+
+\nt{In an orthonormal basis, self-adjoint operators (\(T^* = T\)) correspond to symmetric matrices (real case) or Hermitian matrices (complex case, \(M = M^*\)).}
+
+\mprop{Kernel and image of the adjoint}{For \(T : V \to V\):
+\begin{enumerate}[(i)]
+    \item \(\Ker(T^*) = \Img(T)^\perp\).
+    \item \(\Img(T^*) = \Ker(T)^\perp\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(v \in \Ker(T^*) \iff T^*(v) = 0 \iff \langle T^*(v), w \rangle = 0 \; \forall w \iff \langle v, T(w) \rangle = 0 \; \forall w \iff v \perp \Img(T)\).
+
+(ii) Apply (i) to \(T^*\): \(\Ker((T^*)^*) = \Img(T^*)^\perp\), i.e., \(\Ker(T) = \Img(T^*)^\perp\). Taking orthogonal complements: \(\Ker(T)^\perp = (\Img(T^*)^\perp)^\perp = \Img(T^*)\) (using \((S^\perp)^\perp = S\) in finite dimensions).
+}
+
+\cor{Rank equality}{\(\rank(T) = \rank(T^*)\).}
+
+\pf{Proof}{\(\rank(T^*) = \dim \Img(T^*) = \dim \Ker(T)^\perp = \dim V - \dim \Ker(T) = \rank(T)\).}
+
+
+
+\section{Self-Adjoint and Normal Operators}
+
+\subsection{The Spectral Theorem (Real Symmetric Case)}
+
+We now study operators with special relationships to their adjoints. The most important case is when \(T = T^*\).
+
+\dfn{Self-adjoint operator}{An operator \(T : V \to V\) on an inner product space is \textbf{self-adjoint} (or \textbf{Hermitian}) if \(T^* = T\), i.e.,
+\[\langle v, T(w) \rangle = \langle T(v), w \rangle\]
+for all \(v, w \in V\).
+}
+
+\nt{In an orthonormal basis, \(T\) is self-adjoint iff its matrix is symmetric (real case) or Hermitian (complex case, \(M = \ol{M}^T\)). Self-adjoint operators need not be invertible: for example, the zero operator is self-adjoint.}
+
+\mprop{Invariance of orthogonal complements}{Let \(T : V \to V\) be self-adjoint and \(S \subseteq V\) a \(T\)-invariant subspace (i.e., \(T(S) \subseteq S\)). Then \(S^\perp\) is also \(T\)-invariant.}
+
+\pf{Proof}{Let \(v \in S^\perp\). For any \(w \in S\), we have \(T(w) \in S\) (since \(S\) is \(T\)-invariant), so:
+\[\langle T(v), w \rangle = \langle v, T(w) \rangle = 0\]
+since \(v \perp T(w)\). Thus \(T(v) \perp S\), i.e., \(T(v) \in S^\perp\).
+}
+
+\nt{This is the key property that makes self-adjoint operators diagonalizable: once we find an eigenvector, its orthogonal complement is invariant, and we can proceed by induction.}
+
+To prove the spectral theorem, we need to establish that self-adjoint operators have real eigenvalues and that eigenvectors exist over \(\RR\).
+
+\mlemma{Positivity lemma}{Let \(T\) be self-adjoint on a real inner product space. For any \(a > 0\), the operator \(T^2 + a \cdot \id\) is invertible.}
+
+\pf{Proof}{We show \(\Ker(T^2 + a \cdot \id) = \{0\}\). For \(v \neq 0\):
+\[\langle (T^2 + a \cdot \id)(v), v \rangle = \langle T^2(v), v \rangle + a \langle v, v \rangle = \langle T(v), T(v) \rangle + a \|v\|^2 = \|T(v)\|^2 + a \|v\|^2 > 0.\]
+So \((T^2 + a \cdot \id)(v) \neq 0\) for \(v \neq 0\), i.e., \(T^2 + a \cdot \id\) is injective, hence invertible.
+}
+
+\cor{Quadratics without real roots}{If \(p(x) = x^2 + bx + c \in \RR[x]\) has no real roots (i.e., \(b^2 - 4c < 0\)), and \(T\) is self-adjoint, then \(p(T) = T^2 + bT + c \cdot \id\) is invertible.}
+
+\pf{Proof}{Complete the square: \(T^2 + bT + c \cdot \id = (T + \frac{b}{2} \id)^2 + (c - \frac{b^2}{4}) \id\).
+
+Since \(b^2 - 4c < 0\), we have \(a = c - \frac{b^2}{4} > 0\). The operator \(S = T + \frac{b}{2} \id\) is self-adjoint (check: \(S^* = T^* + \frac{b}{2} \id = T + \frac{b}{2} \id = S\)). By the lemma, \(S^2 + a \cdot \id\) is invertible.
+}
+
+
+\thm{Spectral theorem (real self-adjoint)}{Let \(T : V \to V\) be a self-adjoint operator on a finite-dimensional real inner product space. Then:
+\begin{enumerate}[(i)]
+    \item All eigenvalues of \(T\) are real.
+    \item \(T\) is diagonalizable.
+    \item \(V\) has an orthonormal basis consisting of eigenvectors of \(T\).
+\end{enumerate}
+}
+
+\pf{Proof}{We first show that \(T\) has an eigenvector. Since \(V\) is finite-dimensional, choose any nonzero \(v \in V\). The vectors \(v, T(v), T^2(v), \ldots, T^n(v)\) (where \(n = \dim V\)) are linearly dependent, so there exists a nonzero polynomial \(p \in \RR[x]\) with \(p(T)(v) = 0\).
+
+Factor \(p\) over \(\RR\): since \(\RR[x]\) has unique factorization, we can write
+\[p(x) = c \prod_i (x - \lambda_i) \prod_j (x^2 + b_j x + c_j)\]
+where the linear factors have real roots and the quadratic factors are irreducible (no real roots, i.e., \(b_j^2 - 4c_j < 0\)).
+
+By the corollary, each \((T^2 + b_j T + c_j \cdot \id)\) is invertible. So
+\[0 = p(T)(v) = c \prod_i (T - \lambda_i \cdot \id) \prod_j (T^2 + b_j T + c_j \cdot \id)(v).\]
+Since the quadratic factors are invertible, we can remove them:
+\[\prod_i (T - \lambda_i \cdot \id)(v') = 0\]
+for some nonzero \(v'\).
+
+At least one factor \((T - \lambda_i \cdot \id)\) must have nontrivial kernel (otherwise their product would be invertible). Thus \(T\) has an eigenvalue \(\lambda_i \in \RR\).
+
+\textbf{(i) Eigenvalues are real:} This is automatic since we found the eigenvalue in \(\RR\).
+
+\textbf{(iii) Orthonormal eigenbasis:} We proceed by induction on \(\dim V\).
+
+Base case: \(\dim V = 1\). Any nonzero vector is an eigenvector; normalize it.
+
+Inductive step: Let \(v_1\) be an eigenvector with \(T(v_1) = \lambda_1 v_1\), normalized so \(\|v_1\| = 1\). Let \(S = \operatorname{span}(v_1)\). Since \(T(S) \subseteq S\), the orthogonal complement \(S^\perp\) is \(T\)-invariant.
+
+The restriction \(T|_{S^\perp} : S^\perp \to S^\perp\) is self-adjoint (the inner product on \(S^\perp\) is the restriction of the inner product on \(V\)). By induction, \(S^\perp\) has an orthonormal eigenbasis \(\{v_2, \ldots, v_n\}\).
+
+Then \(\{v_1, v_2, \ldots, v_n\}\) is an orthonormal eigenbasis of \(V\): the \(v_i\) are orthonormal, and each is an eigenvector of \(T\).
+
+\textbf{(ii) Diagonalizable:} In an eigenbasis, \(T\) has a diagonal matrix.
+}
+
+\nt{The spectral theorem says that self-adjoint operators on real inner product spaces are ``as nice as possible'': they are diagonalizable, with real eigenvalues, and the eigenspaces are mutually orthogonal. The matrix in an orthonormal eigenbasis is \(\diag(\lambda_1, \ldots, \lambda_n)\).}
+
+\cor{Eigenvectors for distinct eigenvalues are orthogonal}{If \(T\) is self-adjoint and \(T(v) = \lambda v\), \(T(w) = \mu w\) with \(\lambda \neq \mu\), then \(v \perp w\).}
+
+\pf{Proof}{\(\lambda \langle v, w \rangle = \langle \lambda v, w \rangle = \langle T(v), w \rangle = \langle v, T(w) \rangle = \langle v, \mu w \rangle = \mu \langle v, w \rangle\). So \((\lambda - \mu) \langle v, w \rangle = 0\), and \(\lambda \neq \mu\) implies \(\langle v, w \rangle = 0\).
+}
+
+
+\subsubsection{Skew-Adjoint Operators}
+
+The ``opposite'' of self-adjoint is skew-adjoint.
+
+\dfn{Skew-adjoint operator}{An operator \(T : V \to V\) on an inner product space is \textbf{skew-adjoint} (or \textbf{anti-self-adjoint}) if \(T^* = -T\), i.e.,
+\[\langle v, T(w) \rangle = -\langle T(v), w \rangle\]
+for all \(v, w \in V\).
+}
+
+\nt{In an orthonormal basis, \(T\) is skew-adjoint iff its matrix \(M\) satisfies \(M^T = -M\) (real case) or \(M^* = -M\) (complex case). Such matrices are called \textbf{skew-symmetric} or \textbf{skew-Hermitian}.}
+
+\mprop{Properties of skew-adjoint operators}{Let \(T : V \to V\) be skew-adjoint on a real inner product space.
+\begin{enumerate}[(i)]
+    \item \(\langle T(v), v \rangle = 0\) for all \(v \in V\).
+    \item If \(\lambda\) is an eigenvalue of \(T\) (in \(\CC\)), then \(\lambda\) is purely imaginary.
+    \item \(I + T\) is invertible.
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(\langle T(v), v \rangle = -\langle v, T(v) \rangle = -\ol{\langle T(v), v \rangle}\). Over \(\RR\), this gives \(2\langle T(v), v \rangle = 0\).
+
+(ii) If \(T(v) = \lambda v\) with \(v \neq 0\), then \(\lambda \langle v, v \rangle = \langle T(v), v \rangle = 0\) by (i), so \(\lambda = 0\). More generally, working in the complexification, if \(\lambda = a + bi\) is an eigenvalue, the skew-adjoint condition forces \(a = 0\).
+
+(iii) Suppose \((I + T)(v) = 0\), i.e., \(T(v) = -v\). Then \(-\|v\|^2 = \langle T(v), v \rangle = 0\) by (i), so \(v = 0\). Thus \(I + T\) is injective, hence invertible.
+}
+
+\mprop{Cayley transform}{Let \(T\) be skew-adjoint on a real inner product space. Then \(S = (I - T)(I + T)^{-1}\) is orthogonal (i.e., \(S^* = S^{-1}\)).}
+
+\pf{Proof}{Since \(T^* = -T\), we have \((I + T)^* = I - T\) and \((I - T)^* = I + T\). Also, \(I - T\) and \(I + T\) commute (both are polynomials in \(T\)).
+
+Then:
+\[S^* = ((I + T)^{-1})^* (I - T)^* = ((I + T)^*)^{-1} (I - T)^* = (I - T)^{-1}(I + T).\]
+And:
+\[S^{-1} = (I + T)(I - T)^{-1}.\]
+Since \(I - T\) and \(I + T\) commute, \((I - T)^{-1}(I + T) = (I + T)(I - T)^{-1}\). Thus \(S^* = S^{-1}\).
+}
+
+
+
+
+\subsection{Normal Operators on Complex Spaces}
+
+Over \(\CC\), the spectral theorem extends to a larger class of operators: those that commute with their adjoint.
+
+\dfn{Normal operator}{An operator \(T : V \to V\) on an inner product space is \textbf{normal} if
+\[T T^* = T^* T.\]
+}
+
+\ex{Classes of normal operators}{
+\begin{itemize}
+    \item Self-adjoint operators (\(T^* = T\)) are normal: \(TT^* = T^2 = T^*T\).
+    \item Skew-adjoint operators (\(T^* = -T\)) are normal: \(TT^* = -T^2 = T^*T\).
+    \item Unitary operators (\(T^* = T^{-1}\)) are normal: \(TT^* = I = T^*T\).
+\end{itemize}
+}
+
+\mlemma{Characterization of normality}{An operator \(T\) is normal if and only if \(\|T(v)\| = \|T^*(v)\|\) for all \(v \in V\).}
+
+\pf{Proof}{\(\|T(v)\|^2 = \langle T(v), T(v) \rangle = \langle T^*T(v), v \rangle\) and \(\|T^*(v)\|^2 = \langle T^*(v), T^*(v) \rangle = \langle TT^*(v), v \rangle\).
+
+So \(\|T(v)\| = \|T^*(v)\|\) for all \(v\) iff \(\langle (T^*T - TT^*)(v), v \rangle = 0\) for all \(v\).
+
+For self-adjoint operators (and \(T^*T - TT^*\) is self-adjoint), this implies \(T^*T - TT^* = 0\). Indeed, if \(S\) is self-adjoint with \(\langle S(v), v \rangle = 0\) for all \(v\), then for any \(v, w\):
+\[0 = \langle S(v + w), v + w \rangle = \langle S(v), w \rangle + \langle S(w), v \rangle = 2 \operatorname{Re} \langle S(v), w \rangle,\]
+and similarly with \(v + iw\) gives the imaginary part, so \(\langle S(v), w \rangle = 0\) for all \(v, w\), hence \(S = 0\).
+}
+
+\mprop{Normal operators and eigenspaces}{Let \(T\) be normal.
+\begin{enumerate}[(i)]
+    \item If \(T(v) = \lambda v\), then \(T^*(v) = \ol{\lambda} v\).
+    \item Eigenvectors for distinct eigenvalues are orthogonal.
+    \item \(\Ker(T - \lambda I) = \Ker(T^* - \ol{\lambda} I)\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) Note that \(T - \lambda I\) is normal (check: \((T - \lambda I)(T - \lambda I)^* = (T - \lambda I)(T^* - \ol{\lambda} I)\), and these commute since \(T\) and \(T^*\) commute).
+
+By the lemma, \(\|T(v) - \lambda v\| = \|T^*(v) - \ol{\lambda} v\|\). If \(T(v) = \lambda v\), the left side is zero, so \(T^*(v) = \ol{\lambda} v\).
+
+(ii) If \(T(v) = \lambda v\) and \(T(w) = \mu w\) with \(\lambda \neq \mu\):
+\[\lambda \langle v, w \rangle = \langle T(v), w \rangle = \langle v, T^*(w) \rangle = \langle v, \ol{\mu} w \rangle = \mu \langle v, w \rangle.\]
+So \((\lambda - \mu)\langle v, w \rangle = 0\), giving \(v \perp w\).
+
+(iii) Follows from (i): \(v \in \Ker(T - \lambda I) \iff T(v) = \lambda v \iff T^*(v) = \ol{\lambda} v \iff v \in \Ker(T^* - \ol{\lambda} I)\).
+}
+
+\thm{Complex spectral theorem}{Let \(T : V \to V\) be a normal operator on a finite-dimensional complex inner product space (with Hermitian inner product). Then \(V\) has an orthonormal basis consisting of eigenvectors of \(T\).}
+
+\pf{Proof}{Since \(\CC\) is algebraically closed, \(T\) has an eigenvalue \(\lambda\). Let \(v_1\) be a unit eigenvector with \(T(v_1) = \lambda v_1\).
+
+Let \(S = \operatorname{span}(v_1)\). We show \(S^\perp\) is \(T\)-invariant. By part (i) of the proposition, \(T^*(v_1) = \ol{\lambda} v_1\), so \(S\) is also \(T^*\)-invariant.
+
+For \(w \in S^\perp\) and any \(s \in S\):
+\[\langle T(w), s \rangle = \langle w, T^*(s) \rangle.\]
+Since \(T^*(s) \in S\) and \(w \perp S\), we get \(\langle T(w), s \rangle = 0\). Thus \(T(w) \perp S\), i.e., \(T(w) \in S^\perp\).
+
+The restriction \(T|_{S^\perp}\) is normal (the inner product restricts, and \((T|_{S^\perp})^* = T^*|_{S^\perp}\)). By induction on dimension, \(S^\perp\) has an orthonormal eigenbasis \(\{v_2, \ldots, v_n\}\). Then \(\{v_1, \ldots, v_n\}\) is an orthonormal eigenbasis of \(V\).
+}
+
+\nt{The complex spectral theorem is stronger than the real one: any normal operator (not just self-adjoint) is diagonalizable. The price is working over \(\CC\) with Hermitian inner products.
+
+For self-adjoint \(T\), the eigenvalues are real. For skew-adjoint \(T\), they are purely imaginary. For unitary \(T\), they lie on the unit circle \(|\lambda| = 1\).}
+
+
+
+\section{Orthogonal and Unitary Operators}
+
+\subsection{Definitions and Characterizations}
+
+Orthogonal (real) and unitary (complex) operators are the isometries of inner product spaces: they preserve lengths and angles.
+
+\dfn{Orthogonal operator}{Let \((V, \langle \cdot, \cdot \rangle)\) be a real inner product space. An operator \(T : V \to V\) is \textbf{orthogonal} if
+\[\langle T(u), T(v) \rangle = \langle u, v \rangle\]
+for all \(u, v \in V\).
+}
+
+\dfn{Unitary operator}{Let \((V, H)\) be a complex inner product space (with Hermitian inner product \(H\)). An operator \(T : V \to V\) is \textbf{unitary} if
+\[H(T(u), T(v)) = H(u, v)\]
+for all \(u, v \in V\).
+}
+
+\nt{We use ``orthogonal'' over \(\RR\) and ``unitary'' over \(\CC\), though the definitions are parallel. Some authors use ``orthogonal'' for both.}
+
+\thm{Characterizations of orthogonal/unitary operators}{For an operator \(T : V \to V\) on a finite-dimensional inner product space, the following are equivalent:
+\begin{enumerate}[(i)]
+    \item \(T\) is orthogonal (resp.\ unitary).
+    \item \(T^* T = I\) (equivalently, \(T^* = T^{-1}\)).
+    \item \(T T^* = I\).
+    \item \(\|T(v)\| = \|v\|\) for all \(v \in V\).
+    \item \(T\) maps some orthonormal basis to an orthonormal basis.
+    \item \(T\) maps every orthonormal basis to an orthonormal basis.
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(\Rightarrow\) (ii): \(\langle T^*T(u), v \rangle = \langle T(u), T(v) \rangle = \langle u, v \rangle = \langle I(u), v \rangle\) for all \(u, v\). By nondegeneracy, \(T^*T = I\).
+
+(ii) \(\Rightarrow\) (iii): \(T^*T = I\) implies \(T\) is invertible with \(T^{-1} = T^*\). Then \(TT^* = T(T^{-1}) = I\).
+
+(ii) \(\Rightarrow\) (iv): \(\|T(v)\|^2 = \langle T(v), T(v) \rangle = \langle T^*T(v), v \rangle = \langle v, v \rangle = \|v\|^2\).
+
+(iv) \(\Rightarrow\) (i): Use the polarization identity. Over \(\RR\):
+\[\langle u, v \rangle = \frac{1}{4}(\|u + v\|^2 - \|u - v\|^2).\]
+If \(T\) preserves norms: \(\langle T(u), T(v) \rangle = \frac{1}{4}(\|T(u) + T(v)\|^2 - \|T(u) - T(v)\|^2) = \frac{1}{4}(\|T(u+v)\|^2 - \|T(u-v)\|^2) = \frac{1}{4}(\|u+v\|^2 - \|u-v\|^2) = \langle u, v \rangle\).
+
+(i) \(\Rightarrow\) (vi): If \(\{e_1, \ldots, e_n\}\) is orthonormal, then \(\langle T(e_i), T(e_j) \rangle = \langle e_i, e_j \rangle = \delta_{ij}\).
+
+(vi) \(\Rightarrow\) (v): Trivial.
+
+(v) \(\Rightarrow\) (ii): Let \(\{e_i\}\) be orthonormal with \(\{T(e_i)\}\) orthonormal. For any \(v = \sum a_i e_i\):
+\[T^*T(v) = T^*(\sum a_i T(e_i)).\]
+Since \(\{T(e_i)\}\) is orthonormal, \(\langle T(e_i), T(e_j) \rangle = \delta_{ij}\), so \(T^*(T(e_i)) = e_i\) (the dual basis property in an orthonormal basis). Thus \(T^*T(v) = \sum a_i e_i = v\).
+}
+
+\cor{Orthogonal/unitary operators are invertible}{If \(T\) is orthogonal or unitary, then \(T^{-1} = T^*\), which is also orthogonal/unitary.}
+
+\cor{Orthogonal/unitary operators form a group}{The set of orthogonal (resp.\ unitary) operators on \(V\) forms a subgroup of \(\GL(V)\).}
+
+\pf{Proof}{Identity: \(I^* = I\), so \(I^*I = I\). Closure: if \(S^*S = I\) and \(T^*T = I\), then \((ST)^*(ST) = T^*S^*ST = T^*T = I\). Inverses: \((T^{-1})^* = (T^*)^* = T\), so \((T^{-1})^*(T^{-1}) = T T^{-1} = I\).
+}
+
+\subsubsection{Matrix Characterization}
+
+\mprop{Orthogonal and unitary matrices}{Let \(\{e_1, \ldots, e_n\}\) be an orthonormal basis of \(V\), and let \(M\) be the matrix of \(T\) in this basis.
+\begin{enumerate}[(i)]
+    \item (Real case) \(T\) is orthogonal iff \(M^T M = I\), i.e., \(M\) is an \textbf{orthogonal matrix}.
+    \item (Complex case) \(T\) is unitary iff \(M^* M = I\), i.e., \(M\) is a \textbf{unitary matrix}.
+\end{enumerate}
+Equivalently: the columns of \(M\) form an orthonormal set (with respect to the standard inner product on \(k^n\)).
+}
+
+\pf{Proof}{In an orthonormal basis, \(M(T^*) = M(T)^*\). So \(T^*T = I\) iff \(M^* M = I\).
+
+The columns of \(M\) are \(M e_1, \ldots, M e_n\) (standard basis vectors). The \((i,j)\)-entry of \(M^* M\) is \((M^* M)_{ij} = \sum_k \ol{M_{ki}} M_{kj} = \langle \text{col}_i(M), \text{col}_j(M) \rangle\). So \(M^* M = I\) iff columns are orthonormal.
+}
+
+\cor{Rows of orthogonal/unitary matrices}{If \(M\) is orthogonal (resp.\ unitary), then the rows of \(M\) also form an orthonormal set.}
+
+\pf{Proof}{\(M^* M = I\) implies \(M\) is invertible with \(M^{-1} = M^*\). Thus \(M M^* = I\), which says the columns of \(M^*\) (= rows of \(M\)) are orthonormal.
+}
+
+\mprop{Determinant of orthogonal/unitary operators}{If \(T\) is orthogonal or unitary, then \(|\det(T)| = 1\).
+
+For orthogonal \(T\) (real case), \(\det(T) = \pm 1\).
+}
+
+\pf{Proof}{\(\det(T^*T) = \det(I) = 1\). But \(\det(T^*T) = \det(T^*)\det(T) = \ol{\det(T)} \det(T) = |\det(T)|^2\).
+
+Over \(\RR\), \(\det(T^T) = \det(T)\), so \(\det(T)^2 = 1\), giving \(\det(T) = \pm 1\).
+}
+
+
+
+\subsection{Reflections}
+
+A particularly simple class of orthogonal operators are reflections across hyperplanes.
+
+\dfn{Reflection}{Let \(V\) be a real inner product space. A \textbf{reflection} is an orthogonal operator \(P : V \to V\) such that \(P^2 = I\) and \(\dim \Ker(P + I) = 1\).}
+
+\nt{The condition \(P^2 = I\) says \(P\) is an involution. Since \(P\) is orthogonal, it is also self-adjoint (\(P^* = P^{-1} = P\)). The eigenvalues of \(P\) are \(\pm 1\) (since \(P^2 = I\)), and \(\dim \Ker(P + I) = 1\) means the \(-1\)-eigenspace is 1-dimensional.}
+
+\mprop{Formula for reflections}{Every reflection can be written as
+\[P(x) = x - 2\langle x, v \rangle v\]
+where \(v \in V\) with \(\|v\| = 1\). Geometrically, \(P\) reflects across the hyperplane \(v^\perp\).}
+
+\pf{Proof}{Define \(P(x) = x - 2\langle x, v \rangle v\). We verify \(P\) is a reflection.
+
+\textbf{Linear:} Clear from the formula.
+
+\textbf{Orthogonal:} 
+\begin{align*}
+\langle P(x), P(y) \rangle &= \langle x - 2\langle x, v \rangle v, y - 2\langle y, v \rangle v \rangle \\
+&= \langle x, y \rangle - 2\langle x, v \rangle \langle v, y \rangle - 2\langle y, v \rangle \langle x, v \rangle + 4\langle x, v \rangle \langle y, v \rangle \|v\|^2 \\
+&= \langle x, y \rangle - 4\langle x, v \rangle \langle y, v \rangle + 4\langle x, v \rangle \langle y, v \rangle = \langle x, y \rangle.
+\end{align*}
+
+\textbf{Involution:} \(P(P(x)) = P(x) - 2\langle P(x), v \rangle v = x - 2\langle x, v \rangle v - 2(\langle x, v \rangle - 2\langle x, v \rangle)v = x\).
+
+\textbf{Eigenspaces:} \(P(v) = v - 2\|v\|^2 v = -v\), so \(v\) spans the \(-1\)-eigenspace. If \(w \perp v\), then \(P(w) = w\), so \(v^\perp\) is the \(+1\)-eigenspace.
+
+Conversely, any reflection \(P\) has \(\Ker(P + I)\) one-dimensional. Let \(v\) span this kernel with \(\|v\| = 1\). Then \(P(v) = -v\), and on \(v^\perp\), \(P\) acts as \(+I\) (since \(P\) is diagonalizable with eigenvalues \(\pm 1\), and the \(-1\)-eigenspace is spanned by \(v\)). For \(x = \langle x, v \rangle v + (x - \langle x, v \rangle v)\) with the second term in \(v^\perp\):
+\[P(x) = -\langle x, v \rangle v + (x - \langle x, v \rangle v) = x - 2\langle x, v \rangle v. \qedhere\]
+}
+
+\mprop{Reflections map equal-length vectors}{Given any two vectors \(x, y \in V\) with \(\|x\| = \|y\|\), there exists a reflection \(P\) with \(P(x) = y\).}
+
+\pf{Proof}{If \(x = y\), take any reflection fixing \(x\) (e.g., reflect across \(x^\perp\) if \(x \neq 0\), or the identity hyperplane if \(x = 0\)... but then \(P\) wouldn't be a reflection. Actually if \(x = y = 0\), any reflection works.)
+
+Assume \(x \neq y\). Let \(v = \frac{x - y}{\|x - y\|}\) and \(P(z) = z - 2\langle z, v \rangle v\).
+
+Compute:
+\[P(x) = x - 2\langle x, v \rangle v = x - 2 \frac{\langle x, x - y \rangle}{\|x - y\|^2}(x - y).\]
+Since \(\|x\| = \|y\|\), we have \(\langle x, x \rangle = \langle y, y \rangle\), so
+\[\langle x, x - y \rangle = \|x\|^2 - \langle x, y \rangle = \frac{1}{2}(\|x\|^2 + \|y\|^2 - 2\langle x, y \rangle) = \frac{1}{2}\|x - y\|^2.\]
+Thus \(P(x) = x - (x - y) = y\).
+}
+
+\thm{Orthogonal operators as products of reflections}{Every orthogonal operator on \(\RR^n\) is a product of at most \(n\) reflections.}
+
+\pf{Proof}{Induction on \(n\). For \(n = 0\), the identity is the empty product.
+
+For \(n \geq 1\): Let \(T\) be orthogonal. Pick a unit vector \(e_1\). Then \(\|T(e_1)\| = \|e_1\| = 1\).
+
+By the previous proposition, there exists a reflection \(P_1\) with \(P_1(T(e_1)) = e_1\). Let \(T_1 = P_1 T\). Then \(T_1\) is orthogonal and \(T_1(e_1) = e_1\).
+
+Since \(T_1(e_1) = e_1\), the subspace \(e_1^\perp\) is \(T_1\)-invariant (if \(w \perp e_1\), then \(\langle T_1(w), e_1 \rangle = \langle w, T_1^*(e_1) \rangle = \langle w, T_1^{-1}(e_1) \rangle = \langle w, e_1 \rangle = 0\)).
+
+The restriction \(T_1|_{e_1^\perp}\) is orthogonal on the \((n-1)\)-dimensional space \(e_1^\perp\). By induction, \(T_1|_{e_1^\perp} = Q_{n-1} \cdots Q_2\) for reflections \(Q_i\) on \(e_1^\perp\).
+
+Extend each \(Q_i\) to \(V\) by setting \(\tilde{Q}_i(e_1) = e_1\) and \(\tilde{Q}_i|_{e_1^\perp} = Q_i\). Then \(\tilde{Q}_i\) is a reflection on \(V\) (the \(-1\)-eigenspace of \(Q_i\) in \(e_1^\perp\) becomes the \(-1\)-eigenspace of \(\tilde{Q}_i\) in \(V\)).
+
+We have \(T_1 = \tilde{Q}_{n-1} \cdots \tilde{Q}_2\), so \(P_1 T = \tilde{Q}_{n-1} \cdots \tilde{Q}_2\), giving
+\[T = P_1^{-1} \tilde{Q}_{n-1} \cdots \tilde{Q}_2 = P_1 \tilde{Q}_{n-1} \cdots \tilde{Q}_2\]
+(since \(P_1^2 = I\)). This is a product of at most \(1 + (n-1) = n\) reflections.
+}
+
+
+
+\subsection{The Classical Matrix Groups}
+
+The orthogonal and unitary operators form important matrix groups.
+
+\dfn{Orthogonal and special orthogonal groups}{
+\begin{itemize}
+    \item \(\mathrm{O}(n) = \{A \in \GL_n(\RR) : A^T A = I\}\), the \textbf{orthogonal group}.
+    \item \(\mathrm{SO}(n) = \{A \in \mathrm{O}(n) : \det(A) = 1\}\), the \textbf{special orthogonal group}.
+\end{itemize}
+}
+
+\dfn{Unitary and special unitary groups}{
+\begin{itemize}
+    \item \(\mathrm{U}(n) = \{A \in \GL_n(\CC) : A^* A = I\}\), the \textbf{unitary group}.
+    \item \(\mathrm{SU}(n) = \{A \in \mathrm{U}(n) : \det(A) = 1\}\), the \textbf{special unitary group}.
+\end{itemize}
+}
+
+\mprop{Index of \(\mathrm{SO}(n)\) in \(\mathrm{O}(n)\)}{\(\mathrm{SO}(n)\) is a normal subgroup of \(\mathrm{O}(n)\) of index 2. We have an exact sequence
+\[1 \to \mathrm{SO}(n) \to \mathrm{O}(n) \xrightarrow{\det} \{\pm 1\} \to 1.\]
+}
+
+\pf{Proof}{The determinant map \(\det : \mathrm{O}(n) \to \{\pm 1\}\) is a surjective homomorphism (surjective since \(\det(I) = 1\) and \(\det(-I) = (-1)^n\), or use a reflection with \(\det = -1\)). Its kernel is \(\mathrm{SO}(n)\).
+}
+
+\nt{Elements of \(\mathrm{SO}(n)\) are called \textbf{rotations} or \textbf{proper orthogonal transformations}. They preserve orientation. Elements of \(\mathrm{O}(n) \setminus \mathrm{SO}(n)\) reverse orientation.}
+
+\ex{Low-dimensional cases}{
+\begin{itemize}
+    \item \(\mathrm{O}(1) = \{\pm 1\} \cong \ZZ/2\ZZ\), \(\mathrm{SO}(1) = \{1\}\).
+    \item \(\mathrm{SO}(2)\) consists of rotation matrices \(\begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\). Thus \(\mathrm{SO}(2) \cong S^1\) (the circle group) via \(\theta \mapsto e^{i\theta}\).
+    \item \(\mathrm{U}(1) = \{z \in \CC : |z| = 1\} \cong S^1\).
+\end{itemize}
+}
+
+\thm{Structure of orthogonal operators}{Let \(T \in \mathrm{O}(V)\) where \(V\) is a finite-dimensional real inner product space. Then \(V\) decomposes as an orthogonal direct sum
+\[V = V_1 \oplus V_{-1} \oplus W_1 \oplus \cdots \oplus W_k\]
+where \(V_1 = \Ker(T - I)\) is the \(+1\)-eigenspace, \(V_{-1} = \Ker(T + I)\) is the \(-1\)-eigenspace, and each \(W_j\) is a 2-dimensional \(T\)-invariant subspace on which \(T\) acts as rotation by angle \(\theta_j \neq 0, \pi\).
+}
+
+\pf{Proof}{The characteristic polynomial of \(T\) has real coefficients. Its roots (possibly complex) come in conjugate pairs. If \(\lambda = e^{i\theta}\) is an eigenvalue with \(|\lambda| = 1\) and \(\lambda \notin \RR\), then \(\ol{\lambda} = e^{-i\theta}\) is also an eigenvalue.
+
+Let \(p(x) = (x - e^{i\theta})(x - e^{-i\theta}) = x^2 - 2\cos\theta \cdot x + 1\), an irreducible quadratic over \(\RR\). By the real Jordan form theory (or direct argument), \(\Ker(p(T))\) is an even-dimensional \(T\)-invariant subspace.
+
+Decompose \(V\) into generalized eigenspaces for real eigenvalues (\(\pm 1\)) and for conjugate pairs of complex eigenvalues. Since \(T\) is orthogonal and hence normal, it is diagonalizable over \(\CC\), so generalized eigenspaces are actual eigenspaces.
+
+For the conjugate pair \(e^{\pm i\theta}\), the real subspace \(W = \Ker((T - e^{i\theta}I)(T - e^{-i\theta}I)) \cap V\) is \(T\)-invariant. Choose a unit eigenvector \(v \in W_\CC\) for \(e^{i\theta}\). Then \(v + \ol{v}\) and \(i(v - \ol{v})\) are real vectors spanning a 2-dimensional \(T\)-invariant subspace on which \(T\) acts as rotation by \(\theta\).
+
+Repeating this decomposition and using orthogonality of distinct eigenspaces gives the result.}
+
+\nt{In matrix form, choosing an orthonormal basis adapted to this decomposition, \(T\) is block-diagonal:
+\[T \sim \begin{pmatrix} I_{a} & & & & \\ & -I_{b} & & & \\ & & R_{\theta_1} & & \\ & & & \ddots & \\ & & & & R_{\theta_k} \end{pmatrix}\]
+where \(R_\theta = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}\).
+
+This is the ``real canonical form'' for orthogonal matrices.}
+
+
+
+
+\subsubsection{Hermitian Forms and Real Forms}
+
+When a complex vector space is viewed as a real vector space, a Hermitian form decomposes into real and imaginary parts with specific properties.
+
+\mprop{Decomposition of Hermitian forms}{Let \(V\) be a complex vector space with Hermitian form \(H\), and let \(W\) denote \(V\) viewed as a real vector space (of twice the dimension). Define \(G, B : W \times W \to \RR\) by
+\[G(u, v) = \operatorname{Re} H(u, v), \qquad B(u, v) = \operatorname{Im} H(u, v).\]
+Let \(J : W \to W\) be scalar multiplication by \(i\). Then:
+\begin{enumerate}[(i)]
+    \item \(G\) is a symmetric bilinear form on \(W\).
+    \item \(B\) is a skew-symmetric bilinear form on \(W\).
+    \item \(G(u, v) = B(u, Jv)\) for all \(u, v \in W\).
+    \item \(H\) is nondegenerate iff \(G\) is nondegenerate iff \(B\) is nondegenerate.
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(G\) is \(\RR\)-bilinear since \(H\) is sesquilinear and \(\operatorname{Re}\) is \(\RR\)-linear. For symmetry:
+\[G(v, u) = \operatorname{Re} H(v, u) = \operatorname{Re} \ol{H(u, v)} = \operatorname{Re} H(u, v) = G(u, v).\]
+
+(ii) Similarly, \(B(v, u) = \operatorname{Im} H(v, u) = \operatorname{Im} \ol{H(u, v)} = -\operatorname{Im} H(u, v) = -B(u, v)\).
+
+(iii) \(B(u, Jv) = \operatorname{Im} H(u, iv) = \operatorname{Im}(\ol{i} H(u, v)) = \operatorname{Im}(-i H(u, v)) = \operatorname{Re} H(u, v) = G(u, v)\).
+
+(iv) Suppose \(H\) is nondegenerate and \(G(u, v) = 0\) for all \(v\). Then \(B(u, Jv) = G(u, v) = 0\) for all \(v\), so \(B(u, w) = 0\) for all \(w\) (since \(J\) is surjective). Thus \(H(u, v) = G(u, v) + iB(u, v) = 0\) for all \(v\), giving \(u = 0\). The other implications are similar.
+}
+
+\nt{A linear operator \(T : W \to W\) is \(\CC\)-linear (i.e., \(T \circ J = J \circ T\)) iff it comes from a \(\CC\)-linear operator on \(V\). The proposition implies: for nondegenerate \(H\), any two of the following imply the third:
+\begin{enumerate}[(i)]
+    \item \(T\) preserves \(G\).
+    \item \(T\) preserves \(B\).
+    \item \(T\) is \(\CC\)-linear.
+\end{enumerate}
+This gives the relation \(\mathrm{U}(n) = \mathrm{O}(2n) \cap \GL_n(\CC) = \mathrm{Sp}(2n, \RR) \cap \GL_n(\CC) = \mathrm{O}(2n) \cap \mathrm{Sp}(2n, \RR)\).}
+
+
+\mer{Inner product spaces exercises}{
+\begin{enumerate}[(1)]
+    \item Let \(V \subset \RR[x]\) be the space of polynomials of degree at most 2, with inner product \(\langle f, g \rangle = \int_0^1 f(x) g(x) \, dx\). Apply Gram--Schmidt to the basis \(\{1, x, x^2\}\) to find an orthonormal basis.
+    
+    \item Let \(T : V \to V\) be self-adjoint on a real inner product space, and suppose \(v \in V\) with \(\|v\| = 1\) maximizes the Rayleigh quotient \(R(w) = \langle T(w), w \rangle / \|w\|^2\) among unit vectors. Prove that \(v\) is an eigenvector of \(T\). (Do not use the spectral theorem.)
+    
+    \item Let \(T : V \to V\) be an invertible linear operator on a finite-dimensional real inner product space. Show that \(T\) maps the unit sphere \(S = \{v : \|v\| = 1\}\) to an ellipsoid. (Hint: consider \(T^*T\).)
+    
+    \item For an invertible operator \(T\), define the \textbf{dilatation} \(K(T) = \frac{\sup_{\|v\|=1} \|Tv\|}{\inf_{\|v\|=1} \|Tv\|}\). Show that \(K(T)^2\) equals the ratio of the largest to smallest eigenvalues of \(T^*T\).
+    
+    \item Let \(A\) be the matrix of a (symmetric positive-definite) inner product on \(\RR^n\) with respect to the standard basis, so the inner product is \(\langle x, y \rangle = x^T A y\). For \(n = 2\), prove that the largest entry of \(A\) occurs on the diagonal.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} Start with \(w_1 = 1\), \(w_2 = x\), \(w_3 = x^2\).
+
+\(\langle w_1, w_1 \rangle = \int_0^1 1 \, dx = 1\), so \(v_1 = 1\).
+
+\(\langle w_2, v_1 \rangle = \int_0^1 x \, dx = \frac{1}{2}\).
+\(u_2 = x - \frac{1}{2} \cdot 1 = x - \frac{1}{2}\).
+\(\|u_2\|^2 = \int_0^1 (x - \frac{1}{2})^2 dx = \int_0^1 (x^2 - x + \frac{1}{4}) dx = \frac{1}{3} - \frac{1}{2} + \frac{1}{4} = \frac{1}{12}\).
+So \(v_2 = \sqrt{12}(x - \frac{1}{2}) = 2\sqrt{3}(x - \frac{1}{2})\).
+
+\(\langle w_3, v_1 \rangle = \int_0^1 x^2 dx = \frac{1}{3}\).
+\(\langle w_3, v_2 \rangle = 2\sqrt{3} \int_0^1 x^2(x - \frac{1}{2}) dx = 2\sqrt{3}(\frac{1}{4} - \frac{1}{6}) = 2\sqrt{3} \cdot \frac{1}{12} = \frac{\sqrt{3}}{6}\).
+\(u_3 = x^2 - \frac{1}{3} - \frac{\sqrt{3}}{6} \cdot 2\sqrt{3}(x - \frac{1}{2}) = x^2 - \frac{1}{3} - (x - \frac{1}{2}) = x^2 - x + \frac{1}{6}\).
+\(\|u_3\|^2 = \int_0^1 (x^2 - x + \frac{1}{6})^2 dx = \frac{1}{180}\).
+So \(v_3 = \sqrt{180}(x^2 - x + \frac{1}{6}) = 6\sqrt{5}(x^2 - x + \frac{1}{6})\).
+
+The orthonormal basis is \(\{1, \, 2\sqrt{3}(x - \frac{1}{2}), \, 6\sqrt{5}(x^2 - x + \frac{1}{6})\}\).
+
+\textbf{(2)} Let \(f(w) = \langle T(w), w \rangle / \|w\|^2\). For \(u \perp v\) and \(t \in \RR\) small, consider \(w_t = v + tu\). Since \(\|v\| = 1\) and \(u \perp v\):
+\[\|w_t\|^2 = 1 + t^2 \|u\|^2.\]
+\[\langle T(w_t), w_t \rangle = \langle T(v), v \rangle + t(\langle T(v), u \rangle + \langle T(u), v \rangle) + t^2 \langle T(u), u \rangle.\]
+Since \(T\) is self-adjoint, \(\langle T(v), u \rangle = \langle v, T(u) \rangle = \ol{\langle T(u), v \rangle} = \langle T(u), v \rangle\) (real), so:
+\[\langle T(w_t), w_t \rangle = \langle T(v), v \rangle + 2t \langle T(v), u \rangle + t^2 \langle T(u), u \rangle.\]
+Thus:
+\[f(w_t) = \frac{\langle T(v), v \rangle + 2t \langle T(v), u \rangle + O(t^2)}{1 + t^2 \|u\|^2}.\]
+At \(t = 0\), \(f(v) = \langle T(v), v \rangle\) is a maximum, so \(\frac{d}{dt}|_{t=0} f(w_t) = 0\).
+
+Differentiating: \(\frac{d}{dt}|_{t=0} f(w_t) = 2\langle T(v), u \rangle\). So \(\langle T(v), u \rangle = 0\) for all \(u \perp v\).
+
+Thus \(T(v) \perp v^\perp\), meaning \(T(v) \in (v^\perp)^\perp = \operatorname{span}(v)\). So \(T(v) = \lambda v\) for some \(\lambda\).
+
+\textbf{(3)} We have \(T(S) = \{w : \|T^{-1}(w)\| = 1\} = \{w : \langle T^{-1}(w), T^{-1}(w) \rangle = 1\}\).
+
+Let \(P = (T^{-1})^* T^{-1} = (T^*)^{-1} T^{-1} = (TT^*)^{-1}\). Equivalently, \(P = (T^*T)^{-1}\) if we set \(P = (T^{-1})^* T^{-1}\).
+
+Actually: \(\|T^{-1}(w)\|^2 = \langle T^{-1}(w), T^{-1}(w) \rangle = \langle (T^{-1})^* T^{-1}(w), w \rangle\).
+
+The operator \(Q = (T^{-1})^* T^{-1}\) is self-adjoint and positive-definite. By the spectral theorem, there exists an orthonormal eigenbasis \(\{u_1, \ldots, u_n\}\) with \(Q(u_i) = \mu_i u_i\), where \(\mu_i > 0\).
+
+For \(w = \sum x_i u_i\): \(\langle Q(w), w \rangle = \sum \mu_i x_i^2\).
+
+So \(T(S) = \{w : \sum \mu_i x_i^2 = 1\}\). Setting \(a_i = 1/\sqrt{\mu_i}\), this is \(\sum x_i^2/a_i^2 = 1\), an ellipsoid with semi-axes \(a_i\) along \(u_i\).
+
+\textbf{(4)} We have \(\|T(v)\|^2 = \langle T(v), T(v) \rangle = \langle T^*T(v), v \rangle\). The operator \(T^*T\) is self-adjoint and positive-definite (since \(T\) is invertible).
+
+By the spectral theorem, let \(\{e_i\}\) be an orthonormal eigenbasis with \(T^*T(e_i) = \lambda_i e_i\), \(\lambda_i > 0\). For \(v = \sum a_i e_i\) with \(\|v\| = 1\) (i.e., \(\sum a_i^2 = 1\)):
+\[\|T(v)\|^2 = \langle T^*T(v), v \rangle = \sum \lambda_i a_i^2.\]
+
+This is maximized when all weight is on the largest eigenvalue: \(\sup = \lambda_{\max}\).
+It is minimized when all weight is on the smallest: \(\inf = \lambda_{\min}\).
+
+Thus \(K(T)^2 = \frac{\lambda_{\max}}{\lambda_{\min}}\).
+
+\textbf{(5)} For \(n = 2\), let \(A = \begin{pmatrix} a & b \\ b & c \end{pmatrix}\) with \(a, c > 0\) (positive-definiteness requires positive diagonal) and \(ac > b^2\).
+
+We show \(\max\{a, c\} \geq |b|\). Suppose not: \(|b| > a\) and \(|b| > c\). Then \(b^2 > ac\), contradicting \(ac > b^2\).
+
+So the largest entry in magnitude is on the diagonal. Since \(a, c > 0\) and \(ac > b^2 \geq 0\), the largest entry is \(\max\{a, c\}\), on the diagonal.
+\end{solution}
+
+
+\end{document}

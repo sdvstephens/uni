@@ -147,7 +147,7 @@ The left cosets of \(H\) partition \(G\) into disjoint subsets, each of cardinal
 \dfn{Index}{The \textbf{\emph{index}} of a subgroup \(H\) in \(G\), denoted \([G:H]\), is the number of distinct left cosets of \(H\) in \(G\). For finite groups, \([G:H] = |G|/|H|\).
 }
 
-\nt{Lagrange's theorem has immediate corollaries: the order of any element divides \(|G|\) (since \(\langle g \rangle\) is a subgroup), and groups of prime order are cyclic (the only subgroups have order 1 or \(p\)). The converse of Lagrange is false in general: \(A_4\) has order 12 but no subgroup of order 6. However, for abelian groups and more generally for solvable groups, partial converses exist---a theme we'll explore later.
+\nt{Lagrange's theorem has immediate corollaries: the order of any element divides \(|G|\) (since \(\langle g \rangle\) is a subgroup), and groups of prime order are cyclic (the only subgroups have order 1 or \(p\)). The converse of Lagrange is false in general: \(A_4\) has order 12 but no subgroup of order 6. However, for abelian groups and more generally for solvable groups, partial converses exist (feel free to use the ol' google machine for more info). 
 }
 
 A question naturally arises then: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be \emph{well-defined}, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
@@ -157,7 +157,7 @@ A question naturally arises then: when is \(G/H\) a group? If we try to define \
 ab &= (13)(23) = (132), \quad \text{so } abH = (132)H = (13)H \\
 a'b &= (132)(23) = (13), \quad \text{so } a'bH = (13)H
 \end{align*}
-Okay, this worked! But now try \(b = (13)\) and \(b' = (132)\) (same coset), with \(a = (23)\):
+Okay, this worked (yay)! But now try \(b = (13)\) and \(b' = (132)\) (same coset), with \(a = (23)\):
 \begin{align*}
 ab &= (23)(13) = (123), \quad \text{so } abH = (123)H = (23)H \\
 ab' &= (23)(132) = (12), \quad \text{so } ab'H = (12)H = H
@@ -235,7 +235,7 @@ As a final remark before moving onto our next topic, I wish to introduce the con
 
 \section{Group actions and symmetry}
 
-The notion of a group ``acting'' on a set is perhaps the single most important concept connecting abstract algebra to the rest of mathematics. When we study symmetries of geometric objects, solutions to polynomial equations, or even the structure of groups themselves, we are studying group actions. This section develops the theory systematically---pay close attention, as these ideas will reappear throughout when we discuss representation theory (where groups act on vector spaces via linear maps).
+The notion of a group ``acting'' on a set is one of the main "substances" which underlies much of our study of mathematics. When we study symmetries of geometric objects, solutions to polynomial equations, or even the structure of groups themselves, we are studying group actions. This section develops the theory systematically---pay close attention, as these ideas will reappear throughout when we discuss representation theory (where groups act on vector spaces via linear maps).
 
 \subsection{Group actions}
 
@@ -247,7 +247,7 @@ The notion of a group ``acting'' on a set is perhaps the single most important c
 We say \(G\) \textbf{\emph{acts on}} \(X\), or that \(X\) is a \textbf{\emph{\(G\)-set}}.
 }
 
-\nt{There is an equivalent, perhaps more illuminating, formulation: a group action is a homomorphism \(\rho : G \to \Sym(X)\), where \(\Sym(X)\) is the group of all bijections \(X \to X\). Given an action, define \(\rho(g)(x) = g \cdot x\); the axioms ensure each \(\rho(g)\) is a bijection (with inverse \(\rho(g^{-1})\)) and that \(\rho\) is a homomorphism. Conversely, any such homomorphism defines an action. This perspective is crucial: \emph{group actions are the same as representations of \(G\) into symmetric groups}.
+\nt{There is an equivalent, perhaps more fun, formulation: a group action is a homomorphism \(\rho : G \to \Sym(X)\), where \(\Sym(X)\) is the group of all bijections \(X \to X\). Given an action, define \(\rho(g)(x) = g \cdot x\); the axioms ensure each \(\rho(g)\) is a bijection (with inverse \(\rho(g^{-1})\)) and that \(\rho\) is a homomorphism. Conversely, any such homomorphism defines an action. This perspective is crucial: \emph{group actions are the same as representations of \(G\) into symmetric groups}.
 }
 
 \ex{}{Some fundamental examples of group actions:
@@ -317,7 +317,7 @@ Consider the left multiplication action of \(G\) on itself: \(g \cdot h = gh\). 
 By the First Isomorphism Theorem, \(G \cong \Img(\rho) \subset \Sym(G)\). If \(|G| = n\), then \(\Sym(G) \cong S_n\).
 }
 
-\nt{Cayley's theorem is simultaneously profound and useless. Profound: every abstract group is ``really'' a permutation group; the group axioms capture exactly the structure of bijection composition. Useless: the embedding is almost always far larger than necessary. \(S_n\) has order \(n!\), so embedding a group of order \(n\) into \(S_n\) wastes enormous space. Better embeddings come from finding smaller faithful actions.
+\nt{Cayley's theorem is simultaneously profound and useless. Profound: every abstract group is ``really'' a permutation group; the group axioms capture exactly the structure of bijection composition. Useless: the embedding is almost always far larger than necessary. \(S_n\) has order \(n!\), so embedding a group of order \(n\) into \(S_n\) wastes enormous space. Better embeddings come from finding smaller faithful actions. 'Tis fun nonetheless.
 }
 
 \mprop{Improved Cayley embedding}{Let \(H \subset G\) with \([G:H] = n\). The action of \(G\) on \(G/H\) gives a homomorphism \(\rho : G \to S_n\) with \(\ker(\rho) = \bigcap_{g \in G} gHg^{-1}\), the largest normal subgroup of \(G\) contained in \(H\).
@@ -354,7 +354,7 @@ If \(k \equiv -1\): then \(bab^{-1} = a^{-1}\), i.e., \(ba = a^{-1}b\). This is 
 
 \section{The isomorphism theorems}
 
-The isomorphism theorems are the structural backbone of group theory. They describe how quotients, subgroups, and homomorphisms interact. These results will reappear essentially unchanged when we study rings, modules, and vector spaces---they are instances of a more general phenomenon that category theory makes precise.
+The isomorphism theorems we have already introduced somewhat. They describe how quotients, subgroups, and homomorphisms interact. These results will reappear essentially unchanged when we study rings, modules, and vector spaces---they are instances of a more general phenomenon that category theory makes precise.
 
 \subsection{Kernels, images, and the First Isomorphism Theorem}
 
@@ -389,7 +389,7 @@ The isomorphism theorems are the structural backbone of group theory. They descr
 \thm{First Isomorphism Theorem}{Let \(\varphi : G \to H\) be a homomorphism. Then:
 \begin{enumerate}
     \item \(\ker(\varphi) \trianglelefteq G\);
-    \item The map \(\bar{\varphi} : G/\ker(\varphi) \to H\) defined by \(\bar{\varphi}(g\ker(\varphi)) = \varphi(g)\) is a well-defined injective homomorphism;
+    \item The map \(\bar{\varphi} : G/\ker(\varphi) \to H\) defined by \(\bar{\varphi}(g \cdot \ker(\varphi)) = \varphi(g)\) is a well-defined injective homomorphism;
     \item \(\Img(\bar{\varphi}) = \Img(\varphi)\), so \(G/\ker(\varphi) \cong \Img(\varphi)\).
 \end{enumerate}
 In slogan form: \emph{the image of a homomorphism is isomorphic to the domain modulo the kernel.}
@@ -562,7 +562,7 @@ Proof: For any \(i\), if \(i = \tau(a_j)\), then \(\tau (a_1 \cdots a_k) \tau^{-
 \mprop{Number of conjugacy classes in \(S_n\)}{The number of conjugacy classes in \(S_n\) equals \(p(n)\), the number of partitions of \(n\). For example, \(p(1) = 1, p(2) = 2, p(3) = 3, p(4) = 5, p(5) = 7, p(6) = 11\).
 }
 
-\nt{This beautiful fact---conjugacy classes correspond to partitions---is one reason why the representation theory of \(S_n\) is so rich. The irreducible representations of \(S_n\) are also indexed by partitions of \(n\), and the character table can be computed combinatorially. This is a whole subject in itself.
+\nt{This fact that conjugacy classes correspond to partitions is one reason why the representation theory of \(S_n\) is so whimsical. The irreducible representations of \(S_n\) are also indexed by partitions of \(n\), and the character table can be computed combinatorially. This is a whole subject in itself.
 }
 
 \subsection{The sign homomorphism and alternating group}
@@ -624,10 +624,10 @@ If \(\sigma = \tau_1 \cdots \tau_r\) and \(\rho = \tau_1' \cdots \tau_s'\), then
 \textbf{(3)} Every even permutation is a product of an even number of transpositions. We can pair them: \((a\,b)(c\,d)\). If \(\{a,b\} \cap \{c,d\} = \emptyset\), then \((a\,b)(c\,d) = (a\,c\,b)(a\,c\,d)\) (verify!). If \(\{a,b\} \cap \{c,d\} = \{b\} = \{c\}\), then \((a\,b)(b\,d) = (a\,b\,d)\). Thus \(A_n\) is generated by 3-cycles. For the specific generating set: \[(a\,b\,c) = (1\,2\,a)(1\,2\,b)(1\,2\,c)(1\,2\,a)^{-1}(1\,2\,b)^{-1}\] (if \(a,b,c\) all differ from 1,2; similar manipulations handle other cases).
 }
 
-\nt{The simplicity of \(A_n\) for \(n \ge 5\) is a deep result with profound consequences. It implies that \(A_n\) has no quotients except \(\{e\}\) and itself, which means \(A_n\) is ``irreducible'' in a sense. Via Galois theory, this simplicity is precisely why the general quintic polynomial has no solution in radicals: the Galois group of the ``generic'' degree-\(n\) polynomial is \(S_n\), and solvability by radicals requires a composition series with abelian quotients. For \(n \ge 5\), \(A_n\) blocks this because it's simple and non-abelian. We will prove simplicity later, after developing more machinery.
+\nt{The simplicity of \(A_n\) for \(n \ge 5\) is a historically revolutionary result (it regards the non-existence of the quintic formula). It implies that \(A_n\) has no quotients except \(\{e\}\) and itself, which means \(A_n\) is ``irreducible'' in a sense. Via Galois theory, this simplicity is precisely why the general quintic polynomial has no solution in radicals: the Galois group of the ``generic'' degree-\(n\) polynomial is \(S_n\), and solvability by radicals requires a composition series with abelian quotients. For \(n \ge 5\), \(A_n\) blocks this because it's simple and non-abelian. 
 }
 
-\nt{Connection to linear algebra: the sign homomorphism is intimately related to the determinant. For a matrix \(A \in \GL_n(\mathbb{R})\), we have \(\det(A) = \sum_{\sigma \in S_n} \sgn(\sigma) \prod_{i=1}^n a_{i,\sigma(i)}\). The sign ensures the determinant is alternating in the rows (swapping rows negates the determinant). This is no coincidence: the determinant is the unique alternating multilinear function on \(n\) vectors with \(\det(I) = 1\), and ``alternating'' is encoded by the sign.
+\nt{The sign homomorphism is intimately related to the determinant: for a matrix \(A \in \GL_n(\mathbb{R})\), we have \(\det(A) = \sum_{\sigma \in S_n} \sgn(\sigma) \prod_{i=1}^n a_{i,\sigma(i)}\). The sign ensures the determinant is alternating in the rows (swapping rows negates the determinant). This is no coincidence: the determinant is the unique alternating multilinear function on \(n\) vectors with \(\det(I) = 1\), and ``alternating'' is encoded by the sign.
 }
 
 \qs{}{
@@ -673,7 +673,7 @@ Normality: \(H\) consists of \(e\) plus all products of two disjoint transpositi
 
 \section{Exact sequences}
 
-The isomorphism theorems reveal a pattern: kernels and images of homomorphisms are intimately related. Exact sequences provide elegant language to express these relationships, and form the foundation of \emph{homological algebra}---a subject that permeates modern mathematics from algebraic topology to representation theory to algebraic geometry. We introduce the basic concepts here.
+The isomorphism theorems reveal a pattern: kernels and images of homomorphisms are intimately related. Exact sequences provide elegant jargon to express these relationships, and form the foundation of \emph{homological algebra}---a subject that permeates modern mathematics from algebraic topology to representation theory to algebraic geometry. We introduce the basic concepts here.
 
 \subsection{Exact sequences and their meaning}
 
@@ -860,7 +860,6 @@ Now, we want words to form a group. The issue: \(aa^{-1}\) should equal \(e\), b
 
 \ex{}{The word \(ab^{-1}ba^{-1}a\) reduces as follows:
 \[ab^{-1}ba^{-1}a \to ab^{-1}b \cdot e \cdot a^{-1}a \to ab^{-1}b \to a \cdot e = a.\]
-Wait, let me be more careful: \(ab^{-1}ba^{-1}a\). We have \(b^{-1}b\), so reduce to \(a \cdot e \cdot a^{-1}a = aa^{-1}a\). Then \(aa^{-1}\) reduces to \(e\), leaving \(a\). So the reduced form is \(a\).
 }
 
 \thm{Unique reduced form}{Every word can be reduced to a unique reduced word by a sequence of elementary reductions. The order of reductions doesn't matter.
@@ -976,7 +975,7 @@ Presentations raise a fundamental computational question.
 \thm{Undecidability of the word problem (Novikov-Boone)}{There exists a finitely presented group \(G = \langle S \mid R \rangle\) (with \(S, R\) finite) for which the word problem is \textbf{undecidable}---no algorithm can determine, for all pairs of words, whether they're equal in \(G\).
 }
 
-\nt{This is a remarkable and sobering result. Group presentations look like a nice computational tool, but they're actually extremely powerful---so powerful that they can encode arbitrary computation. The word problem for \(G\) can simulate a Turing machine! This doesn't mean presentations are useless; for specific groups (like \(S_n\), \(D_n\), free groups), the word problem is decidable. But there's no universal algorithm.
+\nt{This is a somewhat saddening (or perhaps, better said sobering) result. Group presentations look like a nice computational tool, but they're actually extremely powerful---so powerful, in facct, that they can encode arbitrary computation. The word problem for \(G\) can simulate a Turing machine (I needn't expound on the insanity and awesomeness of this)! This doesn't mean presentations are useless; for specific groups (like \(S_n\), \(D_n\), free groups), the word problem is decidable. But there's no universal algorithm.
 }
 
 \qs{}{

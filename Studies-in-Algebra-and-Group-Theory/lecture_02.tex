@@ -130,7 +130,7 @@ Identity is \(0\), inverse of \(a\) is \(n - a\) (mod \(n\)). This is an abelian
 \ex{Multiplicative groups}{\(\mathbb{Q}^* = \mathbb{Q} \setminus \{0\}\), \(\mathbb{R}^* = \mathbb{R} \setminus \{0\}\), and \(\mathbb{C}^* = \mathbb{C} \setminus \{0\}\) are abelian groups under multiplication, with identity \(1\) and inverse \(1/x\).
 }
 
-\ex{The circle group}{The unit circle \(S^1 = \{z \in \mathbb{C} : |z| = 1\}\) is a group under multiplication. It is isomorphic to \(\mathbb{R}/\mathbb{Z}\) via \(t \mapsto e^{2\pi i t}\). This is a \emph{compact} abelian group and plays a fundamental role in Fourier analysis and representation theory.
+\ex{The circle group}{The unit circle \(S^1 = \{z \in \mathbb{C} : |z| = 1\}\) is a group under multiplication. It is isomorphic to \(\mathbb{R}/\mathbb{Z}\) via \(t \mapsto e^{2\pi i t}\). This is a \emph{compact} abelian group and plays a role in Fourier analysis and representation theory.
 }
 
 \ex{Roots of unity}{For each \(n \ge 1\), the \(n\)th roots of unity \(\mu_n = \{z \in \mathbb{C} : z^n = 1\} = \{e^{2\pi i k/n} : k = 0, 1, \ldots, n-1\}\) form a cyclic group of order \(n\) under multiplication. We have \(\mu_n \cong \mathbb{Z}/n\mathbb{Z}\).
@@ -176,7 +176,7 @@ Labeling vertices \(1, 2, 3\), rotations give permutations \(e, (123), (132)\) a
 \dfn{Special linear group}{The \textbf{\emph{special linear group}} \(\SL_n(\mathbb{F}) = \{A \in \GL_n(\mathbb{F}) : \det(A) = 1\}\) is a subgroup of \(\GL_n(\mathbb{F})\).
 }
 
-\nt{Matrix groups are our first examples of \emph{Lie groups}---groups that are also smooth manifolds. They are central to representation theory: a representation of \(G\) is a homomorphism \(\rho : G \to \GL_n(\mathbb{F})\), making \(G\) act on \(\mathbb{F}^n\) by linear transformations. This perspective unifies group theory with linear algebra.
+\nt{Matrix groups are our first examples of \emph{Lie groups}---groups that are also smooth manifolds. They are, in my opinion, the most exciting part of representation theory: a representation of \(G\) is a homomorphism \(\rho : G \to \GL_n(\mathbb{F})\), making \(G\) act on \(\mathbb{F}^n\) by linear transformations. 
 }
 
 \ex{Non-abelian example}{In \(\GL_2(\mathbb{R})\), let \(A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\) and \(B = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}\). Then:
@@ -221,7 +221,7 @@ with componentwise operations.
 \[\bigoplus_{i \in I} G_i = \{(a_i)_{i \in I} \in \prod_{i \in I} G_i : a_i = e_{G_i} \text{ for all but finitely many } i\}.\]
 }
 
-\nt{For finite index sets, \(\prod = \bigoplus\). For infinite sets, they differ crucially.
+\nt{For finite index sets, \(\prod = \bigoplus\). For infinite sets, they differ crucially. "O-plus" notation will become important when we move onto linear algebra.
 }
 
 \ex{Power series vs polynomials}{Taking \(G_i = (\mathbb{R}, +)\) for all \(i \in \mathbb{N}\):
@@ -337,7 +337,7 @@ Define \(\varphi : \mathbb{Z} \to G\) by \(\varphi(k) = a^k\). This is a homomor
 
 \textbf{Case 1:} \(\ord(a) = \infty\). If \(\varphi(k) = \varphi(l)\) with \(k > l\), then \(a^{k-l} = e\), contradicting infinite order. So \(\varphi\) is injective, hence an isomorphism \(\mathbb{Z} \xrightarrow{\sim} G\).
 
-\textbf{Case 2:} \(\ord(a) = n\). Then \(\ker(\varphi) = \{k \in \mathbb{Z} : a^k = e\}\). Since \(a^n = e\), we have \(n\mathbb{Z} \subseteq \ker(\varphi)\). Conversely, if \(a^k = e\), write \(k = qn + r\) with \(0 \le r < n\). Then \(a^r = a^{k-qn} = a^k (a^n)^{-q} = e\). By minimality of \(n\), \(r = 0\), so \(k \in n\mathbb{Z}\). Thus \(\ker(\varphi) = n\mathbb{Z}\), and \(G \cong \mathbb{Z}/n\mathbb{Z}\) by the First Isomorphism Theorem.
+\textbf{Case 2:} \(\ord(a) = n\). Then \(\ker(\varphi) = \{k \in \mathbb{Z} : a^k = e\}\). Since \(a^n = e\), we have \(n\mathbb{Z} \subseteq \ker(\varphi)\). Conversely, if \(a^k = e\), write \(k = qn + r\) with \(0 \le r < n\). Then \(a^r = a^{k-qn} = a^k (a^n)^{-q} = e\). By minimality of \(n\), \(r = 0\), so \(k \in n\mathbb{Z}\). Thus \(\ker(\varphi) = n\mathbb{Z}\), and \(G \cong \mathbb{Z}/n\mathbb{Z}\) by the First Isomorphism Theorem (this will be introduced later but to oversimplify: surjectivity is guaranteed iff the kernal only contains the identity).
 }
 
 \mprop{Subgroups of cyclic groups}{Every subgroup of a cyclic group is cyclic. If \(G = \langle a \rangle\) has order \(n\), the subgroups of \(G\) are exactly \(\langle a^d \rangle\) for divisors \(d \mid n\), and \(|\langle a^d \rangle| = n/d\).
@@ -425,7 +425,6 @@ Lattice (larger subgroups higher):
 \end{tikzcd}
 \end{center}
 
-This diagrammatic perspective is fundamental to category theory.
 }
 
 \dfn{Types of homomorphisms}{Let \(\varphi : G \to H\) be a homomorphism.
@@ -437,7 +436,7 @@ This diagrammatic perspective is fundamental to category theory.
 \end{enumerate}
 }
 
-\ex{Important homomorphisms}{
+\ex{Important(ish) homomorphisms}{
 \begin{enumerate}
     \item \textbf{Reduction mod \(n\):} \(\pi : \mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\), \(\pi(a) = a \mod n\). Surjective, kernel \(n\mathbb{Z}\).
     \item \textbf{Quotient mod \(n\):} If \(n \mid m\), then \(\mathbb{Z}/m\mathbb{Z} \to \mathbb{Z}/n\mathbb{Z}\), \(a \mapsto a \mod n\). Example: last-two-digits to last-digit, \(\mathbb{Z}/100 \to \mathbb{Z}/10\).

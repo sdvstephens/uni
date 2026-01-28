@@ -116,19 +116,19 @@ class IpeFigures:
         pdf_file = figures_path / f"{clean_name}.pdf"
         
         # Create Ipe file if it doesn't exist
+        created = False
         if not ipe_file.exists():
             with open(ipe_file, 'w') as f:
                 f.write(self.get_template())
-            print(f"✅ Created {ipe_file}")
-        else:
-            print(f"📂 Opening existing {ipe_file}")
+            created = True
         
         # Return info for neovim
         return {
             "name": clean_name,
-            "ipe": str(ipe_file),
-            "pdf": str(pdf_file),
-            "latex": f"\\incipe{{{clean_name}}}"
+            "ipe": str(ipe_file.resolve()),
+            "pdf": str(pdf_file.resolve()),
+            "latex": f"\\incipe{{{clean_name}}}",
+            "created": created
         }
     
     def open_ipe(self, ipe_file):
@@ -196,8 +196,8 @@ class IpeFigures:
             pdf_exists = ipe_file.with_suffix('.pdf').exists()
             figures.append({
                 "name": ipe_file.stem,
-                "ipe": str(ipe_file),
-                "pdf": str(ipe_file.with_suffix('.pdf')) if pdf_exists else None,
+                "ipe": str(ipe_file.resolve()),
+                "pdf": str(ipe_file.with_suffix('.pdf').resolve()) if pdf_exists else None,
                 "has_pdf": pdf_exists
             })
         return figures
@@ -285,6 +285,10 @@ def main():
                 import json
                 print(json.dumps(result))
             else:
+                if result.get("created"):
+                    print(f"✅ Created {result['ipe']}")
+                else:
+                    print(f"📂 Opening existing {result['ipe']}")
                 ipe.open_ipe(result["ipe"])
                 print(f"📋 LaTeX: {result['latex']}")
 

@@ -1,0 +1,525 @@
+% Biology - Lecture 1: Molecules of Life
+% Author: S. D. V. Stephens
+% Date: 2026-01-19
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Biology}
+
+\begin{document}
+
+\lecture{1}{Molecules of Life}
+
+\section{Cells: The Building Blocks of Life}
+
+The building blocks of life are cells. Life is made of cells---we can think of them as little building blocks. In humans, a typical cell has about a 10-micrometer diameter. Cells are filled with molecules, and indeed they are \emph{made} of molecules. Furthermore, cells are essentially bags of chemical reactions; the chemistry of life happens within and between cells. This is our framework: bonds build molecules, molecules build cells, and cells build organisms.
+
+\section{Atoms and the Key Elements of Life}
+
+Atoms are a ubiquitous subject of study across the natural sciences. For good reason, too, as they make up the vast cosmos: from the tips of your fingers to the centers of stars (most stars, technically). The atom is comprised of a nucleus with \textbf{proton(s)} and \textbf{neutron(s)}. Electrons orbit the nucleus in a \textbf{probability cloud}. The protons have a slightly positive charge and the electrons have a slightly negative charge. The number of protons in any given element is unique and determines that element: this is known as the element's \emph{atomic number}. The \emph{mass number} is the total number of protons \textbf{and} neutrons that a given atom has. Many elements have different isotopes (some with special names), i.e. they can have varying numbers of neutrons in their nucleus. Generally isotopes are formed when atoms combine or decay (when they generally release subatomic particles). Most isotopes are stable, however, some are not---we call these \textbf{radioisotopes}. Radioisotopes give off \( \alpha  \), \( \beta  \), and \( \gamma  \) radiation from its nucleus: this is known as radioactive decay. The location of a given electron is impossible to determine (the Heisenberg uncertainty principle); we can only describe a region of space with a probabilistic inference on where the electron(s) may be. The area with the most probabilistic concentration of electrons (90\%) is known as the electron's \emph{orbital} (outer shell).
+
+In life, there are certain key elements that come up over and over again. The six most important are:
+\begin{center}
+\begin{tabular}{cccccc}
+\textbf{Carbon} & \textbf{Hydrogen} & \textbf{Oxygen} & \textbf{Nitrogen} & \textbf{Phosphorus} & \textbf{Sulfur} \\
+C & H & O & N & P & S
+\end{tabular}
+\end{center}
+These are sometimes remembered by the acronym \textbf{CHONPS}. Carbon is particularly important because of its ability to form four bonds, allowing for long chains and complex structures. 
+
+\subsection{Chemical Bonds and Valency}
+
+A bond holds molecules together because bonding is due to attraction between atoms. When atoms share electrons, they form a powerful bond called a \emph{covalent bond}. A stable number of electrons is achieved in the outer shell during covalent bondage. Each atom contributes one electron pair member for each electron pair. Consider \ce{H2O}: this is a \emph{compound}, i.e. a pure substance made up of two or more elements as a fixed ratio. Every compound has a molecular weight determined by the sum of all atomic weights within the molecule.
+
+\dfn{Valency}{The \textbf{valency} of an atom is the number of bonds that atom can make. This is a key concept in biology and chemistry. Valency is determined by the number of electrons in the outer shell that are available for bonding.}
+
+The valencies of the key elements of life are:
+\begin{center}
+\begin{tabular}{cccccc}
+\textbf{C} & \textbf{H} & \textbf{O} & \textbf{N} & \textbf{P} & \textbf{S} \\
+4 & 1 & 2 & 3 & 5 & 2
+\end{tabular}
+\end{center}
+
+For a carbon atom, the outer shell has four valence electrons; thus, carbon has a valency of four---it can bond to four other atoms, forming four covalent bonds. This is the reason carbon is a pivotal atom in life: because it can make many bonds, you can get long chains of carbons added together, building complex molecules.
+
+\subsection{Electronegativity and Molecular Polarity}
+
+\dfn{Electronegativity}{The \textbf{electronegativity} of an atom refers to its attraction for electrons. Atoms with high electronegativity pull electrons towards themselves in a bond.}
+
+Whether a molecule is polar or nonpolar depends primarily on whether it has polar bonds (where electrons are unequally distributed) and also on the geometry of the molecule. We distinguish two types:
+
+\begin{itemize}
+    \item \textbf{Polar molecules} have unequal electronegativity---one part of the molecule is more negative than another. These molecules tend to be \textbf{hydrophilic} (water-loving).
+    \item \textbf{Nonpolar molecules} have equal electronegativity throughout---electrons are evenly distributed. These molecules tend to be \textbf{hydrophobic} (water-fearing).
+\end{itemize}
+
+Consider water. Oxygen is highly electronegative---it pulls electrons towards itself, depleting them somewhat from the hydrogens it is bonded to. This creates what is called a \textbf{dipole}: the oxygen end is partially negative (\(\delta^{-}\)) and the hydrogen ends are partially positive (\(\delta^{+}\)):
+\begin{center}
+\ce{H\bond{~}O\bond{~}H} \quad with \quad \(\delta^{+}\) on H and \(\delta^{-}\) on O
+\end{center}
+The geometry of water is bent (not linear), so these dipoles do not cancel out, making water a polar molecule overall.
+
+\textbf{Determining polarity.} To determine if a molecule is polar:
+\begin{enumerate}
+    \item \textbf{Check for polar bonds}: If the electronegativity difference between bonded atoms is \(> 0.5\), the bond is polar. If \(< 0.5\), the bond is nonpolar.
+    \item \textbf{Check for symmetry}: Even with polar bonds, a \emph{symmetric} molecule can be nonpolar if the dipoles cancel.
+\end{enumerate}
+Examples:
+\begin{itemize}
+    \item \ce{CO2} (linear, \ce{O=C=O}): Each \ce{C=O} bond is polar, but the molecule is symmetric---the dipoles point in opposite directions and cancel. \textbf{Nonpolar}.
+    \item \ce{CF4} (tetrahedral): Each \ce{C-F} bond is polar, but the four bonds are symmetrically arranged, so dipoles cancel. \textbf{Nonpolar}.
+    \item \ce{CH3F} (tetrahedral but asymmetric substituents): The \ce{C-F} bond is polar and there is no symmetry to cancel it. \textbf{Polar}.
+    \item \ce{H2O} (bent): Polar bonds + asymmetric geometry = dipoles don't cancel. \textbf{Polar}.
+\end{itemize}
+
+Let us compare two molecules---propane and isopropanol:
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Propane} (\ce{C3H8}) & \textbf{Isopropanol} (\ce{C3H8O}) \\[4pt]
+\chemfig{H_3C-CH_2-CH_3} & \chemfig{H_3C-CH(-[2]OH)-CH_3} \\[8pt]
+\emph{Nonpolar, hydrophobic} & \emph{Polar, hydrophilic}
+\end{tabular}
+\end{center}
+
+Propane consists only of carbons and hydrogens, neither of which are particularly electronegative. There is an equal distribution of electrons throughout the molecule, so it is nonpolar and hydrophobic.
+
+Isopropanol has a hydroxyl group (\ce{-OH}) attached. The oxygen is highly electronegative and pulls electrons away from the rest of the molecule, creating a partial negative character at the hydroxyl end. This makes isopropanol polar and hydrophilic. 
+
+\nt{If a molecule has an electronegative atom like oxygen or nitrogen associated with it, it is likely polar.}
+
+\subsection{Types of Chemical Bonds}
+
+Bonds can be classified by their strength:
+
+\textbf{Covalent bonds} are \emph{strong} bonds formed by the sharing of electrons between atoms. During covalent bondage of two different atoms, one atom's nucleus may exert a greater attracting force on electrons, resulting in an unequal electron distribution. If two atoms have similar electronegativity, they form a \emph{nonpolar covalent bond}. If they have differing electronegativity, they form a \emph{polar covalent bond}.
+
+\textbf{Non-covalent bonds} do not involve sharing electrons. In order of decreasing strength:
+\begin{itemize}
+    \item \textbf{Ionic bonds} (strong): Electrostatic attraction between oppositely charged ions. The chloride ion (\ce{Cl-}) has a \(-1\) charge because it has one more electron than protons---such negatively charged ions are called \emph{anions}. Positively charged ions are \emph{cations}. Ionic bonds form stable solid compounds called \emph{salts}, but covalent bonds dominate ionic bonds, so salts dissolve in polar water.
+    \item \textbf{Hydrogen bonds} (medium): Attraction between a hydrogen atom (bonded to an electronegative atom like O or N, giving it \(\delta^{+}\)) and another electronegative atom (\(\delta^{-}\)). These are crucial in biology---they hold DNA strands together and give water its special properties.
+    \item \textbf{Van der Waals forces} (weak): Temporary attractions between atoms due to momentary dipoles. The greater the number of electrons an atom has, the greater its polarizability. Also called \emph{London dispersion forces} or \emph{non-polar interactions}.
+\end{itemize}
+
+Although non-covalent bonds are individually weak, many of them together can provide significant stability (as in protein folding or DNA base pairing). 
+
+
+The \emph{bond length} of a molecule is the energy minimum at which the molecule is stable. 
+
+\dfn{Coloumb's Law}{The energy between two ions is equal to the product of the two charges divided by the distance (radius) between the two nuclei, multiplied by a constant (\( 2.31  \times 10^{-19} J\cdot nm \)); formulated as \[
+    E = 2.31 \times 10^{-19}Jnm\left(\frac{Q_{1}Q_{2}}{r}\right).
+\] }
+
+\subsection{Representing Organic Molecules}
+
+Organic molecules---those built on carbon skeletons---can be represented in several ways, each useful for different purposes. Understanding these representations is essential for reading biochemical structures. Let us use \textbf{1-butanol} (\ce{C4H9OH}), an alcohol, as our example.
+
+\textbf{Molecular formula} shows only the number of each type of atom: \ce{C4H10O}. This tells us the composition but nothing about how atoms are connected. The \ce{OH} is often written separately (\ce{C4H9OH}) to indicate that there is a hydroxyl group.
+
+\textbf{Full structural formula} shows every atom and every bond explicitly. This is the most complete but also the most cumbersome representation:
+\begin{center}
+\chemfig{H-C(-[2]H)(-[6]H)-C(-[2]H)(-[6]H)-C(-[2]H)(-[6]H)-C(-[2]H)(-[6]H)-O-H}
+\end{center}
+
+\textbf{Condensed formula} groups atoms together for compactness: \ce{CH3CH2CH2CH2OH} or \ce{CH3(CH2)3OH}. Each carbon is understood to have enough hydrogens to complete its four bonds.
+
+\textbf{Bond-line (skeletal) formula} is the most common representation in biochemistry. The conventions are:
+\begin{itemize}
+    \item Carbon atoms are implied at each vertex and endpoint
+    \item Hydrogen atoms bonded to carbon are omitted (inferred to satisfy carbon's valency of four)
+    \item Heteroatoms (O, N, S, P, etc.) and their hydrogens are shown explicitly
+    \item Single bonds are lines, double bonds are two parallel lines
+\end{itemize}
+
+The bond-line structure of 1-butanol is simply:
+\begin{center}
+\chemfig{-[-1]-[1]-[-1]-[1]OH}
+\end{center}
+The carbons are at every corner and at the left endpoint. You can figure out where the hydrogens are because of valency: carbon has a valency of four, so each carbon must have four bonds total. A carbon at a corner (two lines) has two hydrogens; a carbon at an endpoint (one line) has three hydrogens.
+
+Summary of 1-butanol in all representations:
+\begin{center}
+\begin{tabular}{ccc}
+\textbf{Molecular} & \textbf{Condensed} & \textbf{Bond-line} \\[4pt]
+\ce{C4H10O} & \ce{CH3CH2CH2CH2OH} & \chemfig{-[-1]-[1]-[-1]-[1]OH}
+\end{tabular}
+\end{center}
+
+Rings are drawn as polygons. For instance, cyclohexane (\ce{C6H12}) and benzene (\ce{C6H6}):
+\begin{center}
+\textbf{Cyclohexane:} \chemfig{*6(------)} \qquad
+\textbf{Benzene:} \chemfig{*6(-=-=-=)}
+\end{center}
+The alternating double bonds in benzene (sometimes drawn as a circle inside) indicate the delocalized electrons of the aromatic ring.
+
+\textbf{Disubstituted benzene nomenclature.} When two substituents are attached to a benzene ring, their relative positions are named:
+\begin{itemize}
+    \item \textbf{Ortho} (o-): Substituents on adjacent carbons (1,2-positions)
+    \item \textbf{Meta} (m-): Substituents separated by one carbon (1,3-positions)
+    \item \textbf{Para} (p-): Substituents on opposite carbons (1,4-positions)
+\end{itemize}
+For example, the three isomers of dimethylbenzene (xylene, \ce{C8H10}) are ortho-xylene, meta-xylene, and para-xylene.
+
+\section{A first look at water}
+
+Oxygen is very electronegative---i.e. it hogs electrons---so the electron spends more time with the oxygen than they do with the hydrogen: at the top of the molecule and a partially positive charge at the hydrogens. This property is key for most of water's capabilities. The water molecule can be represented as:
+\begin{center}
+\chemfig{H-[1]O-[7]H}
+\qquad or simply \qquad \ce{H2O}
+\end{center}
+
+Imagine a test tube beaker filled with water, notice that the water is more attracted to the edge of the test tube than it is to itself. It thus forms what is known as a \textbf{concave meniscus} (mercury can form a \textbf{convex meniscus}, if you were wondering). Because of the partial positive and negative charges in a water molecule, the molecule ends up being more attracted to the glass than itself. Glass is comprised of polar molecules, thus the electronegativity between oxygen and silicon is far greater than with oxygen and hydrogen. When a molecule "sticks" this way we call it \textbf{adhesion} and when it sticks to itself we call it \textbf{cohesion}. 
+
+\section{Macromolecules Characterize Living Things}
+
+Four kinds of molecules are characteristic of living things: proteins, carbohydrates, lipids, and nucleic acids. With the exception of lipids, these biological molecules are \textbf{polymers} (from Greek \emph{poly}, ``many'' + \emph{mer}, ``unit'')---constructed by the covalent bonding of smaller molecules called \textbf{monomers}. Each kind of biological molecule is made up of monomers with similar chemical structures: proteins are formed from different combinations of 20 amino acids (all of which share chemical similarities), carbohydrates can form giant molecules by linking together chemically similar sugar monomers (monosaccharides) to form polysaccharides, and nucleic acids are formed from four kinds of nucleotide monomers linked together in long chains. Lipids also form large structures from a limited set of smaller molecules, but in this case noncovalent forces maintain the interactions between the lipid monomers that are held together by covalent bonds. Polymers containing thousands or more atoms are called \textbf{macromolecules}. The proteins, carbohydrates, and nucleic acids of living systems fall into this category. Although large lipid structures are not polymers in the strictest sense, it is convenient to treat them as macromolecules. Green plants have the living world's most abundant protein (rubisco), most abundant carbohydrate (cellulose in plant cell walls), and most abundant lipid (monogalactosyl diglyceride in leaves).
+
+\subsection{Functional Groups}
+
+Certain small groups of atoms, called \textbf{functional groups}, occur frequently in biological molecules. Each functional group has specific chemical properties, and when it is attached to a larger molecule, it confers those properties on the larger molecule. One of these properties is polarity. Looking at the structures in Figure 3.1, we can determine which functional groups are the most polar by considering the electronegativity differences in \ce{C-O}, \ce{N-H}, and \ce{P-O} bonds. The chemical properties of functional groups help us understand the properties of the molecules that contain them.
+
+The major functional groups found in biological molecules are:
+
+\begin{center}
+\begin{tabular}{llll}
+\textbf{Group} & \textbf{Structure} & \textbf{Example} & \textbf{Properties} \\[4pt]
+\hline \\[-6pt]
+Hydroxyl & \chemfig{R-OH} & \chemfig{H_3C-CH_2-OH} (ethanol) & Polar; H-bonds \\[8pt]
+Aldehyde & \chemfig{R-C(=[2]O)-H} & \chemfig{H_3C-C(=[2]O)-H} (acetaldehyde) & Polar; reactive \\[8pt]
+Keto & \chemfig{R-C(=[2]O)-R} & \chemfig{H_3C-C(=[2]O)-CH_3} (acetone) & Polar \\[8pt]
+Carboxyl & \chemfig{R-C(=[2]O)-OH} & \chemfig{H_3C-C(=[2]O)-OH} (acetic acid) & Acidic; \ce{->} \ce{COO^{-}} \\[8pt]
+Amino & \chemfig{R-NH_2} & \chemfig{H_3C-NH_2} (methylamine) & Basic; \ce{->} \ce{NH3+} \\[8pt]
+Sulfhydryl & \chemfig{R-SH} & \chemfig{HO-CH_2-CH_2-SH} & Disulfide bridges \\[8pt]
+Methyl & \chemfig{R-CH_3} & (part of alanine) & Nonpolar \\[8pt]
+\end{tabular}
+\end{center}
+
+Macromolecules have many different functional groups. A single large protein may contain nonpolar, polar, and charged functional groups, each of which gives different specific properties to local sites on the macromolecule. As we will see, sometimes these different groups interact within the same macromolecule. They help determine the shape of the macromolecule as well as how it interacts with other macromolecules and with smaller molecules. Using the same atoms, molecules can differ from one another because their functional groups can be arranged differently. \textbf{Isomers} are molecules that have the same chemical formula---the same kinds and numbers of atoms---but with the atoms arranged differently. Of the different kinds of isomers, we will consider three: structural isomers, \emph{cis-trans} isomers, and optical isomers.
+
+\textbf{Structural isomers} differ in how their atoms are joined together. Consider two simple molecules, each composed of four carbon and ten hydrogen atoms bonded covalently, both with the formula \ce{C4H10}. These atoms can be linked in two different ways, resulting in different molecules: butane (used as a fuel) and isobutane (used as a refrigerant).
+\begin{center}
+\textbf{Butane:} \chemfig{H_3C-CH_2-CH_2-CH_3} \qquad
+\textbf{Isobutane:} \chemfig{H_3C-CH(-[2]CH_3)-CH_3}
+\end{center}
+
+\textbf{\emph{Cis-trans} isomers} typically involve a double bond between two carbon atoms, where the carbons share two pairs of electrons. When the remaining two bonds of each of these carbons are to two different atoms or groups of atoms (e.g., a hydrogen and a methyl group), these can be oriented on the same side or different sides of the double-bonded molecule. If the different atoms or groups of atoms are on the same side, the double bond is called \emph{cis}; if they are on opposite sides, the bond is \emph{trans}. These molecules can have very different properties.
+\begin{center}
+\textbf{\emph{cis}-2-Butene:} \chemfig{H_3C-[1]C(-[2]H)=C(-[6]H)-[1]CH_3} \qquad
+\textbf{\emph{trans}-2-Butene:} \chemfig{H_3C-[1]C(-[2]H)=C(-[2]H)-[7]CH_3}
+\end{center}
+
+\textbf{Optical isomers} occur when a carbon atom has four different atoms or groups of atoms attached to it. This pattern allows for two different ways of making the attachments, each the mirror image of the other. Such a carbon is called an asymmetric carbon, and the two resulting molecules are optical isomers of one another. You can envision your right and left hands as optical isomers. Just as a glove is specific for a particular hand, some biochemical molecules that can interact with one optical isomer of a carbon compound are unable to ``fit'' the other.
+
+\subsection{Condensation and Hydrolysis}
+
+Polymers are formed from monomers by a series of \textbf{condensation reactions} (in this case called dehydration reactions; both terms refer to the loss of water). Condensation reactions result in the formation of covalent bonds between monomers. A molecule of water is released with each covalent bond formed. A generic condensation reaction can be represented as:
+\begin{center}
+\ce{H-A-OH + H-B-OH ->[\text{condensation}][-H2O] H-A-B-OH}
+\end{center}
+The condensation reactions that produce the different kinds of polymers differ in detail, but in all cases polymers form only if water molecules are removed and energy is added to the system. In living systems, specific energy-rich molecules supply the necessary energy.
+
+The reverse of a condensation reaction is a \textbf{hydrolysis reaction} (from Greek \emph{hydro}, ``water'' + \emph{lysis}, ``break''). Hydrolysis reactions result in the breakdown of polymers into their component monomers. Water reacts with the covalent bonds that link the polymer together. For each covalent bond that is broken, a water molecule splits into two ions (\ce{H+} and \ce{OH-}), each of which becomes part of one of the products:
+\begin{center}
+\ce{H-A-B-OH + H2O ->[\text{hydrolysis}] H-A-OH + H-B-OH}
+\end{center}
+
+An important advantage of biochemical unity is that some organisms can acquire needed raw materials by eating other organisms. When you eat bread, the molecules you take in include carbohydrates, lipids, and proteins that can be broken down into monomers which are then polymerized into the varieties of those molecules needed by humans. For example, the storage proteins in wheat grains have a particular composition and sequence of the 20 amino acids. When you eat them in bread, these wheat proteins are broken down into amino acids. In your muscle, these amino acids from wheat are used to make the human proteins actin and myosin, which compose muscle fibers.
+
+The sequence and chemical properties of the chain of monomers in a macromolecule determine its three-dimensional shape and function. Some macromolecules fold into compact forms with surface features that make them water-soluble and capable of binding and interacting with other molecules. Some proteins and carbohydrates form long, fibrous structures (such as those found in spider silk or hair) that provide strength and rigidity. The specific structure of a macromolecule determines its function in a given environment, regardless of its origin. For example, the composite spider silk fiber made by another organism (e.g., the silkworm, a moth larva) has the same properties as spider silk made by a spider.
+
+\section{Carbohydrates}
+
+Carbohydrates are composed of carbon, hydrogen, and oxygen, typically in a ratio of \ce{CH2O}. They serve two main functions: \textbf{energy storage} and \textbf{structural support}. The monomers of carbohydrates are \textbf{monosaccharides} (simple sugars).
+
+\subsection{Monosaccharides}
+
+Monosaccharides are single sugar units with the general formula \ce{(CH2O)_n} where \(n = 3\) to \(7\). The most important monosaccharides in biology are hexoses (\(n = 6\)):
+\begin{itemize}
+    \item \textbf{Glucose} (\ce{C6H12O6}): The primary fuel for cellular respiration
+    \item \textbf{Fructose}: Found in fruits; same formula as glucose but different structure (isomer)
+    \item \textbf{Galactose}: Component of lactose; also an isomer of glucose
+\end{itemize}
+
+\textbf{Glucose exists in multiple forms.} In aqueous solution, glucose interconverts between an open-chain form and two cyclic forms:
+\begin{itemize}
+    \item \textbf{Open chain}: The aldehyde form; rarely present in solution
+    \item \textbf{\(\alpha\)-glucose} (\(\alpha\)-cyclic): The \ce{-OH} on carbon 1 points \emph{down} (axial); comprises \(\sim 36\%\) of glucose at equilibrium
+    \item \textbf{\(\beta\)-glucose} (\(\beta\)-cyclic): The \ce{-OH} on carbon 1 points \emph{up} (equatorial); comprises \(\sim 64\%\) of glucose at equilibrium---the dominant form in cells
+\end{itemize}
+The \(\alpha\) vs \(\beta\) distinction matters: starch and glycogen use \(\alpha\)-linkages (digestible), while cellulose uses \(\beta\)-linkages (indigestible to most animals).
+
+\subsection{Disaccharides}
+
+Disaccharides are formed when two monosaccharides join via a \textbf{glycosidic linkage} (a condensation reaction releasing \ce{H2O}):
+\begin{itemize}
+    \item \textbf{Maltose} = glucose + glucose (found in germinating seeds)
+    \item \textbf{Sucrose} = glucose + fructose (table sugar)
+    \item \textbf{Lactose} = glucose + galactose (milk sugar)
+\end{itemize}
+
+\subsection{Polysaccharides}
+
+Polysaccharides are long chains of monosaccharides. Their function depends on their structure:
+
+\textbf{Energy storage:}
+\begin{itemize}
+    \item \textbf{Starch}: Energy storage in plants; made of glucose units
+    \item \textbf{Glycogen}: Energy storage in animals (liver and muscles); highly branched glucose polymer
+\end{itemize}
+
+\textbf{Structural:}
+\begin{itemize}
+    \item \textbf{Cellulose}: Structural component of plant cell walls; glucose units linked differently than in starch, making it indigestible to most animals
+    \item \textbf{Chitin}: Structural component of fungal cell walls and arthropod exoskeletons; contains nitrogen
+\end{itemize}
+
+\section{Lipids}
+
+Lipids are a diverse group of hydrophobic molecules. Unlike other macromolecules, lipids are \emph{not} polymers---they are not built from repeating monomer units. They are grouped together because of their hydrophobic nature. Functions include \textbf{energy storage}, \textbf{membrane structure}, and \textbf{signaling} (hormones).
+
+\subsection{Triglycerides (Fats and Oils)}
+
+Triglycerides consist of one \textbf{glycerol} molecule bonded to three \textbf{fatty acid} chains via ester bonds:
+\begin{center}
+\chemfig{H_2C(-[2]O-C(=[2]O)-R_1)-CH(-[6]O-C(=[6]O)-R_2)-H_2C(-[6]O-C(=[6]O)-R_3)}
+\end{center}
+
+Fatty acids can be:
+\begin{itemize}
+    \item \textbf{Saturated}: No double bonds between carbons; straight chains that pack tightly; solid at room temperature (e.g., butter, animal fats)
+    \item \textbf{Unsaturated}: One or more double bonds; kinked chains that don't pack well; liquid at room temperature (e.g., olive oil, fish oil)
+\end{itemize}
+
+\subsection{Phospholipids}
+
+Phospholipids have a glycerol backbone with two fatty acid tails and one phosphate group head:
+\begin{itemize}
+    \item The phosphate head is \textbf{hydrophilic} (polar)
+    \item The fatty acid tails are \textbf{hydrophobic} (nonpolar)
+\end{itemize}
+This makes phospholipids \textbf{amphipathic}. In water, they spontaneously form \textbf{bilayers}---the basis of all cell membranes.
+
+\subsection{Steroids}
+
+Steroids have a characteristic four-ring structure. Examples include:
+\begin{itemize}
+    \item \textbf{Cholesterol}: Component of animal cell membranes; precursor to other steroids
+    \item \textbf{Testosterone} and \textbf{estrogen}: Sex hormones
+    \item \textbf{Cortisol}: Stress hormone
+\end{itemize}
+
+\section{Proteins}
+
+Proteins are the workhorses of the cell, performing most cellular functions: catalysis (enzymes), structure, transport, signaling, immune defense, and movement. Proteins are polymers of \textbf{amino acids}.
+
+\subsection{Amino Acid Structure}
+
+\textbf{Greek letter carbon naming.} In organic chemistry, carbons are labeled with Greek letters based on their distance from a reference functional group (usually a carboxyl or carbonyl). The carbon directly attached to the functional group is the \textbf{alpha carbon} (\(C_{\alpha}\)), the next one is \textbf{beta} (\(C_{\beta}\)), then \textbf{gamma} (\(C_{\gamma}\)), and so on:
+\begin{center}
+\ce{C_{\delta}-C_{\gamma}-C_{\beta}-C_{\alpha}-COOH}
+\end{center}
+
+\textbf{The alpha carbon in amino acids.} In amino acids, the alpha carbon is the central carbon---the one directly bonded to the carboxyl group. It is the ``hub'' to which all four characteristic groups attach:
+\begin{center}
+\chemfig{H_{2}N-C(-[2]H)(-[6]R)-C(=[2]O)-OH}
+\hspace{1cm}
+\begin{tabular}{c}
+\small (the central C is $C_\alpha$)
+\end{tabular}
+\end{center}
+The alpha carbon is bonded to four groups:
+\begin{itemize}
+    \item \textbf{Amino group} (\ce{-NH2}): Basic; accepts protons
+    \item \textbf{Carboxyl group} (\ce{-COOH}): Acidic; donates protons
+    \item \textbf{Hydrogen atom} (\ce{-H})
+    \item \textbf{R group} (side chain): Varies among the 20 amino acids and determines properties
+\end{itemize}
+
+\textbf{How to find \(C_{\alpha}\) in any amino acid structure:}
+\begin{enumerate}
+    \item Locate the carboxyl group (\ce{-COOH} or \ce{-COO^-})
+    \item Find the carbon directly attached to the carboxyl carbon---that is \(C_{\alpha}\)
+    \item Verify: \(C_{\alpha}\) should also be bonded to the amino group (\ce{-NH2} or \ce{-NH3+})
+\end{enumerate}
+
+\textbf{Chirality at \(C_{\alpha}\).} Because the alpha carbon has four \emph{different} groups attached (H, \ce{NH2}, \ce{COOH}, R), it is a \textbf{chiral center}---meaning the molecule cannot be superimposed on its mirror image. This gives rise to L- and D- forms of amino acids. In biology, nearly all amino acids are the \textbf{L-form}. The only exception is \textbf{glycine} (Gly, G), where R = H, so the alpha carbon has two identical hydrogen substituents and is therefore achiral.
+
+The R group determines whether an amino acid is:
+\begin{itemize}
+    \item Nonpolar/hydrophobic (e.g., valine, leucine, isoleucine)
+    \item Polar/hydrophilic (e.g., serine, threonine)
+    \item Charged (e.g., aspartate, glutamate, lysine, arginine)
+\end{itemize}
+
+\textbf{The R group (side chain)} is what distinguishes one amino acid from another. The ``R'' stands for the \emph{residue}---the variable portion attached to the alpha carbon. While the backbone (\ce{NH2}-\(C_{\alpha}\)-\ce{COOH}) is identical in all amino acids, the R group determines the amino acid's chemical behavior, how it interacts with water, and how it contributes to protein structure.
+
+The 20 common amino acids are classified into four categories based on their R groups:
+
+\textbf{1. Nonpolar (hydrophobic) R groups} contain only C and H, or have minimal electronegativity differences. These residues tend to cluster in the interior of proteins, away from water.
+\begin{center}
+\begin{tabular}{ccc}
+\textbf{Valine (Val, V)} & \textbf{Leucine (Leu, L)} & \textbf{Isoleucine (Ile, I)} \\[4pt]
+R = \chemfig{-CH(-[2]CH_3)(-[6]CH_3)} & R = \chemfig{-CH_2-CH(-[2]CH_3)(-[6]CH_3)} & R = \chemfig{-CH(-[2]CH_3)-CH_2-CH_3}
+\end{tabular}
+\end{center}
+Other nonpolar: Ala, Gly, Pro, Met, Phe, Trp.
+
+\textbf{2. Polar uncharged R groups} contain electronegative atoms (O, N, S) that can form hydrogen bonds with water, but carry no net charge at physiological pH.
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Serine (Ser, S)} & \textbf{Threonine (Thr, T)} \\[4pt]
+R = \chemfig{-CH_2-OH} & R = \chemfig{-CH(-[2]OH)-CH_3}
+\end{tabular}
+\end{center}
+Other polar uncharged: Cys, Asn, Gln, Tyr.
+
+\textbf{3. Acidic (negatively charged) R groups} have carboxyl groups that lose a proton at physiological pH, giving a \(-1\) charge.
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Aspartate (Asp, D)} & \textbf{Glutamate (Glu, E)} \\[4pt]
+R = \chemfig{-CH_2-C(=[2]O)-O^{-}} & R = \chemfig{-CH_2-CH_2-C(=[2]O)-O^{-}}
+\end{tabular}
+\end{center}
+
+\textbf{4. Basic (positively charged) R groups} have amino groups that gain a proton at physiological pH, giving a \(+1\) charge.
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Lysine (Lys, K)} & \textbf{Arginine (Arg, R)} \\[4pt]
+R = \chemfig{-(CH_2)_4-NH_3^{+}} & R = \chemfig{-(CH_2)_3-NH-C(=[2]NH_2^{+})-NH_2}
+\end{tabular}
+\end{center}
+Histidine (His, H) is also basic but only partially charged at pH 7.
+
+\nt{Amino acids have standard three-letter (Val) and one-letter (V) abbreviations. The one-letter codes are used in sequence notation: e.g., MKVLWAALLLLC... for a protein sequence.}
+
+\subsection{Peptide Bonds}
+
+Amino acids are linked by \textbf{peptide bonds}, formed by a condensation reaction between the carboxyl group of one amino acid and the amino group of another:
+\begin{center}
+\ce{H2N-CH(R1)-COOH + H2N-CH(R2)-COOH ->[-H2O] H2N-CH(R1)-CO-NH-CH(R2)-COOH}
+\end{center}
+A chain of amino acids is called a \textbf{polypeptide}. The sequence of amino acids (determined by DNA) is the \textbf{primary structure}.
+
+\subsection{Levels of Protein Structure}
+
+Proteins have four levels of structure:
+
+\begin{enumerate}
+    \item \textbf{Primary structure}: The linear sequence of amino acids in the polypeptide chain. Determined by genes.
+    
+    \item \textbf{Secondary structure}: Local folding patterns stabilized by hydrogen bonds between backbone atoms:
+    \begin{itemize}
+        \item \textbf{\(\alpha\)-helix}: Coiled structure; H-bonds between every 4th amino acid
+        \item \textbf{\(\beta\)-sheet}: Pleated sheet; H-bonds between adjacent strands
+    \end{itemize}
+    
+    \item \textbf{Tertiary structure}: The overall 3D shape of a single polypeptide, determined by interactions between R groups:
+    \begin{itemize}
+        \item Hydrophobic interactions (nonpolar R groups cluster inside)
+        \item Hydrogen bonds
+        \item Ionic bonds
+        \item Disulfide bridges (covalent bonds between cysteine residues)
+    \end{itemize}
+    
+    \item \textbf{Quaternary structure}: The arrangement of multiple polypeptide subunits into a functional protein complex (e.g., hemoglobin has 4 subunits).
+\end{enumerate}
+
+\nt{A protein's function depends on its shape. If the shape is disrupted (\textbf{denaturation}) by heat, pH changes, or chemicals, the protein loses function.}
+
+\section{Nucleic Acids Are Informational Macromolecules}
+
+DNA, a nucleic acid, is often used as a metaphor for the essence of something (``It's in her DNA''), and indeed, DNA contains life's genetic code. From medicine to evolution, from agriculture to forensics, the properties of nucleic acids affect our lives every day. It is with nucleic acids that the concept of ``information'' entered the biological vocabulary. Nucleic acids are uniquely capable of coding for and transmitting biological information.
+
+\textbf{Nucleic acids} are polymers specialized for the storage, transmission, and use of genetic information. There are two types of nucleic acids---\textbf{DNA} (\textbf{d}eoxyribo\textbf{n}ucleic \textbf{a}cid) and \textbf{RNA} (\textbf{r}ibo\textbf{n}ucleic \textbf{a}cid)---and both are macromolecules, polymers of monomers called nucleotides. The roles of DNA and RNA in the preservation, replication, and expression of genetic material will be descried in later chapters. Here we focus on the chemistry of the nucleic acids, revealing how their structures reflect their functions.
+
+\subsection{Nucleotide Structure}
+
+A \textbf{nucleotide} has three components: a nitrogen-containing (\textbf{nitrogenous}) \textbf{base}, a pentose sugar, and one to three phosphate groups. Molecules consisting of a pentose sugar and a nitrogenous base---but no phosphate group---are called \textbf{nucleosides}. The nucleotides that make up nucleic acids contain just one phosphate group---they are nucleoside monophosphates. The bases of the nucleic acids take one of two chemical forms: a six-membered single-ring structure called a \textbf{pyrimidine}, or a fused double-ring structure called a \textbf{purine}. In DNA, the pentose sugar is deoxyribose, which differs from the ribose found in RNA by the absence of one oxygen atom.
+
+The \textbf{pyrimidines} (single six-membered ring with two nitrogens):
+\begin{center}
+\begin{tabular}{ccc}
+\textbf{Cytosine (C)} & \textbf{Thymine (T)} & \textbf{Uracil (U)} \\[4pt]
+\chemfig{*6(-=-N=(-NH_2)-N(-H)-(=O))} &
+\chemfig{*6((-CH_3)=-N(-H)-(=O)-N(-H)-(=O))} &
+\chemfig{*6(=-N(-H)-(=O)-N(-H)-(=O))}
+\end{tabular}
+\end{center}
+
+The \textbf{purines} (fused five- and six-membered rings):
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Adenine (A)} & \textbf{Guanine (G)} \\[4pt]
+\chemfig{*6(-N=*5(-N=-NH-)-=-(-NH_2)=N-)} &
+\chemfig{*6(-N(-H)-*5(-N=-NH-)-=-(=O)-(-NH_2)=N-)}
+\end{tabular}
+\end{center}
+
+The two pentose sugars differ at the \(2'\) carbon---ribose has an \ce{-OH} group while deoxyribose has only \ce{-H}:
+\begin{center}
+\begin{tabular}{cc}
+\textbf{Ribose (in RNA)} & \textbf{Deoxyribose (in DNA)} \\[4pt]
+\ce{C5H10O5} & \ce{C5H10O4}
+\end{tabular}
+\end{center}
+
+A nucleic acid forms in a similar way that other macromolecule polymers (proteins and polysaccharides) form: by the addition of monomers, one at a time. The reaction, called a transesterification, is between the \(3'\)-OH on the sugar of the existing chain and the alpha (first) phosphate of the incoming nucleoside triphosphate. The resulting bond is called a \textbf{phosphodiester bond}. During the reaction, the terminal two phosphate groups, still covalently bonded, are released. Hydrolysis of this pyrophosphate to its two individual phosphates releases energy for the polymerization reaction. Because each nucleotide is added to the \(3'\) carbon of the last sugar, nucleic acids are said to \emph{elongate in the \(5'\)-to-\(3'\) direction}.
+
+Nucleic acids can range in polymer length. Oligonucleotides are relatively short, with about 20 nucleotide monomers, whereas polynucleotides can be much longer. Oligonucleotides include RNA molecules that function as ``primers'' to begin the duplication of DNA; RNA molecules that regulate the expression of genes; and synthetic DNA molecules used for amplifying and analyzing other, longer nucleotide sequences. Polynucleotides, more commonly referred to as nucleic acids, include DNA and some RNA. Polynucleotides can be very long, and indeed are the longest polymers in the living world. Some DNA molecules in plants and animals contain hundreds of millions of nucleotides.
+
+\subsection{Base Pairing in DNA and RNA}
+
+DNA and RNA differ somewhat in their sugar groups, bases, and strand structure. Four bases are found in DNA: \textbf{adenine} (A), \textbf{cytosine} (C), \textbf{guanine} (G), and \textbf{thymine} (T). RNA is also made up of four different monomers, but its nucleotides include \textbf{uracil} (U) instead of thymine.
+
+A key to understanding the structure and function of nucleic acids is the principle of \textbf{complementary base pairing}. In DNA, thymine and adenine pair (T-A), and cytosine and guanine pair (C-G). In RNA, the base pairs are A-U and C-G. Base pairs are held together primarily by hydrogen bonds. There are polar \ce{C=O} and \ce{N-H} covalent bonds in the bases; these can form hydrogen bonds between the \(\delta^{-}\) on an oxygen or nitrogen of one base and the \(\delta^{+}\) on a hydrogen of another base when the atoms are in close proximity.
+
+The A-T base pair has \textbf{two} hydrogen bonds, while the G-C base pair has \textbf{three}:
+\begin{center}
+\ce{A <=>[2 H-bonds] T} \qquad \ce{G <=>[3 H-bonds] C}
+\end{center}
+
+Individual hydrogen bonds are relatively weak, but there are so many of them in a DNA or RNA molecule that collectively they provide a considerable force of attraction, which can bind together two polynucleotide strands, or a single strand that folds back onto itself. This attraction is not as strong as a covalent bond, however, which means that individual base pairs can be broken with a modest input of energy. As you will see, the breaking and making of hydrogen bonds in nucleic acids is vital to their role in living systems. There are two hydrogen bonds between the pyrimidine T and the purine A, and three hydrogen bonds between the pyrimidine C and the purine G.
+
+\textbf{DNA} is usually double-stranded; that is, it consists of two separate polynucleotide strands of the same length that are held together by hydrogen bonds between base pairs. In contrast to RNA's diversity in three-dimensional structure, DNA is remarkably uniform. The A-T and G-C base pairs are about the same size (each is a purine paired with a pyrimidine), and the two polynucleotide strands form a ``ladder'' that twists into a double helix. The sugar--phosphate groups form the sides of the ladder, and the bases with their hydrogen bonds form the ``rungs'' on the inside. DNA carries genetic information in its sequence of base pairs rather than in its three-dimensional structure. The key differences among DNA molecules are their different nucleotide base sequences. The two strands of a DNA molecule fit together because they run in opposite directions---that is, they are antiparallel to one another. Equal distance between strands is maintained because a purine on one strand is always found opposite a pyrimidine on the other strand.
+
+\textbf{RNA} is generally single-stranded, though base pairing can occur between different regions of the molecule. Portions of the single-stranded RNA molecule can fold back and pair with one another. Thus complementary hydrogen bonding between ribonucleotides plays an important role in determining the three-dimensional shapes of some RNA molecules. Complementary base pairing can also take place between ribonucleotides in RNA and deoxyribonucleotides in DNA. Adenine in an RNA strand can pair either with uracil (in another RNA strand) or with thymine (in a DNA strand). Similarly, an adenine in DNA can pair either with thymine (in the complementary DNA strand) or with uracil (in RNA).
+
+\subsection{DNA Carries Information and Is Expressed Through RNA}
+
+DNA is an informational macromolecule. The information is encoded in the sequence of bases carried in its strands. For example, the information encoded in a DNA strand with the base sequence TCAGCA is different from the information in the sequence CCAGCA. DNA transmits information in two ways:
+
+\begin{enumerate}
+    \item DNA can be reproduced exactly. This process, called \textbf{DNA replication}, is done by polymerization using an existing strand as a base-pairing template.
+    \item Certain DNA sequences can be copied into RNA, in a process called \textbf{transcription}. The nucleotide sequence in the RNA can then be used to specify a sequence of amino acids in a polypeptide chain, in the process called \textbf{translation}. The overall process of transcription and translation is called \textbf{gene expression}.
+\end{enumerate}
+
+DNA replication and transcription depend on the base-pairing properties of nucleic acids. Recall that the hydrogen-bonded base pairs are A-T and G-C in DNA and A-U and G-C in RNA. Consider, for example, this double-stranded DNA region:
+\begin{center}
+    \(5'\)-TCAGCA-\(3'\)\\
+    \(3'\)-AGTCGT-\(5'\)
+\end{center}
+Transcription of the lower strand will result in a single strand of RNA with the sequence \(5'\)-UCAGCA-\(3'\).
+
+Since DNA contains essential information, it must be replicated completely and accurately so that each new cell or new organism receives a complete set of DNA from its parent. The complete set of DNA in a living organism is called its \textbf{genome}. However, not all of the information in the genome is needed at all times and in all tissues, and only small sections of the DNA are transcribed into RNA molecules. The sequences of DNA that are transcribed into RNA are called \textbf{genes}. In humans, the gene that encodes the major protein in hair (keratin) is expressed in skin cells that produce hair. The genetic information in the keratin-encoding gene is transcribed into RNA and then translated into a keratin polypeptide. In other tissues such as the muscles, the keratin gene is not transcribed, but other genes are---for example, the genes that encode proteins present in muscles but not in skin or hair. The expressions of these genes are turned on and off by elegant controls.
+
+\subsection{Other Roles of Nucleotides}
+
+Nucleotides are more than just the building blocks of nucleic acids. As we will describe in later chapters, there are several nucleotides (or modified nucleotides) with other functions:
+
+\begin{itemize}
+    \item \textbf{ATP} (adenosine triphosphate) acts as an agent of energy transfer in many biochemical reactions.
+    \item \textbf{GTP} (guanosine triphosphate) serves as an energy source, especially in protein synthesis. It also plays a role in the transfer of information from the environment to cells.
+    \item \textbf{cAMP} (cyclic adenosine monophosphate) is a special nucleotide with an additional bond between the sugar and the phosphate group. It is essential in many processes, including the actions of hormones and the transmission of information by the nervous system.
+    \item Nucleotides play roles as carriers in the synthesis and breakdown of carbohydrates and lipids.
+\end{itemize}
+
+\subsection{The Central Dogma of Molecular Biology}
+
+Replication, transcription, and translation describe the manner in which genetic information is used and together have been called the ``central dogma of molecular biology'': the premise that information flows from DNA to RNA to polypeptide (protein). The DNA base sequence reveals evolutionary relationships: DNA carries hereditary information from one generation to the next, accumulating changes in its base sequence over long periods of time. A series of DNA molecules stretches back through the lineage of every organism to the beginning of biological evolution on Earth, more than 3.5 billion years ago. Therefore closely related living species have more similar base sequences than do species that are more distantly related. For example, your DNA base sequences are more similar to those of your biological parents than they are to those of your great-grandparents. And on a more general level, your DNA sequences are more closely related to those of other primates than to those of fruit flies. (But yes, you do have sequences in common with fruit flies!) The details of how scientists use DNA sequence information to trace evolutionary relationships will be covered in later chapters.
+
+
+
+\end{document}

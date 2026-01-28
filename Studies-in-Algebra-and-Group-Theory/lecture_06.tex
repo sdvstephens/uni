@@ -20,15 +20,15 @@ Every linear map carries two intrinsic subspaces that reveal its fundamental str
 \nt{From the categorical viewpoint, kernel and image are two ways to ``measure'' a morphism. The kernel measures the \emph{failure of injectivity}---how much information the map destroys. The image measures the \emph{failure of surjectivity}---how much of the codomain the map misses. The Rank-Nullity Theorem says these two failures are complementary: the more a linear map kills, the less it can produce, and vice versa. A linear map \(\varphi : V \to W\) is completely determined by: (1) which subspace it kills (the kernel), and (2) which subspace it hits (the image). Once you know these, there's essentially only one way to fill in the rest---the map restricted to any complement of the kernel is an isomorphism onto the image. This is different from nonlinear maps, where knowing the zero set tells you almost nothing about the map's behavior elsewhere.
 }
 
-\subsection{The Kernel (Null Space)}
+\subsection{The Kernel}
 
-\dfn{Kernel of a linear map}{Let \(\varphi : V \to W\) be a linear map. The \textbf{\emph{kernel}} (or \textbf{\emph{null space}}) of \(\varphi\) is
+\dfn{Kernel of a linear map}{Let \(\varphi : V \to W\) be a linear map. The \textbf{\emph{kernel}} of \(\varphi\) is
 \[\ker(\varphi) = \{v \in V : \varphi(v) = 0_W\}.\]
 This is the set of all vectors that \(\varphi\) maps to zero.
 }
 
 
-\nt{The terminology ``kernel'' comes from algebra (group homomorphisms), while ``null space'' is more common in applied linear algebra and matrix theory. We use both interchangeably. In categorical language, the kernel is the \emph{equalizer} of \(\varphi\) and the zero map.
+\nt{The terminology ``kernel'' comes from algebra (group homomorphisms), while ``null space'' is more common in applied linear algebra and matrix theory to refer to the generalized kernal (we will get to this later). In categorical language, the kernel is the \emph{equalizer} of \(\varphi\) and the zero map.
 }
 
 \ex{Examples of kernels}{

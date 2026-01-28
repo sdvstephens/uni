@@ -1,0 +1,305 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 8: Categories: An Interlude
+% Author: S. D. V. Stephens
+% Date: 2026-01-16
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{8}{Categories: An Interlude}
+
+Many otherwise disparate fields of mathematics share fundamental structures. The language of categories systematizes these common patterns. While category theory won't answer questions specific to a particular area, it suggests useful ways to think about problems by analogy with other settings. We've already encountered categorical ideas implicitly: the universal property of quotient spaces, the behavior of dual maps, and the isomorphism theorems all fit naturally into this framework.
+
+\section{The Language of Categories}
+
+\subsection{Objects and Morphisms}
+
+The basic data of a category consists of objects and arrows between them, subject to axioms that capture the essential features of function composition.
+
+\dfn{Category}{A \textbf{category} \(\mcC\) consists of:
+\begin{enumerate}[(1)]
+    \item A collection of \textbf{objects}, denoted \(\operatorname{Ob}(\mcC)\).
+    \item For every pair of objects \(A, B \in \operatorname{Ob}(\mcC)\), a collection of \textbf{morphisms} from \(A\) to \(B\), denoted \(\Mor(A, B)\) or \(\Hom_{\mcC}(A, B)\).
+    \item A \textbf{composition rule}: for every triple \(A, B, C \in \operatorname{Ob}(\mcC)\), a map
+    \[\Mor(A, B) \times \Mor(B, C) \longrightarrow \Mor(A, C)\]
+    sending \((f, g)\) to \(g \circ f\).
+\end{enumerate}
+These must satisfy two axioms:
+\begin{enumerate}[(i)]
+    \item \textbf{Associativity:} For any \(f \in \Mor(A, B)\), \(g \in \Mor(B, C)\), \(h \in \Mor(C, D)\),
+    \[h \circ (g \circ f) = (h \circ g) \circ f.\]
+    \item \textbf{Identity:} For every object \(A\), there exists \(\id_A \in \Mor(A, A)\) such that for any \(f \in \Mor(A, B)\),
+    \[f \circ \id_A = f = \id_B \circ f.\]
+\end{enumerate}
+}
+
+\nt{The identity morphism \(\id_A\) is unique: if \(\id_A'\) also satisfies the identity axiom, then \(\id_A' = \id_A' \circ \id_A = \id_A\).}
+
+We write \(f : A \to B\) to indicate \(f \in \Mor(A, B)\), and call \(A\) the \textbf{domain} (or source) and \(B\) the \textbf{codomain} (or target) of \(f\).
+
+\ex{The category of sets}{The category \(\mathbf{Set}\) has:
+\begin{itemize}
+    \item Objects: all sets.
+    \item Morphisms: \(\Mor(A, B) = \{f : A \to B \mid f \text{ is a function}\}\).
+    \item Composition: ordinary function composition.
+\end{itemize}
+Variants include:
+\begin{itemize}
+    \item \(\mathbf{FinSet}\): objects are finite sets, morphisms are functions.
+    \item \(\mathbf{Set}_*\): \textbf{pointed sets}. Objects are pairs \((A, a)\) with \(a \in A\) a distinguished element. Morphisms \((A, a) \to (B, b)\) are functions \(f : A \to B\) with \(f(a) = b\).
+\end{itemize}
+}
+
+\ex{The category of groups}{The category \(\mathbf{Grp}\) has:
+\begin{itemize}
+    \item Objects: all groups.
+    \item Morphisms: group homomorphisms.
+    \item Composition: composition of homomorphisms.
+\end{itemize}
+The identity axiom holds because \(\id_G : G \to G\) is a homomorphism. Variants:
+\begin{itemize}
+    \item \(\mathbf{Ab}\): abelian groups and group homomorphisms.
+    \item \(\mathbf{FinGrp}\): finite groups and homomorphisms.
+\end{itemize}
+Similarly, we have categories \(\mathbf{Ring}\) (rings and ring homomorphisms) and \(\mathbf{CRing}\) (commutative rings).
+}
+
+\ex{The category of vector spaces}{Fix a field \(k\). The category \(\mathbf{Vect}_k\) has:
+\begin{itemize}
+    \item Objects: vector spaces over \(k\).
+    \item Morphisms: \(k\)-linear maps.
+    \item Composition: composition of linear maps.
+\end{itemize}
+The subcategory \(\mathbf{FinVect}_k\) consists of finite-dimensional vector spaces. We've been studying \(\mathbf{Vect}_k\) all along: \(\Hom(V, W)\) is exactly \(\Mor(V, W)\) in this category.
+}
+
+\ex{The category of topological spaces}{The category \(\mathbf{Top}\) has:
+\begin{itemize}
+    \item Objects: topological spaces.
+    \item Morphisms: continuous maps.
+    \item Composition: composition of continuous maps.
+\end{itemize}
+The pointed variant \(\mathbf{Top}_*\) has objects \((X, x_0)\) (a space with basepoint) and morphisms being continuous maps preserving basepoints. This category is fundamental in algebraic topology.
+}
+
+\nt{In all these examples, objects are ``decorated sets''---sets equipped with additional structure (a group operation, a topology, a vector space structure)---and morphisms are functions that respect this structure. This is typical of categories arising in practice, though the abstract definition permits more exotic examples. For instance, any poset \((P, \leq)\) defines a category: objects are elements of \(P\), and \(\Mor(a, b)\) contains a single element if \(a \leq b\) and is empty otherwise. Composition is forced by transitivity.}
+
+\ex{Posets as categories}{Let \((P, \leq)\) be a partially ordered set. Define a category \(\mcC_P\) by:
+\begin{itemize}
+    \item \(\operatorname{Ob}(\mcC_P) = P\).
+    \item \(\Mor(a, b) = \begin{cases} \{*\} & \text{if } a \leq b \\ \varnothing & \text{otherwise} \end{cases}\)
+    \item Composition: the unique element of \(\Mor(a, b) \times \Mor(b, c)\) maps to the unique element of \(\Mor(a, c)\) (by transitivity).
+\end{itemize}
+The identity axiom uses reflexivity (\(a \leq a\)), and associativity is trivial since all compositions are unique when defined.
+}
+
+\subsection{Isomorphisms}
+
+The notion of ``sameness'' in a category is captured by isomorphisms.
+
+\dfn{Isomorphism}{Let \(\mcC\) be a category and \(A, B \in \operatorname{Ob}(\mcC)\). A morphism \(f \in \Mor(A, B)\) is an \textbf{isomorphism} if there exists \(g \in \Mor(B, A)\) such that
+\[g \circ f = \id_A \quad \text{and} \quad f \circ g = \id_B.\]
+We write \(A \cong B\) if such an isomorphism exists, and say \(A\) and \(B\) are \textbf{isomorphic}.
+}
+
+\mprop{Uniqueness of inverses}{If \(f : A \to B\) is an isomorphism, then the morphism \(g\) in the definition is unique. We denote it \(f^{-1}\) and call it the \textbf{inverse} of \(f\).}
+
+\pf{Proof}{Suppose \(g, g' \in \Mor(B, A)\) both satisfy the conditions. Then
+\[g = g \circ \id_B = g \circ (f \circ g') = (g \circ f) \circ g' = \id_A \circ g' = g'. \qedhere\]
+}
+
+\mprop{Properties of isomorphisms}{Let \(\mcC\) be a category.
+\begin{enumerate}[(i)]
+    \item For any object \(A\), \(\id_A\) is an isomorphism with \(\id_A^{-1} = \id_A\).
+    \item If \(f : A \to B\) is an isomorphism, then \(f^{-1} : B \to A\) is an isomorphism with \((f^{-1})^{-1} = f\).
+    \item If \(f : A \to B\) and \(g : B \to C\) are isomorphisms, then \(g \circ f : A \to C\) is an isomorphism with \((g \circ f)^{-1} = f^{-1} \circ g^{-1}\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(\id_A \circ \id_A = \id_A\).
+
+(ii) By definition, \(f^{-1} \circ f = \id_A\) and \(f \circ f^{-1} = \id_B\). This says exactly that \(f\) is the inverse of \(f^{-1}\).
+
+(iii) Compute:
+\[(f^{-1} \circ g^{-1}) \circ (g \circ f) = f^{-1} \circ (g^{-1} \circ g) \circ f = f^{-1} \circ \id_B \circ f = f^{-1} \circ f = \id_A.\]
+Similarly, \((g \circ f) \circ (f^{-1} \circ g^{-1}) = \id_C\).
+}
+
+\ex{Isomorphisms in familiar categories}{
+\begin{itemize}
+    \item In \(\mathbf{Set}\): isomorphisms are bijections.
+    \item In \(\mathbf{Grp}\): isomorphisms are group isomorphisms (bijective homomorphisms).
+    \item In \(\mathbf{Vect}_k\): isomorphisms are invertible linear maps.
+    \item In \(\mathbf{Top}\): isomorphisms are homeomorphisms (continuous bijections with continuous inverse).
+\end{itemize}
+In \(\mathbf{FinVect}_k\), two objects are isomorphic iff they have the same dimension. In \(\mathbf{FinSet}\), two objects are isomorphic iff they have the same cardinality.
+}
+
+\nt{In \(\mathbf{Top}\), a bijective continuous map need not be an isomorphism---the inverse may fail to be continuous. For example, \(\id : (\RR, \text{discrete}) \to (\RR, \text{standard})\) is a continuous bijection but not a homeomorphism. This illustrates that ``isomorphism'' in a category means more than just bijection on underlying sets.}
+
+\subsection{Automorphism Groups}
+
+The self-isomorphisms of an object form a group, connecting category theory back to group theory.
+
+\dfn{Automorphism group}{For an object \(A\) in a category \(\mcC\), the \textbf{automorphism group} of \(A\) is
+\[\Aut(A) = \{f \in \Mor(A, A) : f \text{ is an isomorphism}\}.\]
+}
+
+\thm{Automorphisms form a group}{\(\Aut(A)\), equipped with composition, is a group.}
+
+\pf{Proof}{
+\begin{itemize}
+    \item \textbf{Closure:} If \(f, g \in \Aut(A)\), then \(g \circ f\) is an isomorphism by the previous proposition.
+    \item \textbf{Associativity:} Inherited from the category axiom.
+    \item \textbf{Identity:} \(\id_A \in \Aut(A)\) is the identity element.
+    \item \textbf{Inverses:} If \(f \in \Aut(A)\), then \(f^{-1} \in \Aut(A)\). \qedhere
+\end{itemize}
+}
+
+\ex{Automorphism groups in practice}{
+\begin{itemize}
+    \item In \(\mathbf{FinSet}\): if \(|A| = n\), then \(\Aut(A) \cong S_n\), the symmetric group.
+    \item In \(\mathbf{FinVect}_k\): if \(\dim V = n\), then \(\Aut(V) \cong \GL_n(k)\), the general linear group.
+    \item In \(\mathbf{Grp}\): \(\Aut(G)\) is the group of group automorphisms. For \(G = \ZZ/n\), we have \(\Aut(\ZZ/n) \cong (\ZZ/n)^\times\).
+\end{itemize}
+}
+
+\mer{Isomorphic objects have isomorphic automorphism groups}{Let \(f : A \to B\) be an isomorphism in a category \(\mcC\). Show that the map
+\[c_f : \Aut(A) \to \Aut(B), \quad g \mapsto f \circ g \circ f^{-1}\]
+is a group isomorphism.}
+
+\begin{solution}
+\textbf{Well-defined:} If \(g \in \Aut(A)\), then \(f \circ g \circ f^{-1}\) is a composition of isomorphisms, hence an isomorphism \(B \to B\).
+
+\textbf{Homomorphism:} For \(g, h \in \Aut(A)\):
+\[c_f(g \circ h) = f \circ (g \circ h) \circ f^{-1} = (f \circ g \circ f^{-1}) \circ (f \circ h \circ f^{-1}) = c_f(g) \circ c_f(h).\]
+
+\textbf{Bijective:} The map \(c_{f^{-1}} : \Aut(B) \to \Aut(A)\) is an inverse:
+\[c_{f^{-1}}(c_f(g)) = f^{-1} \circ (f \circ g \circ f^{-1}) \circ f = g.\]
+Similarly, \(c_f(c_{f^{-1}}(h)) = h\).
+\end{solution}
+
+\nt{This exercise shows that the automorphism group is an ``isomorphism invariant'': isomorphic objects have isomorphic automorphism groups. The converse is false---non-isomorphic objects can have isomorphic automorphism groups. For instance, in \(\mathbf{Set}\), any two 3-element sets have automorphism group \(S_3\), but they are only isomorphic if we consider them as abstract sets (which they always are).}
+
+A category where every morphism is an isomorphism has a special name.
+
+\dfn{Groupoid}{A \textbf{groupoid} is a category in which every morphism is an isomorphism.}
+
+\nt{A groupoid generalizes the notion of a group: a group is precisely a groupoid with exactly one object. In a groupoid, morphisms can be composed only when the target of one matches the source of the other, but when composition is defined, it has inverses. The fundamental groupoid of a topological space, with objects being points and morphisms being homotopy classes of paths, is a key example in algebraic topology.}
+
+\ex{Groupoids}{
+\begin{itemize}
+    \item The category whose objects are finite sets and whose morphisms are only bijections (not all functions) is a groupoid.
+    \item Any group \(G\) defines a groupoid \(\mathbf{B}G\) with one object \(*\) and \(\Mor(*, *) = G\).
+    \item The category whose objects are groups and whose morphisms are only group isomorphisms is a groupoid.
+\end{itemize}
+}
+
+
+\section{Universal Properties}
+
+Many constructions in mathematics are characterized not by explicit formulas but by \emph{universal properties}---conditions that specify the construction uniquely up to isomorphism. We've already seen this with quotient spaces: the quotient \(V/U\) is characterized by factoring any linear map that kills \(U\). Products and coproducts provide two more fundamental examples.
+
+\subsection{Products and Coproducts}
+
+\dfn{Product}{Let \(\mcC\) be a category and \(A, B \in \operatorname{Ob}(\mcC)\). A \textbf{product} of \(A\) and \(B\) is an object \(P\) together with morphisms \(\pi_1 : P \to A\) and \(\pi_2 : P \to B\) (called \textbf{projections}) satisfying the following \textbf{universal property}:
+
+For any object \(T\) and morphisms \(\alpha : T \to A\), \(\beta : T \to B\), there exists a \emph{unique} morphism \(\varphi : T \to P\) such that \(\pi_1 \circ \varphi = \alpha\) and \(\pi_2 \circ \varphi = \beta\).
+\[\begin{tikzcd}[ampersand replacement=\&]
+T \ar[dr, "\alpha"'] \ar[drr, "\beta", bend left=15] \ar[d, dashed, "\exists!\, \varphi"'] \\
+P \ar[r, "\pi_1"'] \& A \& B \ar[l, "\pi_2"]
+\end{tikzcd}\]
+We write \(P = A \times B\) and \(\varphi = (\alpha, \beta)\) for the unique induced map.
+}
+
+\nt{The universal property says: to give a map into the product is the same as giving a map into each factor. This is the categorical abstraction of the familiar fact that a function \(f : T \to A \times B\) is determined by its components \(f_1 = \pi_1 \circ f\) and \(f_2 = \pi_2 \circ f\).}
+
+The dual notion reverses all arrows.
+
+\dfn{Coproduct}{Let \(\mcC\) be a category and \(A, B \in \operatorname{Ob}(\mcC)\). A \textbf{coproduct} (or \textbf{sum}) of \(A\) and \(B\) is an object \(S\) together with morphisms \(\iota_1 : A \to S\) and \(\iota_2 : B \to S\) (called \textbf{inclusions} or \textbf{coprojections}) satisfying:
+
+For any object \(T\) and morphisms \(\alpha : A \to T\), \(\beta : B \to T\), there exists a \emph{unique} morphism \(\varphi : S \to T\) such that \(\varphi \circ \iota_1 = \alpha\) and \(\varphi \circ \iota_2 = \beta\).
+\[\begin{tikzcd}[ampersand replacement=\&]
+A \ar[r, "\iota_1"] \ar[dr, "\alpha"'] \& S \ar[d, dashed, "\exists!\, \varphi"] \& B \ar[l, "\iota_2"'] \ar[dl, "\beta"] \\
+\& T
+\end{tikzcd}\]
+We write \(S = A \amalg B\) or \(A + B\) and \(\varphi = [\alpha, \beta]\) for the unique induced map.
+}
+
+\nt{The universal property of the coproduct says: to give a map out of the coproduct is the same as giving a map out of each summand. This duality between products and coproducts---reversing all arrows---is a general phenomenon in category theory.}
+
+\thm{Uniqueness of products and coproducts}{If a product (resp.\ coproduct) of \(A\) and \(B\) exists, it is unique up to unique isomorphism. That is, if \((P, \pi_1, \pi_2)\) and \((P', \pi_1', \pi_2')\) are both products of \(A\) and \(B\), then there is a unique isomorphism \(\psi : P \to P'\) with \(\pi_1' \circ \psi = \pi_1\) and \(\pi_2' \circ \psi = \pi_2\).}
+
+\pf{Proof}{By the universal property of \(P'\), applied to the maps \(\pi_1 : P \to A\) and \(\pi_2 : P \to B\), there exists a unique \(\psi : P \to P'\) with \(\pi_1' \circ \psi = \pi_1\) and \(\pi_2' \circ \psi = \pi_2\).
+
+By the universal property of \(P\), applied to \(\pi_1' : P' \to A\) and \(\pi_2' : P' \to B\), there exists a unique \(\psi' : P' \to P\) with \(\pi_1 \circ \psi' = \pi_1'\) and \(\pi_2 \circ \psi' = \pi_2'\).
+
+Now \(\psi' \circ \psi : P \to P\) satisfies \(\pi_1 \circ (\psi' \circ \psi) = \pi_1\) and \(\pi_2 \circ (\psi' \circ \psi) = \pi_2\). But \(\id_P\) also satisfies these equations. By uniqueness in the universal property of \(P\), we have \(\psi' \circ \psi = \id_P\). Similarly, \(\psi \circ \psi' = \id_{P'}\).
+
+The proof for coproducts is dual (reverse all arrows).
+}
+
+\nt{This proof pattern---using universal properties to construct inverse maps---is standard in category theory. The key is that universal properties give \emph{uniqueness}, which forces the composites to be identities.}
+
+Products and coproducts need not exist in every category. When working in a new category, one of the first questions is whether these constructions exist and what form they take.
+
+\subsection{Examples in \texorpdfstring{$\mathbf{Vect}_k$}{Vect\_k}}
+
+\ex{Products and coproducts in \(\mathbf{Set}\)}{In the category of sets:
+\begin{itemize}
+    \item The \textbf{product} \(A \times B\) is the Cartesian product \(\{(a, b) : a \in A, b \in B\}\) with projections \(\pi_1(a, b) = a\) and \(\pi_2(a, b) = b\).
+    \item The \textbf{coproduct} \(A \amalg B\) is the disjoint union \(A \sqcup B = \{(a, 1) : a \in A\} \cup \{(b, 2) : b \in B\}\) with inclusions \(\iota_1(a) = (a, 1)\) and \(\iota_2(b) = (b, 2)\).
+\end{itemize}
+The universal properties are immediate from the definitions of functions on Cartesian products and disjoint unions.
+}
+
+\ex{Products and coproducts in \(\mathbf{Grp}\)}{In the category of groups:
+\begin{itemize}
+    \item The \textbf{product} \(G \times H\) is the direct product with componentwise operations and projections.
+    \item The \textbf{coproduct} \(G * H\) is the \textbf{free product}---a more complicated construction involving alternating words from \(G\) and \(H\).
+\end{itemize}
+In the subcategory \(\mathbf{Ab}\) of abelian groups, both product and coproduct are the direct sum \(G \oplus H\) (with the same underlying group but different universal properties).
+}
+
+\ex{Products and coproducts in \(\mathbf{Vect}_k\)}{In the category of finite-dimensional vector spaces over \(k\), both the product and coproduct of \(V\) and \(W\) are realized by the \textbf{direct sum} \(V \oplus W\).
+
+\textbf{As a product:} Define \(\pi_1 : V \oplus W \to V\) by \(\pi_1(v, w) = v\) and \(\pi_2 : V \oplus W \to W\) by \(\pi_2(v, w) = w\). Given linear maps \(\alpha : T \to V\) and \(\beta : T \to W\), define \(\varphi : T \to V \oplus W\) by \(\varphi(t) = (\alpha(t), \beta(t))\). This is the unique map with \(\pi_1 \circ \varphi = \alpha\) and \(\pi_2 \circ \varphi = \beta\).
+
+\textbf{As a coproduct:} Define \(\iota_1 : V \to V \oplus W\) by \(\iota_1(v) = (v, 0)\) and \(\iota_2 : W \to V \oplus W\) by \(\iota_2(w) = (0, w)\). Given linear maps \(\alpha : V \to T\) and \(\beta : W \to T\), define \(\varphi : V \oplus W \to T\) by \(\varphi(v, w) = \alpha(v) + \beta(w)\). This is the unique map with \(\varphi \circ \iota_1 = \alpha\) and \(\varphi \circ \iota_2 = \beta\).
+}
+
+\nt{The coincidence of products and coproducts in \(\mathbf{Vect}_k\) (and \(\mathbf{Ab}\)) reflects the additive structure of these categories. In categories without such structure (like \(\mathbf{Set}\) or \(\mathbf{Grp}\)), products and coproducts are genuinely different constructions.}
+
+\mer{Products and coproducts exercises}{
+\begin{enumerate}[(1)]
+    \item Verify explicitly that the Cartesian product satisfies the universal property of products in \(\mathbf{Set}\).
+    \item Show that in \(\mathbf{Ab}\), the coproduct of \(\ZZ\) and \(\ZZ\) is \(\ZZ^2\), while in \(\mathbf{Grp}\), the coproduct is the free group \(F_2\) on two generators.
+    \item Let \(V\) and \(W\) be finite-dimensional vector spaces over \(k\). Show that \(\dim(V \oplus W) = \dim V + \dim W\) using the universal property (not by direct computation).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} Let \(A, B\) be sets and let \(T\) be any set with functions \(\alpha : T \to A\) and \(\beta : T \to B\). We must show there exists a unique function \(\varphi : T \to A \times B\) with \(\pi_1 \circ \varphi = \alpha\) and \(\pi_2 \circ \varphi = \beta\).
+
+\emph{Existence:} Define \(\varphi(t) = (\alpha(t), \beta(t))\). Then \(\pi_1(\varphi(t)) = \alpha(t)\) and \(\pi_2(\varphi(t)) = \beta(t)\).
+
+\emph{Uniqueness:} If \(\psi : T \to A \times B\) satisfies \(\pi_1 \circ \psi = \alpha\) and \(\pi_2 \circ \psi = \beta\), then for any \(t \in T\), \(\psi(t) = (\pi_1(\psi(t)), \pi_2(\psi(t))) = (\alpha(t), \beta(t)) = \varphi(t)\).
+
+\textbf{(2)} In \(\mathbf{Ab}\): The coproduct of \(\ZZ\) and \(\ZZ\) has inclusions \(\iota_1, \iota_2 : \ZZ \to S\) such that any pair of homomorphisms \(\alpha, \beta : \ZZ \to A\) (for \(A\) abelian) factors uniquely through \(S\). Taking \(S = \ZZ^2\) with \(\iota_1(n) = (n, 0)\) and \(\iota_2(n) = (0, n)\), the map \(\varphi : \ZZ^2 \to A\) defined by \(\varphi(m, n) = m \cdot \alpha(1) + n \cdot \beta(1)\) is the unique such factorization.
+
+In \(\mathbf{Grp}\): The coproduct must handle non-commuting images. Given any group \(G\) and homomorphisms \(\alpha, \beta : \ZZ \to G\), the elements \(\alpha(1)\) and \(\beta(1)\) generate a subgroup that need not be abelian. The free group \(F_2 = \langle a, b \rangle\) with \(\iota_1(1) = a\) and \(\iota_2(1) = b\) satisfies the universal property: any choice of \(g = \alpha(1)\) and \(h = \beta(1)\) in \(G\) extends uniquely to a homomorphism \(F_2 \to G\).
+
+\textbf{(3)} By the universal property of coproducts, \(\Hom(V \oplus W, T) \cong \Hom(V, T) \times \Hom(W, T)\) for any \(T\). Taking \(T = k\):
+\[(V \oplus W)^* \cong V^* \times W^*.\]
+Thus \(\dim(V \oplus W)^* = \dim V^* + \dim W^*\). Since \(\dim U^* = \dim U\) for finite-dimensional spaces, we get \(\dim(V \oplus W) = \dim V + \dim W\).
+\end{solution}
+
+\nt{The argument in (3) illustrates a general principle: universal properties translate into isomorphisms of Hom-sets. The functor \(\Hom(-, T)\) sends coproducts to products, which is why \(\Hom(V \oplus W, T) \cong \Hom(V, T) \times \Hom(W, T)\). This is part of a larger story involving \emph{adjoint functors}.}
+
+
+\end{document}

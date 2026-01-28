@@ -58,7 +58,6 @@ class MasterCompiler:
 
 % Load preamble
 \\input{{~/university/preamble.tex}}
-\\input{{~/university/preamble-darkmode.tex}}
 
 % docmute: allows \\input of standalone documents (ignores their preamble)
 \\usepackage{{docmute}}

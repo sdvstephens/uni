@@ -1,0 +1,48 @@
+% Studies-in-Real-and-Complex-Analysis - Lecture 1: New Beginnings
+% Author: S. D. V. Stephens
+% Date: 2026-01-26
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Real-and-Complex-Analysis}
+
+\begin{document}
+
+\lecture{1}{New Beginnings}
+
+\dfn{Metric Space}{A \emph{metric space} \( (X,d) \) is a set \( X \) with a function \( d: X \times  X \to \mathbb{R}_{\ge 0} \) such that
+\begin{enumerate}
+  \item For \( p,q \in X , \quad d(p,q)=0 \iff p=q\); 
+  \item \( d(p,q)=d(q,p) \); and 
+  \item the triangle inequality---\( \forall p,q,r \in X, \quad d(p,r) \le d(p,q)+d(q,r) \)---holds. 
+\end{enumerate}
+
+}
+
+\ex{}{\begin{enumerate}
+  \item \( X = \mathbb{R}  \) so \( d(a,b)=|b-a|=|a-b| \);
+  \item \( X = \RR[n] \) with \( d \) as Euclidean distance \( d(x,y)=\sqrt{\sum_{i=1}^n(y_i-x_i)^2}  \); 
+  \item on \( \RR[n] \) we have \( d_1(x,y)=\sum_{n}^{i=1}\mid y_i-x_i\mid \) and \( d_{\infty}(x,y)=\text{max}(\mid y_i-x_i \mid ) \).
+\end{enumerate}}
+
+\dfn{Open}{\( S \subset  X \) is \emph{open} if \( \forall p \in  X, \exists r > 0 \) s.t. \( B_r(p)\subset  S \).}
+
+Visually we can represent this with the following: 
+
+
+\begin{figure}[ht]
+    \centering
+ \includegraphics[width=0.35\textwidth]{./figures/open.pdf}
+    \caption{open}
+    \label{fig:open}
+\end{figure}
+
+\dfn{Open ball}{Given a metric space \( (X,d), \, p \in  X, \, r > 0 \), the \emph{open ball} (or \emph{neighborhood}) of radius \( r \) around \( p \) is \( B_r(p)=\{q \in X \mid d(p,q)<r\}.  \)}
+
+
+
+
+\end{document}

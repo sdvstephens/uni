@@ -13,7 +13,7 @@
 
 \lecture{7}{More maps and spaces}
 
-\subsection{Annihilators Revisited}
+\subsection{Annihilators}
 
 The annihilator provides a precise duality between subspaces of \(V\) and subspaces of \(V^*\).
 
@@ -409,7 +409,7 @@ Let \(P = \begin{pmatrix} 2 & 1 \\ 1 & -1 \end{pmatrix}\) (columns are eigenvect
 
 \section{Let's get general up in here!}
 
-
+\subsection{Generalized Kernals (Null Spaces)}
 We want to look at general eigenvectors: things that are not \textit{actually} eigenvectors but "kinda want to be" in a generalized sense. What in tarnation does that mean!? Simplest Eigenspace is just \( 0 \), so let's focus on that to get an understanding:
 
 \dfn{Generalized kernal}{The \emph{generalized kernal} of \( \varphi \) is \( \text{gker}(\varphi ) = \{v \in  V \mid \exists m>0 \text{ s.t. } \varphi ^m(v)=0\}  \). These are all the vecrtors that are evnetually sent to \( 0 \) by repeatedly applying \( \varphi  \).}
@@ -422,16 +422,610 @@ The difference between the kernal and generalized kernal can be summed up by thi
 \mprop{}{If \( \Ker (\varphi ^m) = \Ker (\varphi^{m+1}) \) then there is no strictly larger kernal.}
 \pf{Proof}{\( \varphi ^{m+2}(v)=\varphi ^{m+1}(\varphi (V))=0 \iff \varphi (v)=\Ker \varphi ^m \iff \varphi ^m(\varphi (v))=\varphi ^{m+1}(v)=0 \). So \( \Ker (\varphi ^{m+1})=\Ker (\varphi ^{m+2}).\) Since the sequence stops increasing after at most \( n= \dim V \) steps, \( \text{gker}(\varphi )=\Ker \varphi ^n \).}
 
+\ex{}{\( \varphi : k^2 \to k^2  \) with \( e_{1} \mapsto 0, \, e_{2} \mapsto e_{1} \) and \(
+      \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} 
+  ,\) then \( \Ker (\varphi )=k \cdot e_{1}, \) but \( \Ker (\varphi ^2) =\text{gker}(\varphi )=k^2\).
+}
+
+\nt{The generalized kernal is often referred to as the \emph{null space} (this is the terminology that Axler uses, for example). I may use this interchangeably. }
+
+Since it is not the case that \( V = \text{gker}(\varphi )\oplus \text{Img}(\varphi ) \) for every \( \varphi \in \Hom(V, V) \), we can use the following proposition as a substitute:
+
+\mprop{Generalized kernel-image decomposition}{Suppose \( \varphi \in \End(V) \) and let \(m\) be the smallest positive integer such that \(\Ker(\varphi^m) = \Ker(\varphi^{m+1})\). Then
+\[
+    V = \Ker(\varphi^m) \oplus \Img(\varphi^m).
+\]
+In particular, \( V = \text{gker}(\varphi) \oplus \Img(\varphi^{\dim V}) \).}
+
+\pf{Proof}{We verify the two conditions for a direct sum decomposition.
+
+\textbf{Intersection is trivial:} Suppose \(v \in \Ker(\varphi^m) \cap \Img(\varphi^m)\). Write \(v = \varphi^m(u)\) for some \(u \in V\). Then \(\varphi^m(v) = \varphi^{2m}(u) = 0\), so \(u \in \Ker(\varphi^{2m})\). 
+
+We claim \(\Ker(\varphi^{2m}) = \Ker(\varphi^m)\). By the stabilization property, once the kernel sequence stabilizes at step \(m\), it stays constant: \(\Ker(\varphi^m) = \Ker(\varphi^{m+1}) = \cdots = \Ker(\varphi^{2m})\). Thus \(u \in \Ker(\varphi^m)\), which means \(v = \varphi^m(u) = 0\).
+
+\textbf{Sum is all of \(V\):} By rank-nullity applied to \(\varphi^m\):
+\[\dim V = \dim \Ker(\varphi^m) + \dim \Img(\varphi^m).\]
+Since we just showed \(\Ker(\varphi^m) \cap \Img(\varphi^m) = \{0\}\), the sum \(\Ker(\varphi^m) + \Img(\varphi^m)\) is direct, and its dimension equals \(\dim \Ker(\varphi^m) + \dim \Img(\varphi^m) = \dim V\). Hence it equals \(V\).
+}
+
+\nt{This decomposition is the key structural result for understanding non-diagonalizable operators. The generalized kernel \(\text{gker}(\varphi)\) captures the ``nilpotent part'' of \(\varphi\), while \(\Img(\varphi^m)\) is where \(\varphi\) acts invertibly. On \(\text{gker}(\varphi)\), repeated application of \(\varphi\) eventually kills everything; on \(\Img(\varphi^m)\), the restriction of \(\varphi\) is an isomorphism.}
+
+\cor{Restriction to image is an isomorphism}{With notation as above, the restriction \(\varphi|_{\Img(\varphi^m)} : \Img(\varphi^m) \to \Img(\varphi^m)\) is an isomorphism.}
+
+\pf{Proof}{First, \(\Img(\varphi^m)\) is \(\varphi\)-invariant since \(\varphi(\Img(\varphi^m)) = \Img(\varphi^{m+1}) \subseteq \Img(\varphi^m)\). For injectivity: if \(v \in \Img(\varphi^m)\) and \(\varphi(v) = 0\), then \(v \in \Ker(\varphi) \subseteq \Ker(\varphi^m)\). But \(\Ker(\varphi^m) \cap \Img(\varphi^m) = \{0\}\), so \(v = 0\). Since \(\varphi|_{\Img(\varphi^m)}\) is injective on a finite-dimensional space, it's also surjective onto its image, which equals \(\Img(\varphi^m)\) by \(\varphi\)-invariance.
+}
 
 
+\subsection{Generalized Eigenspaces}
+
+Now we extend the idea of generalized kernels to arbitrary eigenvalues, not just \(\lambda = 0\).
+
+\dfn{Generalized eigenspace}{Let \(\varphi \in \End(V)\) and let \(\lambda\) be an eigenvalue of \(\varphi\). The \textbf{generalized eigenspace} of \(\varphi\) corresponding to \(\lambda\) is
+\[V_\lambda = \Ker(\varphi - \lambda \id)^{\dim V} = \{v \in V : (\varphi - \lambda \id)^n(v) = 0 \text{ for some } n \geq 1\}.\]
+Equivalently, \(V_\lambda = \text{gker}(\varphi - \lambda \id)\).}
+
+\nt{The ordinary eigenspace \(E(\lambda, \varphi) = \Ker(\varphi - \lambda \id)\) is always contained in \(V_\lambda\), but \(V_\lambda\) may be strictly larger. The elements of \(V_\lambda \setminus E(\lambda, \varphi)\) are called \textbf{generalized eigenvectors}---they are not true eigenvectors, but they are ``eventually killed'' by \(\varphi - \lambda \id\).}
+
+\ex{Generalized eigenspace of the shear}{Recall the shear \(\varphi : \RR^2 \to \RR^2\) with matrix \(A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\). The only eigenvalue is \(\lambda = 1\), and the eigenspace is \(E(1, \varphi) = \Ker(A - I) = \Ker\begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = \operatorname{Span}\{e_1\}\), which is one-dimensional.
+
+However, \((A - I)^2 = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}^2 = \begin{pmatrix} 0 & 0 \\ 0 & 0 \end{pmatrix} = 0\).
+
+So the generalized eigenspace is \(V_1 = \Ker(A - I)^2 = \RR^2\). The vector \(e_2\) is a generalized eigenvector: \((A - I)e_2 = e_1 \neq 0\), but \((A - I)^2 e_2 = 0\).
+}
+
+\mprop{Basic properties of generalized eigenspaces}{Let \(\varphi \in \End(V)\) with eigenvalue \(\lambda\). Then:
+\begin{enumerate}
+    \item \(E(\lambda, \varphi) \subseteq V_\lambda\).
+    \item \(V_\lambda\) is \(\varphi\)-invariant.
+    \item On \(V_\lambda\), the operator \(\varphi - \lambda \id\) is nilpotent.
+    \item If \(\mu \neq \lambda\) are distinct eigenvalues, then \(V_\lambda \cap V_\mu = \{0\}\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) is immediate: if \((\varphi - \lambda \id)(v) = 0\), then certainly \((\varphi - \lambda \id)^n(v) = 0\) for all \(n \geq 1\).
+
+(2) Let \(v \in V_\lambda\), so \((\varphi - \lambda \id)^n(v) = 0\) for some \(n\). Since \(\varphi\) commutes with \(\varphi - \lambda \id\), we have
+\[(\varphi - \lambda \id)^n(\varphi(v)) = \varphi((\varphi - \lambda \id)^n(v)) = \varphi(0) = 0.\]
+Thus \(\varphi(v) \in V_\lambda\).
+
+(3) By definition, \(V_\lambda = \Ker(\varphi - \lambda \id)^m\) for some \(m \leq \dim V\). So \((\varphi - \lambda \id)^m\) restricted to \(V_\lambda\) is the zero map.
+
+(4) Suppose \(v \in V_\lambda \cap V_\mu\) with \(\lambda \neq \mu\). Then there exist \(j, k \geq 1\) such that \((\varphi - \lambda \id)^j(v) = 0\) and \((\varphi - \mu \id)^k(v) = 0\).
+
+The polynomials \(p(x) = (x - \lambda)^j\) and \(q(x) = (x - \mu)^k\) are coprime (they share no common roots). By Bézout's identity, there exist polynomials \(a(x), b(x) \in k[x]\) such that \(a(x)p(x) + b(x)q(x) = 1\).
+
+Evaluating at \(\varphi\): \(a(\varphi)p(\varphi) + b(\varphi)q(\varphi) = \id\). Applying to \(v\):
+\[v = a(\varphi)p(\varphi)(v) + b(\varphi)q(\varphi)(v) = a(\varphi)(0) + b(\varphi)(0) = 0.\]
+}
+
+\nt{Part (4) shows that generalized eigenspaces for distinct eigenvalues intersect trivially, just like ordinary eigenspaces. The proof uses the coprimality of \((x - \lambda)^j\) and \((x - \mu)^k\)---this is a technique that will reappear in the generalized eigenspace decomposition.}
 
 
+\subsection{The Generalized Eigenspace Decomposition}
+
+The following theorem is the main structural result for operators on finite-dimensional vector spaces over algebraically closed fields.
+
+\thm{Generalized eigenspace decomposition}{Let \(V\) be a finite-dimensional vector space over an algebraically closed field \(k\), and let \(\varphi \in \End(V)\). Let \(\lambda_1, \ldots, \lambda_m\) be the distinct eigenvalues of \(\varphi\). Then
+\[V = V_{\lambda_1} \oplus V_{\lambda_2} \oplus \cdots \oplus V_{\lambda_m}.\]
+Moreover, \(\sum_{i=1}^m \dim V_{\lambda_i} = \dim V\).}
+
+\pf{Proof}{We proceed in two steps.
+
+\textbf{Step 1: The sum is direct.} We already showed that \(V_{\lambda_i} \cap V_{\lambda_j} = \{0\}\) for \(i \neq j\). More generally, suppose \(v_1 + \cdots + v_m = 0\) where \(v_i \in V_{\lambda_i}\). We show each \(v_i = 0\).
+
+For each \(i\), let \(n_i\) be such that \((\varphi - \lambda_i \id)^{n_i}(v_i) = 0\). Define \(p_i(x) = (x - \lambda_i)^{n_i}\) and 
+\[q_i(x) = \prod_{j \neq i} (x - \lambda_j)^{n_j}.\]
+Since \(\lambda_i\) is not a root of \(q_i(x)\), the polynomials \(p_i(x)\) and \(q_i(x)\) are coprime. By Bézout, there exist \(a_i(x), b_i(x)\) with \(a_i(x)p_i(x) + b_i(x)q_i(x) = 1\).
+
+Now, \(q_i(\varphi)(v_j) = 0\) for all \(j \neq i\) (since \(p_j\) divides \(q_i\)). Applying \(q_i(\varphi)\) to \(v_1 + \cdots + v_m = 0\):
+\[0 = q_i(\varphi)(v_1 + \cdots + v_m) = q_i(\varphi)(v_i).\]
+Thus \(v_i \in \Ker(q_i(\varphi)) \cap \Ker(p_i(\varphi)) = V_{\lambda_i} \cap \Ker(q_i(\varphi))\).
+
+But from \(a_i(\varphi)p_i(\varphi)(v_i) + b_i(\varphi)q_i(\varphi)(v_i) = v_i\) and both terms being zero, we get \(v_i = 0\).
+
+\textbf{Step 2: The sum equals \(V\).} Define \(p(x) = \prod_{i=1}^m (x - \lambda_i)^{n_i}\) where \(n_i = \dim V_{\lambda_i}\) (we'll justify this choice shortly). We claim \(p(\varphi) = 0\), i.e., \(p\) annihilates \(\varphi\).
+
+Consider the polynomial \(q_i(x) = p(x)/(x - \lambda_i)^{n_i}\). These polynomials are pairwise coprime (each \(q_i\) excludes exactly the factor \((x - \lambda_i)^{n_i}\)). Their gcd is 1, so there exist \(r_i(x)\) with \(\sum_i r_i(x)q_i(x) = 1\).
+
+For any \(v \in V\), write \(v = \sum_i r_i(\varphi)q_i(\varphi)(v)\). We claim \(r_i(\varphi)q_i(\varphi)(v) \in V_{\lambda_i}\). Indeed:
+\[p_i(\varphi)(r_i(\varphi)q_i(\varphi)(v)) = r_i(\varphi)(p_i(\varphi)q_i(\varphi))(v) = r_i(\varphi)p(\varphi)(v).\]
+Once we establish that \(p(\varphi) = 0\) (which follows from Cayley-Hamilton, proved later, or can be verified by dimension counting), this shows \(v\) is a sum of elements from the \(V_{\lambda_i}\).
+
+\textbf{Alternative dimension argument:} Since \(k\) is algebraically closed, \(\varphi\) has at least one eigenvalue. Apply the decomposition \(V = \text{gker}(\varphi - \lambda_1 \id) \oplus \Img((\varphi - \lambda_1 \id)^{n_1})\) where \(n_1\) is the stabilization index. The first summand is \(V_{\lambda_1}\). On the second summand, \(\varphi - \lambda_1 \id\) is invertible, so \(\lambda_1\) is not an eigenvalue of \(\varphi\) restricted there. Proceed by induction on \(\dim V\).
+}
+
+\cor{Dimension of generalized eigenspaces}{With notation as above, if \(\chi_\varphi(x) = \prod_{i=1}^m (x - \lambda_i)^{n_i}\) is the characteristic polynomial, then \(\dim V_{\lambda_i} = n_i\).}
+
+\nt{The exponent \(n_i\) in the characteristic polynomial is called the \textbf{algebraic multiplicity} of \(\lambda_i\). The dimension of the ordinary eigenspace \(\dim E(\lambda_i, \varphi)\) is called the \textbf{geometric multiplicity}. We always have:
+\[1 \leq \dim E(\lambda_i, \varphi) \leq \dim V_{\lambda_i} = n_i.\]
+The operator \(\varphi\) is diagonalizable if and only if geometric multiplicity equals algebraic multiplicity for every eigenvalue.}
+
+\ex{Decomposition for a \(3 \times 3\) matrix}{Consider \(\varphi : \CC^3 \to \CC^3\) with matrix
+\[A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}.\]
+The characteristic polynomial is \(\chi_A(x) = (x-2)^2(x-3)\), so \(\lambda_1 = 2\) has algebraic multiplicity 2 and \(\lambda_2 = 3\) has algebraic multiplicity 1.
+
+For \(\lambda_1 = 2\): 
+\[A - 2I = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}, \quad (A-2I)^2 = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}.\]
+So \(V_2 = \Ker(A-2I)^2 = \operatorname{Span}\{e_1, e_2\}\), which has dimension 2.
+
+For \(\lambda_2 = 3\): \(V_3 = \Ker(A - 3I) = \operatorname{Span}\{e_3\}\), dimension 1.
+
+Indeed, \(\CC^3 = V_2 \oplus V_3\).
+}
 
 
+\section{Nilpotent Operators}
+
+Nilpotent operators are the building blocks for understanding non-diagonalizable maps. On each generalized eigenspace \(V_\lambda\), the operator \(\varphi - \lambda \id\) is nilpotent, so understanding nilpotent operators is the key to understanding all operators.
+
+\subsection{Definition and Basic Properties}
+
+\dfn{Nilpotent operator}{An operator \(\varphi \in \End(V)\) is \textbf{nilpotent} if \(\varphi^m = 0\) for some positive integer \(m\). The smallest such \(m\) is called the \textbf{index of nilpotency} (or \textbf{nilpotence index}) of \(\varphi\).}
+
+\ex{Basic examples of nilpotent operators}{
+\begin{enumerate}
+    \item The zero operator is nilpotent with index 1.
+    \item The shift operator on \(k^n\) with matrix \(\begin{pmatrix} 0 & 1 & 0 & \cdots & 0 \\ 0 & 0 & 1 & \cdots & 0 \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & 0 & \cdots & 0 & 1 \\ 0 & 0 & \cdots & 0 & 0 \end{pmatrix}\) is nilpotent with index \(n\).
+    \item Any strictly upper-triangular matrix (zeros on and below the diagonal) is nilpotent.
+\end{enumerate}
+}
+
+\mprop{Characterizations of nilpotent operators}{For \(\varphi \in \End(V)\) with \(\dim V = n\), the following are equivalent:
+\begin{enumerate}
+    \item \(\varphi\) is nilpotent.
+    \item \(\varphi^n = 0\).
+    \item The only eigenvalue of \(\varphi\) is \(0\) (if \(k\) is algebraically closed).
+    \item \(V = \text{gker}(\varphi)\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) \(\Rightarrow\) (2): If \(\varphi^m = 0\), then the chain \(\{0\} \subseteq \Ker(\varphi) \subseteq \Ker(\varphi^2) \subseteq \cdots\) stabilizes by step \(m\), hence by step \(n\) (since dimensions are bounded by \(n\)). So \(\Ker(\varphi^n) = \text{gker}(\varphi)\). But \(\varphi^m = 0\) means \(\Ker(\varphi^m) = V\), so \(\text{gker}(\varphi) = V\), which means \(\varphi^n = 0\).
+
+(2) \(\Rightarrow\) (3): Suppose \(\lambda\) is an eigenvalue with eigenvector \(v \neq 0\). Then \(\varphi(v) = \lambda v\), so \(\varphi^n(v) = \lambda^n v\). If \(\varphi^n = 0\), then \(\lambda^n v = 0\), so \(\lambda^n = 0\), hence \(\lambda = 0\).
+
+(3) \(\Rightarrow\) (4): Over an algebraically closed field, by the generalized eigenspace decomposition, \(V = \bigoplus_{\lambda} V_\lambda\). If the only eigenvalue is \(0\), then \(V = V_0 = \text{gker}(\varphi)\).
+
+(4) \(\Rightarrow\) (1): If \(V = \text{gker}(\varphi) = \Ker(\varphi^n)\), then \(\varphi^n = 0\).
+}
+
+\nt{Over a non-algebraically closed field, (3) needs modification: \(\varphi\) is nilpotent iff \(\varphi\) has no eigenvalues in any field extension, or equivalently, iff the characteristic polynomial is \(x^n\).}
+
+\cor{Nilpotent matrices are similar to strictly upper-triangular matrices}{If \(\varphi\) is nilpotent, then there exists a basis in which the matrix of \(\varphi\) is strictly upper-triangular.}
+
+\pf{Proof}{We prove this by induction on \(n = \dim V\). If \(n = 1\), then \(\varphi = 0\) and we're done.
+
+For \(n > 1\): since \(\varphi\) is nilpotent and nonzero (otherwise trivial), \(\Ker(\varphi) \neq \{0\}\). Pick \(0 \neq v_1 \in \Ker(\varphi)\) and extend to a basis \(\{v_1, v_2, \ldots, v_n\}\). The matrix of \(\varphi\) has first column all zeros. 
+
+Alternatively, consider \(W = \Img(\varphi)\). Since \(\varphi\) is nilpotent and nonzero, \(W \subsetneq V\) (otherwise \(\varphi\) would be surjective, hence bijective, contradicting nilpotency). The restriction \(\varphi|_W : W \to W\) is well-defined (\(W\) is \(\varphi\)-invariant) and nilpotent. By induction, choose a basis of \(W\) making \(\varphi|_W\) strictly upper-triangular, extend to a basis of \(V\), and the result follows.
+}
 
 
+\subsection{The Nilpotent Basis Construction}
+
+The key to understanding nilpotent operators is building a basis adapted to the ``chains'' of vectors connected by \(\varphi\).
+
+\dfn{Chains and Jordan chains}{Let \(\varphi \in \End(V)\) be nilpotent. A \textbf{chain} (or \textbf{Jordan chain}) of length \(m\) is a sequence of vectors \(v_1, v_2, \ldots, v_m\) such that:
+\[\varphi(v_m) = v_{m-1}, \quad \varphi(v_{m-1}) = v_{m-2}, \quad \ldots, \quad \varphi(v_2) = v_1, \quad \varphi(v_1) = 0.\]
+The vector \(v_m\) is called the \textbf{head} of the chain, and \(v_1\) is the \textbf{tail}.}
+
+\nt{In a chain, \(v_1 \in \Ker(\varphi)\), \(v_2 \in \Ker(\varphi^2) \setminus \Ker(\varphi)\), and generally \(v_j \in \Ker(\varphi^j) \setminus \Ker(\varphi^{j-1})\). The chain encodes how \(\varphi\) ``moves'' vectors toward the kernel.}
+
+\mlemma{Key lemma for chain construction}{Let \(\varphi\) be nilpotent. Suppose \(U \subseteq \Ker(\varphi^{k+1})\) is a subspace satisfying \(U \cap \Ker(\varphi^k) = \{0\}\). Then:
+\begin{enumerate}
+    \item \(\varphi|_U\) is injective.
+    \item \(\varphi(U) \subseteq \Ker(\varphi^k)\).
+    \item \(\varphi(U) \cap \Ker(\varphi^{k-1}) = \{0\}\) (if \(k \geq 1\)).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) If \(v \in U\) and \(\varphi(v) = 0\), then \(v \in U \cap \Ker(\varphi) \subseteq U \cap \Ker(\varphi^k) = \{0\}\).
+
+(2) For \(v \in U \subseteq \Ker(\varphi^{k+1})\), we have \(\varphi^{k+1}(v) = 0\), so \(\varphi^k(\varphi(v)) = 0\), meaning \(\varphi(v) \in \Ker(\varphi^k)\).
+
+(3) If \(\varphi(v) \in \Ker(\varphi^{k-1})\), then \(\varphi^k(v) = \varphi^{k-1}(\varphi(v)) = 0\), so \(v \in \Ker(\varphi^k)\). By assumption \(U \cap \Ker(\varphi^k) = \{0\}\), so \(v = 0\), hence \(\varphi(v) = 0\).
+}
+
+\thm{Structure theorem for nilpotent operators}{Let \(\varphi \in \End(V)\) be nilpotent with index \(m\) (so \(\varphi^m = 0\) but \(\varphi^{m-1} \neq 0\)). Then there exists a basis of \(V\) of the form
+\[\{v_{1,1}, \ldots, v_{1,m_1}; \; v_{2,1}, \ldots, v_{2,m_2}; \; \ldots; \; v_{\ell,1}, \ldots, v_{\ell, m_\ell}\}\]
+where each sequence \((v_{i,1}, \ldots, v_{i,m_i})\) is a chain:
+\[\varphi(v_{i,j}) = v_{i,j-1} \text{ for } j > 1, \quad \varphi(v_{i,1}) = 0.\]
+The chain lengths satisfy \(m = m_1 \geq m_2 \geq \cdots \geq m_\ell \geq 1\) and \(\sum_{i=1}^\ell m_i = \dim V\).}
+
+\pf{Proof}{We construct the basis by working down from \(\Ker(\varphi^m) = V\).
+
+\textbf{Step 1:} Let \(U_m\) be a complement of \(\Ker(\varphi^{m-1})\) in \(V = \Ker(\varphi^m)\). Pick a basis \(\{v_{1,m}, \ldots, v_{k_m, m}\}\) of \(U_m\). These will be the heads of chains of length \(m\).
+
+By the lemma, \(\varphi(U_m) \subseteq \Ker(\varphi^{m-1})\) and \(\varphi(U_m) \cap \Ker(\varphi^{m-2}) = \{0\}\). Define \(v_{i, m-1} = \varphi(v_{i,m})\) for each \(i\). These vectors are linearly independent (since \(\varphi|_{U_m}\) is injective).
+
+\textbf{Step 2:} Now work in \(\Ker(\varphi^{m-1})\). We have \(\varphi(U_m) \subseteq \Ker(\varphi^{m-1})\) with \(\varphi(U_m) \cap \Ker(\varphi^{m-2}) = \{0\}\). Extend \(\varphi(U_m)\) to a larger subspace \(U_{m-1}\) that complements \(\Ker(\varphi^{m-2})\) in \(\Ker(\varphi^{m-1})\). Pick additional basis vectors \(\{v_{k_m+1, m-1}, \ldots, v_{k_{m-1}, m-1}\}\) to span the complement of \(\varphi(U_m)\) in \(U_{m-1}\). These start new chains of length \(m-1\).
+
+\textbf{Continue inductively:} At each stage, we have chains of various lengths. Applying \(\varphi\) extends existing chains, and we add new chain heads as needed to complement \(\Ker(\varphi^{j-1})\) in \(\Ker(\varphi^j)\).
+
+\textbf{Termination:} At the final step, we're in \(\Ker(\varphi)\), and all chains terminate. The collection of all chain vectors forms a basis of \(V\).
+}
+
+\nt{The chain lengths \((m_1, m_2, \ldots, m_\ell)\) form a partition of \(n = \dim V\). This partition is an invariant of the nilpotent operator---two nilpotent operators are similar iff they have the same partition.}
 
 
+\subsection{Jordan Blocks for Nilpotent Operators}
+
+The chain basis gives the matrix of a nilpotent operator a very specific form.
+
+\dfn{Nilpotent Jordan block}{A \textbf{nilpotent Jordan block} of size \(m\) is the \(m \times m\) matrix
+\[J_m(0) = \begin{pmatrix} 0 & 1 & 0 & \cdots & 0 \\ 0 & 0 & 1 & \cdots & 0 \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & 0 & \cdots & 0 & 1 \\ 0 & 0 & \cdots & 0 & 0 \end{pmatrix}.\]
+This has 1's on the superdiagonal and 0's elsewhere.}
+
+\cor{Matrix form of nilpotent operators}{With respect to a chain basis ordered as \((v_{1,1}, \ldots, v_{1,m_1}, v_{2,1}, \ldots, v_{2,m_2}, \ldots)\), the matrix of a nilpotent operator \(\varphi\) is block diagonal:
+\[\mcM(\varphi) = \begin{pmatrix} J_{m_1}(0) & & 0 \\ & J_{m_2}(0) & \\ 0 & & \ddots \end{pmatrix}.\]
+}
+
+\pf{Proof}{Within each chain \((v_{i,1}, \ldots, v_{i,m_i})\), we have \(\varphi(v_{i,j}) = v_{i,j-1}\) for \(j > 1\) and \(\varphi(v_{i,1}) = 0\). In matrix form with this basis ordering, this gives exactly \(J_{m_i}(0)\) for the \(i\)-th block. The blocks are independent since chains span complementary subspaces.
+}
+
+\ex{Nilpotent operator with partition \((3, 2, 1)\)}{Consider \(\varphi : k^6 \to k^6\) nilpotent with chain lengths \(3, 2, 1\). A chain basis might be:
+\[\{v_{1,1}, v_{1,2}, v_{1,3}, v_{2,1}, v_{2,2}, v_{3,1}\}\]
+where \(\varphi(v_{1,3}) = v_{1,2}\), \(\varphi(v_{1,2}) = v_{1,1}\), \(\varphi(v_{1,1}) = 0\), etc.
+
+The matrix is:
+\[\mcM(\varphi) = \begin{pmatrix} 0 & 1 & 0 & & & \\ 0 & 0 & 1 & & 0 & \\ 0 & 0 & 0 & & & \\ & & & 0 & 1 & \\ & 0 & & 0 & 0 & \\ & & & & & 0 \end{pmatrix} = J_3(0) \oplus J_2(0) \oplus J_1(0).\]
+}
+
+\mprop{Uniqueness of the Jordan form for nilpotent operators}{The partition \((m_1, m_2, \ldots, m_\ell)\) associated to a nilpotent operator \(\varphi\) is uniquely determined by \(\varphi\). Equivalently, two nilpotent operators are similar iff they have the same Jordan block sizes (counting multiplicity).}
+
+\pf{Proof}{The partition can be recovered from dimensions of iterated kernels. Let \(d_j = \dim \Ker(\varphi^j)\). Then:
+\[d_1 - d_0 = d_1 = \text{number of chains} = \ell\]
+\[d_2 - d_1 = \text{number of chains of length} \geq 2\]
+\[d_j - d_{j-1} = \text{number of chains of length} \geq j.\]
+
+From this sequence of differences, we can reconstruct the partition: the number of blocks of size exactly \(j\) is \((d_j - d_{j-1}) - (d_{j+1} - d_j)\). Since the \(d_j\) are determined by \(\varphi\), so is the partition.
+}
+
+\nt{This dimension-counting argument is the key to proving uniqueness of Jordan form in general. The rank of \((\varphi - \lambda I)^j\) determines how many Jordan blocks for \(\lambda\) have size \(\geq j\).}
+
+
+\section{Jordan Normal Form}
+
+We now combine the generalized eigenspace decomposition with the structure theory of nilpotent operators to obtain the Jordan normal form---the ``best possible'' matrix representation for an operator over an algebraically closed field.
+
+\subsection{Jordan Blocks}
+
+\dfn{Jordan block}{A \textbf{Jordan block} of size \(m\) with eigenvalue \(\lambda\) is the \(m \times m\) matrix
+\[J_m(\lambda) = \begin{pmatrix} \lambda & 1 & 0 & \cdots & 0 \\ 0 & \lambda & 1 & \cdots & 0 \\ \vdots & & \ddots & \ddots & \vdots \\ 0 & 0 & \cdots & \lambda & 1 \\ 0 & 0 & \cdots & 0 & \lambda \end{pmatrix} = \lambda I_m + J_m(0).\]
+This has \(\lambda\) on the diagonal, 1's on the superdiagonal, and 0's elsewhere.}
+
+\ex{Small Jordan blocks}{
+\[J_1(\lambda) = (\lambda), \quad J_2(\lambda) = \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}, \quad J_3(\lambda) = \begin{pmatrix} \lambda & 1 & 0 \\ 0 & \lambda & 1 \\ 0 & 0 & \lambda \end{pmatrix}.\]
+A \(1 \times 1\) Jordan block is just a scalar---this corresponds to a true eigenvector. Larger blocks correspond to generalized eigenvectors that are not true eigenvectors.
+}
+
+\mprop{Properties of Jordan blocks}{Let \(J = J_m(\lambda)\). Then:
+\begin{enumerate}
+    \item The only eigenvalue of \(J\) is \(\lambda\), with algebraic multiplicity \(m\).
+    \item The eigenspace \(E(\lambda, J) = \Ker(J - \lambda I) = \operatorname{Span}\{e_1\}\) has dimension 1.
+    \item The generalized eigenspace is all of \(k^m\).
+    \item \(J - \lambda I = J_m(0)\) is nilpotent with index \(m\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) The characteristic polynomial is \(\det(J - xI) = (\lambda - x)^m\).
+
+(2) \(J - \lambda I = J_m(0)\) has kernel spanned by \(e_1\) (the first standard basis vector).
+
+(3) Since \((J - \lambda I)^m = J_m(0)^m = 0\), every vector is in \(\Ker(J - \lambda I)^m\).
+
+(4) \(J_m(0)^{m-1} \neq 0\) (it maps \(e_m \mapsto e_1\)) but \(J_m(0)^m = 0\).
+}
+
+\nt{A Jordan block \(J_m(\lambda)\) represents the action of an operator on a single chain of generalized eigenvectors. The chain is \((e_1, e_2, \ldots, e_m)\) where \(Je_j = \lambda e_j + e_{j-1}\) for \(j > 1\) and \(Je_1 = \lambda e_1\). Equivalently, \((J - \lambda I)e_j = e_{j-1}\) for \(j > 1\) and \((J - \lambda I)e_1 = 0\).}
+
+
+\subsection{The Jordan Normal Form Theorem}
+
+\thm{Jordan normal form}{Let \(V\) be a finite-dimensional vector space over an algebraically closed field \(k\), and let \(\varphi \in \End(V)\). Then there exists a basis of \(V\) with respect to which the matrix of \(\varphi\) is block diagonal:
+\[\mcM(\varphi) = \begin{pmatrix} J_{m_1}(\lambda_1) & & 0 \\ & J_{m_2}(\lambda_2) & \\ 0 & & \ddots \end{pmatrix}\]
+where each block is a Jordan block. This matrix is called the \textbf{Jordan normal form} (or \textbf{Jordan canonical form}) of \(\varphi\).}
+
+\pf{Proof}{By the generalized eigenspace decomposition, \(V = V_{\lambda_1} \oplus \cdots \oplus V_{\lambda_r}\) where \(\lambda_1, \ldots, \lambda_r\) are the distinct eigenvalues. Each \(V_{\lambda_i}\) is \(\varphi\)-invariant, so we can work on each generalized eigenspace separately.
+
+On \(V_{\lambda_i}\), the operator \(\psi_i = \varphi|_{V_{\lambda_i}} - \lambda_i \id\) is nilpotent (this was proved earlier). By the structure theorem for nilpotent operators, there exists a chain basis of \(V_{\lambda_i}\) such that \(\psi_i\) has matrix \(J_{m_1}(0) \oplus J_{m_2}(0) \oplus \cdots\).
+
+Since \(\varphi|_{V_{\lambda_i}} = \psi_i + \lambda_i \id\), the matrix of \(\varphi|_{V_{\lambda_i}}\) in this basis is
+\[J_{m_1}(0) + \lambda_i I \oplus J_{m_2}(0) + \lambda_i I \oplus \cdots = J_{m_1}(\lambda_i) \oplus J_{m_2}(\lambda_i) \oplus \cdots\]
+
+Combining the bases for all generalized eigenspaces gives a basis of \(V\) in which \(\varphi\) has the desired block diagonal form.
+}
+
+\nt{The Jordan form groups blocks by eigenvalue: all \(J_{m}(\lambda_i)\) blocks for a given \(\lambda_i\) appear together, corresponding to the decomposition of \(V_{\lambda_i}\) into chains. The total size of blocks with eigenvalue \(\lambda_i\) equals \(\dim V_{\lambda_i}\) = algebraic multiplicity of \(\lambda_i\).}
+
+
+\subsection{Existence and Uniqueness}
+
+\thm{Uniqueness of Jordan normal form}{The Jordan normal form of \(\varphi\) is unique up to permutation of the blocks. That is, the multiset of Jordan blocks \(\{J_{m_1}(\lambda_1), J_{m_2}(\lambda_2), \ldots\}\) is uniquely determined by \(\varphi\).}
+
+\pf{Proof}{For each eigenvalue \(\lambda\), the Jordan blocks with eigenvalue \(\lambda\) correspond to the partition of \(\dim V_\lambda\) given by the nilpotent operator \(\varphi|_{V_\lambda} - \lambda \id\). We showed this partition is uniquely determined by dimensions of iterated kernels:
+\[d_j(\lambda) = \dim \Ker((\varphi - \lambda \id)^j).\]
+
+The number of blocks \(J_m(\lambda)\) of size exactly \(m\) is
+\[(d_m(\lambda) - d_{m-1}(\lambda)) - (d_{m+1}(\lambda) - d_m(\lambda)) = 2d_m(\lambda) - d_{m-1}(\lambda) - d_{m+1}(\lambda).\]
+
+Since these dimensions are intrinsic to \(\varphi\), the block structure is uniquely determined.
+}
+
+\cor{Similarity criterion}{Two operators \(\varphi, \psi \in \End(V)\) are similar if and only if they have the same Jordan normal form (up to block ordering). Equivalently, \(\varphi \sim \psi\) iff for each \(\lambda \in k\) and each \(j \geq 1\):
+\[\dim \Ker((\varphi - \lambda \id)^j) = \dim \Ker((\psi - \lambda \id)^j).\]}
+
+\nt{This gives a complete set of similarity invariants. Unlike trace and determinant alone (which don't distinguish all similarity classes), the full sequence of kernel dimensions completely determines the similarity class.}
+
+
+\subsection{Computing Jordan Form: The Algorithm}
+
+Given a matrix \(A\), here is the procedure to find its Jordan form:
+
+\textbf{Step 1: Find eigenvalues.} Compute \(\chi_A(x) = \det(xI - A)\) and factor it as \(\prod_i (x - \lambda_i)^{n_i}\). The \(\lambda_i\) are eigenvalues with algebraic multiplicities \(n_i\).
+
+\textbf{Step 2: For each eigenvalue \(\lambda\), determine block sizes.} Compute \(d_j = \dim \Ker(A - \lambda I)^j\) for \(j = 1, 2, \ldots\) until stabilization. The number of blocks of size \(\geq j\) is \(d_j - d_{j-1}\). Alternatively:
+\begin{itemize}
+    \item Number of blocks = \(d_1\) = geometric multiplicity.
+    \item Number of blocks of size \(\geq 2\) is \(d_2 - d_1\).
+    \item Number of blocks of size exactly \(j\) is \((d_j - d_{j-1}) - (d_{j+1} - d_j)\).
+\end{itemize}
+
+\textbf{Step 3: Assemble the Jordan form.} List all Jordan blocks grouped by eigenvalue.
+
+\ex{Computing Jordan form}{Let \(A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\).
+
+\textbf{Step 1:} \(\chi_A(x) = (x-2)^3\), so \(\lambda = 2\) with multiplicity 3.
+
+\textbf{Step 2:} 
+\[A - 2I = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}, \quad (A-2I)^2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}, \quad (A-2I)^3 = 0.\]
+So \(d_1 = 1\), \(d_2 = 2\), \(d_3 = 3\).
+
+Number of blocks = \(d_1 = 1\). Size of the single block = 3.
+
+\textbf{Step 3:} Jordan form is \(J_3(2)\). (The matrix is already in Jordan form!)
+}
+
+\ex{A more interesting example}{Let \(A = \begin{pmatrix} 3 & 1 & 0 & 0 \\ 0 & 3 & 0 & 0 \\ 0 & 0 & 3 & 1 \\ 0 & 0 & 0 & 3 \end{pmatrix}\).
+
+\textbf{Step 1:} \(\chi_A(x) = (x-3)^4\), so \(\lambda = 3\) with multiplicity 4.
+
+\textbf{Step 2:}
+\[A - 3I = \begin{pmatrix} 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 0 & 0 \end{pmatrix}.\]
+\(\Ker(A - 3I) = \operatorname{Span}\{e_1, e_3\}\), so \(d_1 = 2\).
+\((A - 3I)^2 = 0\), so \(d_2 = 4\).
+
+Number of blocks = 2. Blocks of size \(\geq 2\): \(d_2 - d_1 = 2\). So both blocks have size 2.
+
+\textbf{Step 3:} Jordan form is \(J_2(3) \oplus J_2(3)\).
+}
+
+\ex{Multiple eigenvalues}{Let \(A = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0 \\ 0 & 0 & 0 & 2 \end{pmatrix}\).
+
+\textbf{Step 1:} \(\chi_A(x) = (x-1)^2(x-2)^2\). Eigenvalues: \(\lambda_1 = 1\), \(\lambda_2 = 2\), each with multiplicity 2.
+
+\textbf{Step 2 for \(\lambda = 1\):}
+\[A - I = \begin{pmatrix} 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}.\]
+Restricted to generalized eigenspace (first two coordinates): \(d_1 = 1\), \(d_2 = 2\). One block of size 2: \(J_2(1)\).
+
+\textbf{Step 2 for \(\lambda = 2\):}
+\[A - 2I = \begin{pmatrix} -1 & 1 & 0 & 0 \\ 0 & -1 & 0 & 0 \\ 0 & 0 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{pmatrix}.\]
+Restricted to generalized eigenspace (last two coordinates): \(d_1 = 2\). Two blocks of size 1: \(J_1(2) \oplus J_1(2)\).
+
+\textbf{Step 3:} Jordan form is \(J_2(1) \oplus J_1(2) \oplus J_1(2) = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 2 & 0 \\ 0 & 0 & 0 & 2 \end{pmatrix}\).
+}
+
+\nt{The last example shows that \(\lambda = 2\) contributes two \(1 \times 1\) blocks because the eigenspace has dimension 2 (geometric = algebraic multiplicity). This is the diagonalizable case for that eigenvalue. In contrast, \(\lambda = 1\) has a \(2 \times 2\) block because geometric multiplicity (1) is less than algebraic multiplicity (2).}
+
+
+\section{Characteristic and Minimal Polynomials}
+
+We now introduce two polynomials canonically associated to a linear operator. The characteristic polynomial encodes eigenvalues and their algebraic multiplicities; the minimal polynomial captures the ``smallest'' polynomial relation satisfied by the operator.
+
+\subsection{The Characteristic Polynomial}
+
+\dfn{Characteristic polynomial}{Let \(\varphi \in \End(V)\) with \(\dim V = n\), and let \(A = \mcM(\varphi)\) be the matrix of \(\varphi\) with respect to some basis. The \textbf{characteristic polynomial} of \(\varphi\) is
+\[\chi_\varphi(x) = \det(xI - \varphi) = \det(xI - A).\]
+This is a monic polynomial of degree \(n\).}
+
+\mprop{Basic properties of the characteristic polynomial}{
+\begin{enumerate}
+    \item \(\chi_\varphi(x)\) is independent of the choice of basis (hence well-defined for the operator \(\varphi\)).
+    \item \(\chi_\varphi(x) = x^n - (\Tr \varphi)x^{n-1} + \cdots + (-1)^n \det(\varphi)\).
+    \item The roots of \(\chi_\varphi(x)\) are exactly the eigenvalues of \(\varphi\).
+    \item If \(k\) is algebraically closed, \(\chi_\varphi(x) = \prod_{i=1}^m (x - \lambda_i)^{n_i}\) where \(\lambda_i\) are the distinct eigenvalues and \(n_i = \dim V_{\lambda_i}\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) If \(B = P^{-1}AP\) is the matrix in another basis, then
+\[\det(xI - B) = \det(xI - P^{-1}AP) = \det(P^{-1}(xI - A)P) = \det(xI - A).\]
+
+(2) Expand \(\det(xI - A)\) using the Leibniz formula. The leading term comes from the diagonal product \(\prod_i (x - a_{ii}) = x^n - (\sum_i a_{ii})x^{n-1} + \cdots\). The constant term is \(\det(-A) = (-1)^n \det(A)\).
+
+(3) \(\lambda\) is a root iff \(\det(\lambda I - A) = 0\) iff \(\lambda I - A\) is singular iff \(\Ker(\varphi - \lambda \id) \neq \{0\}\) iff \(\lambda\) is an eigenvalue.
+
+(4) This follows from the generalized eigenspace decomposition: the algebraic multiplicity of \(\lambda_i\) equals \(\dim V_{\lambda_i}\).
+}
+
+\ex{Characteristic polynomial of a \(2 \times 2\) matrix}{For \(A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}\):
+\[\chi_A(x) = \det\begin{pmatrix} x - a & -b \\ -c & x - d \end{pmatrix} = (x-a)(x-d) - bc = x^2 - (a+d)x + (ad - bc) = x^2 - (\Tr A)x + \det A.\]
+}
+
+
+\subsection{The Cayley-Hamilton Theorem}
+
+The Cayley-Hamilton theorem states that every operator satisfies its own characteristic polynomial.
+
+\thm{Cayley-Hamilton}{Let \(\varphi \in \End(V)\) with characteristic polynomial \(\chi_\varphi(x)\). Then
+\[\chi_\varphi(\varphi) = 0.\]
+That is, substituting \(\varphi\) for \(x\) in \(\chi_\varphi(x)\) gives the zero operator.}
+
+\pf{Proof}{We give two proofs.
+
+\textbf{Proof 1 (via Jordan form, over algebraically closed \(k\)):} It suffices to prove this for Jordan blocks, since the Jordan form is block diagonal and \(\chi_\varphi = \prod \chi_{J_i}\).
+
+For a single Jordan block \(J = J_m(\lambda)\), we have \(\chi_J(x) = (x - \lambda)^m\). Then
+\[\chi_J(J) = (J - \lambda I)^m = J_m(0)^m = 0\]
+since \(J_m(0)\) is nilpotent with index \(m\).
+
+\textbf{Proof 2 (general, using adjugate matrix):} Let \(A\) be the matrix of \(\varphi\). The adjugate (classical adjoint) matrix \(\operatorname{adj}(xI - A)\) is a matrix whose entries are polynomials in \(x\) of degree at most \(n-1\). Write
+\[\operatorname{adj}(xI - A) = B_{n-1}x^{n-1} + B_{n-2}x^{n-2} + \cdots + B_1 x + B_0\]
+where \(B_i\) are constant matrices.
+
+By the adjugate identity: \((xI - A) \cdot \operatorname{adj}(xI - A) = \det(xI - A) \cdot I = \chi_A(x) \cdot I\).
+
+Expanding both sides and comparing coefficients of powers of \(x\) gives a system of matrix equations. Multiplying the equation for \(x^k\) by \(A^k\) and summing yields \(\chi_A(A) = 0\). (The details involve telescoping---each \(B_i\) appears twice with opposite signs.)
+}
+
+\nt{The Cayley-Hamilton theorem does \emph{not} follow from ``plugging in \(A\) for \(x\) in \(\det(xI - A) = 0\).'' The determinant is a scalar-valued function, not a matrix-valued function, so this substitution is meaningless. The theorem requires proof.}
+
+\cor{Bound on nilpotence index}{If \(\varphi\) is nilpotent on an \(n\)-dimensional space, then \(\varphi^n = 0\).}
+
+\pf{Proof}{The only eigenvalue is 0, so \(\chi_\varphi(x) = x^n\). By Cayley-Hamilton, \(\varphi^n = 0\).
+}
+
+\cor{Expression for the inverse}{If \(\varphi\) is invertible, then \(\varphi^{-1}\) can be expressed as a polynomial in \(\varphi\).}
+
+\pf{Proof}{Write \(\chi_\varphi(x) = x^n + c_{n-1}x^{n-1} + \cdots + c_1 x + c_0\). Since \(\varphi\) is invertible, \(0\) is not an eigenvalue, so \(c_0 = (-1)^n \det(\varphi) \neq 0\).
+
+By Cayley-Hamilton: \(\varphi^n + c_{n-1}\varphi^{n-1} + \cdots + c_1 \varphi + c_0 I = 0\).
+
+Rearranging: \(\varphi(\varphi^{n-1} + c_{n-1}\varphi^{n-2} + \cdots + c_1 I) = -c_0 I\).
+
+Thus \(\varphi^{-1} = -\frac{1}{c_0}(\varphi^{n-1} + c_{n-1}\varphi^{n-2} + \cdots + c_1 I)\).
+}
+
+
+\subsection{The Minimal Polynomial}
+
+\dfn{Minimal polynomial}{The \textbf{minimal polynomial} \(\mu_\varphi(x)\) of \(\varphi \in \End(V)\) is the unique monic polynomial of smallest degree such that \(\mu_\varphi(\varphi) = 0\).}
+
+\mprop{Existence and uniqueness of the minimal polynomial}{
+\begin{enumerate}
+    \item There exists a nonzero polynomial \(p(x)\) with \(p(\varphi) = 0\).
+    \item Among all such polynomials, there is a unique monic one of minimal degree.
+    \item \(\mu_\varphi(x)\) divides every polynomial \(p(x)\) satisfying \(p(\varphi) = 0\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) Cayley-Hamilton gives \(\chi_\varphi(\varphi) = 0\).
+
+(2) Let \(d\) be the minimal degree of a nonzero polynomial annihilating \(\varphi\). If \(p(x)\) and \(q(x)\) are both monic of degree \(d\) with \(p(\varphi) = q(\varphi) = 0\), then \((p - q)(\varphi) = 0\) and \(\deg(p - q) < d\). By minimality, \(p - q = 0\).
+
+(3) Given \(p(x)\) with \(p(\varphi) = 0\), perform polynomial division: \(p(x) = q(x)\mu_\varphi(x) + r(x)\) where \(\deg r < \deg \mu_\varphi\). Then \(r(\varphi) = p(\varphi) - q(\varphi)\mu_\varphi(\varphi) = 0 - 0 = 0\). By minimality of \(\mu_\varphi\), we must have \(r = 0\), so \(\mu_\varphi \mid p\).
+}
+
+\thm{Relationship between characteristic and minimal polynomials}{Let \(\varphi \in \End(V)\).
+\begin{enumerate}
+    \item \(\mu_\varphi(x)\) divides \(\chi_\varphi(x)\).
+    \item \(\mu_\varphi(x)\) and \(\chi_\varphi(x)\) have the same roots (i.e., the same irreducible factors over \(k\)).
+    \item Over an algebraically closed field, if \(\chi_\varphi(x) = \prod_i (x - \lambda_i)^{n_i}\), then \(\mu_\varphi(x) = \prod_i (x - \lambda_i)^{m_i}\) where \(1 \leq m_i \leq n_i\).
+\end{enumerate}
+}
+
+\pf{Proof}{(1) By Cayley-Hamilton, \(\chi_\varphi(\varphi) = 0\). By the divisibility property of \(\mu_\varphi\), we have \(\mu_\varphi \mid \chi_\varphi\).
+
+(2) If \(\lambda\) is a root of \(\chi_\varphi\), then \(\lambda\) is an eigenvalue: there exists \(v \neq 0\) with \(\varphi(v) = \lambda v\). For any polynomial \(p\), \(p(\varphi)(v) = p(\lambda)v\). If \(p(\varphi) = 0\), then \(p(\lambda) = 0\). In particular, \(\mu_\varphi(\lambda) = 0\).
+
+Conversely, if \(\mu_\varphi(\lambda) = 0\), then \((x - \lambda) \mid \mu_\varphi(x)\), so \((x - \lambda) \mid \chi_\varphi(x)\) by (1), meaning \(\lambda\) is a root of \(\chi_\varphi\).
+
+(3) From (1) and (2), the factorizations have the same roots with \(m_i \leq n_i\). The exponent \(m_i\) is the size of the largest Jordan block with eigenvalue \(\lambda_i\) (proof below).
+}
+
+\mprop{Minimal polynomial and Jordan block sizes}{The exponent of \((x - \lambda)\) in \(\mu_\varphi(x)\) equals the size of the largest Jordan block with eigenvalue \(\lambda\).}
+
+\pf{Proof}{On the generalized eigenspace \(V_\lambda\), the operator \(\varphi - \lambda \id\) is nilpotent. Its nilpotence index is the size of the largest Jordan block (the longest chain). Call this \(m_\lambda\).
+
+For \((\varphi - \lambda \id)^k\) to annihilate \(V_\lambda\), we need \(k \geq m_\lambda\). The smallest such \(k\) is \(m_\lambda\).
+
+Since \(V = \bigoplus_\lambda V_\lambda\) and these are \(\varphi\)-invariant, \(p(\varphi) = 0\) iff \(p(\varphi)|_{V_\lambda} = 0\) for all \(\lambda\). The latter requires \((x - \lambda)^{m_\lambda} \mid p(x)\). Thus \(\mu_\varphi(x) = \prod_\lambda (x - \lambda)^{m_\lambda}\).
+}
+
+
+\subsection{Diagonalizability Criterion}
+
+\thm{Diagonalizability via minimal polynomial}{An operator \(\varphi \in \End(V)\) is diagonalizable if and only if \(\mu_\varphi(x)\) splits into distinct linear factors:
+\[\mu_\varphi(x) = (x - \lambda_1)(x - \lambda_2) \cdots (x - \lambda_m)\]
+where \(\lambda_1, \ldots, \lambda_m\) are distinct.}
+
+\pf{Proof}{(\(\Rightarrow\)) If \(\varphi\) is diagonalizable, all Jordan blocks are \(1 \times 1\). The largest block for each eigenvalue has size 1, so each \((x - \lambda_i)\) appears with exponent 1 in \(\mu_\varphi\).
+
+(\(\Leftarrow\)) If \(\mu_\varphi(x) = \prod_i (x - \lambda_i)\) with distinct \(\lambda_i\), then each Jordan block has size 1 (since the exponent of \((x - \lambda_i)\) in \(\mu_\varphi\) equals the largest block size for \(\lambda_i\)). So \(\varphi\) has a basis of eigenvectors.
+}
+
+\cor{Diagonalizability of operators with distinct eigenvalues}{If \(\varphi\) has \(n = \dim V\) distinct eigenvalues, then \(\varphi\) is diagonalizable.}
+
+\pf{Proof}{The characteristic polynomial has \(n\) distinct roots, so \(\chi_\varphi(x) = \prod_{i=1}^n (x - \lambda_i)\). Since \(\mu_\varphi \mid \chi_\varphi\) and they have the same roots, \(\mu_\varphi\) also has distinct linear factors.
+}
+
+\ex{Minimal polynomial examples}{
+\begin{enumerate}
+    \item For \(A = \begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix} = 2I\): \(\chi_A(x) = (x-2)^2\), but \(\mu_A(x) = x - 2\) since \((A - 2I) = 0\).
+    
+    \item For \(A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\): \(\chi_A(x) = (x-2)^2\). Since \(A - 2I = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} \neq 0\), we need \(\mu_A(x) = (x-2)^2 = \chi_A(x)\).
+    
+    \item For \(A = \diag(1, 1, 2, 2, 2)\): \(\chi_A(x) = (x-1)^2(x-2)^3\), but \(\mu_A(x) = (x-1)(x-2)\) since \((A-I)(A-2I) = 0\).
+\end{enumerate}
+}
+
+
+\subsection{Exercises}
+
+\qs{Exercises on advanced spectral theory}{
+\begin{enumerate}
+    \item Let \(\varphi : \CC^4 \to \CC^4\) have characteristic polynomial \(\chi_\varphi(x) = (x-1)^2(x-2)^2\). List all possible Jordan normal forms for \(\varphi\).
+    
+    \item Prove that if \(A\) and \(B\) are similar matrices, then \(\mu_A = \mu_B\).
+    
+    \item Find the Jordan normal form and minimal polynomial of \(A = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\).
+    
+    \item Let \(\varphi \in \End(V)\) satisfy \(\varphi^2 = \varphi\). Prove that \(\varphi\) is diagonalizable and find its possible eigenvalues.
+    
+    \item Suppose \(\varphi \in \End(V)\) has minimal polynomial \(\mu_\varphi(x) = (x-1)(x-2)(x-3)\). What can you conclude about \(\varphi\)?
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} The eigenvalues are \(\lambda_1 = 1\) and \(\lambda_2 = 2\), each with algebraic multiplicity 2. For each eigenvalue, the Jordan blocks must have sizes summing to 2. Possibilities for each:
+\begin{itemize}
+    \item One block of size 2: \(J_2(\lambda)\)
+    \item Two blocks of size 1: \(J_1(\lambda) \oplus J_1(\lambda)\)
+\end{itemize}
+
+Combining independently for each eigenvalue, the possible Jordan forms are:
+\begin{enumerate}[(i)]
+    \item \(J_2(1) \oplus J_2(2)\)
+    \item \(J_2(1) \oplus J_1(2) \oplus J_1(2)\)
+    \item \(J_1(1) \oplus J_1(1) \oplus J_2(2)\)
+    \item \(J_1(1) \oplus J_1(1) \oplus J_1(2) \oplus J_1(2)\) (diagonal matrix)
+\end{enumerate}
+
+\textbf{(2)} If \(B = P^{-1}AP\), then for any polynomial \(p\):
+\[p(B) = p(P^{-1}AP) = P^{-1}p(A)P.\]
+So \(p(B) = 0\) iff \(p(A) = 0\). The set of annihilating polynomials is the same, hence the minimal polynomial (the monic generator of this ideal) is the same.
+
+\textbf{(3)} The matrix is already in Jordan form: \(A = J_3(0)\). 
+
+Characteristic polynomial: \(\chi_A(x) = x^3\).
+
+Minimal polynomial: We need the smallest \(k\) with \(A^k = 0\). Compute \(A^2 = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix} \neq 0\) and \(A^3 = 0\). So \(\mu_A(x) = x^3 = \chi_A(x)\).
+
+\textbf{(4)} The condition \(\varphi^2 = \varphi\) means \(\varphi^2 - \varphi = 0\), so \(\varphi(\varphi - \id) = 0\). Thus \(p(x) = x(x-1) = x^2 - x\) annihilates \(\varphi\).
+
+The minimal polynomial divides \(x(x-1)\). Since \(x(x-1)\) has distinct roots, so does \(\mu_\varphi\). By the diagonalizability criterion, \(\varphi\) is diagonalizable.
+
+The possible eigenvalues are roots of \(\mu_\varphi\), which divides \(x(x-1)\). So eigenvalues are among \(\{0, 1\}\).
+
+(Such operators are called \textbf{projections} or \textbf{idempotents}. They decompose \(V = \Ker(\varphi) \oplus \Img(\varphi)\) and project onto \(\Img(\varphi)\) along \(\Ker(\varphi)\).)
+
+\textbf{(5)} Since \(\mu_\varphi(x) = (x-1)(x-2)(x-3)\) has three distinct linear factors:
+\begin{itemize}
+    \item \(\varphi\) is diagonalizable (by the criterion).
+    \item The eigenvalues are exactly \(1, 2, 3\) (roots of \(\mu_\varphi\)).
+    \item \(\dim V \geq 3\) (at least one eigenvector per eigenvalue).
+    \item \(V = E(1, \varphi) \oplus E(2, \varphi) \oplus E(3, \varphi)\).
+\end{itemize}
+The eigenspace dimensions can be any positive integers summing to \(\dim V\), but we need at least one of each.
+\end{solution}
 
 
 \end{document}
