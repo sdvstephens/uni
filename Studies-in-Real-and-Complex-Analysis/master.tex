@@ -1,0 +1,27 @@
+\documentclass{report}
+
+% Load preamble
+\input{~/university/preamble.tex}
+
+% docmute: allows \input of standalone documents (ignores their preamble)
+\usepackage{docmute}
+
+\course{Studies in Real and Complex Analysis}
+
+\title{\Huge{Studies in Real and Complex Analysis}\\Harvard University}
+\author{\huge{S. D. V. Stephens}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\newpage
+\pdfbookmark[section]{\contentsname}{toc}
+\tableofcontents
+\pagebreak
+
+% Include all lectures (docmute strips their preambles)
+\input{lecture_01}
+\input{lecture_02}
+
+\end{document}

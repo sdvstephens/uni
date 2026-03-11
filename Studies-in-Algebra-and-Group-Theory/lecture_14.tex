@@ -249,15 +249,26 @@ The irrational character values have a geometric consequence: there is no regula
 \textbf{(1)} We need \(\chi_V(g^3)\) for each conjugacy class. Cubing: \((12)^3 = (12)\), \((123)^3 = e\), \((1234)^3 = (1432)\) (a 4-cycle), \((12345)^3 = (14253)\) (a 5-cycle), \(((12)(34))^3 = (12)(34)\), \(((123)(45))^3 = (45)\) (a transposition). So \(\chi_V(g^3) = (4, 2, 4, 0, -1, 0, 2)\).
 
 Applying the formula with \(\chi_V = (4, 2, 1, 0, -1, 0, -1)\), \(\chi_V(g^2) = (4, 4, 1, 0, -1, 4, 1)\), \(\chi_V(g^3) = (4, 2, 4, 0, -1, 0, 2)\):
-\[\chi_{\bigwedge^3 V}(g) = \frac{1}{6}\bigl(\chi^3 - 3\chi \cdot \chi(g^2) + 2\chi(g^3)\bigr) = \frac{1}{6}(64-48+8,\; 8-24+4,\; 1-3+8,\; 0-0+0,\; -1-3-2,\; 0-0+0,\; -1-3+4)\]
-\[= \frac{1}{6}(24, -12, 6, 0, -6, 0, 0) = (4, -2, 1, 0, -1, 0, 0).\]
-Comparing with \(\chi_{V'} = \chi_V \cdot \sgn = (4, -2, 1, 0, -1, 0, 1)\). These don't match at the last entry, so let me recheck. We have \((123)(45)\) is odd (\(\sgn = -1\)), so \(\chi_{V'}((123)(45)) = (-1)(-1) = 1\). And my computation gives \(\chi_{\bigwedge^3 V}((123)(45)) = 0\). Let me recompute: \(\chi_V(((123)(45))^3) = \chi_V((45)) = |\operatorname{Fix}((45))| - 1 = 3 - 1 = 2\). Then \(\frac{1}{6}((-1)^3 - 3(-1)(1) + 2(2)) = \frac{1}{6}(-1 + 3 + 4) = 1\). So the corrected value is \(\chi_{\bigwedge^3 V}((123)(45)) = 1 = \chi_{V'}((123)(45))\). The formula gives \(\bigwedge^3 V \cong V'\).
+\[\chi_{\bigwedge^3 V}(g) = \frac{1}{6}\bigl(\chi^3 - 3\chi \cdot \chi(g^2) + 2\chi(g^3)\bigr).\]
+Computing entry by entry (in the column order \(e, (12), (123), (1234), (12345), (12)(34), (123)(45)\)):
+\[\frac{1}{6}(64-48+8,\; 8-24+4,\; 1-3+8,\; 0-0+0,\; -1-3-2,\; 0-0+0,\; -1+3+4)\] 
+\[ = \frac{1}{6}(24, -12, 6, 0, -6, 0, 6)\]
+\[= (4, -2, 1, 0, -1, 0, 1) = \chi_{V'}.\]
+So \(\bigwedge^3 V \cong V'\).
 
 \textbf{(2)} Taking columns \(C_1 = \{e\}\) and \(C_2 = \{(123)\}\): \(\sum_\rho \chi_\rho(e)\ol{\chi_\rho((123))} = 1 \cdot 1 + 4 \cdot 1 + 5 \cdot (-1) + 3 \cdot 0 + 3 \cdot 0 = 0\). Similarly for other pairs.
 
 \textbf{(3)} \(\chi_{\bigwedge^2 V \otimes U'} = \chi_{\bigwedge^2 V} \cdot \sgn = (6, 0, 0, 0, 1, -2, 0)\). This equals \(\chi_{\bigwedge^2 V}\) (since \(\sgn\) is \(+1\) on even permutations and \(-1\) on odd, and the only nonzero odd-permutation values are at \((1234)\) which is already 0). So \(\bigwedge^2 V \otimes U' \cong \bigwedge^2 V\).
 
-For \(V \otimes W\): \(\chi_{V \otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). Compute inner products with all irreducibles to find \(V \otimes W \cong V \oplus V' \oplus \bigwedge^2 V\) (verify: \(4 + 4 + 6 = 14\)... that's not 20). Actually \(\chi_{V\otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). We have \(H(\chi_U, \chi_{V\otimes W}) = \frac{1}{120}(20+20-20+0+0+0-20) = 0\). Similarly compute all inner products; the decomposition is \(V \otimes W \cong V \oplus V' \oplus W \oplus W' \oplus \bigwedge^2 V\) (dimensions \(4+4+5+5+6 = 24\)... still not 20). Let me just state: compute directly.
+For \(V \otimes W\): \(\chi_{V \otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). Computing inner products:
+\[H(\chi_U, \chi_{V \otimes W}) = \frac{1}{120}(20+20-20+0+0+0-20) = 0,\]
+\[H(\chi_{U'}, \chi_{V \otimes W}) = \frac{1}{120}(20-20-20+0+0+0+20) = 0,\]
+\[H(\chi_V, \chi_{V \otimes W}) = \frac{1}{120}(80+40-20+0+0+0+20) = 1,\]
+\[H(\chi_{V'}, \chi_{V \otimes W}) = \frac{1}{120}(80-40-20+0+0+0-20) = 0,\]
+\[H(\chi_{\bigwedge^2 V}, \chi_{V \otimes W}) = \frac{1}{120}(120+0+0+0+0+0+0) = 1,\]
+\[H(\chi_W, \chi_{V \otimes W}) = \frac{1}{120}(100+20+20+0+0+0-20) = 1,\]
+\[H(\chi_{W'}, \chi_{V \otimes W}) = \frac{1}{120}(100-20+20+0+0+0+20) = 1.\]
+So \(V \otimes W \cong V \oplus \bigwedge^2 V \oplus W \oplus W'\) (dimensions \(4 + 6 + 5 + 5 = 20\)).
 
 \textbf{(4)} Since the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) form a \({\ZZ}\)-basis for the lattice \(\Lambda \subset {\CC}_{\mathrm{class}}(G)\), \(\dim_{\QQ} (R(G) \otimes {\QQ}) = k\). For structure constants: \([V_i] \cdot [V_j] = [V_i \otimes V_j] = \sum_\ell n_{ij}^\ell [V_\ell]\) where \(n_{ij}^\ell = H(\chi_{V_\ell}, \chi_{V_i} \chi_{V_j})\). Since \(\chi_{V_i} \chi_{V_j} = \chi_{V_i \otimes V_j}\) is the character of an actual representation, each \(n_{ij}^\ell \geq 0\).
 

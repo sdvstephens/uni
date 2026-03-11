@@ -1,4 +1,4 @@
-% Studies-in-Real-and-Complex-Analysis - Lecture 1: New Beginnings
+% Studies-in-Real-and-Complex-Analysis - Lecture 1: Metric Spaces and Continuity
 % Author: S. D. V. Stephens
 % Date: 2026-01-26
 % Compile with: pdflatex -shell-escape
@@ -11,38 +11,401 @@
 
 \begin{document}
 
-\lecture{1}{New Beginnings}
+\lecture{1}{Metric Spaces and Continuity}
 
-\dfn{Metric Space}{A \emph{metric space} \( (X,d) \) is a set \( X \) with a function \( d: X \times  X \to \mathbb{R}_{\ge 0} \) such that
-\begin{enumerate}
-  \item For \( p,q \in X , \quad d(p,q)=0 \iff p=q\); 
-  \item \( d(p,q)=d(q,p) \); and 
-  \item the triangle inequality---\( \forall p,q,r \in X, \quad d(p,r) \le d(p,q)+d(q,r) \)---holds. 
+The goal of topology is to study properties of geometric objects that are invariant under continuous deformation. The definition of a topological space encodes exactly the information needed to make this precise, but it seemingly comes out of nowhere without first developing some intuition. We therefore begin with a more concrete class of examples---metric spaces---where the notion of ``closeness'' is governed by a distance function, and see how the key ideas (open sets, continuity, convergence) arise naturally before abstracting to the general setting.
+
+
+\section{Metric Spaces}
+
+\subsection{Definitions and Examples}
+
+\dfn{Metric space}{A \emph{metric space} \((X, d)\) is a set \(X\) together with a function \(d : X \times X \to \RR_{\geq 0}\), called the \emph{distance function} (or \emph{metric}), satisfying:
+\begin{enumerate}[(i)]
+    \item \(d(p, q) = 0 \iff p = q\) (identity of indiscernibles);
+    \item \(d(p, q) = d(q, p)\) (symmetry);
+    \item \(d(p, r) \leq d(p, q) + d(q, r)\) for all \(p, q, r \in X\) (triangle inequality).
 \end{enumerate}
-
 }
 
-\ex{}{\begin{enumerate}
-  \item \( X = \mathbb{R}  \) so \( d(a,b)=|b-a|=|a-b| \);
-  \item \( X = \RR[n] \) with \( d \) as Euclidean distance \( d(x,y)=\sqrt{\sum_{i=1}^n(y_i-x_i)^2}  \); 
-  \item on \( \RR[n] \) we have \( d_1(x,y)=\sum_{n}^{i=1}\mid y_i-x_i\mid \) and \( d_{\infty}(x,y)=\text{max}(\mid y_i-x_i \mid ) \).
-\end{enumerate}}
+\ex{Euclidean space}{\(X = \RR[n]\) with the Euclidean distance
+\[d(x, y) = \left(\sum_{i=1}^n (y_i - x_i)^2\right)^{1/2}.\]
+For \(n = 1\), this reduces to \(d(a, b) = |a - b|\).
+}
 
-\dfn{Open}{\( S \subset  X \) is \emph{open} if \( \forall p \in  X, \exists r > 0 \) s.t. \( B_r(p)\subset  S \).}
+\ex{Alternative metrics on \(\RR[n]\)}{The following are also metrics on \(\RR[n]\):
+\[d_1(x, y) = \sum_{i=1}^n |y_i - x_i|, \qquad d_\infty(x, y) = \max_{1 \leq i \leq n} |y_i - x_i|.\]
+These are called the \emph{taxicab} (or \emph{diamond}) metric and the \emph{square} (or \emph{sup}) metric, respectively. The balls in these metrics are diamonds and squares rather than round disks.
+}
 
-Visually we can represent this with the following: 
+\ex{Induced metric}{If \((X, d)\) is a metric space and \(Y \subseteq X\), then \((Y, d|_{Y \times Y})\) is a metric space with the restricted distance function. This is the \emph{induced metric} (or \emph{subspace metric}) on \(Y\). For instance, any subset of \(\RR[n]\) inherits the Euclidean metric.
+}
+
+\ex{The discrete metric}{On any set \(X\), define \(d(p, q) = 1\) if \(p \neq q\) and \(d(p, p) = 0\). This satisfies all three axioms (the triangle inequality holds since \(d(p, r) = 1 \leq 1 + 1\) whenever \(p \neq r\)). In this metric, every subset is open and every point is isolated---the resulting topology is the discrete topology, which is a metric topology.
+}
+
+\ex{Function spaces}{Let \(X\) be any set and consider the space of bounded functions \(f : X \to \RR\). The \emph{sup metric} is
+\[d_\infty(f, g) = \sup_{x \in X} |f(x) - g(x)|.\]
+This is a metric: the triangle inequality follows from \(|f(x) - h(x)| \leq |f(x) - g(x)| + |g(x) - h(x)|\) for each \(x\), then taking the supremum. Convergence in this metric is \emph{uniform convergence}: \(f_n \to f\) iff \(\sup_x |f_n(x) - f(x)| \to 0\).
+}
+
+\nt{All three metrics \(d\), \(d_1\), and \(d_\infty\) on \(\RR[n]\) satisfy \(d_\infty(x, y) \leq d(x, y) \leq d_1(x, y) \leq n \cdot d_\infty(x, y)\). In particular, they determine the same open sets (hence the same topology). We will see that different metrics can induce the same topology---the metric contains ``extraneous information'' beyond the topological structure.}
 
 
-\begin{figure}[ht]
-    \centering
- \includegraphics[width=0.35\textwidth]{./figures/open.pdf}
-    \caption{open}
-    \label{fig:open}
-\end{figure}
+\subsection{Open Balls and Open Sets}
 
-\dfn{Open ball}{Given a metric space \( (X,d), \, p \in  X, \, r > 0 \), the \emph{open ball} (or \emph{neighborhood}) of radius \( r \) around \( p \) is \( B_r(p)=\{q \in X \mid d(p,q)<r\}.  \)}
+\dfn{Open ball}{Given a metric space \((X, d)\), a point \(p \in X\), and \(r > 0\), the \emph{open ball} (or \emph{neighborhood}) of radius \(r\) around \(p\) is
+\[B_r(p) = \{q \in X : d(p, q) < r\}.\]
+}
+
+\dfn{Open set}{A subset \(U \subseteq X\) is \emph{open} if for every \(p \in U\), there exists \(\varepsilon > 0\) such that \(B_\varepsilon(p) \subseteq U\). In words: \(U\) contains an open ball around each of its points.
+}
+
+\thm{Open balls are open}{Every open ball \(B_r(p)\) is an open set.}
+
+\pf{Proof}{Let \(q \in B_r(p)\), so \(d(p, q) = s < r\). Set \(h = r - s > 0\). We claim \(B_h(q) \subseteq B_r(p)\). For any \(x \in B_h(q)\):
+\[d(p, x) \leq d(p, q) + d(q, x) < s + h = r,\]
+so \(x \in B_r(p)\). Thus \(q\) is an interior point of \(B_r(p)\).
+}
+
+\mprop{Open sets form a topology}{In any metric space \(X\):
+\begin{enumerate}[(a)]
+    \item \(\emptyset\) and \(X\) are open.
+    \item Any union of open sets is open.
+    \item Any \emph{finite} intersection of open sets is open.
+\end{enumerate}
+}
+
+\pf{Proof}{(a) \(\emptyset\) is vacuously open. For \(X\): every ball \(B_\varepsilon(p) \subseteq X\).
+
+(b) Let \(\{U_\alpha\}\) be a collection of open sets and \(p \in \bigcup_\alpha U_\alpha\). Then \(p \in U_\beta\) for some \(\beta\), so there exists \(\varepsilon > 0\) with \(B_\varepsilon(p) \subseteq U_\beta \subseteq \bigcup_\alpha U_\alpha\).
+
+(c) Let \(U_1, \ldots, U_n\) be open and \(p \in \bigcap_{i=1}^n U_i\). For each \(i\), choose \(\varepsilon_i > 0\) with \(B_{\varepsilon_i}(p) \subseteq U_i\). Set \(\varepsilon = \min(\varepsilon_1, \ldots, \varepsilon_n) > 0\) (this is where finiteness is used). Then \(B_\varepsilon(p) \subseteq U_i\) for all \(i\), so \(B_\varepsilon(p) \subseteq \bigcap_{i=1}^n U_i\).
+}
+
+\nt{The finiteness condition in (c) is essential. For instance, \(\bigcap_{n=1}^\infty (-1/n, 1/n) = \{0\}\), which is not open in \(\RR\). The infimum of infinitely many positive numbers can be zero.}
+
+\nt{Every open set is a union of open balls. Given \(U\) open, for each \(p \in U\) choose \(\varepsilon_p > 0\) with \(B_{\varepsilon_p}(p) \subseteq U\). Then \(U = \bigcup_{p \in U} B_{\varepsilon_p}(p)\). So the open balls form a \emph{basis} for the collection of open sets---they generate all open sets via unions.}
 
 
+\subsection{Closed Sets}
 
+\dfn{Closed set}{A subset \(Z \subseteq X\) is \emph{closed} if its complement \(X \setminus Z\) is open.}
+
+\nt{A set can be both open and closed (e.g., \(\emptyset\) and \(X\) itself), or neither open nor closed (e.g., \([0, 1)\) in \(\RR\)). ``Closed'' does \emph{not} mean ``not open.''}
+
+\mprop{Properties of closed sets}{By De Morgan's laws applied to the open set axioms:
+\begin{enumerate}[(a)]
+    \item \(\emptyset\) and \(X\) are closed.
+    \item Any \emph{intersection} of closed sets is closed.
+    \item Any \emph{finite} union of closed sets is closed.
+\end{enumerate}
+}
+
+\pf{Proof}{These follow from complementation: \(X \setminus \bigcap_\alpha Z_\alpha = \bigcup_\alpha (X \setminus Z_\alpha)\) and \(X \setminus \bigcup_{i=1}^n Z_i = \bigcap_{i=1}^n (X \setminus Z_i)\).
+}
+
+\ex{Closed ball}{The closed ball \(\ol{B}_r(p) = \{q \in X : d(p, q) \leq r\}\) is closed: its complement \(\{q : d(p, q) > r\}\) is open (if \(d(p, q) = s > r\), then \(B_{s-r}(q)\) is contained in the complement by the triangle inequality).
+}
+
+\ex{Singletons are closed}{In any metric space, \(\{p\}\) is closed. Indeed, \(X \setminus \{p\} = \bigcup_{n=1}^\infty \{q : d(p, q) > 1/n\}\) is a union of open sets.
+}
+
+
+\subsection{Limit Points, Closure, Interior, and Boundary}
+
+\dfn{Limit point}{A point \(x \in X\) is a \emph{limit point} (or \emph{accumulation point}) of a subset \(A \subseteq X\) if every open set \(U\) containing \(x\) satisfies \(U \cap (A \setminus \{x\}) \neq \emptyset\). Equivalently, every ball \(B_r(x)\) contains a point of \(A\) other than \(x\) itself.
+}
+
+\dfn{Isolated point}{A point \(p \in A\) that is not a limit point of \(A\) is called an \emph{isolated point} of \(A\): there exists \(r > 0\) with \(B_r(p) \cap A = \{p\}\).
+}
+
+\thm{Limit points yield infinitely many points}{If \(p\) is a limit point of \(E\), then every neighborhood of \(p\) contains infinitely many points of \(E\).}
+
+\pf{Proof}{Suppose some \(B_r(p)\) contains only finitely many points \(q_1, \ldots, q_n\) of \(E \setminus \{p\}\). Set \(h = \min_{i} d(p, q_i) > 0\). Then \(B_h(p) \cap (E \setminus \{p\}) = \emptyset\), contradicting the assumption that \(p\) is a limit point.
+}
+
+\cor{Finite sets have no limit points}{If \(A\) is finite, then \(A\) has no limit points. In particular, every finite subset of a metric space is closed.
+}
+
+\dfn{Closure}{The \emph{closure} of \(A \subseteq X\) is the smallest closed set containing \(A\):
+\[\ol{A} = \bigcap_{\substack{F \supseteq A \\ F \text{ closed}}} F.\]
+This is closed (as an arbitrary intersection of closed sets). Equivalently, \(x \in \ol{A}\) iff every open set containing \(x\) intersects \(A\), i.e., \(B_r(x) \cap A \neq \emptyset\) for all \(r > 0\).
+}
+
+\mprop{Closure via limit points}{For any \(A \subseteq X\), \(\ol{A} = A \cup A'\) where \(A' = \{\text{limit points of } A\}\).}
+
+\pf{Proof}{If \(x \in A\), then every open set containing \(x\) intersects \(A\) (it contains \(x \in A\)), so \(x \in \ol{A}\). If \(x \in A'\), then every open set containing \(x\) meets \(A \setminus \{x\} \subseteq A\), so \(x \in \ol{A}\). Thus \(A \cup A' \subseteq \ol{A}\).
+
+Conversely, if \(x \notin A \cup A'\), then \(x \notin A\) and \(x\) is not a limit point of \(A\), so there exists \(r > 0\) with \(B_r(x) \cap (A \setminus \{x\}) = \emptyset\). Since \(x \notin A\), we get \(B_r(x) \cap A = \emptyset\), so \(x \notin \ol{A}\).
+}
+
+\cor{Closed iff contains limit points}{\(A\) is closed if and only if \(A\) contains all its limit points, i.e., \(A' \subseteq A\). Equivalently, \(A\) is closed iff \(\ol{A} = A\).}
+
+\dfn{Interior}{The \emph{interior} of \(A \subseteq X\) is the largest open set contained in \(A\):
+\[\operatorname{Int}(A) = \bigcup_{\substack{U \subseteq A \\ U \text{ open}}} U.\]
+A point \(p \in \operatorname{Int}(A)\) is called an \emph{interior point} of \(A\): there exists a neighborhood \(B_r(p) \subseteq A\). We have \(A\) is open iff \(\operatorname{Int}(A) = A\).
+}
+
+\dfn{Boundary}{The \emph{boundary} of \(A\) is \(\partial A = \ol{A} \setminus \operatorname{Int}(A)\). A point \(x \in \partial A\) iff every open set containing \(x\) meets both \(A\) and \(X \setminus A\).
+}
+
+\nt{We also have the complementary identities \(\ol{X \setminus A} = X \setminus \operatorname{Int}(A)\) and \(\operatorname{Int}(X \setminus A) = X \setminus \ol{A}\).}
+
+\dfn{Dense subset}{A subset \(A \subseteq X\) is \emph{dense} in \(X\) if \(\ol{A} = X\), i.e., every nonempty open subset of \(X\) intersects \(A\).
+}
+
+\ex{Dense subsets of \(\RR\)}{Both \(\QQ\) and \(\RR \setminus \QQ\) are dense in \(\RR\) (with the usual topology). For \(\QQ\): given any open interval \((a, b)\), there exists a rational number in \((a, b)\) by the Archimedean property.
+}
+
+\ex{Working in \(\CC \cong \RR[2]\)}{Let all sets be subsets of \(\CC\) with the Euclidean metric \(d(z, w) = |z - w|\).
+\begin{enumerate}[(a)]
+    \item \(\{z \in \CC : |z| < 1\}\): open (it is the ball \(B_1(0)\)), not closed (the sequence \(1 - 1/n\) converges to \(1 \notin A\)), not perfect, bounded.
+    \item \(\{z \in \CC : |z| \leq 1\}\): not open (no ball around \(1\) fits inside), closed, perfect (every point is a limit point), bounded.
+    \item A nonempty finite set: not open, closed (finite sets have no limit points, so closure condition is vacuous), not perfect, bounded.
+\end{enumerate}
+}
+
+
+\section{Continuity}
+
+\subsection{The \(\varepsilon\)-\(\delta\) Definition}
+
+\dfn{Continuity}{Let \((X, d_X)\) and \((Y, d_Y)\) be metric spaces. A map \(f : X \to Y\) is \emph{continuous at a point} \(p \in X\) if
+\[\forall \varepsilon > 0, \; \exists \delta > 0 \text{ such that } \forall x \in X, \; d_X(p, x) < \delta \implies d_Y(f(p), f(x)) < \varepsilon.\]
+Equivalently, \(f(B_\delta(p)) \subseteq B_\varepsilon(f(p))\). We say \(f\) is \emph{continuous} if it is continuous at every point of \(X\).
+}
+
+\subsection{The Open Preimage Characterization}
+
+\thm{Continuity via open sets}{Let \(f : X \to Y\) be a map between metric spaces. Then \(f\) is continuous if and only if the preimage \(f^{-1}(U)\) of every open set \(U \subseteq Y\) is open in \(X\).}
+
+\pf{Proof}{(\(\Rightarrow\)) Assume \(f\) is continuous, and let \(U \subseteq Y\) be open. Take any \(p \in f^{-1}(U)\), so \(f(p) \in U\). Since \(U\) is open, there exists \(\varepsilon > 0\) with \(B_\varepsilon(f(p)) \subseteq U\). By continuity at \(p\), there exists \(\delta > 0\) with \(f(B_\delta(p)) \subseteq B_\varepsilon(f(p)) \subseteq U\). So \(B_\delta(p) \subseteq f^{-1}(U)\), and \(f^{-1}(U)\) is open.
+
+(\(\Leftarrow\)) Assume \(f^{-1}(U)\) is open for every open \(U \subseteq Y\). Fix \(p \in X\) and \(\varepsilon > 0\). The ball \(B_\varepsilon(f(p))\) is open in \(Y\), so \(f^{-1}(B_\varepsilon(f(p)))\) is open in \(X\). Since \(p \in f^{-1}(B_\varepsilon(f(p)))\), there exists \(\delta > 0\) with \(B_\delta(p) \subseteq f^{-1}(B_\varepsilon(f(p)))\). This means \(d_X(p, x) < \delta \implies f(x) \in B_\varepsilon(f(p))\), i.e., \(d_Y(f(p), f(x)) < \varepsilon\).
+}
+
+\nt{This theorem is the bridge from metric spaces to topology. It says continuity depends only on which sets are open---not on the specific values of the distance function. This motivates defining a topological space as a set equipped with a collection of ``open sets'' satisfying the axioms of Proposition 1, and defining continuity as: \(f^{-1}(\text{open}) = \text{open}\).}
+
+
+\section{Sequences and Limits}
+
+\subsection{Convergence}
+
+\dfn{Convergent sequence}{A sequence \(p_1, p_2, p_3, \ldots\) in a metric space \((X, d)\) \emph{converges} to a \emph{limit} \(p \in X\), written \(p_n \to p\) or \(\lim_{n \to \infty} p_n = p\), if
+\[\forall \varepsilon > 0, \; \exists N \in \NN \text{ such that } \forall n \geq N, \; d(p_n, p) < \varepsilon.\]
+If no such \(p\) exists, the sequence \emph{diverges}.
+}
+
+\thm{Properties of convergent sequences}{Let \((X, d)\) be a metric space.
+\begin{enumerate}[(a)]
+    \item \(\{p_n\}\) converges to \(p\) if and only if every open set \(U \ni p\) contains \(p_n\) for all but finitely many \(n\).
+    \item Limits are unique: if \(p_n \to a\) and \(p_n \to b\), then \(a = b\).
+    \item If \(\{p_n\}\) converges, then \(\{p_n\}\) is bounded (i.e., the set \(\{p_n : n \geq 1\}\) is contained in some ball).
+    \item If \(p\) is a limit point of \(E \subseteq X\), then there is a sequence \(\{p_n\}\) in \(E\) with \(p_n \neq p\) for all \(n\) and \(p_n \to p\).
+\end{enumerate}
+}
+
+\pf{Proof}{(a) (\(\Rightarrow\)) If \(U \ni p\) is open, then \(B_\varepsilon(p) \subseteq U\) for some \(\varepsilon > 0\), so \(p_n \in B_\varepsilon(p) \subseteq U\) for \(n \geq N\). (\(\Leftarrow\)) For any \(\varepsilon > 0\), the ball \(B_\varepsilon(p)\) is open and contains \(p\), so it contains \(p_n\) for all but finitely many \(n\). Thus \(d(p_n, p) < \varepsilon\) for large \(n\).
+
+(b) Let \(\varepsilon > 0\). Choose \(N_1, N_2\) so that \(d(p_n, a) < \varepsilon/2\) for \(n \geq N_1\) and \(d(p_n, b) < \varepsilon/2\) for \(n \geq N_2\). For \(n \geq \max(N_1, N_2)\): \(d(a, b) \leq d(a, p_n) + d(p_n, b) < \varepsilon\). Since \(\varepsilon\) is arbitrary, \(d(a, b) = 0\), so \(a = b\).
+
+(c) Choose \(N\) so that \(d(p_n, p) < 1\) for \(n \geq N\). Set \(r = \max(1, d(p_1, p), \ldots, d(p_N, p))\). Then \(d(p_n, p) \leq r\) for all \(n\).
+
+(d) For each positive integer \(n\), there exists \(p_n \in E\) with \(d(p_n, p) < 1/n\) and \(p_n \neq p\) (since \(p\) is a limit point). Given \(\varepsilon > 0\), choose \(N\) with \(N > 1/\varepsilon\). Then \(n > N\) implies \(d(p_n, p) < 1/n < \varepsilon\), so \(p_n \to p\).
+}
+
+\mprop{Closed sets via sequences}{A set \(Z \subseteq X\) is closed if and only if whenever \(\{p_n\}\) is a sequence in \(Z\) converging to some \(p \in X\), we have \(p \in Z\). That is, closed sets ``contain the limits of their convergent sequences.''}
+
+\pf{Proof}{(\(\Rightarrow\)) Suppose \(Z\) is closed and \(p_n \in Z\) with \(p_n \to p\). If \(p \notin Z\), then \(U = X \setminus Z\) is open and contains \(p\). By part (a) of the theorem, \(U\) contains \(p_n\) for all but finitely many \(n\)---but every \(p_n \in Z\), so \(p_n \notin U\). Contradiction.
+
+(\(\Leftarrow\)) We show \(Z\) contains all its limit points. If \(p\) is a limit point of \(Z\), then by part (d) there exists a sequence \(p_n \in Z\) with \(p_n \to p\), so \(p \in Z\) by hypothesis.
+}
+
+
+\subsection{Cauchy Sequences and Completeness}
+
+\dfn{Cauchy sequence}{A sequence \(\{p_n\}\) in \((X, d)\) is a \emph{Cauchy sequence} if
+\[\forall \varepsilon > 0, \; \exists N \in \NN \text{ such that } \forall m, n \geq N, \; d(p_m, p_n) < \varepsilon.\]
+}
+
+\mprop{Convergent implies Cauchy}{Every convergent sequence is Cauchy.}
+
+\pf{Proof}{If \(p_n \to p\), then for any \(\varepsilon > 0\), choose \(N\) with \(d(p_n, p) < \varepsilon/2\) for \(n \geq N\). For \(m, n \geq N\): \(d(p_m, p_n) \leq d(p_m, p) + d(p, p_n) < \varepsilon\).
+}
+
+\nt{The converse fails in general. In \(\QQ\) (with the usual metric), the sequence of partial sums \(x_n = \sum_{k=0}^n 1/k!\) is Cauchy, but its limit \(e\) is irrational, so \(\{x_n\}\) has no limit in \(\QQ\). The notion of Cauchy sequence captures ``wants to converge'' without reference to a limit.}
+
+\dfn{Complete metric space}{A metric space \((X, d)\) is \emph{complete} if every Cauchy sequence in \(X\) converges (to a point of \(X\)).
+}
+
+\ex{Complete and incomplete spaces}{\(\RR\) (with the usual metric) is complete---this is equivalent to the least upper bound property. More generally, \(\RR[n]\) is complete. However, \(\QQ\) with the induced metric is not complete.
+}
+
+
+\subsection{Interlude: What is \(\RR\)?}
+
+The real numbers \(\RR\) are characterized (up to isomorphism) as the unique ordered field with the \emph{least upper bound property}: every nonempty subset \(E \subseteq \RR\) that is bounded above has a least upper bound (supremum) \(\sup(E) \in \RR\). That is, \(\sup(E)\) is an upper bound for \(E\), and every upper bound \(u\) for \(E\) satisfies \(u \geq \sup(E)\).
+
+The l.u.b.\ property is equivalent to completeness of \(\RR\): the constructions of \(\RR\) from \(\QQ\) (Dedekind cuts or Cauchy sequence completion) both produce the same object. In the Cauchy completion approach, elements of \(\RR\) are equivalence classes of Cauchy sequences in \(\QQ\), where two sequences are equivalent if their difference converges to zero. This makes \(\RR\) the \emph{completion} of \(\QQ\)---the smallest complete metric space containing \(\QQ\) as a dense subset.
+
+\thm{\(\sup E\) belongs to \(\ol{E}\)}{Let \(E\) be a nonempty subset of \(\RR\) that is bounded above, and let \(y = \sup E\). Then \(y \in \ol{E}\). In particular, if \(E\) is closed, then \(\sup E \in E\).}
+
+\pf{Proof}{For any \(\varepsilon > 0\), \(y - \varepsilon\) is not an upper bound for \(E\) (since \(y\) is the \emph{least} upper bound), so there exists \(x \in E\) with \(y - \varepsilon < x \leq y\). Thus \(B_\varepsilon(y) \cap E \neq \emptyset\), and \(y \in \ol{E}\).
+}
+
+
+\section{Limits of Functions}
+
+\dfn{Limit of a function at a point}{Let \((X, d_X)\) and \((Y, d_Y)\) be metric spaces, \(E \subseteq X\), \(f : E \to Y\), and \(p\) a limit point of \(E\). We write \(\lim_{x \to p} f(x) = q\) if
+\[\forall \varepsilon > 0, \; \exists \delta > 0 \text{ such that } \forall x \in E, \; 0 < d_X(x, p) < \delta \implies d_Y(f(x), q) < \varepsilon.\]
+Note the condition \(0 < d_X(x, p)\): we exclude the point \(p\) itself (which may or may not belong to \(E\)).
+}
+
+\thm{Sequential characterization of limits}{Let \(f, E, p\) be as above. Then \(\lim_{x \to p} f(x) = q\) if and only if \(\lim_{n \to \infty} f(p_n) = q\) for every sequence \(\{p_n\}\) in \(E\) with \(p_n \neq p\) and \(p_n \to p\).
+}
+
+\cor{Uniqueness of function limits}{If the limit \(\lim_{x \to p} f(x)\) exists, it is unique.}
+
+\pf{Proof of the corollary}{If \(f(p_n) \to q\) and \(f(p_n) \to q'\) for some sequence \(p_n \to p\), then \(q = q'\) by uniqueness of sequence limits.
+}
+
+\nt{Continuity of \(f\) at \(p \in E\) (when \(p\) is a limit point of \(E\)) is equivalent to \(\lim_{x \to p} f(x) = f(p)\). When \(p\) is an isolated point of \(E\), \(f\) is automatically continuous at \(p\) (the \(\varepsilon\)-\(\delta\) condition is satisfied by taking \(\delta\) small enough that \(B_\delta(p) \cap E = \{p\}\)).}
+
+
+\section{Further Properties of Metric Spaces}
+
+\subsection{Bounded Sets and Diameter}
+
+\dfn{Bounded set}{A subset \(E\) of a metric space \((X, d)\) is \emph{bounded} if there exist a point \(q \in X\) and a real number \(M > 0\) such that \(d(p, q) < M\) for all \(p \in E\). Equivalently, \(E\) is contained in some ball.
+}
+
+\dfn{Diameter}{The \emph{diameter} of a nonempty subset \(E \subseteq X\) is
+\[\diam(E) = \sup\{d(p, q) : p, q \in E\}.\]
+Then \(E\) is bounded iff \(\diam(E) < \infty\).
+}
+
+\nt{Boundedness is \emph{not} a topological property: it depends on the specific metric, not just on which sets are open. For instance, \(f : (-\pi/2, \pi/2) \to \RR\) defined by \(f(x) = \tan(x)\) is a homeomorphism (both \(f\) and \(f^{-1} = \arctan\) are continuous), yet the domain is bounded and the range is not.}
+
+\subsection{Open Sets Relative to a Subspace}
+
+\thm{Relative openness}{Suppose \(Y \subseteq X\) is a subspace with the induced metric, and \(E \subseteq Y\). Then \(E\) is open relative to \(Y\) if and only if \(E = Y \cap G\) for some open set \(G \subseteq X\).
+}
+
+\pf{Proof}{(\(\Leftarrow\)) If \(G\) is open in \(X\) and \(p \in E = Y \cap G\), then there exists \(\varepsilon > 0\) with \(B_\varepsilon^X(p) \subseteq G\). So \(B_\varepsilon^Y(p) = B_\varepsilon^X(p) \cap Y \subseteq G \cap Y = E\), and \(E\) is open in \(Y\).
+
+(\(\Rightarrow\)) If \(E\) is open in \(Y\), then for each \(p \in E\) choose \(\varepsilon_p > 0\) with \(B_{\varepsilon_p}^Y(p) \subseteq E\). Set \(G = \bigcup_{p \in E} B_{\varepsilon_p}^X(p)\). Then \(G\) is open in \(X\) and \(G \cap Y = \bigcup_{p \in E} (B_{\varepsilon_p}^X(p) \cap Y) = \bigcup_{p \in E} B_{\varepsilon_p}^Y(p) = E\).
+}
+
+\nt{This is the definition of the \emph{subspace topology}: the open sets in \(Y\) are exactly \(\{U \cap Y : U \text{ open in } X\}\). Beware: a set can be open in \(Y\) without being open in \(X\). For example, \((0, 1) \cap \QQ\) is open in \(\QQ\) (with the induced metric from \(\RR\)) but not open in \(\RR\).}
+
+
+\section{More on Continuity}
+
+\subsection{Sequential Characterization}
+
+\mprop{Continuity and sequences}{Let \(f : X \to Y\) be a map between metric spaces. Then \(f\) is continuous at \(p \in X\) if and only if \(p_n \to p\) in \(X\) implies \(f(p_n) \to f(p)\) in \(Y\).
+}
+
+\pf{Proof}{(\(\Rightarrow\)) Given \(\varepsilon > 0\), choose \(\delta > 0\) with \(f(B_\delta(p)) \subseteq B_\varepsilon(f(p))\). Since \(p_n \to p\), there exists \(N\) with \(d_X(p_n, p) < \delta\) for \(n \geq N\). Then \(d_Y(f(p_n), f(p)) < \varepsilon\) for \(n \geq N\).
+
+(\(\Leftarrow\)) Suppose \(f\) is not continuous at \(p\). Then there exists \(\varepsilon > 0\) such that for every \(\delta > 0\), there is a point \(x\) with \(d_X(x, p) < \delta\) but \(d_Y(f(x), f(p)) \geq \varepsilon\). Taking \(\delta = 1/n\), we get a sequence \(p_n \to p\) with \(d_Y(f(p_n), f(p)) \geq \varepsilon\) for all \(n\), contradicting \(f(p_n) \to f(p)\).
+}
+
+\mprop{Compositions of continuous maps}{If \(f : X \to Y\) and \(g : Y \to Z\) are continuous, then \(g \circ f : X \to Z\) is continuous.
+}
+
+\pf{Proof}{For any open \(W \subseteq Z\), \(g^{-1}(W)\) is open in \(Y\) (since \(g\) is continuous), so \(f^{-1}(g^{-1}(W)) = (g \circ f)^{-1}(W)\) is open in \(X\) (since \(f\) is continuous).
+}
+
+\subsection{Uniform Continuity}
+
+\dfn{Uniform continuity}{A map \(f : X \to Y\) between metric spaces is \emph{uniformly continuous} if
+\[\forall \varepsilon > 0, \; \exists \delta > 0 \text{ such that } \forall p, q \in X, \; d_X(p, q) < \delta \implies d_Y(f(p), f(q)) < \varepsilon.\]
+The difference from ordinary continuity: \(\delta\) depends only on \(\varepsilon\), not on the point \(p\).
+}
+
+\ex{Uniformly continuous vs.\ continuous}{The function \(f(x) = x^2\) on \((\RR, |\cdot|)\) is continuous but not uniformly continuous: for \(\varepsilon = 1\), no single \(\delta\) works for all \(p\) (near \(p\), we need \(\delta \approx 1/(2|p|)\), which shrinks as \(|p| \to \infty\)).
+
+The function \(f(x) = \sqrt{x}\) on \([0, \infty)\) is uniformly continuous.
+}
+
+\dfn{Lipschitz map}{A map \(f : X \to Y\) is \emph{Lipschitz} (with constant \(L\)) if \(d_Y(f(p), f(q)) \leq L \cdot d_X(p, q)\) for all \(p, q \in X\). Every Lipschitz map is uniformly continuous (take \(\delta = \varepsilon / L\)).
+}
+
+\ex{}{The distance function \(d(p, \cdot) : X \to \RR\) is Lipschitz with constant 1: \(|d(p, x) - d(p, y)| \leq d(x, y)\) by the triangle inequality. In particular, \(d(p, \cdot)\) is continuous.
+}
+
+
+\section{The Contraction Mapping Theorem}
+
+A contraction is a Lipschitz map with constant strictly less than 1. The following is one of the most useful theorems in analysis.
+
+\thm{Banach Fixed-Point Theorem}{Let \((X, d)\) be a \emph{complete} metric space and \(T : X \to X\) a contraction: there exists \(0 \leq c < 1\) such that \(d(T(x), T(y)) \leq c \cdot d(x, y)\) for all \(x, y \in X\). Then \(T\) has a unique fixed point \(x^* \in X\) (i.e., \(T(x^*) = x^*\)). Moreover, for any starting point \(x_0 \in X\), the iterates \(x_n = T(x_{n-1}) = T^n(x_0)\) converge to \(x^*\).
+}
+
+\pf{Proof}{\emph{Uniqueness.} If \(T(x^*) = x^*\) and \(T(y^*) = y^*\), then \(d(x^*, y^*) = d(T(x^*), T(y^*)) \leq c \cdot d(x^*, y^*)\). Since \(c < 1\), this forces \(d(x^*, y^*) = 0\), so \(x^* = y^*\).
+
+\emph{Existence.} Fix any \(x_0 \in X\) and define \(x_n = T(x_{n-1})\). We show \(\{x_n\}\) is Cauchy. First, \(d(x_{n+1}, x_n) = d(T(x_n), T(x_{n-1})) \leq c \cdot d(x_n, x_{n-1}) \leq \cdots \leq c^n \cdot d(x_1, x_0)\). For \(m > n\):
+\[d(x_m, x_n) \leq \sum_{k=n}^{m-1} d(x_{k+1}, x_k) \leq d(x_1, x_0) \sum_{k=n}^{m-1} c^k \leq \frac{c^n}{1 - c} \cdot d(x_1, x_0).\]
+Since \(c^n \to 0\), the sequence is Cauchy. By completeness, \(x_n \to x^*\) for some \(x^* \in X\).
+
+\emph{Fixed point.} Since \(T\) is continuous (it is Lipschitz), \(T(x^*) = T(\lim x_n) = \lim T(x_n) = \lim x_{n+1} = x^*\).
+}
+
+\nt{The contraction mapping theorem is used throughout analysis: to prove the inverse function theorem, the existence and uniqueness theorem for ODEs (Picard--Lindelöf), and the implicit function theorem. The key ingredients are completeness (to guarantee the limit exists) and the contraction (to guarantee convergence).}
+
+
+\section{Exercises}
+
+\mer{Metric spaces and continuity exercises}{
+\begin{enumerate}[(1)]
+    \item Verify that \(d_1\) and \(d_\infty\) on \(\RR[n]\) satisfy the axioms of a metric. Show that \(d_\infty(x, y) \leq d(x, y) \leq \sqrt{n} \cdot d_\infty(x, y)\) where \(d\) is the Euclidean metric.
+    
+    \item Show that a finite intersection of open sets is open directly from the \(\varepsilon\)-\(\delta\) definition (without appealing to the proposition). Give an example showing that an infinite intersection of open sets need not be open.
+    
+    \item Let \(X = \{0\} \cup \{1/n : n \in \ZZ_{> 0}\} \subset \RR\) with the induced metric \(d(x, y) = |x - y|\). Prove directly (without using completeness of \(\RR\)) that \(X\) is complete.
+    
+    \item Let \(f : X \to Y\) be a continuous map between metric spaces. Prove that \(f\) maps convergent sequences to convergent sequences: if \(p_n \to p\) in \(X\), then \(f(p_n) \to f(p)\) in \(Y\).
+    
+    \item Let \(f, g : X \to Y\) be continuous maps between metric spaces, and suppose \(Y\) is Hausdorff (in particular, any metric space). Show that \(\{x \in X : f(x) = g(x)\}\) is closed in \(X\).
+    
+    \item Prove that a map \(f : X \to Y\) between metric spaces is continuous if and only if \(f^{-1}(Z)\) is closed in \(X\) for every closed set \(Z \subseteq Y\).
+    
+    \item Describe the open balls in \((\RR[2], d_1)\) and \((\RR[2], d_\infty)\). Verify that the three metrics \(d, d_1, d_\infty\) on \(\RR[2]\) induce the same topology: a set is open in one metric if and only if it is open in the others.
+    
+    \item Let \(T : [0, 1] \to [0, 1]\) be defined by \(T(x) = \frac{1}{3}x + \frac{1}{2}\). Show that \(T\) is a contraction, find its fixed point, and verify that the iterates \(T^n(x_0)\) converge to it for any \(x_0 \in [0, 1]\).
+    
+    \item Prove that if \(f : X \to Y\) is uniformly continuous and \(\{x_n\}\) is a Cauchy sequence in \(X\), then \(\{f(x_n)\}\) is a Cauchy sequence in \(Y\). Show by example that this can fail if \(f\) is merely continuous.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} For \(d_\infty\): positivity and symmetry are clear from \(|y_i - x_i| \geq 0\) and \(|y_i - x_i| = |x_i - y_i|\). Identity: \(d_\infty(x, y) = 0\) iff \(\max_i |y_i - x_i| = 0\) iff \(|y_i - x_i| = 0\) for all \(i\) iff \(x = y\). Triangle inequality: for each \(i\), \(|x_i - z_i| \leq |x_i - y_i| + |y_i - z_i| \leq d_\infty(x, y) + d_\infty(y, z)\), so \(d_\infty(x, z) = \max_i |x_i - z_i| \leq d_\infty(x, y) + d_\infty(y, z)\). The proof for \(d_1\) is similar (sum the scalar triangle inequalities).
+
+For the comparison: \(d_\infty(x, y) = \max_i |y_i - x_i| \leq \sqrt{\sum_i |y_i - x_i|^2} = d(x, y)\) since the max is at most the \(\ell^2\)-norm. And \(d(x, y)^2 = \sum_i |y_i - x_i|^2 \leq n \cdot \max_i |y_i - x_i|^2 = n \cdot d_\infty(x, y)^2\), giving \(d(x, y) \leq \sqrt{n} \cdot d_\infty(x, y)\).
+
+\textbf{(2)} Let \(U_1, \ldots, U_n\) be open and \(p \in \bigcap U_i\). For each \(i\), choose \(\varepsilon_i > 0\) with \(B_{\varepsilon_i}(p) \subseteq U_i\). Then \(\varepsilon = \min(\varepsilon_1, \ldots, \varepsilon_n) > 0\) satisfies \(B_\varepsilon(p) \subseteq U_i\) for all \(i\). Counterexample: \(\bigcap_{n=1}^\infty (-1/n, 1/n) = \{0\}\), which is not open in \(\RR\).
+
+\textbf{(3)} Let \(\{x_n\}\) be a Cauchy sequence in \(X\). If \(x_n = 0\) for infinitely many \(n\), then since the sequence is Cauchy, eventually all terms are close to 0, forcing \(x_n \to 0 \in X\). Otherwise, \(x_n \neq 0\) for all \(n \geq N_0\), so \(x_n = 1/k_n\) for positive integers \(k_n\). The Cauchy condition with \(\varepsilon < \min_{m \neq n} |1/k_m - 1/k_n|\) eventually forces the sequence to be constant: \(x_n = 1/k\) for all \(n \geq N\), and \(1/k \in X\).
+
+More precisely: for \(\varepsilon = 1/2\), there exists \(N\) such that \(|x_m - x_n| < 1/2\) for \(m, n \geq N\). If \(x_N = 0\), then \(|x_n| < 1/2\) for \(n \geq N\), so \(x_n \in \{0\} \cup \{1\}\). Since \(|x_n - 0| < 1/2\), we get \(x_n = 0\) for all \(n \geq N\). If \(x_N = 1/k\) for some \(k \geq 2\), then \(|x_n - 1/k| < 1/2\), and since the elements of \(X\) near \(1/k\) are discrete (spaced at least \(1/k - 1/(k+1) = 1/k(k+1)\) apart), the sequence is eventually constant.
+
+\textbf{(4)} Let \(p_n \to p\) in \(X\) and \(\varepsilon > 0\). By continuity of \(f\) at \(p\), there exists \(\delta > 0\) with \(f(B_\delta(p)) \subseteq B_\varepsilon(f(p))\). Since \(p_n \to p\), there exists \(N\) with \(d_X(p_n, p) < \delta\) for \(n \geq N\). Then \(d_Y(f(p_n), f(p)) < \varepsilon\) for \(n \geq N\).
+
+\textbf{(5)} Let \(A = \{x \in X : f(x) = g(x)\}\). We show \(X \setminus A\) is open. If \(x \notin A\), then \(f(x) \neq g(x)\). Since \(Y\) is a metric space (hence Hausdorff), there exist \(\varepsilon > 0\) with \(B_\varepsilon(f(x)) \cap B_\varepsilon(g(x)) = \emptyset\) (take \(\varepsilon = d_Y(f(x), g(x))/2\)). By continuity, choose \(\delta > 0\) with \(f(B_\delta(x)) \subseteq B_\varepsilon(f(x))\) and \(g(B_\delta(x)) \subseteq B_\varepsilon(g(x))\). For any \(y \in B_\delta(x)\): \(f(y) \in B_\varepsilon(f(x))\) and \(g(y) \in B_\varepsilon(g(x))\), so \(f(y) \neq g(y)\) (the balls are disjoint), hence \(y \notin A\). Thus \(B_\delta(x) \subseteq X \setminus A\).
+
+\textbf{(6)} (\(\Rightarrow\)) If \(f\) is continuous and \(Z \subseteq Y\) is closed, then \(Y \setminus Z\) is open, so \(f^{-1}(Y \setminus Z) = X \setminus f^{-1}(Z)\) is open, meaning \(f^{-1}(Z)\) is closed. (\(\Leftarrow\)) If \(U \subseteq Y\) is open, then \(Y \setminus U\) is closed, so \(f^{-1}(Y \setminus U) = X \setminus f^{-1}(U)\) is closed, meaning \(f^{-1}(U)\) is open.
+
+\textbf{(7)} In \((\RR[2], d_1)\), the ball \(B_r(p)\) is a square rotated \(45^\circ\) (a diamond): \(\{(x,y) : |x - p_1| + |y - p_2| < r\}\). In \((\RR[2], d_\infty)\), the ball is an axis-aligned square: \(\{(x,y) : |x - p_1| < r \text{ and } |y - p_2| < r\}\). To show equivalent topologies: if \(U\) is open in \(d\), then for any \(p \in U\) there exists \(\varepsilon > 0\) with \(B_\varepsilon^d(p) \subseteq U\). Since \(B_\varepsilon^{d_\infty}(p) \subseteq B_\varepsilon^d(p)\) (because \(d_\infty \leq d\)), the set \(U\) is also \(d_\infty\)-open. Conversely, \(B_\varepsilon^d(p) \subseteq B_{\sqrt{2}\varepsilon}^{d_\infty}(p)\) gives the reverse inclusion. The argument for \(d_1\) is analogous using \(d_\infty \leq d \leq d_1 \leq 2 d_\infty\).
+
+\textbf{(8)} \(T(x) = x/3 + 1/2\) satisfies \(|T(x) - T(y)| = |x - y|/3\), so it is a contraction with \(c = 1/3\). The fixed point solves \(x = x/3 + 1/2\), giving \(2x/3 = 1/2\), so \(x^* = 3/4\). For any \(x_0 \in [0, 1]\):
+\[|T^n(x_0) - 3/4| = (1/3)^n |x_0 - 3/4| \leq (1/3)^n \to 0.\]
+So \(T^n(x_0) \to 3/4\) regardless of starting point.
+
+\textbf{(9)} Let \(\varepsilon > 0\). By uniform continuity, choose \(\delta > 0\) with \(d_X(x, y) < \delta \implies d_Y(f(x), f(y)) < \varepsilon\). Since \(\{x_n\}\) is Cauchy, choose \(N\) with \(d_X(x_m, x_n) < \delta\) for \(m, n \geq N\). Then \(d_Y(f(x_m), f(x_n)) < \varepsilon\) for \(m, n \geq N\), so \(\{f(x_n)\}\) is Cauchy.
+
+Counterexample: \(f(x) = 1/x\) on \((0, 1)\) is continuous. The sequence \(x_n = 1/n\) is Cauchy in \((0, 1)\), but \(f(x_n) = n\) is not Cauchy (not even bounded). The function \(f\) is not uniformly continuous on \((0, 1)\).
+\end{solution}
 
 \end{document}

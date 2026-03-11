@@ -166,7 +166,17 @@ By Frobenius reciprocity, we can read off the induced representations:
 
 \textbf{(2)} \(\operatorname{Ind}^{S_n}_{A_n}(U) = \bigoplus_{\sigma \in S_n/A_n} \sigma U\). Since \([S_n:A_n] = 2\), this is 2-dimensional with basis \(e_1, e_2\) indexed by the two cosets. Even permutations fix both; odd permutations swap them. The invariant subspace \(\operatorname{span}(e_1 + e_2) \cong U_{S_n}\), and the anti-invariant \(\operatorname{span}(e_1 - e_2) \cong U'_{S_n}\).
 
-\textbf{(3)} First compute \(\operatorname{Res}^{S_5}_{S_4}\) of each irreducible of \(S_5\) and find the multiplicity of \(V_4\). From Frobenius reciprocity, the multiplicity of an \(S_5\)-irreducible \(X\) in \(\operatorname{Ind}(V_4)\) equals the multiplicity of \(V_4\) in \(\operatorname{Res}(X)\). Computing (by restricting characters to \(S_4\)): \(\operatorname{Ind}^{S_5}_{S_4}(V_4) = V \oplus V' \oplus W \oplus W' \oplus \bigwedge^2 V\) (\(\dim = 4+4+5+5+6 = 24 ... \) but \([S_5:S_4] \cdot 3 = 15\)). Let me recompute: \([S_5:S_4] = 5\) and \(\dim V_4 = 3\), so \(\dim \operatorname{Ind}(V_4) = 15\). The correct decomposition requires careful character computation.
+\textbf{(3)} By Frobenius reciprocity, the multiplicity of an \(S_5\)-irreducible \(X\) in \(\operatorname{Ind}^{S_5}_{S_4}(V_4)\) equals \(\langle \chi_{V_4}, \chi_{\operatorname{Res}(X)} \rangle_{S_4}\). We restrict each \(S_5\)-irreducible to \(S_4\) (the subgroup fixing 5) by evaluating its character on elements of cycle types \(1^5, 2 \cdot 1^3, 2^2 \cdot 1, 3 \cdot 1^2, 4 \cdot 1\). The \(S_4\) inner product with \(\chi_{V_4} = (3, 1, -1, 0, -1)\) (class sizes 1, 6, 3, 8, 6) gives:
+\begin{align*}
+\langle \operatorname{Res}(U), \chi_{V_4} \rangle &= \tfrac{1}{24}(3 + 6 - 3 + 0 - 6) = 0, \\
+\langle \operatorname{Res}(U'), \chi_{V_4} \rangle &= \tfrac{1}{24}(3 - 6 - 3 + 0 + 6) = 0, \\
+\langle \operatorname{Res}(V), \chi_{V_4} \rangle &= \tfrac{1}{24}(12 + 12 + 0 + 0 + 0) = 1, \\
+\langle \operatorname{Res}(V'), \chi_{V_4} \rangle &= \tfrac{1}{24}(12 - 12 + 0 + 0 + 0) = 0, \\
+\langle \operatorname{Res}(\textstyle\bigwedge^2 V), \chi_{V_4} \rangle &= \tfrac{1}{24}(18 + 0 + 6 + 0 + 0) = 1, \\
+\langle \operatorname{Res}(W), \chi_{V_4} \rangle &= \tfrac{1}{24}(15 + 6 - 3 + 0 + 6) = 1, \\
+\langle \operatorname{Res}(W'), \chi_{V_4} \rangle &= \tfrac{1}{24}(15 - 6 - 3 + 0 - 6) = 0.
+\end{align*}
+So \(\operatorname{Ind}^{S_5}_{S_4}(V_4) = V \oplus \bigwedge^2 V \oplus W\) (dimensions \(4 + 6 + 5 = 15 = [S_5:S_4] \cdot 3\)).
 
 \textbf{(4)} The sum \(\sum_{i : \sigma_i^{-1}g\sigma_i \in H} \chi_W(\sigma_i^{-1}g\sigma_i)\) counts each valid conjugate exactly once per coset. In the formula \(\frac{1}{|H|}\sum_{s \in G, s^{-1}gs \in H}\), replacing \(s\) by \(\sigma_i h\) for \(h \in H\): the condition \(s^{-1}gs \in H\) becomes \(h^{-1}(\sigma_i^{-1}g\sigma_i)h \in H\), which holds iff \(\sigma_i^{-1}g\sigma_i \in H\). The \(|H|\) values of \(h\) give \(\chi_W(h^{-1}(\sigma_i^{-1}g\sigma_i)h) = \chi_W(\sigma_i^{-1}g\sigma_i)\) (class function), contributing \(|H|\) times the same value. Dividing by \(|H|\) recovers the coset-representative sum.
 

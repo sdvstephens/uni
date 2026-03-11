@@ -150,7 +150,7 @@ The left cosets of \(H\) partition \(G\) into disjoint subsets, each of cardinal
 \nt{Lagrange's theorem has immediate corollaries: the order of any element divides \(|G|\) (since \(\langle g \rangle\) is a subgroup), and groups of prime order are cyclic (the only subgroups have order 1 or \(p\)). The converse of Lagrange is false in general: \(A_4\) has order 12 but no subgroup of order 6. However, for abelian groups and more generally for solvable groups, partial converses exist (feel free to use the ol' google machine for more info). 
 }
 
-A question naturally arises then: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be \emph{well-defined}, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
+A question naturally arises then: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be well-defined, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
 
 \ex{}{Consider \(G = S_3\) and \(H = \{e, (12)\}\). We have three left cosets: \(H = \{e, (12)\}\), \((13)H = \{(13), (132)\}\), and \((23)H = \{(23), (123)\}\). Take representatives \(a = (13)\) and \(a' = (132)\) from the same coset; both satisfy \(aH = a'H = (13)H\). Now take \(b = (23)\). We compute:
 \begin{align*}
@@ -198,7 +198,7 @@ What went wrong? The issue is that \(H = \{e, (12)\}\) is not ``symmetric'' enou
 
 \textbf{Well-definedness:} Suppose \(aN = a'N\) and \(bN = b'N\), so \(a' = an_1\) and \(b' = bn_2\) for some \(n_1, n_2 \in N\). Then 
 \[a'b' = an_1bn_2 = a(n_1b)n_2.\]
-Since \(N\) is normal, \(n_1b = bn_3\) for some \(n_3 \in N\) (because \(bN = Nb\) implies \(n_1 \in Nb\), so \(n_1 = bn_3\)... wait, let me be more careful). We have \(n_1b \in Nb = bN\), so \(n_1b = bn_3\) for some \(n_3 \in N\). Thus \(a'b' = abn_3n_2 \in abN\), so \(a'b'N = abN\).
+Since \(N\) is normal, \(n_1b = bn_3\) for some \(n_3 \in N\). We have \(n_1b \in Nb = bN\), so \(n_1b = bn_3\) for some \(n_3 \in N\). Thus \(a'b' = abn_3n_2 \in abN\), so \(a'b'N = abN\).
 
 \textbf{Group axioms:} Associativity: \((aN \cdot bN) \cdot cN = abN \cdot cN = (ab)cN = a(bc)N = aN \cdot bcN = aN \cdot (bN \cdot cN)\). Identity: \(eN = N\) satisfies \(N \cdot aN = eaN = aN\). Inverses: \((aN)^{-1} = a^{-1}N\) since \(aN \cdot a^{-1}N = aa^{-1}N = N\).
 
@@ -642,7 +642,7 @@ If \(\sigma = \tau_1 \cdots \tau_r\) and \(\rho = \tau_1' \cdots \tau_s'\), then
 \begin{solution}
 \textbf{(1)} First, multiply the cycles right-to-left. Trace each element:
 \begin{align*}
-1 &\mapsto 4 \mapsto 5 \mapsto 5 \mapsto 4 \mapsto 1: \text{wait, let's be systematic.}
+1 &\mapsto 4 \mapsto 5 \mapsto 5 \mapsto 4 \mapsto 1: \text{let's be systematic:}
 \end{align*}
 Write \(\sigma = (1\,2\,3)(4\,5)(1\,4)(2\,5\,3)\). Reading right-to-left: start with \((2\,5\,3)\), then \((1\,4)\), then \((4\,5)\), then \((1\,2\,3)\).
 

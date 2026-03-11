@@ -1,0 +1,315 @@
+% Studies-in-Real-and-Complex-Analysis - Lecture 2: Topological Spaces
+% Author: S. D. V. Stephens
+% Date: 2026-01-28
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Real-and-Complex-Analysis}
+
+\begin{document}
+
+\lecture{2}{Topological Spaces}
+
+In \textbf{Lecture 1} we saw that continuity between metric spaces can be characterized purely in terms of open sets (Theorem 3.4 of the Harris handout): \(f\) is continuous iff \(f^{-1}(\text{open}) = \text{open}\). This means the metric itself is extraneous for the purposes of continuity, limits, and connectedness---all that matters is which sets are declared open. This motivates the following abstraction.
+
+
+\section{The Definition}
+
+\dfn{Topology}{A \emph{topology} on a set \(X\) is a collection \(\mathcal{T} \subseteq \mathcal{P}(X)\) of subsets of \(X\), called the \emph{open sets}, satisfying:
+\begin{enumerate}[(i)]
+    \item \(\emptyset \in \mathcal{T}\) and \(X \in \mathcal{T}\).
+    \item The union of any subcollection of elements of \(\mathcal{T}\) is in \(\mathcal{T}\).
+    \item The intersection of any \emph{finite} subcollection of elements of \(\mathcal{T}\) is in \(\mathcal{T}\).
+\end{enumerate}
+A \emph{topological space} is a pair \((X, \mathcal{T})\). When the topology is clear, we just write \(X\). A subset \(U \subseteq X\) is \emph{open} if \(U \in \mathcal{T}\).
+}
+
+\ex{The metric topology}{If \((X, d)\) is a metric space, the collection \(\mathcal{T} = \{U \subseteq X : U \text{ is open in the metric sense}\}\) is a topology on \(X\) (proved in Lecture 1). This is the \emph{metric topology} induced by \(d\).
+}
+
+\ex{The discrete and indiscrete topologies}{On any set \(X\): the \emph{discrete topology} is \(\mathcal{T} = \mathcal{P}(X)\) (every subset is open). This is the metric topology for the discrete metric \(d(x, y) = 1\) if \(x \neq y\). The \emph{indiscrete} (or \emph{trivial}) topology is \(\mathcal{T} = \{\emptyset, X\}\). In the indiscrete topology, the only open sets are the empty set and \(X\) itself.
+}
+
+\ex{The finite complement topology}{Let \(X\) be any set. Define \(\mathcal{T}_f = \{U \subseteq X : X \setminus U \text{ is finite}\} \cup \{\emptyset\}\). This is a topology: \(\emptyset\) and \(X\) are in \(\mathcal{T}_f\) (since \(X \setminus X = \emptyset\) is finite). If \(\{U_\alpha\}\) is a collection of elements of \(\mathcal{T}_f\), then \(X \setminus \bigcup U_\alpha = \bigcap(X \setminus U_\alpha)\), which is an intersection of finite sets, hence finite. If \(U_1, \ldots, U_n \in \mathcal{T}_f\), then \(X \setminus \bigcap U_i = \bigcup(X \setminus U_i)\), a finite union of finite sets, hence finite.
+}
+
+\ex{Topologies on a three-element set}{Let \(X = \{a, b, c\}\). Examples of topologies include \(\{\emptyset, X\}\) (indiscrete), \(\{\emptyset, \{a\}, X\}\), \(\{\emptyset, \{a, b\}, \{c\}, X\}\), \(\{\emptyset, \{a\}, \{b\}, \{a,b\}, \{b,c\}, X\}\), and \(\mathcal{P}(X)\) (discrete). The collection \(\{\emptyset, \{a\}, \{b\}, X\}\) is \emph{not} a topology: it is missing \(\{a\} \cup \{b\} = \{a, b\}\).
+}
+
+\nt{Why bother with topologies that don't come from a metric? In analysis, many natural topologies are not metrizable. The space of bounded functions \(f : X \to \RR\) with the topology of \emph{pointwise convergence} (\(f_n \to f\) iff \(f_n(x) \to f(x)\) for all \(x\)) does not come from a metric in general (it is a product topology). The \(C^\infty\) topology on smooth functions \(\RR \to \RR\) is also not metrizable. On the other hand, a metric contains extraneous information: the metrics \(d, d_1, d_\infty\) on \(\RR[n]\) all induce the same topology.}
+
+
+\section{Continuous Maps Between Topological Spaces}
+
+\dfn{Continuous map}{A map \(f : X \to Y\) between topological spaces is \emph{continuous} if \(f^{-1}(U)\) is open in \(X\) for every open set \(U \subseteq Y\).
+}
+
+\dfn{Convergence in topological spaces}{A sequence \(\{p_n\}\) in a topological space \(X\) converges to \(p \in X\), written \(p_n \to p\), if for every open set \(U \ni p\), there exists \(N\) such that \(p_n \in U\) for all \(n \geq N\). Equivalently, every open set containing \(p\) contains all but finitely many \(p_n\).
+}
+
+\nt{In a general topological space, limits of sequences need not be unique. In the indiscrete topology \(\mathcal{T} = \{\emptyset, X\}\), every sequence converges to every point (the only open set containing \(p\) is \(X\) itself). We will need the Hausdorff condition to guarantee uniqueness.}
+
+\mprop{Basic properties of continuous maps}{%
+\begin{enumerate}[(a)]
+    \item If \(f : X \to Y\) is continuous and \(p_n \to p\) in \(X\), then \(f(p_n) \to f(p)\) in \(Y\).
+    \item If \(f : X \to Y\) and \(g : Y \to Z\) are continuous, then \(g \circ f : X \to Z\) is continuous.
+\end{enumerate}
+}
+
+\pf{Proof}{(a) Let \(V \ni f(p)\) be open in \(Y\). Then \(f^{-1}(V)\) is open in \(X\) and contains \(p\), so it contains \(p_n\) for all but finitely many \(n\). Thus \(f(p_n) \in V\) for all but finitely many \(n\).
+
+(b) If \(W \subseteq Z\) is open, then \(g^{-1}(W)\) is open in \(Y\), so \(f^{-1}(g^{-1}(W)) = (g \circ f)^{-1}(W)\) is open in \(X\).
+}
+
+
+\subsection{Comparing Topologies}
+
+\dfn{Finer and coarser}{Given two topologies \(\mathcal{T}\) and \(\mathcal{T}'\) on \(X\), we say \(\mathcal{T}'\) is \emph{finer} than \(\mathcal{T}\) (or \(\mathcal{T}\) is \emph{coarser} than \(\mathcal{T}'\)) if \(\mathcal{T} \subseteq \mathcal{T}'\). If \(\mathcal{T} \subsetneq \mathcal{T}'\), we say \(\mathcal{T}'\) is \emph{strictly finer}. Two topologies are \emph{comparable} if one contains the other.
+}
+
+\nt{The discrete topology is the finest topology on \(X\) (every point is isolated), and the indiscrete topology is the coarsest. A finer topology has more open sets: it is easier for functions \emph{into} \(X\) to be continuous (more preimages are open), but harder for sequences to converge (more open sets to check). In the discrete topology, a sequence converges iff it is eventually constant. In the indiscrete topology, every sequence converges to every point.}
+
+
+\section{Bases for a Topology}
+
+Keeping track of all open sets is cumbersome. In metric spaces, we started with open balls and generated all open sets as unions. The abstract analogue is a \emph{basis}.
+
+\dfn{Basis for a topology}{A \emph{basis} for a topology on \(X\) is a collection \(\mathcal{B} \subseteq \mathcal{P}(X)\) satisfying:
+\begin{enumerate}[(i)]
+    \item For every \(x \in X\), there exists \(B \in \mathcal{B}\) with \(x \in B\).
+    \item If \(x \in B_1 \cap B_2\) for \(B_1, B_2 \in \mathcal{B}\), then there exists \(B_3 \in \mathcal{B}\) with \(x \in B_3 \subseteq B_1 \cap B_2\).
+\end{enumerate}
+The topology \(\mathcal{T}\) \emph{generated by} \(\mathcal{B}\) consists of all sets that are unions of elements of \(\mathcal{B}\). Equivalently, \(U \in \mathcal{T}\) iff for every \(x \in U\), there exists \(B \in \mathcal{B}\) with \(x \in B \subseteq U\).
+}
+
+\nt{Condition (i) ensures \(X \in \mathcal{T}\) (since \(X = \bigcup_{B \in \mathcal{B}} B\)). Condition (ii) ensures finite intersections of open sets are open: if \(U_1, U_2 \in \mathcal{T}\) and \(x \in U_1 \cap U_2\), pick \(B_1, B_2 \in \mathcal{B}\) with \(x \in B_i \subseteq U_i\), then (ii) gives \(B_3 \in \mathcal{B}\) with \(x \in B_3 \subseteq B_1 \cap B_2 \subseteq U_1 \cap U_2\), so \(U_1 \cap U_2 \in \mathcal{T}\). Unlike bases in linear algebra, topological bases can contain redundant elements---a better analogy is with generating sets.}
+
+\ex{Bases for familiar topologies}{%
+\begin{itemize}
+    \item The open balls \(\{B_r(x) : x \in X, \, r > 0\}\) form a basis for the metric topology on \(X\). Even the rational-radius balls \(\{B_{1/n}(x) : x \in X, \, n \geq 1\}\) suffice.
+    \item The open intervals \(\{(a, b) : a < b, \, a, b \in \RR\}\) form a basis for the usual (\emph{standard}) topology on \(\RR\). Condition (ii): \((a_1, b_1) \cap (a_2, b_2) = (\max(a_1, a_2), \min(b_1, b_2))\) is either empty or another open interval.
+\end{itemize}
+}
+
+\dfn{The lower limit topology}{\(\RR_\ell\) is \(\RR\) with the topology generated by the basis of half-open intervals \(\{[a, b) : a < b\}\). This is strictly finer than the standard topology: every open interval \((a, b) = \bigcup_{n} [a + 1/n, b)\) is open in \(\RR_\ell\), but \([0, 1)\) is open in \(\RR_\ell\) and not in the standard topology.
+}
+
+\dfn{The \(K\)-topology}{\(\RR_K\) is \(\RR\) with the topology generated by the basis \(\{(a, b) : a < b\} \cup \{(a, b) \setminus K : a < b\}\) where \(K = \{1/n : n \in \ZZ_{> 0}\}\). This is strictly finer than the standard topology but is not comparable to \(\RR_\ell\).
+}
+
+\mprop{Continuity via bases}{Let \(\mathcal{B}_X\) and \(\mathcal{B}_Y\) be bases for topologies on \(X\) and \(Y\). Then \(f : X \to Y\) is continuous iff for every \(B \in \mathcal{B}_Y\) and every \(x \in f^{-1}(B)\), there exists \(B' \in \mathcal{B}_X\) with \(x \in B' \subseteq f^{-1}(B)\). In metric spaces, this reduces to the familiar \(\varepsilon\)-\(\delta\) condition (with \(B = B_\varepsilon(f(x))\) and \(B' = B_\delta(x)\)).
+}
+
+
+\section{Subspace, Product, and Quotient Topologies}
+
+\subsection{The Subspace Topology}
+
+\dfn{Subspace topology}{Let \((X, \mathcal{T})\) be a topological space and \(Y \subseteq X\). The \emph{subspace topology} on \(Y\) is \(\mathcal{T}_Y = \{U \cap Y : U \in \mathcal{T}\}\). That is, a set is open in \(Y\) iff it is the intersection of \(Y\) with an open set of \(X\).
+}
+
+\nt{When stating ``\(U\) is open,'' it is important to specify \emph{in which space}. The set \((0, 1)\) is open in \(\RR\), open in \([0, 2]\) (since \((0, 1) = (-1, 1) \cap [0, 2]\)), but \emph{not} open in \(\RR[2]\). The set \(Y\) is always open in itself (as \(Y = X \cap Y\)). If the metric on \(X\) restricts to \(Y\), the subspace topology agrees with the induced metric topology: if \(\mathcal{T}_X\) comes from a metric \(d\) on \(X\), then \(\mathcal{T}_Y\) comes from \(d|_{Y \times Y}\).}
+
+\nt{The subspace topology is the coarsest topology on \(Y\) making the inclusion \(\iota : Y \hookrightarrow X\) continuous.}
+
+
+\subsection{The Product Topology}
+
+\dfn{Product topology (finite case)}{Given topological spaces \((X, \mathcal{T}_X)\) and \((Y, \mathcal{T}_Y)\), the \emph{product topology} on \(X \times Y\) is the topology generated by the basis
+\[\mathcal{B} = \{U \times V : U \in \mathcal{T}_X, \; V \in \mathcal{T}_Y\}.\]
+This is a basis: condition (i) holds since \(X \times Y \in \mathcal{B}\), and condition (ii) since \((U_1 \times V_1) \cap (U_2 \times V_2) = (U_1 \cap U_2) \times (V_1 \cap V_2) \in \mathcal{B}\).
+}
+
+\nt{When \(X, Y\) are metric spaces, the product topology on \(X \times Y\) is the metric topology for \(d_\infty((x_1, y_1), (x_2, y_2)) = \max(d_X(x_1, x_2), d_Y(y_1, y_2))\). This agrees with the product topologies for the metrics \(d_2 = \sqrt{d_X^2 + d_Y^2}\) and \(d_1 = d_X + d_Y\), since all three induce the same topology. The key observation is that \(B_r^{d_\infty}((x, y)) = B_r^X(x) \times B_r^Y(y)\), so the metric balls are exactly the basis elements.}
+
+\mprop{Continuity into products}{A map \(f : Z \to X \times Y\) is continuous iff both components \(f_1 = \pi_X \circ f : Z \to X\) and \(f_2 = \pi_Y \circ f : Z \to Y\) are continuous, where \(\pi_X, \pi_Y\) are the projection maps. Equivalently, a sequence \((x_n, y_n) \to (x, y)\) in \(X \times Y\) iff \(x_n \to x\) in \(X\) and \(y_n \to y\) in \(Y\).
+}
+
+\pf{Proof}{The projections \(\pi_X, \pi_Y\) are continuous (preimage of \(U \subseteq X\) open is \(U \times Y\), which is open). So if \(f\) is continuous, then \(f_1 = \pi_X \circ f\) and \(f_2 = \pi_Y \circ f\) are compositions of continuous maps. Conversely, if \(f_1, f_2\) are continuous and \(U \times V\) is a basis element of \(X \times Y\), then \(f^{-1}(U \times V) = f_1^{-1}(U) \cap f_2^{-1}(V)\), a finite intersection of open sets, hence open. Since every open set in \(X \times Y\) is a union of such basis elements, \(f^{-1}\) of any open set is open.
+}
+
+
+\subsection{Infinite Products: Box vs.\ Product Topology}
+
+For a family of spaces \(\{(X_i, \mathcal{T}_i)\}_{i \in I}\), there are two natural topologies on \(\prod_{i \in I} X_i\).
+
+\dfn{Box topology}{The \emph{box topology} on \(\prod_{i \in I} X_i\) has basis consisting of all products \(\prod_{i \in I} U_i\) where each \(U_i \subseteq X_i\) is open.
+}
+
+\dfn{Product topology}{The \emph{product topology} on \(\prod_{i \in I} X_i\) has basis consisting of all products \(\prod_{i \in I} U_i\) where each \(U_i \subseteq X_i\) is open and \(U_i = X_i\) for all but finitely many \(i\).
+}
+
+\nt{For finite \(I\), the two topologies coincide. For infinite \(I\), the product topology is strictly coarser than the box topology. The product topology is the ``right'' choice: it is the coarsest topology making all projections \(\pi_i : \prod X_j \to X_i\) continuous. The characterization of continuity extends: \(f : Z \to \prod X_i\) is continuous (in the product topology) iff each component \(f_i = \pi_i \circ f\) is continuous.}
+
+\ex{The diagonal map}{Let \(\Delta : \RR \to {\RR}^{\NN}\) be defined by \(\Delta(x) = (x, x, x, \ldots)\). In the \emph{product} topology, \(\Delta\) is continuous (each component \(\pi_n \circ \Delta = \id_{\RR}\) is continuous). In the \emph{box} topology, \(\Delta\) is \emph{not} continuous: the set \(U = \prod_{n=1}^\infty (-1/n, 1/n)\) is open in the box topology, but \(\Delta^{-1}(U) = \bigcap_{n=1}^\infty (-1/n, 1/n) = \{0\}\), which is not open in \(\RR\).
+}
+
+
+\subsection{Homeomorphisms}
+
+\dfn{Homeomorphism}{Two topological spaces \(X\) and \(Y\) are \emph{homeomorphic}, written \(X \cong Y\), if there exist continuous maps \(f : X \to Y\) and \(g : Y \to X\) with \(g \circ f = \id_X\) and \(f \circ g = \id_Y\). Equivalently, \(f\) is a bijection such that both \(f\) and \(f^{-1}\) are continuous. Such an \(f\) is called a \emph{homeomorphism}. A homeomorphism is an isomorphism of topological spaces: it induces a bijection \(\mathcal{T}_X \leftrightarrow \mathcal{T}_Y\).
+}
+
+\nt{A continuous bijection need not be a homeomorphism: the inverse may fail to be continuous. If \(\mathcal{T}'\) is strictly finer than \(\mathcal{T}\) on \(X\), then \(\id : (X, \mathcal{T}') \to (X, \mathcal{T})\) is a continuous bijection (since \(\mathcal{T} \subseteq \mathcal{T}'\)), but \(\id^{-1} : (X, \mathcal{T}) \to (X, \mathcal{T}')\) is not continuous (some \(U \in \mathcal{T}' \setminus \mathcal{T}\) fails to pull back to an open set).}
+
+\ex{}{\(f : (-\pi/2, \pi/2) \to \RR\) defined by \(f(x) = \tan(x)\) is a homeomorphism (both \(\tan\) and \(\arctan\) are continuous). So \(\RR\) is homeomorphic to any bounded open interval. This shows boundedness is not a topological property.
+}
+
+
+\section{Closed Sets, Closure, Interior, Boundary}
+
+All the definitions from Lecture 1 carry over verbatim to general topological spaces.
+
+\dfn{Closed set}{A subset \(A\) of a topological space \(X\) is \emph{closed} if \(X \setminus A\) is open. By De Morgan: \(\emptyset\) and \(X\) are closed, arbitrary intersections of closed sets are closed, and finite unions of closed sets are closed.
+}
+
+\nt{A set can be both open and closed (\emph{clopen}): \(\emptyset\) and \(X\) always are, and in the discrete topology every set is clopen. A set can also be neither open nor closed: \([0, 1)\) in the standard topology on \(\RR\), or \(\QQ \subset \RR\).}
+
+\dfn{Closure, interior, boundary}{Let \(A \subseteq X\) be any subset.
+\begin{itemize}
+    \item The \emph{closure} of \(A\) is \(\ol{A} = \bigcap\{F \supseteq A : F \text{ closed}\}\), the smallest closed set containing \(A\). A point \(x \in \ol{A}\) iff every open set containing \(x\) meets \(A\).
+    \item The \emph{interior} of \(A\) is \(\operatorname{Int}(A) = \bigcup\{U \subseteq A : U \text{ open}\}\), the largest open set contained in \(A\). A point \(x \in \operatorname{Int}(A)\) iff some open set containing \(x\) is contained in \(A\).
+    \item The \emph{boundary} of \(A\) is \(\partial A = \ol{A} \setminus \operatorname{Int}(A)\). A point \(x \in \partial A\) iff every open set containing \(x\) meets both \(A\) and \(X \setminus A\).
+\end{itemize}
+}
+
+\nt{The complementary identities hold: \(\ol{X \setminus A} = X \setminus \operatorname{Int}(A)\) and \(\operatorname{Int}(X \setminus A) = X \setminus \ol{A}\). Also: \(A\) is closed iff \(\ol{A} = A\), and \(A\) is open iff \(\operatorname{Int}(A) = A\).}
+
+\ex{}{In \(\RR\) with the standard topology: if \(A = [0, 1)\), then \(\ol{A} = [0, 1]\), \(\operatorname{Int}(A) = (0, 1)\), and \(\partial A = \{0, 1\}\).
+}
+
+\dfn{Neighborhood}{An open set \(U\) containing a point \(p\) is called a \emph{neighborhood} of \(p\). Then: \(p \in \operatorname{Int}(A)\) iff \(A\) contains a neighborhood of \(p\), and \(p \in \ol{A}\) iff every neighborhood of \(p\) intersects \(A\).
+}
+
+\dfn{Dense subset}{\(A\) is \emph{dense} in \(X\) if \(\ol{A} = X\), i.e., every nonempty open set intersects \(A\). For instance, \(\QQ\) is dense in \(\RR\) (standard topology).
+}
+
+
+\section{Limit Points and the Hausdorff Condition}
+
+\subsection{Limit Points}
+
+\dfn{Limit point}{A point \(x \in X\) is a \emph{limit point} of \(A \subseteq X\) if every neighborhood \(U\) of \(x\) satisfies \(U \cap (A \setminus \{x\}) \neq \emptyset\). The set of limit points of \(A\) is denoted \(A'\). A point of \(A\) that is not a limit point is an \emph{isolated point} of \(A\).
+}
+
+\mprop{Closure via limit points}{\(\ol{A} = A \cup A'\). In particular, \(A\) is closed iff \(A' \subseteq A\) (iff \(A\) contains all its limit points).}
+
+\pf{Proof}{If \(x \in A\), every neighborhood meets \(A\) (it contains \(x\)). If \(x \in A'\), every neighborhood meets \(A \setminus \{x\} \subseteq A\). Either way \(x \in \ol{A}\). Conversely, if \(x \notin A\) and \(x \notin A'\), then some neighborhood \(U\) satisfies \(U \cap (A \setminus \{x\}) = \emptyset\); since \(x \notin A\), this gives \(U \cap A = \emptyset\), so \(x \notin \ol{A}\).
+}
+
+\ex{}{In \(\RR_{\mathrm{std}}\): \(1\) is a limit point of both \((0, 1)\) and \([0, 1]\). In the set \(S = \{1/n : n \geq 1\} \cup \{0\}\), the point \(0\) is a limit point (every neighborhood of \(0\) contains \(1/n\) for large \(n\)), but \(1\) is an isolated point (the ball \(B_{1/2}(1) \cap S = \{1\}\)).
+}
+
+\nt{In metric spaces, \(x \in \ol{A}\) iff there exists a sequence in \(A\) converging to \(x\), and \(x\) is a limit point of \(A\) iff there exists a sequence in \(A \setminus \{x\}\) converging to \(x\). In general topological spaces, sequences are insufficient: the correct tool is nets or filters. However, in spaces with a countable basis of neighborhoods at each point (``first-countable'' spaces, which include all metric spaces), sequences suffice.}
+
+
+\subsection{Hausdorff Spaces}
+
+In the indiscrete topology on \(\RR\), every sequence converges to every point, and in the finite complement topology on \(\RR\), a sequence of distinct points converges to every point of \(\RR\). To exclude such pathologies:
+
+\dfn{Hausdorff space}{A topological space \(X\) is \emph{Hausdorff} (or \emph{T\(_2\)}) if for every pair of distinct points \(x_1 \neq x_2 \in X\), there exist disjoint open sets \(U_1, U_2\) with \(x_1 \in U_1\) and \(x_2 \in U_2\).
+}
+
+\thm{Hausdorff implies unique limits}{If \(X\) is Hausdorff, then every sequence in \(X\) converges to at most one limit.}
+
+\pf{Proof}{Suppose \(x_n \to x\) and \(y \neq x\). Choose disjoint open sets \(U_x \ni x\) and \(U_y \ni y\). Since \(x_n \to x\), there exists \(N\) with \(x_n \in U_x\) for all \(n \geq N\). But then \(x_n \notin U_y\) for \(n \geq N\) (since \(U_x \cap U_y = \emptyset\)), so \(\{x_n\}\) does not converge to \(y\).
+}
+
+\ex{Hausdorff and non-Hausdorff spaces}{%
+\begin{enumerate}[(a)]
+    \item Every metric space is Hausdorff: if \(x \neq y\), set \(r = d(x, y)/2 > 0\) and take \(U = B_r(x)\), \(V = B_r(y)\).
+    \item The finite complement topology on \(\RR\) is \emph{not} Hausdorff: any two nonempty open sets have finite complements, so their intersection is \(\RR\) minus a finite set, hence nonempty. But it is \(T_1\) (singletons are closed, since \(\RR \setminus \{x\}\) has finite complement \(\{x\}\)).
+    \item The discrete topology is always Hausdorff (\(U_i = \{x_i\}\)).
+    \item Subspaces of Hausdorff spaces are Hausdorff. Products of Hausdorff spaces are Hausdorff.
+\end{enumerate}
+}
+
+\nt{There is a hierarchy of separation axioms: \(T_1\) (points are closed) \(\Leftarrow\) \(T_2\) (Hausdorff) \(\Leftarrow\) \(T_3\) (regular) \(\Leftarrow\) \(T_4\) (normal). The finite complement topology on \(\RR\) is \(T_1\) but not \(T_2\). We will primarily work with Hausdorff spaces. Every metric space is \(T_4\) (hence satisfies all separation axioms).}
+
+
+\section{Connectedness}
+
+\dfn{Connected space}{A topological space \(X\) is \emph{connected} if it cannot be written as \(X = U \cup V\) where \(U, V\) are disjoint, nonempty, open sets. Such a decomposition is called a \emph{separation} of \(X\). A subset \(A \subseteq X\) is connected if it is connected in the subspace topology.
+}
+
+\mprop{\([0, 1]\) is connected}{The interval \([0, 1] \subset \RR\) (with the standard topology) is connected.}
+
+\pf{Proof}{Suppose \([0, 1] = U \cup V\) is a separation with \(0 \in U\). Let \(a = \sup\{x \in [0, 1] : [0, x) \subseteq U\}\). Since \(U\) is open and \(0 \in U\), we have \(a > 0\).
+
+If \(a \in V\): since \(V\) is open in \([0, 1]\), there exists \(\varepsilon > 0\) with \((a - \varepsilon, a] \cap [0, 1] \subseteq V\). But by definition of \(a\), the interval \([0, a - \varepsilon)\) is not entirely in \(U\), so some point of \([0, a - \varepsilon)\) is in \(V\). But then there exist points of \(V\) below \(a - \varepsilon\), and \([0, x) \subseteq U\) fails before \(a - \varepsilon\), contradicting \(a = \sup\).
+
+More carefully: if \(a < 1\) and \(a \in U\), then \(U\) is open, so \((a - \varepsilon, a + \varepsilon) \subseteq U\) for some \(\varepsilon\), contradicting \(a = \sup\). If \(a \in V\), then \((a - \varepsilon, a + \varepsilon) \cap [0,1] \subseteq V\), so \([0, x) \subseteq U\) for \(x < a - \varepsilon\) only, giving \(\sup \leq a - \varepsilon < a\), contradiction. So \(a = 1\), meaning \(U = [0, 1]\) and \(V = \emptyset\).
+}
+
+\thm{Continuous image of a connected space is connected}{If \(f : X \to Y\) is continuous and \(X\) is connected, then \(f(X) \subseteq Y\) is connected.}
+
+\pf{Proof}{Suppose \(f(X) = U \cup V\) is a separation (in the subspace topology). Then \(f^{-1}(U)\) and \(f^{-1}(V)\) are disjoint, nonempty (since \(U, V \subseteq f(X)\)), and open in \(X\) (since \(f\) is continuous and \(U, V\) are open in \(f(X)\), which means \(U = U' \cap f(X)\) for some open \(U' \subseteq Y\), so \(f^{-1}(U) = f^{-1}(U')\) is open). Their union is \(X\), giving a separation of \(X\). Contradiction.
+}
+
+\cor{Intermediate Value Theorem}{Let \(X\) be a connected topological space and \(f : X \to \RR\) continuous. If \(a, b \in X\) and \(r\) lies between \(f(a)\) and \(f(b)\), then \(r \in f(X)\): there exists \(c \in X\) with \(f(c) = r\).}
+
+\pf{Proof}{The image \(f(X)\) is a connected subset of \(\RR\). If \(r \notin f(X)\), then \(U = f(X) \cap (-\infty, r)\) and \(V = f(X) \cap (r, \infty)\) give a separation of \(f(X)\) (both nonempty since \(f(a)\) is on one side and \(f(b)\) on the other). Contradiction.
+}
+
+\thm{Connected subsets of \(\RR\) are intervals}{A subset \(A \subseteq \RR\) is connected (in the standard topology) if and only if \(A\) is an interval (i.e., \(x, z \in A\) and \(x < y < z\) implies \(y \in A\)).}
+
+
+\subsection{Path-Connectedness}
+
+\dfn{Path}{A \emph{path} in \(X\) from \(x\) to \(y\) is a continuous map \(\gamma : [0, 1] \to X\) with \(\gamma(0) = x\) and \(\gamma(1) = y\). (Here \([0, 1]\) has the subspace topology from \(\RR\).)
+}
+
+\dfn{Path-connected}{A space \(X\) is \emph{path-connected} if for every pair \(x, y \in X\), there exists a path from \(x\) to \(y\). The relation \(x \sim y\) (``connected by a path'') is an equivalence relation; the equivalence classes are the \emph{path components} of \(X\).
+}
+
+\thm{Path-connected implies connected}{If \(X\) is path-connected, then \(X\) is connected.}
+
+\pf{Proof}{Suppose \(X = U \cup V\) is a separation. Pick \(x \in U, y \in V\), and let \(\gamma : [0, 1] \to X\) be a path from \(x\) to \(y\). Then \(\gamma^{-1}(U)\) and \(\gamma^{-1}(V)\) are disjoint open sets covering \([0, 1]\), with \(0 \in \gamma^{-1}(U)\) and \(1 \in \gamma^{-1}(V)\), giving a separation of \([0, 1]\). This contradicts the connectedness of \([0, 1]\).
+}
+
+\nt{The converse is false in general: the \emph{topologist's sine curve} \(S = \{(x, \sin(1/x)) : x > 0\} \cup \{(0, y) : -1 \leq y \leq 1\}\) is connected but not path-connected. However, for open subsets of \(\RR[n]\), connected and path-connected are equivalent.}
+
+\thm{Products of connected spaces are connected}{If \(X_i\) is connected for each \(i \in I\), then \(\prod_{i \in I} X_i\) (with the product topology) is connected.
+}
+
+
+\section{Exercises}
+
+\mer{Topology exercises}{
+\begin{enumerate}[(1)]
+    \item Verify that the finite complement topology \(\mathcal{T}_f\) on an infinite set \(X\) is \(T_1\) but not Hausdorff.
+    
+    \item Let \(X\) be a set with topologies \(\mathcal{T}\) and \(\mathcal{T}'\), with \(\mathcal{T}'\) strictly finer than \(\mathcal{T}\). Show that \(\id : (X, \mathcal{T}') \to (X, \mathcal{T})\) is continuous but not a homeomorphism.
+    
+    \item Show that if \(X\) is Hausdorff, then \(Y \subseteq X\) (with the subspace topology) is Hausdorff, and \(X \times Y\) (with the product topology) is Hausdorff whenever both factors are.
+    
+    \item Prove that \(A \subseteq \RR\) (standard topology) is connected iff \(A\) is an interval.
+    
+    \item Let \(X\) be a topological space and \(\{A_i\}_{i \in I}\) a family of connected subspaces with \(\bigcap_{i \in I} A_i \neq \emptyset\). Show that \(\bigcup_{i \in I} A_i\) is connected.
+    
+    \item Show that the closure of a connected set is connected.
+    
+    \item Prove that a finite topological space is metrizable if and only if the topology is discrete.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} \(T_1\): for any \(x \in X\), \(X \setminus \{x\}\) has complement \(\{x\}\), which is finite, so \(X \setminus \{x\} \in \mathcal{T}_f\). Thus singletons are closed. Not Hausdorff: if \(U, V\) are nonempty open sets, then \(X \setminus U\) and \(X \setminus V\) are finite, so \(X \setminus (U \cap V) = (X \setminus U) \cup (X \setminus V)\) is finite. Since \(X\) is infinite, \(U \cap V\) is infinite (in particular nonempty). So no two nonempty open sets are disjoint.
+
+\textbf{(2)} Continuity: if \(U \in \mathcal{T}\), then \(U \in \mathcal{T}'\) (since \(\mathcal{T} \subseteq \mathcal{T}'\)), so \(\id^{-1}(U) = U\) is open in \(\mathcal{T}'\). Not a homeomorphism: since \(\mathcal{T}' \supsetneq \mathcal{T}\), there exists \(V \in \mathcal{T}' \setminus \mathcal{T}\). Then \((\id^{-1})^{-1}(V) = V \notin \mathcal{T}\), so \(\id^{-1}\) is not continuous.
+
+\textbf{(3)} Subspace: if \(y_1 \neq y_2 \in Y \subseteq X\), take disjoint open \(U_1, U_2 \subseteq X\) separating them. Then \(U_1 \cap Y, U_2 \cap Y\) are disjoint open sets in \(Y\) separating \(y_1, y_2\). Product: given \((x_1, y_1) \neq (x_2, y_2)\) in \(X \times Y\), WLOG \(x_1 \neq x_2\). Choose disjoint open \(U_1, U_2 \subseteq X\) with \(x_i \in U_i\). Then \(U_1 \times Y\) and \(U_2 \times Y\) are disjoint open sets in \(X \times Y\) separating the two points.
+
+\textbf{(4)} (\(\Rightarrow\)) If \(A\) is not an interval, there exist \(x < y < z\) with \(x, z \in A\) and \(y \notin A\). Then \(A = (A \cap (-\infty, y)) \cup (A \cap (y, \infty))\) is a separation. (\(\Leftarrow\)) If \(A\) is an interval and \(A = U \cup V\) is a separation with \(u \in U, v \in V\), WLOG \(u < v\). Let \(a = \sup(U \cap [u, v])\). If \(a \in U\): \(U\) open gives \((a - \varepsilon, a + \varepsilon) \cap A \subseteq U\), contradicting \(a = \sup\) (there are points of \(U\) beyond \(a\)). If \(a \in V\): \(V\) open gives \((a - \varepsilon, a + \varepsilon) \cap A \subseteq V\), so \(\sup(U \cap [u, v]) \leq a - \varepsilon < a\), contradiction.
+
+\textbf{(5)} Suppose \(Y = \bigcup A_i = U \cup V\) is a separation. Pick \(p \in \bigcap A_i\). WLOG \(p \in U\). For each \(i\), the sets \(U \cap A_i\) and \(V \cap A_i\) are disjoint open sets in \(A_i\) covering \(A_i\), with \(p \in U \cap A_i \neq \emptyset\). Since \(A_i\) is connected, \(V \cap A_i = \emptyset\) for all \(i\). Thus \(V \cap Y = \bigcup (V \cap A_i) = \emptyset\), contradicting \(V \neq \emptyset\).
+
+\textbf{(6)} Let \(A\) be connected and suppose \(\ol{A} = U \cup V\) is a separation. Then \(A = (U \cap A) \cup (V \cap A)\) with \(U \cap A\) and \(V \cap A\) open in \(A\) and disjoint. Since \(A\) is connected, one is empty, say \(V \cap A = \emptyset\), so \(A \subseteq U\). But then \(\ol{A} \subseteq \ol{U}\). Since \(U\) is open in \(\ol{A}\) and \(V\) is its complement in \(\ol{A}\), \(U\) is also closed in \(\ol{A}\), giving \(\ol{U} \cap \ol{A} = U\). So \(\ol{A} \subseteq U\), meaning \(V = \ol{A} \setminus U = \emptyset\), contradiction.
+
+\textbf{(7)} (\(\Leftarrow\)) The discrete topology on a finite set \(X = \{x_1, \ldots, x_n\}\) is metrizable (use the discrete metric). (\(\Rightarrow\)) Suppose \(X\) is finite and metrizable with metric \(d\). For each \(x \in X\), let \(r_x = \min\{d(x, y) : y \in X, y \neq x\} > 0\) (the minimum exists since \(X\) is finite). Then \(B_{r_x}(x) = \{x\}\), so singletons are open. Since every subset is a union of singletons, every subset is open, and the topology is discrete.
+\end{solution}
+
+\end{document}

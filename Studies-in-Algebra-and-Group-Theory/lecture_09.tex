@@ -809,16 +809,35 @@ Conversely, any reflection \(P\) has \(\Ker(P + I)\) one-dimensional. Let \(v\) 
 
 \mprop{Reflections map equal-length vectors}{Given any two vectors \(x, y \in V\) with \(\|x\| = \|y\|\), there exists a reflection \(P\) with \(P(x) = y\).}
 
-\pf{Proof}{If \(x = y\), take any reflection fixing \(x\) (e.g., reflect across \(x^\perp\) if \(x \neq 0\), or the identity hyperplane if \(x = 0\)... but then \(P\) wouldn't be a reflection. Actually if \(x = y = 0\), any reflection works.)
+\pf{Proof}{
+  \textbf{Case 1: $x = y$.}
+  If $x = 0$, any reflection fixes the origin, so any reflection works.
+  If $x \neq 0$ (and $\dim V \geq 2$), choose any unit vector $v$ orthogonal to $x$
+  and set $P(z) = z - 2\langle z, v \rangle v$.
+  Then $P(x) = x - 2\langle x, v \rangle v = x = y$.
 
-Assume \(x \neq y\). Let \(v = \frac{x - y}{\|x - y\|}\) and \(P(z) = z - 2\langle z, v \rangle v\).
+  \textbf{Case 2: $x \neq y$.}
+  Let $v = \dfrac{x - y}{\|x - y\|}$ and define $P(z) = z - 2\langle z, v \rangle v$.
 
-Compute:
-\[P(x) = x - 2\langle x, v \rangle v = x - 2 \frac{\langle x, x - y \rangle}{\|x - y\|^2}(x - y).\]
-Since \(\|x\| = \|y\|\), we have \(\langle x, x \rangle = \langle y, y \rangle\), so
-\[\langle x, x - y \rangle = \|x\|^2 - \langle x, y \rangle = \frac{1}{2}(\|x\|^2 + \|y\|^2 - 2\langle x, y \rangle) = \frac{1}{2}\|x - y\|^2.\]
-Thus \(P(x) = x - (x - y) = y\).
-}
+  Compute:
+  \[
+    P(x) = x - 2\langle x, v \rangle v
+         = x - \frac{2\langle x,\, x - y \rangle}{\|x - y\|^2}(x - y).
+  \]
+
+  Since $\|x\| = \|y\|$, we have $\|x\|^2 = \|y\|^2$, so
+  \[
+    \langle x,\, x - y \rangle
+      = \|x\|^2 - \langle x, y \rangle
+      = \tfrac{1}{2}\bigl(\|x\|^2 + \|y\|^2 - 2\langle x, y \rangle\bigr)
+      = \tfrac{1}{2}\|x - y\|^2.
+  \]
+
+  Substituting:
+  \[
+    P(x) = x - \frac{2 \cdot \tfrac{1}{2}\|x - y\|^2}{\|x - y\|^2}(x - y)
+         = x - (x - y)
+     = y. \] }
 
 \thm{Orthogonal operators as products of reflections}{Every orthogonal operator on \(\RR^n\) is a product of at most \(n\) reflections.}
 
@@ -980,13 +999,13 @@ Differentiating: \(\frac{d}{dt}|_{t=0} f(w_t) = 2\langle T(v), u \rangle\). So \
 
 Thus \(T(v) \perp v^\perp\), meaning \(T(v) \in (v^\perp)^\perp = \operatorname{span}(v)\). So \(T(v) = \lambda v\) for some \(\lambda\).
 
-\textbf{(3)} We have \(T(S) = \{w : \|T^{-1}(w)\| = 1\} = \{w : \langle T^{-1}(w), T^{-1}(w) \rangle = 1\}\).
+\textbf{(3)} e have $T(S) = \{w : \|T^{-1}(w)\| = 1\}$. Now
+\[
+  \|T^{-1}(w)\|^2 = \langle T^{-1}(w),\, T^{-1}(w) \rangle = \langle (T^{-1})^* T^{-1}(w),\, w \rangle = \langle Q(w),\, w \rangle,
+\]
+where $Q = (T^{-1})^* T^{-1}$ is self-adjoint and positive-definite.
 
-Let \(P = (T^{-1})^* T^{-1} = (T^*)^{-1} T^{-1} = (TT^*)^{-1}\). Equivalently, \(P = (T^*T)^{-1}\) if we set \(P = (T^{-1})^* T^{-1}\).
-
-Actually: \(\|T^{-1}(w)\|^2 = \langle T^{-1}(w), T^{-1}(w) \rangle = \langle (T^{-1})^* T^{-1}(w), w \rangle\).
-
-The operator \(Q = (T^{-1})^* T^{-1}\) is self-adjoint and positive-definite. By the spectral theorem, there exists an orthonormal eigenbasis \(\{u_1, \ldots, u_n\}\) with \(Q(u_i) = \mu_i u_i\), where \(\mu_i > 0\).
+ By the spectral theorem, there exists an orthonormal eigenbasis \(\{u_1, \ldots, u_n\}\) with \(Q(u_i) = \mu_i u_i\), where \(\mu_i > 0\).
 
 For \(w = \sum x_i u_i\): \(\langle Q(w), w \rangle = \sum \mu_i x_i^2\).
 
