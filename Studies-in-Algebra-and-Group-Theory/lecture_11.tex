@@ -1,0 +1,477 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 11: Group Actions and the Sylow Theorems
+% Author: S. D. V. Stephens
+% Date: 2026-03-10
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{11}{Group Actions, Conjugacy, and the Sylow Theorems}
+
+We return to group theory, now armed with the machinery of group actions (introduced in \textbf{Lecture 3}). Understanding what sets a group \(G\) acts on---and how---reveals the internal structure of \(G\) itself. The main applications are the class equation, the Sylow theorems, and the classification of finite subgroups of \(\mathrm{SO}(3)\).
+
+
+\section{Group Actions: Orbits, Stabilizers, and Counting}
+
+\subsection{Recap and Definitions}
+
+Recall from \textbf{Lecture 3}: an action of a group \(G\) on a set \(S\) is a homomorphism \(\rho : G \to \operatorname{Perm}(S)\). Equivalently, a map \(G \times S \to S\), \((g, s) \mapsto g \cdot s\), satisfying \(e \cdot s = s\) and \((gh) \cdot s = g \cdot (h \cdot s)\) for all \(g, h \in G\), \(s \in S\).
+
+\dfn{Faithful action}{An action \(\rho : G \to \operatorname{Perm}(S)\) is \textbf{faithful} if \(\rho\) is injective. Otherwise, the group that ``really'' acts on \(S\) is \(G / \Ker(\rho)\).
+}
+
+\dfn{Orbit}{The orbit of \(s \in S\) under \(G\) is \(\mathcal{O}_s = G \cdot s = \{g \cdot s : g \in G\} \subseteq S\).
+}
+
+The relation \(s \sim t \iff \exists g \in G\) with \(g \cdot s = t\) is an equivalence relation on \(S\): reflexivity from \(e \cdot s = s\), symmetry from \(g \cdot s = t \implies s = g^{-1} \cdot t\), and transitivity from \(g \cdot s = t, \, h \cdot t = u \implies (hg) \cdot s = u\). The orbits are the equivalence classes, giving a partition \(S = \bigsqcup \mathcal{O}_s\).
+
+\dfn{Transitive action}{An action is \textbf{transitive} if there is only one orbit, i.e., for all \(s, t \in S\) there exists \(g \in G\) with \(g \cdot s = t\).
+}
+
+\nt{Any \(G\)-action on \(S\) restricts to a transitive \(G\)-action on each orbit. So every group action decomposes into a disjoint union of transitive actions.}
+
+\dfn{Stabilizer and fixed points}{
+\begin{itemize}
+    \item The \textbf{stabilizer} of \(s \in S\) is \(\Stab(s) = \{g \in G : g \cdot s = s\}\). This is a subgroup of \(G\).
+    \item The \textbf{fixed points} of \(g \in G\) are the subset \(S^g = \{s \in S : g \cdot s = s\}\).
+\end{itemize}
+}
+
+\mprop{Conjugate stabilizers}{If \(s' = g \cdot s\), then \(\Stab(s') = g \, \Stab(s) \, g^{-1}\). In particular, elements in the same orbit have conjugate stabilizers.}
+
+\pf{Proof}{If \(h \in \Stab(s)\), then \((ghg^{-1}) \cdot s' = (ghg^{-1})(g \cdot s) = g(h \cdot s) = g \cdot s = s'\), so \(g \Stab(s) g^{-1} \subseteq \Stab(s')\). The reverse inclusion follows by applying the same argument with \(g^{-1}\).
+}
+
+\subsection{The Orbit-Stabilizer Theorem}
+
+\ex{The coset action}{Given a subgroup \(H \leq G\), the set of left cosets \(G/H = \{aH : a \in G\}\) carries a \(G\)-action by left multiplication: \(g \cdot [aH] = [gaH]\). This action is transitive (\(a^{-1}\) maps \([aH]\) to \([H]\)). The stabilizer of \([H]\) is \(H\) itself, and \(\Stab([aH]) = aHa^{-1}\).
+}
+
+The coset action is the universal example of a transitive action:
+
+\thm{Orbit-Stabilizer Theorem}{If \(G\) acts on \(S\), let \(s \in S\) and \(H = \Stab(s)\). Then the map
+\[\varepsilon : G/H \to \mathcal{O}_s, \qquad [aH] \mapsto a \cdot s\]
+is a bijection that intertwines the \(G\)-actions: \(\varepsilon(g \cdot [aH]) = g \cdot \varepsilon([aH])\).
+}
+
+\pf{Proof}{Well-defined: if \(a' = ah \in aH\), then \(a' \cdot s = a \cdot (h \cdot s) = a \cdot s\).
+
+Surjective: by definition of orbit, every element of \(\mathcal{O}_s\) is \(a \cdot s\) for some \(a\).
+
+Injective: \(a' \cdot s = a \cdot s \iff a^{-1}a' \cdot s = s \iff a^{-1}a' \in \Stab(s) = H \iff a' \in aH\).
+
+Equivariance: \(\varepsilon(g \cdot [aH]) = \varepsilon([gaH]) = (ga) \cdot s = g \cdot (a \cdot s) = g \cdot \varepsilon([aH])\).
+}
+
+\cor{Counting formula}{If \(G\) and \(S\) are finite, then \(|\mathcal{O}_s| = |G| / |\Stab(s)|\) and \(|S| = \sum_{\text{orbits}} |\mathcal{O}_s|\).
+}
+
+\ex{Rotational symmetries of the tetrahedron}{Let \(G\) be the group of rotational symmetries of a regular tetrahedron, acting on \(S = \{\text{4 faces}\}\). The action is transitive (any face can be mapped to any other), so \(|\mathcal{O}| = |S| = 4\). The stabilizer of a face consists of rotations fixing that face: rotations about the axis through the face and the opposite vertex, giving \(|\Stab| = 3\). Thus \(|G| = |\mathcal{O}| \cdot |\Stab| = 4 \cdot 3 = 12\). In fact \(G \cong A_4\): the identity, 8 elements of order 3 (rotations by \(120^\circ\) and \(240^\circ\) about each vertex-to-face axis), and 3 elements of order 2 (rotations by \(180^\circ\) about each edge-midpoint axis, corresponding to \((12)(34)\) etc.).
+}
+
+\subsection{Burnside's Lemma}
+
+\thm{Burnside's Lemma (Cauchy--Frobenius)}{Let \(G\) be a finite group acting on a finite set \(S\). The number of orbits is
+\[\#\text{orbits} = \frac{1}{|G|} \sum_{g \in G} |S^g|\]
+where \(S^g = \{s \in S : g \cdot s = s\}\) is the set of fixed points of \(g\). In words: the number of orbits equals the average number of fixed points of elements of \(G\).
+}
+
+\pf{Proof}{Count the set \(\Sigma = \{(g, s) \in G \times S : g \cdot s = s\}\) in two ways.
+
+Summing over \(G\): \(|\Sigma| = \sum_{g \in G} |S^g|\).
+
+Summing over \(S\): \(|\Sigma| = \sum_{s \in S} |\Stab(s)|\). Group this by orbits. All elements in an orbit \(\mathcal{O}\) have conjugate stabilizers of the same size \(|\Stab(s)| = |G|/|\mathcal{O}|\). So
+\[|\Sigma| = \sum_{\mathcal{O}} |\mathcal{O}| \cdot \frac{|G|}{|\mathcal{O}|} = \sum_{\mathcal{O}} |G| = |G| \cdot (\#\text{orbits}).\]
+Equating: \(\sum_{g \in G} |S^g| = |G| \cdot (\#\text{orbits})\).
+}
+
+\ex{Coloring a tetrahedron}{How many ways to color the faces of a regular tetrahedron with 3 colors, up to rotational symmetry? Here \(S = \{3\text{-colorings of 4 faces}\}\) with \(|S| = 3^4 = 81\), and \(G = A_4\) (12 rotations).
+
+\begin{itemize}
+    \item \(e\) (identity): all 81 colorings are fixed. \(|S^e| = 81\).
+    \item 8 rotations of order 3 (\(120^\circ\) about vertex-to-face axes): 3 faces must share a color, the 4th is free. \(|S^g| = 3 \times 3 = 9\) each.
+    \item 3 rotations of order 2 (\(180^\circ\) about edge-midpoint axes): pairs of faces must match. \(|S^g| = 3 \times 3 = 9\) each.
+\end{itemize}
+
+So \(\#\text{orbits} = \frac{1}{12}(81 + 8 \cdot 9 + 3 \cdot 9) = \frac{180}{12} = 15\).
+}
+
+\nt{Burnside's lemma extends to more complex situations. For coloring the edges of a tetrahedron with 3 colors: \(\frac{1}{12}(3^6 + 8 \cdot 9 + 3 \cdot 3^4) = \frac{1}{12}(729 + 72 + 243) = 87\).}
+
+
+\section{Actions of \(G\) on Itself}
+
+The two most important actions of a group on itself are left multiplication and conjugation.
+
+\subsection{Left Multiplication and Cayley's Theorem}
+
+The left multiplication action \(g \cdot h = gh\) is transitive with \(\Stab(h) = \{e\}\) for all \(h\), and no fixed points except when \(g = e\). Since the action is faithful, we recover:
+
+\thm{Cayley's Theorem}{Every finite group \(G\) is isomorphic to a subgroup of \(S_n\), where \(n = |G|\).}
+
+This is not very useful for understanding the structure of \(G\) in practice. The conjugation action is far more revealing.
+
+\subsection{Conjugation, the Class Equation, and \(p\)-Groups}
+
+\(G\) acts on itself by conjugation: \(g \cdot h = ghg^{-1}\). This is a group homomorphism \(G \to \Aut(G) \subset \operatorname{Perm}(G)\).
+
+\dfn{Conjugacy class, centralizer, center}{
+\begin{itemize}
+    \item The orbits of the conjugation action are the \textbf{conjugacy classes} \(C_h = \{ghg^{-1} : g \in G\}\).
+    \item The stabilizer of \(h\) is the \textbf{centralizer} \(\mathcal{Z}(h) = \{g \in G : gh = hg\}\), the subgroup of elements commuting with \(h\).
+    \item The \textbf{center} of \(G\) is \(Z(G) = \bigcap_{h \in G} \mathcal{Z}(h) = \{g \in G : gh = hg \; \forall h \in G\}\), the kernel of the conjugation action.
+\end{itemize}
+}
+
+\nt{The action is trivial (every element is a fixed point) iff \(G\) is abelian. The action is faithful iff \(Z(G) = \{e\}\).}
+
+By the orbit-stabilizer theorem, \(|C_h| = |G| / |\mathcal{Z}(h)|\), so the size of each conjugacy class divides \(|G|\). Moreover, \(|C_h| = 1\) iff \(h \in Z(G)\). The conjugacy classes partition \(G\), giving:
+
+\thm{The Class Equation}{For a finite group \(G\),
+\[|G| = \sum_{C} |C| = |Z(G)| + \sum_{\substack{C \\ |C| > 1}} |C|\]
+where the sum runs over conjugacy classes \(C\), and the second sum runs over non-central classes. Each \(|C|\) divides \(|G|\).
+}
+
+\thm{Groups of order \(p^2\) are abelian}{If \(|G| = p^2\) for \(p\) prime, then \(G\) is abelian.}
+
+\pf{Proof}{Conjugacy classes have sizes dividing \(p^2\), so \(|C| \in \{1, p, p^2\}\). The class equation gives \(p^2 = |Z(G)| + \sum_{|C|>1} |C|\). Each non-central class has size \(p\) or \(p^2\) (the latter is impossible since it would mean \(C = G\), but then \(|\mathcal{Z}(h)| = 1\), contradicting \(h \in \mathcal{Z}(h)\)). So each non-central class has size \(p\).
+
+Since \(Z(G)\) is a subgroup of \(G\), \(|Z(G)|\) divides \(p^2\): it is 1, \(p\), or \(p^2\). If \(|Z(G)| = p^2\) we are done (\(G\) is abelian).
+
+If \(|Z(G)| = p\): pick \(g \notin Z(G)\). Then \(g\) commutes with itself and with \(Z(G)\), so \(\mathcal{Z}(g) \supseteq Z(G) \cup \{g\}\), giving \(|\mathcal{Z}(g)| > p\). But \(\mathcal{Z}(g)\) is a subgroup, so \(|\mathcal{Z}(g)|\) divides \(p^2\). The only option is \(|\mathcal{Z}(g)| = p^2\), meaning \(\mathcal{Z}(g) = G\), i.e., \(g \in Z(G)\). Contradiction.
+
+If \(|Z(G)| = 1\): the class equation gives \(p^2 = 1 + kp\) for some \(k\), so \(p \mid 1\). Impossible.
+
+So \(|Z(G)| = p^2\) and \(G\) is abelian. The only groups of order \(p^2\) are \(\ZZ/p^2\) and \(\ZZ/p \times \ZZ/p\).
+}
+
+\mprop{There are exactly 5 groups of order 8}{The three abelian groups \(\ZZ/8\), \(\ZZ/4 \times \ZZ/2\), \((\ZZ/2)^3\), plus two non-abelian groups: the dihedral group \(D_4\) (symmetries of the square) and the quaternion group \(Q_8 = \{\pm 1, \pm i, \pm j, \pm k\}\) with \(i^2 = j^2 = k^2 = -1\), \(ij = k\), \(jk = i\), \(ki = j\).}
+
+\nt{Two approaches to proving this. The ``by hand'' method: if \(|G| = 8\) and \(G\) is not abelian, not every element has \(g^2 = 1\) (else \(G\) would be abelian), so there exists \(a\) of order 4. The subgroup \(\langle a \rangle\) has index 2 and is therefore normal. Work out the possibilities for multiplication by an element \(b \notin \langle a \rangle\) with \(ab \neq ba\).
+
+The class equation method: \(8 = \sum |C|\) with \(|C| \in \{1, 2, 4, 8\}\) and \(|C_e| = 1\). Since \(G\) is non-abelian, \(|Z(G)| \neq 8\). By the \(p^2\) argument, \(|Z(G)| \neq 4\) (else \(G/Z(G)\) is cyclic, forcing \(G\) abelian). So \(|Z(G)| = 2\). For \(g \notin Z(G)\), we have \(\mathcal{Z}(g) \supsetneq Z(G)\) but \(\mathcal{Z}(g) \neq G\), so \(|\mathcal{Z}(g)| = 4\) and \(|C_g| = 2\). The class equation is \(8 = 1 + 1 + 2 + 2 + 2\) (2 central elements, 3 conjugacy classes of size 2). Then work out the possibilities.}
+
+
+\section{The Sylow Theorems}
+
+The Sylow theorems are the most powerful general tools for understanding finite groups. They guarantee the existence of subgroups of prime-power order and constrain how many there can be.
+
+\dfn{Sylow \(p\)-subgroup}{Let \(G\) be a finite group and \(p\) a prime dividing \(|G|\). Write \(|G| = p^e m\) where \(p \nmid m\). A \textbf{Sylow \(p\)-subgroup} of \(G\) is a subgroup \(H \leq G\) of order \(|H| = p^e\).
+}
+
+\nt{The converse to Lagrange's theorem fails in general: if \(k \mid |G|\), there need not exist a subgroup of order \(k\). For instance, \(A_4\) has no subgroup of order 6, and \(A_5\) has no subgroup of order 30. The Sylow theorems say this failure does not occur for prime-power divisors.}
+
+\thm{Sylow Theorems (Sylow, 1872)}{Let \(G\) be a finite group with \(|G| = p^e m\), \(p \nmid m\).
+\begin{enumerate}[(1)]
+    \item For every prime \(p\) dividing \(|G|\), a Sylow \(p\)-subgroup exists.
+    \item All Sylow \(p\)-subgroups are conjugate: if \(H, H' \leq G\) are both Sylow \(p\)-subgroups, then \(H' = gHg^{-1}\) for some \(g \in G\). Moreover, any subgroup \(K \leq G\) with \(|K|\) a power of \(p\) is contained in some Sylow \(p\)-subgroup.
+    \item Let \(s_p\) be the number of Sylow \(p\)-subgroups. Then \(s_p \equiv 1 \pmod{p}\) and \(s_p \mid |G|\) (equivalently, \(s_p \mid m = |G|/p^e\)).
+\end{enumerate}
+}
+
+\ex{Groups of order 15}{Let \(|G| = 15 = 3 \cdot 5\). By Sylow (3): \(s_3 \mid 5\) and \(s_3 \equiv 1 \pmod{3}\), so \(s_3 = 1\). Similarly, \(s_5 \mid 3\) and \(s_5 \equiv 1 \pmod{5}\), so \(s_5 = 1\). Both Sylow subgroups are normal (unique Sylow subgroups are always normal, since conjugation permutes Sylow subgroups). Let \(H\) be the Sylow 3-subgroup and \(K\) the Sylow 5-subgroup. Then \(H \cap K = \{e\}\) (orders are coprime) and \(|HK| = |H||K|/|H \cap K| = 15 = |G|\). So \(G \cong H \times K \cong \ZZ/3 \times \ZZ/5 \cong \ZZ/15\). Every group of order 15 is cyclic.
+}
+
+
+\section{Finite Subgroups of \(\mathrm{SO}(3)\)}
+
+Using group actions and counting, we can classify all finite subgroups of the rotation group \(\mathrm{SO}(3)\).
+
+Recall from \textbf{Lecture 9}: every element \(T \in \mathrm{SO}(3)\), \(T \neq \id\), is a rotation about some axis, hence fixes exactly two unit vectors \(\pm v\) (the ``poles'' of \(T\)). For a finite subgroup \(G \subset \mathrm{SO}(3)\), let \(P = \{v \in \RR^3 : \|v\| = 1, \, \exists g \neq e \text{ in } G \text{ with } g \cdot v = v\}\) be the set of all poles. Since \(h(gv) = (hgh^{-1})(hv)\), the set \(P\) is \(G\)-invariant, so \(G\) acts on \(P\).
+
+For each pole \(p \in P\), the stabilizer \(\Stab(p)\) is a cyclic subgroup of rotations about the axis \(\pm p\), of some order \(r_p \geq 2\). The proof proceeds by counting the set \(\Sigma = \{(g, p) \in (G \setminus \{e\}) \times P : g \cdot p = p\}\):
+
+Summing over \(G\): each \(g \neq e\) has exactly 2 poles, so \(|\Sigma| = 2(|G| - 1)\).
+
+Summing over \(P\): for each pole \(p\), there are \(r_p - 1\) non-identity rotations fixing \(p\), so \(|\Sigma| = \sum_{p \in P} (r_p - 1)\). Grouping by orbits \(\mathcal{O}_i\) (elements in the same orbit have the same \(r_p = r_i\)):
+\[2(|G| - 1) = \sum_{\text{orbits}} |\mathcal{O}_i|(r_i - 1) = \sum_i \frac{|G|}{r_i}(r_i - 1).\]
+Dividing by \(|G|\):
+\[2 - \frac{2}{|G|} = \sum_i \left(1 - \frac{1}{r_i}\right).\]
+Since each \(r_i \geq 2\), each term is \(\geq 1/2\). The left side is \(< 2\), so there are at most 3 orbits (since \(3 \cdot 1/2 < 2\) but \(4 \cdot 1/2 = 2\)).
+
+Analyzing the cases with \(2 \leq r_1 \leq r_2 \leq r_3\) and the equation \(2 - 2/|G| = \sum(1 - 1/r_i)\):
+
+\textbf{2 orbits:} \(2 - 2/|G| = (1 - 1/r_1) + (1 - 1/r_2)\). Since \(1/r_1 + 1/r_2 > 2/|G| \geq 0\) and each \(r_i \geq 2\), one finds \(r_1 = r_2 = |G|\). The two poles form one orbit of size 2, with stabilizer of order \(|G|\). So \(G\) is a cyclic group of rotations about a single axis: \(G \cong \ZZ/n\).
+
+\textbf{3 orbits:} \(1/r_1 + 1/r_2 + 1/r_3 = 1 + 2/|G| > 1\). With \(2 \leq r_1 \leq r_2 \leq r_3\), necessarily \(r_1 = 2\) (else \(\sum 1/r_i \leq 1\)). Then \(1/r_2 + 1/r_3 = 1/2 + 2/|G| > 1/2\), forcing \(r_2 \leq 3\).
+
+\begin{itemize}
+    \item \((r_1, r_2, r_3) = (2, 2, n)\): \(|G| = 2n\). This gives the dihedral group \(D_n\).
+    \item \((2, 3, 3)\): \(|G| = 12\). Rotational symmetries of the tetrahedron, \(G \cong A_4\).
+    \item \((2, 3, 4)\): \(|G| = 24\). Rotational symmetries of the cube (equivalently, octahedron), \(G \cong S_4\).
+    \item \((2, 3, 5)\): \(|G| = 60\). Rotational symmetries of the icosahedron (equivalently, dodecahedron), \(G \cong A_5\).
+\end{itemize}
+
+\thm{Classification of finite subgroups of \(\mathrm{SO}(3)\)}{The finite subgroups of \(\mathrm{SO}(3)\) are exactly: the cyclic groups \(\ZZ/n\), the dihedral groups \(D_n\), the tetrahedral group \(A_4\), the octahedral group \(S_4\), and the icosahedral group \(A_5\).
+}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+% Tetrahedron
+\begin{scope}[shift={(-5,0)}]
+    \coordinate (A) at (0, 1.6);
+    \coordinate (B) at (-1.2, -0.8);
+    \coordinate (C) at (1.2, -0.8);
+    \coordinate (D) at (0.3, 0.2);
+    \draw[thick, fill=blue!8] (A) -- (B) -- (C) -- cycle;
+    \draw[thick, fill=blue!15] (A) -- (C) -- (D) -- cycle;
+    \draw[thick, fill=blue!5] (A) -- (B) -- (D) -- cycle;
+    \draw[dashed, thin] (B) -- (D);
+    \foreach \p in {A,B,C,D} \fill (\p) circle (1.5pt);
+    \node at (0, -1.5) {\small \(A_4\), \(|G|=12\)};
+    \node at (0, -1.9) {\small \((2,3,3)\)};
+\end{scope}
+% Cube
+\begin{scope}[shift={(0,0)}]
+    \coordinate (A) at (-0.8, -0.8);
+    \coordinate (B) at (0.8, -0.8);
+    \coordinate (C) at (0.8, 0.8);
+    \coordinate (D) at (-0.8, 0.8);
+    \coordinate (E) at (-0.4, -0.4);
+    \coordinate (F) at (1.2, -0.4);
+    \coordinate (G) at (1.2, 1.2);
+    \coordinate (H) at (-0.4, 1.2);
+    \draw[thick, fill=red!8] (A) -- (B) -- (C) -- (D) -- cycle;
+    \draw[thick, fill=red!12] (B) -- (F) -- (G) -- (C) -- cycle;
+    \draw[thick, fill=red!5] (D) -- (C) -- (G) -- (H) -- cycle;
+    \draw[dashed, thin] (A) -- (E);
+    \draw[dashed, thin] (E) -- (F);
+    \draw[dashed, thin] (E) -- (H);
+    \foreach \p in {A,B,C,D,F,G,H} \fill (\p) circle (1.5pt);
+    \node at (0.2, -1.5) {\small \(S_4\), \(|G|=24\)};
+    \node at (0.2, -1.9) {\small \((2,3,4)\)};
+\end{scope}
+% Dodecahedron (simplified projection)
+\begin{scope}[shift={(5.5,0)}]
+    % Outer pentagon
+    \foreach \i in {0,...,4} {
+        \coordinate (O\i) at ({90+72*\i}:1.5);
+    }
+    % Inner pentagon (rotated)
+    \foreach \i in {0,...,4} {
+        \coordinate (I\i) at ({90+72*\i+36}:0.7);
+    }
+    \draw[thick] (O0) -- (O1) -- (O2) -- (O3) -- (O4) -- cycle;
+    \draw[thick] (I0) -- (I1) -- (I2) -- (I3) -- (I4) -- cycle;
+    \foreach \i in {0,...,4} {
+        \draw[thick] (O\i) -- (I\i);
+        \pgfmathtruncatemacro{\j}{mod(\i+4,5)}
+        \draw[thick] (O\i) -- (I\j);
+    }
+    \fill[green!8, opacity=0.5] (O0) -- (O1) -- (O2) -- (O3) -- (O4) -- cycle;
+    \foreach \i in {0,...,4} \fill (O\i) circle (1.5pt);
+    \foreach \i in {0,...,4} \fill (I\i) circle (1.5pt);
+    \node at (0, -1.9) {\small \(A_5\), \(|G|=60\)};
+    \node at (0, -2.3) {\small \((2,3,5)\)};
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+\nt{The cube and octahedron are dual polyhedra (vertices of one correspond to centers of faces of the other), so they share the same symmetry group. Similarly the dodecahedron and icosahedron are dual, sharing \(A_5\). For regular polyhedra, the poles at midpoints of edges have \(r = 2\), poles at vertices have \(r = \#\)faces meeting at a vertex, and poles at centers of faces have \(r = \#\)edges of the face.}
+
+
+\section{Conjugacy in \(S_n\) and the Alternating Group}
+
+\subsection{Conjugacy Classes in \(S_n\)}
+
+\mprop{Conjugation permutes cycle entries}{Let \(\sigma = (a_1 \, a_2 \, \cdots \, a_k)\) be a \(k\)-cycle and \(\tau \in S_n\) any permutation. Then \(\tau \sigma \tau^{-1} = (\tau(a_1) \, \tau(a_2) \, \cdots \, \tau(a_k))\).
+}
+
+\pf{Proof}{Compute: \(\tau \sigma \tau^{-1}\) maps \(\tau(a_i) \mapsto \tau(a_{i+1})\) (indices mod \(k\)), and fixes elements not in \(\{\tau(a_1), \ldots, \tau(a_k)\}\).
+}
+
+\cor{Conjugacy classes in \(S_n\) correspond to partitions}{Two permutations \(\sigma, \tau \in S_n\) are conjugate if and only if they have the same cycle type (i.e., the same multiset of cycle lengths). Thus conjugacy classes in \(S_n\) correspond to partitions of \(n\).
+}
+
+\ex{Conjugacy classes in \(S_3\) and \(S_4\)}{For \(n = 3\), partitions of 3 are: \(1+1+1\) (identity, 1 element), \(2+1\) (transpositions, 3 elements), \(3\) (3-cycles, 2 elements). Class equation: \(6 = 1 + 3 + 2\).
+
+For \(n = 4\), the 5 partitions give: identity (1), transpositions (6), double transpositions \((ij)(k\ell)\) (3), 3-cycles (8), 4-cycles (6). Class equation: \(24 = 1 + 6 + 3 + 8 + 6\).
+}
+
+\nt{This helps find normal subgroups: a normal subgroup \(H \trianglelefteq G\) must be a union of conjugacy classes (since \(gHg^{-1} = H\)), must include \(\{e\}\), and \(|H|\) must divide \(|G|\). For \(S_4\): the only non-trivial unions of classes whose sizes sum to a divisor of 24 and that form a subgroup are \(\{e, (12)(34), (13)(24), (14)(23)\} \cong \ZZ/2 \times \ZZ/2\) (the Klein four-group, of order 4) and \(A_4\) (of order 12). So the normal subgroups of \(S_4\) are \(\{e\}\), \(V_4\), \(A_4\), and \(S_4\).}
+
+\subsection{The Alternating Group and Simplicity of \(A_5\)}
+
+Recall from \textbf{Lecture 3}: the sign homomorphism \(\sgn : S_n \to \{\pm 1\}\) sends \(\sigma \mapsto (-1)^{\#\text{inversions}}\). The alternating group is \(A_n = \Ker(\sgn)\), a normal subgroup of index 2 in \(S_n\). A \(k\)-cycle has sign \((-1)^{k-1}\), so \(\sigma \in A_n\) iff its cycle decomposition has an even number of even-length cycles.
+
+\mlemma{\(A_n\) is generated by 3-cycles}{For \(n \geq 3\), every element of \(A_n\) is a product of 3-cycles.}
+
+\pf{Proof}{By induction. For \(A_3 = \{e, (123), (132)\} \subset S_3\), the claim is clear.
+
+Assume \(A_{n-1}\) is generated by 3-cycles. Let \(\sigma \in A_n\). If \(\sigma(n) = n\), then \(\sigma \in A_{n-1}\) and we are done by induction. Otherwise, let \(i = \sigma(n) \neq n\) and \(j\) be any element distinct from \(i\) and \(n\). Then \(\tau = (j \, i \, n) \cdot \sigma \in A_n\) and \(\tau(n) = n\), so \(\tau\) is a product of 3-cycles by induction. Thus \(\sigma = (j \, i \, n)^{-1} \tau = (n \, i \, j) \cdot \tau\) is also a product of 3-cycles.
+}
+
+\mprop{Conjugacy class splitting in \(A_n\)}{Let \(C \subset S_n\) be a conjugacy class with \(C \subseteq A_n\). Then either:
+\begin{enumerate}[(a)]
+    \item \(C\) is a single conjugacy class in \(A_n\), or
+    \item \(C\) splits into exactly 2 conjugacy classes of equal size in \(A_n\).
+\end{enumerate}
+Case (a) occurs iff there exists an odd permutation \(\tau\) commuting with some (hence every) \(\sigma \in C\), i.e., \(\mathcal{Z}(\sigma) \not\subset A_n\). Case (b) occurs iff the cycle lengths of \(\sigma\) are all odd and distinct.
+}
+
+\ex{Conjugacy classes of \(A_5\)}{As elements of \(S_5\): \(A_5 = \{e\} \cup \{(ij)(k\ell)\} \cup \{3\text{-cycles}\} \cup \{5\text{-cycles}\}\), with sizes 1, 15, 20, 24 in \(S_5\).
+
+In \(A_5\): the double transpositions \((ij)(k\ell)\) form a single class (since \((ij) \in \mathcal{Z}((ij)(k\ell))\), and \((ij)\) is odd). The 3-cycles form a single class (since \((45) \in \mathcal{Z}((123))\)). The 5-cycles split into two classes of size 12 each (all cycle lengths are odd and distinct). The class equation of \(A_5\) is \(60 = 1 + 15 + 20 + 12 + 12\).
+}
+
+\thm{Simplicity of \(A_5\)}{The alternating group \(A_5\) is simple: its only normal subgroups are \(\{e\}\) and \(A_5\) itself.}
+
+\pf{Proof}{A normal subgroup \(H \trianglelefteq A_5\) must be a union of conjugacy classes of \(A_5\) containing \(\{e\}\), with \(|H|\) dividing \(60\). The class sizes are \(1, 15, 20, 12, 12\). We need a non-trivial subset of \(\{1, 15, 20, 12, 12\}\) including the 1 that sums to a divisor of 60. The divisors of 60 are 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60. No non-trivial sub-sum \(1 + (\text{subset of } \{15, 20, 12, 12\})\) equals any divisor of 60 other than 1 or 60. So \(H = \{e\}\) or \(H = A_5\).
+}
+
+\thm{Simplicity of \(A_n\) for \(n \geq 5\)}{For all \(n \geq 5\), \(A_n\) is simple.}
+
+\pf{Proof}{Let \(H \trianglelefteq A_n\), \(H \neq \{e\}\). We show \(H\) contains a 3-cycle, hence (by conjugation) all 3-cycles, hence \(H = A_n\) by the lemma.
+
+Let \(\sigma \in H\), \(\sigma \neq e\). Replacing \(\sigma\) by a power, we may assume \(\sigma\) has prime order \(p\), so \(\sigma\) is a product of disjoint \(p\)-cycles.
+
+\textbf{Case \(p \geq 5\):} Write \(\sigma = (i_1 \, \cdots \, i_p) \tau\). Let \(g = (i_2 \, i_3 \, i_4)\) (a 3-cycle, which is in \(A_n\)). Then \(g\sigma g^{-1}\sigma^{-1} \in H\) (since \(H\) is normal). Compute: \(g\sigma g^{-1}\) permutes the entries of the first cycle by conjugation, giving a 5-cycle \((i_2 \, i_4 \, i_5 \, \cdots)\). The commutator \(g\sigma g^{-1}\sigma^{-1}\) is a nontrivial element of \(H\) with smaller support. Iterate to reduce to a 3-cycle.
+
+\textbf{Case \(p = 3\):} If \(\sigma\) is a single 3-cycle, done. Otherwise \(\sigma = (i_1 \, i_2 \, i_3)(i_4 \, i_5 \, i_6)\tau\). Let \(g = (i_4 \, i_3 \, i_2)\). Then \(g\sigma g^{-1}\sigma^{-1} = (i_1 \, i_5 \, i_2 \, i_4 \, i_3)\), a 5-cycle in \(H\). Back to previous case.
+
+\textbf{Case \(p = 2\):} \(\sigma = (i_1 \, i_2)(i_3 \, i_4)\). Since \(n \geq 5\), pick \(i_5 \notin \{i_1, i_2, i_3, i_4\}\). Let \(g = (i_5 \, i_3 \, i_1)\). Then \(g\sigma g^{-1}\sigma^{-1} = (i_1 \, i_5 \, i_2 \, i_4 \, i_3)\), a 5-cycle in \(H\).
+}
+
+\cor{Normal subgroups of \(S_n\)}{For \(n \geq 5\), the only normal subgroups of \(S_n\) are \(\{e\}\), \(A_n\), and \(S_n\).}
+
+\pf{Proof}{Let \(H \trianglelefteq S_n\). Then \(H \cap A_n \trianglelefteq A_n\). Since \(A_n\) is simple, either \(H \cap A_n = \{e\}\) or \(H \cap A_n = A_n\). In the first case, \(|H| \leq |S_n/A_n| = 2\), so \(H = \{e\}\) or \(|H| = 2\). If \(|H| = 2\), then \(H = \{e, \sigma\}\) with \(\sigma\) an odd involution. But \(\tau\sigma\tau^{-1} = \sigma\) for all \(\tau\) would force \(\sigma\) to commute with everything, and for \(n \geq 3\) the center of \(S_n\) is trivial. In the second case, \(A_n \subseteq H\), so \(H = A_n\) or \(H = S_n\).
+}
+
+
+\mer{Group actions, conjugacy, and the Sylow theorems exercises}{
+\begin{enumerate}[(1)]
+    \item Let \(G\) be a group of order \(pq\) where \(p < q\) are distinct primes and \(p \nmid q - 1\). Prove that \(G\) is cyclic.
+
+    \item Compute the class equation of \(S_5\). Use it to determine all normal subgroups of \(S_5\).
+    
+    \item Use Burnside's lemma to count the number of distinct necklaces made from 6 beads of 2 colors, where two necklaces are the same if one can be rotated to obtain the other.
+    
+    \item Let \(G\) be a finite group acting on a finite set \(S\), and let \(N = \#\text{orbits}\). Prove that \(\sum_{s \in S} |\Stab(s)| = N \cdot |G|\).
+    
+    \item Prove that any group of order 12 has a normal Sylow 3-subgroup or a normal Sylow 2-subgroup.
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} By Sylow: \(s_q \mid p\) and \(s_q \equiv 1 \pmod{q}\). Since \(p < q\), the only possibility is \(s_q = 1\). Similarly, \(s_p \mid q\) and \(s_p \equiv 1 \pmod{p}\), so \(s_p \in \{1, q\}\). Since \(p \nmid q - 1\), we cannot have \(s_p = q\) (as \(q \equiv 1 \pmod{p}\) would be required). So \(s_p = 1\). Both Sylow subgroups are normal, and \(G \cong \ZZ/p \times \ZZ/q \cong \ZZ/pq\).
+
+\textbf{(2)} Partitions of 5 and their class sizes: \(1^5\) (1), \(2+1^3\) (10), \(2^2+1\) (15), \(3+1^2\) (20), \(3+2\) (20), \(4+1\) (30), \(5\) (24). Class equation: \(120 = 1 + 10 + 15 + 20 + 20 + 30 + 24\). A normal subgroup is a union of classes including \(\{e\}\) with order dividing 120. The only options: \(1\) (\(\{e\}\)), \(1 + 15 + 20 + 24 = 60\) (\(A_5\)), and 120 (\(S_5\)).
+
+\textbf{(3)} The rotation group is \(G = \ZZ/6\) acting on \(S = \{2\text{-colorings of 6 positions}\}\), \(|S| = 2^6 = 64\). Fixed points of rotation by \(k\) positions: a coloring is fixed iff it has period dividing \(\gcd(k, 6)\). Rotation by 0 (identity): \(2^6 = 64\). By 1: period 1, so monochromatic, \(2^1 = 2\). By 2: period 2 (or 1), so \(2^{\gcd(2,6)} = 2^2 = 4\). By 3: \(2^{\gcd(3,6)} = 2^3 = 8\). By 4: same as by 2, so 4. By 5: same as by 1, so 2. Total: \(\frac{1}{6}(64 + 2 + 4 + 8 + 4 + 2) = \frac{84}{6} = 14\).
+
+\textbf{(4)} This is the double-counting argument from Burnside's proof. \(\sum_{s \in S} |\Stab(s)| = |\{(g,s) : g \cdot s = s\}| = \sum_{g \in G} |S^g| = N \cdot |G|\) by Burnside's lemma.
+
+\textbf{(5)} Let \(|G| = 12 = 2^2 \cdot 3\). By Sylow (3): \(s_3 \mid 4\) and \(s_3 \equiv 1 \pmod{3}\), so \(s_3 \in \{1, 4\}\). If \(s_3 = 1\), the Sylow 3-subgroup is normal and we are done.
+
+If \(s_3 = 4\): \(G\) acts on the set of 4 Sylow 3-subgroups by conjugation. This gives a homomorphism \(\varphi : G \to S_4\). The kernel \(K = \Ker(\varphi)\) is a normal subgroup with \(K \subseteq \bigcap \text{normalizers}\). Since the action is non-trivial (\(s_3 = 4\) and the Sylow subgroups are conjugate), \(K \neq G\). So \(|G/K|\) divides \(|S_4| = 24\) and \(|G/K| > 1\).
+
+The 4 Sylow 3-subgroups contribute \(4 \cdot 2 = 8\) elements of order 3 (they pairwise intersect trivially since each has prime order). The remaining \(12 - 8 = 4\) elements must include \(e\) and 3 elements of order dividing 4. These 4 elements form the unique Sylow 2-subgroup (there is room for only one), so \(s_2 = 1\) and the Sylow 2-subgroup is normal.
+\end{solution}
+
+
+\subsection{Proofs of the Sylow Theorems}
+
+The proofs use the action of \(G\) on certain subsets by left multiplication.
+
+\mlemma{Combinatorial lemma}{Given \(n = p^e m\) with \(p \nmid m\), we have \(p \nmid \binom{n}{p^e}\).}
+
+\pf{Proof}{Write \(\binom{n}{p^e} = \frac{n(n-1) \cdots (n - p^e + 1)}{p^e(p^e - 1) \cdots 1} = \prod_{k=0}^{p^e - 1} \frac{n - k}{p^e - k}\). For each \(k\), the highest power of \(p\) dividing \(n - k = p^e m - k\) equals the highest power of \(p\) dividing \(k\) (when \(0 < k < p^e\)), and for \(k = 0\) both numerator and denominator contribute \(p^e\). So the powers of \(p\) in numerator and denominator cancel term by term, and \(p \nmid \binom{n}{p^e}\).
+}
+
+\mlemma{Stabilizer divides subset size}{Let \(U \subseteq G\) be any subset, and let \(G\) act on \(\mathcal{P}(G) = \{\text{all subsets of } G\}\) by left multiplication: \(g \cdot U = gU\). Then \(|\Stab([U])|\) divides \(|U|\).}
+
+\pf{Proof}{Let \(H = \Stab(U) = \{g \in G : gU = U\}\). Then \(H\) acts on \(U\) by left multiplication (\(hU = U\) for \(h \in H\), so \(hu \in U\) for \(u \in U\)). The orbits of this action are right cosets of \(H\): \(\mathcal{O}_u = \{hu : h \in H\} = Hu\). Each orbit has size \(|H|\). Since \(U\) is a disjoint union of such orbits, \(|H|\) divides \(|U|\).
+}
+
+\pf{Proof of Sylow's First Theorem (existence)}{Let \(S = \{U \in \mathcal{P}(G) : |U| = p^e\}\), the set of all subsets of \(G\) of size \(p^e\). Then \(|S| = \binom{n}{p^e}\), and \(G\) acts on \(S\) by left multiplication \(g \cdot U = gU\).
+
+By the combinatorial lemma, \(p \nmid |S|\). Since \(S\) partitions into orbits under this action, there exists an orbit \(\mathcal{O}_U\) with \(p \nmid |\mathcal{O}_U|\). Since \(p^e\) divides \(|G| = |\mathcal{O}_U| \cdot |\Stab(U)|\) and \(p \nmid |\mathcal{O}_U|\), we get \(p^e \mid |\Stab(U)|\). But by the second lemma, \(|\Stab(U)|\) divides \(|U| = p^e\). So \(|\Stab(U)| = p^e\), and \(\Stab(U)\) is a Sylow \(p\)-subgroup.
+}
+
+
+\dfn{Normalizer}{The normalizer of a subgroup \(H \leq G\) is \(N(H) = \{g \in G : gHg^{-1} = H\}\). This is a subgroup of \(G\), and \(H \trianglelefteq K\) iff \(K \subseteq N(H)\). In particular, \(H\) is normal in \(G\) iff \(N(H) = G\). The number of subgroups conjugate to \(H\) is \(|G/N(H)|\).
+}
+
+\pf{Proof of Sylow's Second Theorem (conjugacy)}{Let \(H\) be a Sylow \(p\)-subgroup and \(K \leq G\) any \(p\)-subgroup. Let \(C = G/H = \{gH : g \in G\}\) be the set of left cosets. Then \(G\) acts on \(C\) by left multiplication, transitively, with \(p \nmid |C| = m\).
+
+Restrict to the \(K\)-action on \(C\). The orbits have size dividing \(|K|\), hence each orbit size is a power of \(p\). Since \(|C| = m\) and \(p \nmid m\), there must be an orbit of size 1, i.e., a fixed point \(c_0 = [g_0 H]\). This means \(K \subseteq \Stab(c_0) = g_0 H g_0^{-1}\), so \(K\) is contained in the conjugate Sylow subgroup \(H' = g_0 H g_0^{-1}\).
+
+In particular, if \(|K| = p^e\) (i.e., \(K\) is also Sylow), then \(K \subseteq H'\) and \(|K| = |H'|\) forces \(K = H' = g_0 H g_0^{-1}\).
+}
+
+\pf{Proof of Sylow's Third Theorem (\(s_p \equiv 1 \bmod p\))}{Let \(H\) be a Sylow \(p\)-subgroup. Restrict the conjugation action of \(G\) on \(\{\text{Sylow } p\text{-subgroups}\}\) to the \(H\)-action. Since \(hHh^{-1} = H\) for all \(h \in H\), the orbit of \(H\) itself has size 1.
+
+For any other Sylow subgroup \(H' \neq H\): the orbit of \(H'\) under \(H\)-conjugation has size \(|H / (H \cap N(H'))|\). If the orbit size were 1, then \(H \subseteq N(H')\), making \(H\) and \(H'\) both Sylow \(p\)-subgroups of \(N(H')\). By Sylow's second theorem applied within \(N(H')\), they would be conjugate in \(N(H')\). But \(H'\) is normal in \(N(H')\) (by definition), so the only conjugate of \(H'\) in \(N(H')\) is \(H'\) itself, forcing \(H = H'\). Contradiction.
+
+So every orbit other than \(\{H\}\) has size divisible by \(p\). Thus \(s_p = 1 + (\text{sum of multiples of } p) \equiv 1 \pmod{p}\).
+
+For \(s_p \mid m\): by Sylow (2), the conjugation action is transitive, so \(s_p = |G/N(H)|\). Since \(H \subseteq N(H)\), we have \(|H| \mid |N(H)|\), so \(s_p = |G|/|N(H)|\) divides \(|G|/|H| = m\).
+}
+
+\cor{Cauchy's theorem}{If \(p\) is prime and \(p \mid |G|\), then \(G\) contains an element of order \(p\).}
+
+\pf{Proof}{By Sylow (1), \(G\) has a subgroup \(H\) of order \(p^e \geq p\). Pick \(g \in H\), \(g \neq e\). The order of \(g\) divides \(|H| = p^e\), so \(\ord(g) = p^k\) for some \(1 \leq k \leq e\). Then \(g^{p^{k-1}}\) has order \(p\).
+}
+
+
+\section{Semidirect Products}
+
+When \(N \trianglelefteq G\) and we have a complement \(H\) (a subgroup with \(N \cap H = \{e\}\) and \(NH = G\)), the group \(G\) is determined by \(N\), \(H\), and the conjugation action of \(H\) on \(N\).
+
+\dfn{Semidirect product}{Given groups \(N\) and \(H\) and a homomorphism \(\varphi : H \to \Aut(N)\), the semidirect product \(N \rtimes_\varphi H\) is defined as:
+\begin{itemize}
+    \item As a set: \(N \times H\).
+    \item Group law: \((n_1, h_1) \cdot (n_2, h_2) = (n_1 \, \varphi(h_1)(n_2), \, h_1 h_2)\).
+\end{itemize}
+}
+
+\nt{When \(\varphi\) is trivial (\(\varphi(h) = \id_N\) for all \(h\)), the semidirect product reduces to the direct product \(N \times H\). The semidirect product is the direct product ``twisted'' by the action \(\varphi\).}
+
+\mprop{Recognition criterion}{If \(N, H \leq G\) with \(N\) normal, \(N \cap H = \{e\}\), and every element of \(G\) is uniquely \(g = nh\) (\(n \in N\), \(h \in H\)), then \(G \cong N \rtimes_\varphi H\) where \(\varphi(h)(n) = hnh^{-1}\).
+}
+
+\pf{Proof}{Conjugation by \(h\) preserves \(N\) (since \(N\) is normal), defining \(\varphi : H \to \Aut(N)\). The map \((n, h) \mapsto nh\) is a bijection by hypothesis. It is a homomorphism: \((n_1 h_1)(n_2 h_2) = n_1 (h_1 n_2 h_1^{-1}) h_1 h_2 = (n_1 \varphi(h_1)(n_2))(h_1 h_2)\).
+}
+
+\cor{Direct product criterion}{If both \(N\) and \(H\) are normal in \(G\), \(N \cap H = \{e\}\), and \(|G| = |N| \cdot |H|\), then \(G \cong N \times H\).}
+
+\pf{Proof}{Every coset of \(N\) contains a unique element of \(H\), so every \(g \in G\) is uniquely \(g = nh\). Since both are normal, the commutator \(nhn^{-1}h^{-1} \in N \cap H = \{e\}\) for all \(n \in N\), \(h \in H\) (it lies in \(N\) since \(N\) is normal, and in \(H\) since \(H\) is normal). So \(nh = hn\) and the action \(\varphi\) is trivial.
+}
+
+\ex{Dihedral groups as semidirect products}{\(S_3 \cong \ZZ/3 \rtimes \ZZ/2\) where \(\ZZ/2\) acts on \(\ZZ/3\) by inversion: \(\varphi(1)(\sigma) = \sigma^{-1}\). More generally, \(D_n \cong \ZZ/n \rtimes \ZZ/2\) with the same inversion action. The normal subgroup is the rotation subgroup, and the complement is generated by any reflection.
+}
+
+
+\subsection{Classification of Groups of Order 12}
+
+\ex{The 5 groups of order 12}{Let \(|G| = 12 = 2^2 \cdot 3\). Sylow gives \(s_3 \in \{1, 4\}\) and \(s_2 \in \{1, 3\}\). Let \(H\) denote a Sylow 2-subgroup (\(|H| = 4\)) and \(K\) a Sylow 3-subgroup (\(|K| = 3\)).
+
+At least one of \(H\) or \(K\) is normal (Exercise 5 from before). We systematically enumerate:
+
+\textbf{Both normal (\(s_3 = s_2 = 1\)):} \(G \cong H \times K\). With \(H \cong \ZZ/4\): \(G \cong \ZZ/12\). With \(H \cong \ZZ/2 \times \ZZ/2\): \(G \cong \ZZ/2 \times \ZZ/6\).
+
+\textbf{\(K\) normal, \(H\) not (\(s_3 = 1\), \(s_2 = 3\)):} \(G \cong K \rtimes H\). The action \(\varphi : H \to \Aut(\ZZ/3) \cong \ZZ/2\) must be nontrivial.
+
+If \(H \cong \ZZ/4\): the generator \(x\) acts by inversion on \(K\), with \(x^2\) acting trivially. This gives a non-abelian group \(\ZZ/3 \rtimes \ZZ/4\), generated by \(x, y\) with \(x^4 = y^3 = e\), \(xy = y^2 x\).
+
+If \(H \cong \ZZ/2 \times \ZZ/2\): the kernel of \(\varphi\) is \(\ZZ/2\), giving \(G \cong D_6 \cong S_3 \times \ZZ/2\).
+
+\textbf{\(H\) normal, \(K\) not (\(s_3 = 4\)):} Only possible with \(H \cong \ZZ/2 \times \ZZ/2\) (since \(\Aut(\ZZ/4) \cong \ZZ/2\) has no element of order 3). The action \(\varphi : \ZZ/3 \to \Aut((\ZZ/2)^2) \cong S_3\) embeds \(\ZZ/3\) as 3-cycles permuting the three nonzero elements. This gives \(G \cong A_4\).
+
+In total: \(\ZZ/12\), \(\ZZ/2 \times \ZZ/6\), \(A_4\), \(D_6\), and \(\ZZ/3 \rtimes \ZZ/4\).
+}
+
+\ex{Groups of order 21}{Let \(|G| = 21 = 3 \cdot 7\). Sylow: \(s_7 \mid 3\) and \(s_7 \equiv 1 \pmod{7}\), so \(s_7 = 1\). The Sylow 7-subgroup \(K \cong \ZZ/7\) is normal. For the Sylow 3-subgroup: \(s_3 \mid 7\) and \(s_3 \equiv 1 \pmod{3}\), so \(s_3 \in \{1, 7\}\).
+
+If \(s_3 = 1\): \(G \cong \ZZ/3 \times \ZZ/7 \cong \ZZ/21\).
+
+If \(s_3 = 7\): \(G \cong \ZZ/7 \rtimes \ZZ/3\). We need a nontrivial \(\varphi : \ZZ/3 \to \Aut(\ZZ/7) \cong \ZZ/6\). The unique subgroup of order 3 in \(\ZZ/6\) corresponds to the automorphism \(y \mapsto y^2\) of \(\ZZ/7\). So \(G\) is generated by \(x, y\) with \(x^3 = y^7 = e\) and \(xyx^{-1} = y^2\). This is the unique non-abelian group of order 21.
+}
+
+
+\end{document}

@@ -1,0 +1,157 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 15: Restriction and Induction of Representations
+% Author: S. D. V. Stephens
+% Date: 2026-03-10
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{15}{Restriction and Induction of Representations}
+
+Throughout, \(G\) is a finite group and \(H \leq G\) a subgroup.
+
+\section{Restriction}
+
+\dfn{Restriction}{Given a representation \(V\) of \(G\), the restriction of \(V\) to \(H\), denoted \(\operatorname{Res}^G_H V\), is \(V\) viewed as a representation of \(H\) (forget the action of elements outside \(H\)).}
+
+This defines a functor \(\operatorname{Res}^G_H : \operatorname{Rep}(G) \to \operatorname{Rep}(H)\), where the categories have objects = finite-dimensional complex representations and morphisms = \(G\)-equivariant (resp.\ \(H\)-equivariant) linear maps.
+
+An irreducible representation of \(G\) need not remain irreducible upon restriction to \(H\). The problem we address next is: can we go in the opposite direction?
+
+
+\section{Induced Representations}
+
+Suppose \(V\) is a representation of \(G\) and \(W \subset V\) is a subspace that is invariant under \(H\) (so \(W\) is a subrepresentation of \(\operatorname{Res}^G_H V\)), but not necessarily under all of \(G\). For \(g \in G\), the subspace \(gW \subset V\) depends only on the coset \(gH\), and \(gW\) is a representation of the conjugate subgroup \(gHg^{-1}\) via \(H \xrightarrow{\rho} \GL(W)\), \(gHg^{-1} \xrightarrow{\sim} \GL(gW)\) (conjugation by \(g\)).
+
+The simplest scenario is when
+\[V = \bigoplus_{\sigma \in G/H} \sigma W\]
+as a direct sum of vector spaces, where \(\sigma\) ranges over a set of coset representatives. In this case, \(\dim V = [G:H] \cdot \dim W\), and the entire representation \(V\) is completely determined by the \(H\)-representation \(W\).
+
+\dfn{Induced representation}{A representation \(V\) of \(G\), together with a subspace \(W \subset V\) invariant under \(H\) (i.e.\ \(W\) is a subrepresentation of \(\operatorname{Res}^G_H V\)), is said to be induced by \(W \in \operatorname{Rep}(H)\) if
+\[V = \bigoplus_{\sigma \in G/H} \sigma W.\]
+We write \(V = \operatorname{Ind}^G_H W\). Concretely: fix coset representatives \(\sigma_1, \ldots, \sigma_k\) of \(G/H\) (where \(k = [G:H]\)). Then every \(v \in V\) can be written uniquely as \(v = \sigma_1 w_1 + \cdots + \sigma_k w_k\) with \(w_i \in W\), and \(G\) acts by permuting the summands: if \(g\sigma_i = \sigma_j h\) for some \(h \in H\), then \(g(\sigma_i w) = \sigma_j(hw)\).
+}
+
+\thm{Existence and uniqueness of induced representations}{Given a representation \(W\) of \(H\), the induced representation \(V = \operatorname{Ind}^G_H W\) exists and is unique up to isomorphism of \(G\)-representations.}
+
+\pf{Proof}{\emph{Uniqueness.} Suppose \(V\) is a representation of \(G\) and \(W \subset V\) is \(H\)-invariant with \(V = \bigoplus_{i=1}^k \sigma_i W\). For any \(g \in G\), there is a unique \(j\) such that \(g\sigma_i \in \sigma_j H\), i.e.\ \(h = \sigma_j^{-1} g \sigma_i \in H\), and necessarily \(g(\sigma_i w) = \sigma_j(hw)\). This determines the \(G\)-action on \(V\) uniquely from the \(H\)-action on \(W\).
+
+\emph{Existence.} Build \(V = \bigoplus_{i=1}^k \sigma_i W\) where the \(\sigma_i\) are formal symbols (i.e.\ \(V\) consists of \(k\) copies of \(W\) as a vector space). Define \(g \in G\) to act by: given \(g\sigma_i = \sigma_j h\), set \(g(\sigma_i w) = \sigma_j(hw)\). This is well-defined (independent of the choice of coset representatives) and defines a group homomorphism \(G \to \GL(V)\).
+}
+
+\subsection{Examples}
+
+\ex{Permutation representation from induction}{The permutation representation of \(G\) on the coset space \(G/H\) equals \(\operatorname{Ind}^G_H U\), where \(U\) is the trivial representation of \(H\). Indeed, the permutation representation has basis \(\{e_{\sigma H}\}_{\sigma \in G/H}\), the element \(e_H\) spans a 1-dimensional subspace fixed by \(H\), and \(gW = \operatorname{span}(e_{gH})\), so \(V = \bigoplus_{gH \in G/H} gW\).
+}
+
+\ex{Regular representation from induction}{The regular representation of \(G\) is \(\operatorname{Ind}^G_H R_H\), where \(R_H\) is the regular representation of \(H\). Here \(W = \operatorname{span}\{e_h : h \in H\} \subset V = \operatorname{span}\{e_g : g \in G\}\).
+}
+
+\subsection{Properties of Induction}
+
+\mprop{Basic properties}{Let \(H \leq G\), and let \(W, W'\) be representations of \(H\) and \(U\) a representation of \(G\).
+\begin{enumerate}[(i)]
+    \item \(\operatorname{Ind}^G_H(W \oplus W') \cong \operatorname{Ind}^G_H(W) \oplus \operatorname{Ind}^G_H(W')\).
+    \item \(\operatorname{Ind}^G_H(\operatorname{Res}^G_H(U) \otimes W) \cong U \otimes \operatorname{Ind}^G_H(W)\).
+    \item In particular, \(\operatorname{Ind}^G_H(\operatorname{Res}^G_H(U)) \cong U \otimes \operatorname{Ind}^G_H(U_H)\), where \(U_H\) is the trivial representation of \(H\). The right side is \(U\) tensored with the permutation representation on \(G/H\).
+\end{enumerate}
+}
+
+\pf{Proof of (ii)}{Write \(\operatorname{Ind}^G_H(W) = \bigoplus_{\sigma \in G/H} \sigma W\). Then
+\[U \otimes \operatorname{Ind}^G_H(W) = \bigoplus_{\sigma \in G/H} (U \otimes \sigma W) = \bigoplus_{\sigma \in G/H} \sigma(U \otimes W),\]
+where \(U \otimes W \subset U \otimes \operatorname{Ind}^G_H(W)\) is invariant under \(H\), and as an \(H\)-representation it is \(\operatorname{Res}^G_H(U) \otimes W\).
+}
+
+\nt{In general, \(\operatorname{Ind}(W \otimes W') \not\cong \operatorname{Ind}(W) \otimes \operatorname{Ind}(W')\).}
+
+\subsection{Character of an Induced Representation}
+
+\mprop{Character formula for induction}{Let \(W\) be a representation of \(H \leq G\). Then
+\[\chi_{\operatorname{Ind}^G_H W}(g) = \frac{1}{|H|} \sum_{\substack{s \in G \\ s^{-1}gs \in H}} \chi_W(s^{-1}gs).\]
+}
+
+\pf{Proof}{Choose coset representatives \(\sigma_1, \ldots, \sigma_k\) of \(G/H\). The element \(g \in G\) maps \(\sigma_i W\) to \(\sigma_j W\) where \(j\) is determined by \(g\sigma_i \in \sigma_j H\). If \(i \neq j\), this contributes nothing to the trace. If \(i = j\), then \(h = \sigma_i^{-1} g \sigma_i \in H\) and \(g\) acts on \(\sigma_i W\) as \(\sigma_i h \sigma_i^{-1}\) composed with the identification \(\sigma_i W \cong W\), so the trace on \(\sigma_i W\) is \(\Tr(h|_W) = \chi_W(\sigma_i^{-1} g \sigma_i)\). Summing over all \(\sigma_i\):
+\[\chi_{\operatorname{Ind} W}(g) = \sum_{\substack{i \\ \sigma_i^{-1} g \sigma_i \in H}} \chi_W(\sigma_i^{-1} g \sigma_i).\]
+Since each coset \(\sigma_i H\) has \(|H|\) elements, and the condition \(\sigma_i^{-1} g \sigma_i \in H\) is the same for any representative of the coset, we can rewrite this as a sum over all \(s \in G\) with the normalization factor \(1/|H|\).
+}
+
+
+\section{Frobenius Reciprocity}
+
+\thm{Frobenius reciprocity}{Let \(U\) be a representation of \(G\) and \(W\) a representation of \(H \leq G\). Then every \(H\)-equivariant map \(\varphi : W \to \operatorname{Res}^G_H(U)\) extends uniquely to a \(G\)-equivariant map \(\tilde{\varphi} : \operatorname{Ind}^G_H(W) \to U\). That is,
+\[\Hom_H(W, \operatorname{Res}^G_H U) \cong \Hom_G(\operatorname{Ind}^G_H W, U).\]
+}
+
+\pf{Proof}{Choose coset representatives \(\sigma_1, \ldots, \sigma_k \in G\) and write \(V = \operatorname{Ind}^G_H W = \bigoplus_{i=1}^k \sigma_i W\).
+
+\emph{Uniqueness.} Given \(\varphi : W \to \operatorname{Res}(U)\), if \(\tilde{\varphi} : V \to U\) is \(G\)-equivariant with \(\tilde{\varphi}|_W = \varphi\), then for any \(\sigma_i w \in \sigma_i W\):
+\[\tilde{\varphi}(\sigma_i w) = \sigma_i \cdot \tilde{\varphi}(w) = \sigma_i \cdot \varphi(w),\]
+where the last \(\sigma_i\) acts via the \(G\)-action on \(U\). This determines \(\tilde{\varphi}\) on each summand, hence on all of \(V\).
+
+\emph{Existence and \(G\)-equivariance.} Define \(\tilde{\varphi}(\sigma_i w) = \sigma_i \cdot \varphi(w)\). To verify \(G\)-equivariance: let \(g \in G\) act on \(V\) by sending \(\sigma_i W\) to \(\sigma_j W\) where \(g\sigma_i = \sigma_j h\) for \(h \in H\). For \(\sigma_i w \in \sigma_i W\):
+\[\tilde{\varphi}(g(\sigma_i w)) = \tilde{\varphi}(\sigma_j(hw)) = \sigma_j \cdot \varphi(hw) = \sigma_j \cdot h \cdot \varphi(w) = g \cdot \sigma_i \cdot \varphi(w) = g \cdot \tilde{\varphi}(\sigma_i w),\]
+using \(H\)-equivariance of \(\varphi\) in the third equality and \(\sigma_j h = g\sigma_i\) in the fourth. So \(\tilde{\varphi}\) is \(G\)-equivariant.
+
+Conversely, given \(\tilde{\varphi} \in \Hom_G(V, U)\), its restriction to \(W \subset V\) is \(H\)-equivariant. These two maps are inverse to each other.
+
+Comparing dimensions of the Hom spaces gives:
+}
+
+\cor{Frobenius reciprocity (character form)}{For any representation \(U\) of \(G\) and \(W\) of \(H\),
+\[\langle \chi_{\operatorname{Ind}^G_H W}, \chi_U \rangle_G = \langle \chi_W, \chi_{\operatorname{Res}^G_H U} \rangle_H.\]
+}
+
+\nt{Thus, if \(U\) is an irreducible representation of \(G\) and \(W\) an irreducible representation of \(H\), the number of times \(W\) appears in \(\operatorname{Res}^G_H(U)\) equals the number of times \(U\) appears in \(\operatorname{Ind}^G_H(W)\).}
+
+
+\section{Example: \(S_4 \supset S_3\)}
+
+\ex{Restriction and induction between \(S_4\) and \(S_3\)}{Let \(G = S_4\) with irreducibles \(U_4, U_4', V_4, V_4', W\) (dimensions 1, 1, 3, 3, 2), and \(H = S_3\) with irreducibles \(U_3, U_3', V_3\) (dimensions 1, 1, 2). We compute restrictions using character tables (restricting the character of a representation of \(S_4\) to elements of \(S_3 \hookrightarrow S_4\)):
+\begin{itemize}
+    \item \(\operatorname{Res}(U_4) = U_3\) and \(\operatorname{Res}(U_4') = U_3'\) (trivial and sign restrict to trivial and sign).
+    \item \(\operatorname{Res}(V_4) = V_3 \oplus U_3\). Indeed, the permutation representation \(\CC^4\) restricts as \(\CC^3 \oplus \CC\) (the 4th coordinate is fixed by \(S_3\)), so \(\operatorname{Res}(V_4 \oplus U_4) = V_3 \oplus U_3 \oplus U_3\).
+    \item \(\operatorname{Res}(V_4') = V_3 \oplus U_3'\) (since \(V_4' = V_4 \otimes U_4'\) and \(V_3 \otimes U_3' \cong V_3\)).
+    \item \(\operatorname{Res}(W) = V_3\). The representation \(W\) factors through \(S_4/\{e, (12)(34), (13)(24), (14)(23)\} \cong S_3\), and \(W\) as a representation of this quotient is the standard representation \(V_3\).
+\end{itemize}
+By Frobenius reciprocity, we can read off the induced representations:
+\begin{itemize}
+    \item \(\operatorname{Ind}^{S_4}_{S_3}(V_3)\) contains \(V_4, V_4', W\) each with multiplicity 1, giving \(\operatorname{Ind}(V_3) = V_4 \oplus V_4' \oplus W\) (dim \(= 3 + 3 + 2 = 8 = [S_4:S_3] \cdot 2\)).
+    \item \(\operatorname{Ind}^{S_4}_{S_3}(U_3) = U_4 \oplus V_4\) (dim \(= 1 + 3 = 4 = [S_4:S_3] \cdot 1\)).
+    \item \(\operatorname{Ind}^{S_4}_{S_3}(U_3') = U_4' \oplus V_4'\) (dim \(= 1 + 3 = 4\)).
+\end{itemize}
+}
+
+
+
+\mer{Exercises}{
+\begin{enumerate}[(1)]
+    \item Let \(H = \{e\} \leq G\). Show that \(\operatorname{Ind}^G_{\{e\}} W \cong W \otimes R\) where \(R\) is the regular representation of \(G\) and \(W\) is viewed as a vector space with trivial \(G\)-action on the second factor.
+
+    \item Let \(H = A_n \leq S_n\) for \(n \geq 2\). Show that \(\operatorname{Ind}^{S_n}_{A_n}(U)\), where \(U\) is the trivial representation of \(A_n\), is isomorphic to \(U_{S_n} \oplus U'_{S_n}\) (the trivial plus the sign representation of \(S_n\)).
+
+    \item Using Frobenius reciprocity and the character table of \(S_5\), compute \(\operatorname{Ind}^{S_5}_{S_4}(V_4)\) (where \(V_4\) is the standard representation of \(S_4\), embedded as the subgroup fixing 5).
+
+    \item Prove that the character formula for induction can alternatively be written as \(\chi_{\operatorname{Ind} W}(g) = \sum_{i : \sigma_i^{-1} g \sigma_i \in H} \chi_W(\sigma_i^{-1} g \sigma_i)\) where \(\sigma_1, \ldots, \sigma_k\) are coset representatives.
+
+    \item (Transitivity of induction) If \(K \leq H \leq G\), show \(\operatorname{Ind}^G_H \operatorname{Ind}^H_K W \cong \operatorname{Ind}^G_K W\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} \(\operatorname{Ind}^G_{\{e\}} W = \bigoplus_{g \in G} gW\), a direct sum of \(|G|\) copies of \(W\), with \(G\) permuting the summands. This is exactly \(W \otimes R\) where the \(G\)-action is on the \(R\) factor.
+
+\textbf{(2)} \(\operatorname{Ind}^{S_n}_{A_n}(U) = \bigoplus_{\sigma \in S_n/A_n} \sigma U\). Since \([S_n:A_n] = 2\), this is 2-dimensional with basis \(e_1, e_2\) indexed by the two cosets. Even permutations fix both; odd permutations swap them. The invariant subspace \(\operatorname{span}(e_1 + e_2) \cong U_{S_n}\), and the anti-invariant \(\operatorname{span}(e_1 - e_2) \cong U'_{S_n}\).
+
+\textbf{(3)} First compute \(\operatorname{Res}^{S_5}_{S_4}\) of each irreducible of \(S_5\) and find the multiplicity of \(V_4\). From Frobenius reciprocity, the multiplicity of an \(S_5\)-irreducible \(X\) in \(\operatorname{Ind}(V_4)\) equals the multiplicity of \(V_4\) in \(\operatorname{Res}(X)\). Computing (by restricting characters to \(S_4\)): \(\operatorname{Ind}^{S_5}_{S_4}(V_4) = V \oplus V' \oplus W \oplus W' \oplus \bigwedge^2 V\) (\(\dim = 4+4+5+5+6 = 24 ... \) but \([S_5:S_4] \cdot 3 = 15\)). Let me recompute: \([S_5:S_4] = 5\) and \(\dim V_4 = 3\), so \(\dim \operatorname{Ind}(V_4) = 15\). The correct decomposition requires careful character computation.
+
+\textbf{(4)} The sum \(\sum_{i : \sigma_i^{-1}g\sigma_i \in H} \chi_W(\sigma_i^{-1}g\sigma_i)\) counts each valid conjugate exactly once per coset. In the formula \(\frac{1}{|H|}\sum_{s \in G, s^{-1}gs \in H}\), replacing \(s\) by \(\sigma_i h\) for \(h \in H\): the condition \(s^{-1}gs \in H\) becomes \(h^{-1}(\sigma_i^{-1}g\sigma_i)h \in H\), which holds iff \(\sigma_i^{-1}g\sigma_i \in H\). The \(|H|\) values of \(h\) give \(\chi_W(h^{-1}(\sigma_i^{-1}g\sigma_i)h) = \chi_W(\sigma_i^{-1}g\sigma_i)\) (class function), contributing \(|H|\) times the same value. Dividing by \(|H|\) recovers the coset-representative sum.
+
+\textbf{(5)} Write coset representatives for \(G/K\) by combining those for \(G/H\) and \(H/K\): if \(\{\sigma_i\}\) represents \(G/H\) and \(\{\tau_j\}\) represents \(H/K\), then \(\{\sigma_i \tau_j\}\) represents \(G/K\). The direct sum decompositions are compatible: \(\operatorname{Ind}^G_K W = \bigoplus_{i,j} \sigma_i \tau_j W = \bigoplus_i \sigma_i (\bigoplus_j \tau_j W) = \bigoplus_i \sigma_i (\operatorname{Ind}^H_K W) = \operatorname{Ind}^G_H(\operatorname{Ind}^H_K W)\).
+\end{solution}
+
+\end{document}

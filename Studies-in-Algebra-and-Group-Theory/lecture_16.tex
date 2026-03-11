@@ -1,0 +1,132 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 16: Real and Quaternionic Representations
+% Author: S. D. V. Stephens
+% Date: 2026-03-10
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{16}{Real and Quaternionic Representations}
+
+We have studied actions of finite groups on complex vector spaces. Now we consider the real case and the relationship between real and complex representations.
+
+\section{Real Representations}
+
+Let \(G\) be a finite group. A real representation of \(G\) is a real vector space \(V_0\) together with a group homomorphism \(G \to \GL(V_0)\) (automorphisms as an \(\RR\)-vector space).
+
+The averaging trick works over \(\RR\): starting from any inner product on \(V_0\) and averaging over \(G\), we obtain a \(G\)-invariant (positive-definite, symmetric) inner product. So if \(W_0 \subset V_0\) is a \(G\)-invariant subspace, then \(W_0^\perp\) is also \(G\)-invariant, and every real representation of a finite group is completely reducible.
+
+However, Schur's lemma in its strong form fails over \(\RR\). For instance, \(\ZZ/n\) acts on \(\RR^2\) by rotation by \(2\pi/n\), which is irreducible (for \(n \geq 3\)) but has nontrivial endomorphisms: any rotation commuting with rotation by \(2\pi/n\) works, so \(\End_G(\RR^2) \cong \CC\) (not just \(\RR\)).
+
+\section{Complexification}
+
+The main tool for relating real and complex representations is complexification.
+
+\dfn{Complexification}{Given a real representation \(V_0\) of \(G\), its complexification is the complex vector space \(V = V_0 \otimes_\RR \CC = V_0 \oplus i V_0\), with \(G\) acting by \(g(v + iw) = gv + i \, gw\) for \(v, w \in V_0\). This defines a functor \(\{\text{real reps of } G\} \to \{\text{complex reps of } G\}\).
+}
+
+\dfn{Real complex representation}{A complex representation \(V\) of \(G\) is called real if there exists a real representation \(V_0\) such that \(V \cong V_0 \otimes_\RR \CC\).}
+
+\mprop{Necessary condition}{If \(V = V_0 \otimes_\RR \CC\) is real, then \(\chi_V\) takes values in \(\RR\). (The trace of a matrix with real entries is real.)}
+
+The converse is also true for irreducible representations, as we will show.
+
+\section{Characterizing Real Representations}
+
+\mprop{Antilinear involution criterion}{A complex representation \(V\) of \(G\) is real if and only if there exists a \(G\)-equivariant, complex antilinear map \(\tau : V \to V\) (i.e.\ \(\tau(\lambda v) = \ol{\lambda} \tau(v)\) for all \(\lambda \in \CC\)) with \(\tau^2 = \id\).}
+
+\pf{Proof}{(\(\Rightarrow\)) If \(V = V_0 \otimes_\RR \CC\), define \(\tau(v + iw) = v - iw\) for \(v, w \in V_0\) (complex conjugation with respect to the real form \(V_0\)). Then \(\tau\) is antilinear, \(\tau^2 = \id\), and \(G\)-equivariant since \(g\) preserves \(V_0\).
+
+(\(\Leftarrow\)) Given such a \(\tau\), every \(v \in V\) decomposes as
+\[v = \underbrace{\frac{v + \tau(v)}{2}}_{\in V^{\tau}} + \underbrace{\frac{v - \tau(v)}{2}}_{\in V^{-\tau}}\]
+where \(V^\tau = \ker(\tau - \id)\) is the \(+1\)-eigenspace and \(V^{-\tau} = \ker(\tau + \id)\) is the \(-1\)-eigenspace. Since \(\tau\) is antilinear, \(\tau(iv) = -i\tau(v)\), so \(V^{-\tau} = iV^\tau\). Thus \(V^\tau\) is an \(\RR\)-subspace (not a \(\CC\)-subspace!) with \(V = V^\tau \oplus iV^\tau = V^\tau \otimes_\RR \CC\). Since \(\tau\) is \(G\)-equivariant, \(V_0 := V^\tau\) is preserved by \(G\), giving a real representation with \(V = V_0 \otimes_\RR \CC\).
+}
+
+
+\section{The Frobenius--Schur Indicator}
+
+For irreducible representations, we can determine whether a representation is real, quaternionic, or neither using the bilinear form it carries.
+
+\mprop{Invariant bilinear form from self-duality}{Let \(V\) be an irreducible complex representation of \(G\) with \(\chi_V\) real-valued. Then \(\chi_V = \ol{\chi_V} = \chi_{V^*}\), so \(V \cong V^*\). By Schur's lemma, \(\dim \Hom_G(V, V^*) = 1\), so there is a \(G\)-invariant bilinear form \(B : V \times V \to \CC\), unique up to scaling, and nondegenerate.
+}
+
+Since \(B \in (V \otimes V)^* \cong \Sym^2 V^* \oplus \bigwedge^2 V^*\), and both the symmetric and skew-symmetric parts are also \(G\)-invariant, uniqueness forces exactly one of them to be zero. So \(B\) is either symmetric or skew-symmetric. This dichotomy distinguishes real from quaternionic representations.
+
+\mprop{Real iff symmetric form}{An irreducible complex representation \(V\) of a finite group \(G\) is real if and only if \(V\) carries a \(G\)-invariant nondegenerate symmetric bilinear form \(B : V \times V \to \CC\).}
+
+\pf{Proof}{(\(\Rightarrow\)) If \(V = V_0 \otimes_\RR \CC\), then \(V_0\) carries a \(G\)-invariant real inner product \(B_0\) (by the averaging argument). Extend \(\CC\)-bilinearly:
+\[B(v_1 + iw_1,\, v_2 + iw_2) = B_0(v_1, v_2) + iB_0(w_1, v_2) + iB_0(v_1, w_2) - B_0(w_1, w_2).\]
+This is a nondegenerate, symmetric, \(G\)-invariant \(\CC\)-bilinear form on \(V\).
+
+(\(\Leftarrow\)) Given \(B\), the form determines a \(G\)-equivariant isomorphism \(\varphi : V \xrightarrow{\sim} V^*\). Choose a \(G\)-invariant Hermitian inner product \(H\) on \(V\) (by averaging), which gives a \(G\)-equivariant, antilinear isomorphism \(V \xrightarrow{\sim} V^*\) (via \(v \mapsto H(-, v)\)). Composing one with the inverse of the other yields a \(G\)-equivariant, antilinear map \(\tau : V \to V\), characterized by \(H(\tau(v), w) = B(v, w)\).
+
+Now \(\tau^2 : V \to V\) is \(\CC\)-linear and \(G\)-equivariant, so by Schur's lemma, \(\tau^2 = \lambda \cdot \id\) for some \(\lambda \in \CC\). We show \(\lambda \in \RR_{> 0}\):
+\[H(\tau^2(v), v) = B(\tau(v), v) = B(v, \tau(v)) = H(\tau(v), \tau(v)) \geq 0\]
+where the second equality uses symmetry of \(B\). So \(\lambda \geq 0\), and \(\lambda > 0\) since \(\tau \neq 0\). Replacing \(H\) by \(\lambda^{-1/2} H\) (or equivalently \(\tau\) by \(\lambda^{-1/2} \tau\)), we arrange \(\tau^2 = \id\). By the antilinear involution criterion, \(V\) is real.
+}
+
+\section{Quaternionic Representations}
+
+In the other case, the invariant bilinear form \(B\) is skew-symmetric. The same argument produces a \(G\)-equivariant antilinear map \(J : V \to V\) with \(J^2 = -\id\).
+
+\dfn{Quaternionic structure}{A quaternionic structure on a complex vector space \(V\) is a \(\CC\)-antilinear map \(J : V \to V\) with \(J^2 = -\id\). A representation with such a \(G\)-equivariant \(J\) is called a quaternionic representation.}
+
+Such a \(J\) makes \(V\) into a module over the quaternions \(\mathbb{H} = \{a + bi + cj + dk \mid a, b, c, d \in \RR\}\), the division algebra (noncommutative ring where every nonzero element has a multiplicative inverse) with \(i^2 = j^2 = k^2 = ijk = -1\). Concretely, \(\mathbb{H} = \CC \oplus \CC j\) with \(ji = -ij\), \(j^2 = -1\), so an \(\mathbb{H}\)-module is a \(\CC\)-vector space with an antilinear map \(J\) (``right multiplication by \(j\)'') satisfying \(J^2 = -\id\).
+
+\nt{A quaternionic representation has \(\chi_V\) real-valued (since \(V \cong V^*\)) but does \emph{not} come from a real representation. The three cases for an irreducible \(V\) with real character are:
+\begin{itemize}
+    \item \(V\) admits a \(G\)-invariant nondegenerate symmetric bilinear form \(\iff\) \(V\) is real \(\iff\) \(V = V_0 \otimes_\RR \CC\).
+    \item \(V\) admits a \(G\)-invariant nondegenerate skew-symmetric bilinear form \(\iff\) \(V\) is quaternionic \(\iff\) \(V\) carries a \(G\)-equivariant antilinear \(J\) with \(J^2 = -\id\).
+\end{itemize}
+And if \(\chi_V\) is not real-valued, then \(V \not\cong V^*\) and \(V\) is neither real nor quaternionic.}
+
+\section{Examples}
+
+\ex{Standard representation of \(S_3\)}{The 2-dimensional irreducible \(V\) of \(S_3 \cong D_3\) is real: \(S_3\) acts on \(V_0 = \{(x_1, x_2, x_3) \in \RR^3 : \sum x_i = 0\} \cong \RR^2\) by rotations and reflections, and \(V = V_0 \otimes_\RR \CC\).
+
+Alternatively: \(V^* \cong V\) (since \(\chi_V\) is real-valued), and \(\bigwedge^2 V^* \cong U'\) contains no trivial summand, so the \(G\)-invariant bilinear form must be in \(\Sym^2 V^*\). Since \(\Sym^2 V^* \cong U \oplus V\) contains a trivial summand, an invariant symmetric form exists, confirming \(V\) is real.
+}
+
+\ex{The quaternion group \(Q_8\)}{The quaternion group \(Q_8 = \{\pm 1, \pm i, \pm j, \pm k\}\) with \(i^2 = j^2 = k^2 = ijk = -1\) acts faithfully on \(\CC^2\) by
+\[\pm 1 \mapsto \pm I, \quad \pm i \mapsto \pm\begin{pmatrix} i & 0 \\ 0 & -i \end{pmatrix}, \quad \pm j \mapsto \pm\begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \quad \pm k \mapsto \pm\begin{pmatrix} 0 & i \\ i & 0 \end{pmatrix}.\]
+The character takes values \(\chi(\pm 1) = \pm 2\) and \(\chi = 0\) on all other elements---all real. However, this representation is \emph{not} real: it is quaternionic.
+
+To see this cannot come from a real representation: if \(Q_8\) acted faithfully on \(\RR^2\), the invariant inner product would give \(Q_8 \hookrightarrow O(2)\). But \(O(2)\) has only 2 elements squaring to \(-I\) (rotations by \(\pm 90^\circ\)), while \(Q_8\) needs 6 elements (\(\pm i, \pm j, \pm k\)) with square \(-1\). Contradiction.
+
+The quaternionic structure is: view \(\CC^2 = \mathbb{H}\) via \((z_1, z_2) \leftrightarrow z_1 + jz_2\), and the above matrices correspond to left multiplication by \(\pm 1, \pm i, \pm j, \pm k\). The antilinear map \(J : V \to V\) with \(J^2 = -\id\) is right multiplication by \(j\), which commutes with left multiplication.
+}
+
+
+\mer{Exercises}{
+\begin{enumerate}[(1)]
+    \item Classify each irreducible representation of \(S_4\) as real, quaternionic, or complex-type. (Hint: all characters of \(S_4\) are real-valued, so each is either real or quaternionic. Use the dimension criterion: a quaternionic representation must have even dimension.)
+
+    \item Show that if \(V\) is a quaternionic representation of \(G\) (carrying an antilinear \(J\) with \(J^2 = -\id\)), then \(\dim_\CC V\) is even.
+
+    \item Prove the Frobenius--Schur indicator formula: for an irreducible representation \(V\),
+    \[\frac{1}{|G|} \sum_{g \in G} \chi_V(g^2) = \begin{cases} 1 & \text{if } V \text{ is real}, \\ 0 & \text{if } \chi_V \notin \RR, \\ -1 & \text{if } V \text{ is quaternionic}. \end{cases}\]
+    (Hint: \(\frac{1}{|G|}\sum_g \chi_V(g^2) = \dim(\Sym^2 V)^G - \dim(\bigwedge^2 V)^G\), and exactly one of these dimensions is 1 when \(V \cong V^*\).)
+
+    \item Using the Frobenius--Schur indicator, verify that the 2-dimensional irreducible of \(Q_8\) is quaternionic.
+
+    \item Show that the representations \(Y\) and \(Z\) of \(A_5\) (the 3-dimensional irreducibles with golden-ratio character values) are real representations. (Their characters are real, and they have odd dimension.)
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} All characters of \(S_4\) are real-valued (check the character table). A quaternionic representation has \(J : V \to V\) with \(J^2 = -\id\), and \(J\) pairs basis vectors into orbits of size 2, so \(\dim V\) must be even. The irreducibles of \(S_4\) have dimensions 1, 1, 2, 3, 3. The odd-dimensional ones (\(U, U', V_4, V_4'\)) are automatically real. For \(W\) (\(\dim = 2\)): compute the Frobenius--Schur indicator \(\frac{1}{24}\sum \chi_W(g^2)\). We have \(\chi_W = (2, 0, 2, -1, 0)\) with class sizes \((1, 6, 3, 8, 6)\). Squaring: \(e \to e, (12) \to e, (12)(34) \to e, (123) \to (132), (1234) \to (13)(24)\). So \(\chi_W(g^2) = (2, 2, 2, -1, 2)\). The indicator is \(\frac{1}{24}(2 + 12 + 6 - 8 + 12) = 1\). So \(W\) is also real.
+
+\textbf{(2)} The antilinear map \(J\) gives an \(\RR\)-linear map \(V \to V\) whose square is \(-\id\). Viewing \(V\) as \(\RR^{2n}\) (where \(\dim_\CC V = n\)), this gives a real matrix \(M\) with \(M^2 = -I\). The characteristic polynomial \(\det(M - tI)\) has degree \(2n\) and all roots are \(\pm i\), which come in conjugate pairs. More directly: \(J\) makes \(V\) into an \(\mathbb{H}\)-module, and \(\dim_\mathbb{H} V = \frac{1}{2}\dim_\CC V\) must be a positive integer.
+
+\textbf{(3)} We have \(\frac{1}{|G|}\sum_g \chi_V(g^2) = \frac{1}{|G|}\sum_g \Tr(\rho(g^2))\). Using the decomposition \(V \otimes V = \Sym^2 V \oplus \bigwedge^2 V\) and the identities \(\chi_{\Sym^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 + \chi_V(g^2))\), \(\chi_{\bigwedge^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 - \chi_V(g^2))\), we get the indicator \(= \dim(\Sym^2 V)^G - \dim(\bigwedge^2 V)^G\). When \(V \cong V^*\), the unique invariant bilinear form is either symmetric (contributing 1 to \(\Sym^2\)) or skew (contributing 1 to \(\bigwedge^2\)). When \(V \not\cong V^*\), neither \(\Sym^2 V\) nor \(\bigwedge^2 V\) contains a trivial summand, giving 0.
+
+\textbf{(4)} \(Q_8\) has 5 conjugacy classes: \(\{1\}, \{-1\}, \{\pm i\}, \{\pm j\}, \{\pm k\}\) of sizes 1, 1, 2, 2, 2. For the 2-dimensional rep: \(\chi = (2, -2, 0, 0, 0)\). Squaring: \(1^2 = 1\), \((-1)^2 = 1\), \((\pm i)^2 = -1\), \((\pm j)^2 = -1\), \((\pm k)^2 = -1\). So \(\chi(g^2) = (2, 2, -2, -2, -2)\). Indicator: \(\frac{1}{8}(2 + 2 - 4 - 4 - 4) = -1\). Quaternionic.
+
+\textbf{(5)} Both \(Y\) and \(Z\) have real characters and odd dimension 3. Since a quaternionic representation must have even complex dimension (exercise 2), odd-dimensional representations with real characters are automatically real.
+\end{solution}
+
+\end{document}

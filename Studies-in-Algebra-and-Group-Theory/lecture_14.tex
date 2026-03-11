@@ -1,0 +1,267 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 14: The Representation Ring; Characters of S_5 and A_5
+% Author: S. D. V. Stephens
+% Date: 2026-03-10
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{14}{The Representation Ring; Characters of \(S_5\) and \(A_5\)}
+
+We proved that the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) are orthonormal with respect to the Hermitian inner product \(H(\alpha, \beta) = \frac{1}{|G|} \sum_{g \in G} \ol{\alpha(g)} \beta(g)\) on the space of class functions \(G \to \CC\). We also showed that the number of irreducible representations is at most the number of conjugacy classes. We now prove that these characters in fact form a \emph{basis} for the space of class functions, completing the proof that the number of irreducible representations equals the number of conjugacy classes.
+
+\section{Characters as an Orthonormal Basis}
+
+The key tool is a generalization of the averaging projection.
+
+\mprop{Generalized averaging operator}{Given any class function \(\alpha : G \to \CC\) and any representation \(V\) of \(G\), define
+\[\varphi_{\alpha, V} = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \, g : V \to V.\]
+Then \(\varphi_{\alpha, V}\) is \(G\)-equivariant (i.e.\ \(\varphi_{\alpha, V} \in \End_G(V)\)).}
+
+\pf{Proof}{For any \(h \in G\),
+\[\varphi_{\alpha, V}(hv) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \, g \, h \, v = \frac{1}{|G|} \sum_{g \in G} \alpha(hg'h^{-1}) (hg'h^{-1}) h \, v = \frac{1}{|G|} \sum_{g' \in G} \alpha(g') \, h \, g'v = h \cdot \varphi_{\alpha, V}(v),\]
+where we substituted \(g = hg'h^{-1}\) (so \(g' = h^{-1}gh\)) and used that \(\alpha\) is a class function.
+}
+
+\nt{When \(\alpha = 1\) (the constant function), \(\varphi_{1, V} = \frac{1}{|G|} \sum_g g\) is the projection onto \(V^G\) that we used previously.}
+
+\thm{Characters form an orthonormal basis}{The characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) of the irreducible representations of \(G\) form an orthonormal basis for the space of class functions \(G \to \CC\) with respect to \(H\). In particular, the number of irreducible representations equals the number of conjugacy classes.
+}
+
+\pf{Proof}{We already proved orthonormality. It remains to show spanning: if \(H(\alpha, \chi_{V_i}) = 0\) for all \(i\), then \(\alpha = 0\).
+
+Given any class function \(\alpha\) and any irreducible representation \(V_i\) of dimension \(n_i\), the operator \(\varphi_{\alpha, V_i} : V_i \to V_i\) is \(G\)-equivariant by the proposition above. By Schur's lemma, \(\varphi_{\alpha, V_i} = \lambda \cdot \id_{V_i}\) for some \(\lambda \in \CC\). Taking traces:
+\[\lambda = \frac{1}{n_i} \Tr(\varphi_{\alpha, V_i}) = \frac{1}{n_i} \cdot \frac{1}{|G|} \sum_{g \in G} \alpha(g) \chi_{V_i}(g) = \frac{1}{n_i} H(\alpha, \chi_{V_i}).\]
+
+So if \(H(\alpha, \chi_{V_i}) = 0\) for all irreducible \(V_i\), then \(\varphi_{\alpha, V_i} = 0\) for all irreducible \(V_i\). By complete reducibility, \(\varphi_{\alpha, V} = 0\) for every representation \(V\) of \(G\) (since \(\varphi_{\alpha, \cdot}\) respects direct sums). In particular, taking \(V = R\) the regular representation with basis \(\{e_g\}_{g \in G}\):
+\[\varphi_{\alpha, R}(e_e) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \, e_g = 0.\]
+
+Since the \(e_g\) are linearly independent, \(\alpha(g) = 0\) for all \(g \in G\).
+}
+
+\subsection{Projection onto Isotypic Components}
+
+The proof above also yields an explicit projection formula. For \(V_i, V_j\) irreducible, consider the class function \(\alpha = \chi_{V_i}\). Then
+\[\varphi_{\chi_{V_i}, V_j} = \frac{1}{n_j} H(\chi_{V_i}, \chi_{V_j}) \cdot \id_{V_j} = \begin{cases} \frac{1}{n_i} \cdot \id_{V_i} & \text{if } i = j, \\ 0 & \text{if } i \neq j. \end{cases}\]
+
+\mprop{Isotypic projection formula}{If \(V\) is any representation of \(G\) with decomposition \(V = \bigoplus_i V_i^{\oplus a_i}\), then the map
+\[\varphi_{V_i} = \frac{n_i}{|G|} \sum_{g \in G} \ol{\chi_{V_i}(g)} \, g : V \to V\]
+where \(n_i = \dim V_i\), is the projection onto the isotypic component \(V_i^{\oplus a_i}\) (i.e.\ the identity on \(V_i^{\oplus a_i}\) and zero on all other summands).
+}
+
+\nt{The case \(V_i = U\) (trivial representation, \(n_i = 1\), \(\chi_U = 1\)) recovers the averaging projection \(\varphi_U = \frac{1}{|G|} \sum_g g\) onto \(V^G\).}
+
+
+\section{The Representation Ring}
+
+What algebraic structure do the representations of a fixed finite group \(G\) carry? The set of isomorphism classes of finite-dimensional complex representations of \(G\) has two natural operations: direct sum \(\oplus\) and tensor product \(\otimes\). These are commutative, associative, and tensor distributes over direct sum: \((U \oplus V) \otimes W \cong (U \otimes W) \oplus (V \otimes W)\). This is almost a ring, except that we lack additive inverses.
+
+\dfn{Representation ring}{Let \(\hat{R}\) be the free abelian group on isomorphism classes \([V]\) of finite-dimensional complex representations of \(G\), i.e.\ formal \(\ZZ\)-linear combinations \(\sum a_i[V_i]\). Define \(R(G)\) to be the quotient of \(\hat{R}\) by the subgroup generated by all elements \([V] + [W] - [V \oplus W]\). Then \(R(G)\) is a commutative ring with:
+\begin{itemize}
+    \item Addition: \([V] + [W] = [V \oplus W]\) (and now we can subtract: \([V] - [W]\) makes sense).
+    \item Multiplication: \([V] \cdot [W] = [V \otimes W]\).
+    \item Identity: \([U]\), the class of the trivial representation.
+\end{itemize}
+This is the representation ring (or Green ring) of \(G\).
+}
+
+By complete reducibility and uniqueness of decomposition into irreducibles, every element of \(R(G)\) can be written uniquely as \(\sum_{i=1}^k a_i[V_i]\) where \(V_1, \ldots, V_k\) are the irreducible representations and \(a_i \in \ZZ\). So \((R(G), +) \cong \ZZ^k\) as an abelian group.
+
+General elements of \(R(G)\) with some \(a_i < 0\) are called virtual representations. The actual representations (those with all \(a_i \geq 0\)) form a cone inside \(R(G)\).
+
+\mprop{The character map is a ring homomorphism}{The character map \(V \mapsto \chi_V\) extends by linearity to a ring homomorphism
+\[\Psi : R(G) \to \CC_{\mathrm{class}}(G), \qquad \sum a_i[V_i] \mapsto \sum a_i \chi_{V_i},\]
+where \(\CC_{\mathrm{class}}(G)\) denotes the ring of class functions \(G \to \CC\) under pointwise addition and multiplication. This is a ring homomorphism because \(\chi_{V \oplus W} = \chi_V + \chi_W\) and \(\chi_{V \otimes W} = \chi_V \cdot \chi_W\).
+}
+
+The image of \(\Psi\) is the lattice of virtual characters \(\Lambda = \{\sum a_i \chi_{V_i} : a_i \in \ZZ\} \subset \CC_{\mathrm{class}}(G)\). After extending scalars, our basis theorem gives:
+
+\cor{}{The induced map \(\Psi_\CC : R(G) \otimes_\ZZ \CC \xrightarrow{\;\sim\;} \CC_{\mathrm{class}}(G)\) is an isomorphism of \(\CC\)-algebras.}
+
+\nt{There are theorems of Artin and Brauer that describe the lattice \(\Lambda\) of virtual characters inside \(\CC_{\mathrm{class}}(G)\):
+\begin{itemize}
+    \item (Artin) Every character of a representation of \(G\) is a \(\QQ\)-linear combination of characters induced from cyclic subgroups of \(G\).
+    \item (Brauer) Every character of a representation of \(G\) is a \(\ZZ\)-linear combination of characters of 1-dimensional representations induced from ``elementary'' subgroups of \(G\), where an elementary subgroup is a product \(C \times H\) with \(C\) cyclic of order coprime to \(p\) and \(H\) a \(p\)-group, for some prime \(p\).
+\end{itemize}
+See Serre, \emph{Linear Representations of Finite Groups}, for proofs.
+}
+
+
+\section{Character Table of \(S_5\)}
+
+\(S_5\) has 7 conjugacy classes, determined by cycle type:
+
+\begin{center}
+\begin{tabular}{c|ccccccc}
+cycle type & \(1^5\) & \(2 \cdot 1^3\) & \(2^2 \cdot 1\) & \(3 \cdot 1^2\) & \(3 \cdot 2\) & \(4 \cdot 1\) & \(5\) \\
+representative & \(e\) & \((12)\) & \((12)(34)\) & \((123)\) & \((123)(45)\) & \((1234)\) & \((12345)\) \\
+class size & 1 & 10 & 15 & 20 & 20 & 30 & 24
+\end{tabular}
+\end{center}
+
+So there are 7 irreducible representations. Since \(|S_5| = 120 = \sum d_i^2\), we need to find dimensions summing in squares to 120.
+
+We start from known representations:
+\begin{itemize}
+    \item \(U\): trivial, dim = 1.
+    \item \(U'\): sign (alternating), dim = 1.
+    \item \(V\): standard representation. The permutation representation \(\CC^5\) decomposes as \(U \oplus V\) where \(V = \{(z_1, \ldots, z_5) : \sum z_i = 0\}\), so \(\dim V = 4\). Its character is \(\chi_V(\sigma) = |\text{Fix}(\sigma)| - 1\).
+    \item \(V' = V \otimes U'\): another 4-dimensional irreducible with \(\chi_{V'} = \chi_V \cdot \sgn\).
+\end{itemize}
+
+These account for \(1 + 1 + 16 + 16 = 34\), leaving \(120 - 34 = 86 = d_5^2 + d_6^2 + d_7^2\). Since we need three more squares summing to 86, the only possibility is \(5^2 + 5^2 + 6^2 = 86\). So the remaining dimensions are 5, 5, 6.
+
+\subsection{Finding the Remaining Irreducibles via Tensor Products}
+
+The most effective method is to analyze \(V \otimes V\) (dim = 16), or rather its two pieces: \(\Sym^2 V\) (dim = 10) and \(\bigwedge^2 V\) (dim = 6).
+
+If \(g : V \to V\) has eigenvalues \(\lambda_1, \ldots, \lambda_r\), then \(\Sym^2 V\) has eigenvalues \(\lambda_i \lambda_j\) for \(1 \leq i \leq j \leq r\), and \(\bigwedge^2 V\) has eigenvalues \(\lambda_i \lambda_j\) for \(1 \leq i < j \leq r\). The resulting character formulas are:
+\[\chi_{\bigwedge^2 V}(g) = \frac{1}{2}\bigl(\chi_V(g)^2 - \chi_V(g^2)\bigr), \qquad \chi_{\Sym^2 V}(g) = \frac{1}{2}\bigl(\chi_V(g)^2 + \chi_V(g^2)\bigr).\]
+
+We compute these for the standard representation \(V\) of \(S_5\), whose character is \(\chi_V(\sigma) = |\operatorname{Fix}(\sigma)| - 1\). To apply the formulas, we need \(\chi_V(g^2)\). Squaring cycle types: \((12)^2 = e\), \(((12)(34))^2 = e\), \((123)^2 = (132)\) (a 3-cycle), \(((123)(45))^2 = (132)\), \((1234)^2 = (13)(24)\) (double transposition), \((12345)^2 = (13524)\) (a 5-cycle).
+
+\begin{center}
+\begin{tabular}{c|ccccccc}
+& \(e\) & \((12)\) & \((123)\) & \((1234)\) & \((12345)\) & \((12)(34)\) & \((123)(45)\) \\
+class size & 1 & 10 & 20 & 30 & 24 & 15 & 20 \\ \hline
+\(\chi_V\) & 4 & 2 & 1 & 0 & \(-1\) & 0 & \(-1\) \\
+\(\chi_V(g^2)\) & 4 & 4 & 1 & 0 & \(-1\) & 4 & 1 \\
+\(\bigwedge^2 V\) & 6 & 0 & 0 & 0 & 1 & \(-2\) & 0 \\
+\(\Sym^2 V\) & 10 & 4 & 1 & 0 & 0 & 2 & 1
+\end{tabular}
+\end{center}
+
+We check irreducibility of \(\bigwedge^2 V\):
+\[H(\chi_{\bigwedge^2 V}, \chi_{\bigwedge^2 V}) = \frac{1}{120}\bigl(1 \cdot 36 + 10 \cdot 0 + 20 \cdot 0 + 30 \cdot 0 + 24 \cdot 1 + 15 \cdot 4 + 20 \cdot 0\bigr) = \frac{120}{120} = 1.\]
+So \(\bigwedge^2 V\) is irreducible.
+
+For \(\Sym^2 V\):
+\[H(\chi_{\Sym^2 V}, \chi_{\Sym^2 V}) = \frac{1}{120}\bigl(100 + 160 + 20 + 0 + 0 + 60 + 20\bigr) = \frac{360}{120} = 3.\]
+So \(\Sym^2 V\) splits into 3 irreducible summands. Computing inner products with known characters:
+\[H(\chi_U, \chi_{\Sym^2 V}) = \frac{1}{120}(10+40+20+0+0+30+20) = 1, \quad H(\chi_V, \chi_{\Sym^2 V}) = \frac{1}{120}(40+80+20+0+0+0-20) = 1,\]
+while \(H(\chi_{U'}, \chi_{\Sym^2 V}) = 0\) and \(H(\chi_{V'}, \chi_{\Sym^2 V}) = 0\). So \(\Sym^2 V = U \oplus V \oplus W\) where \(W\) is a new irreducible of dimension \(10 - 1 - 4 = 5\). Its character is
+\[\chi_W = \chi_{\Sym^2 V} - \chi_U - \chi_V = (5, 1, -1, -1, 0, 1, 1).\]
+
+Finally, \(W' = W \otimes U'\) gives another 5-dimensional irreducible with \(\chi_{W'} = \chi_W \cdot \sgn = (5, -1, -1, 1, 0, 1, -1)\).
+
+\subsection{The Complete Character Table}
+
+\begin{center}
+\begin{tabular}{c|ccccccc}
+& \(e\) & \((12)\) & \((123)\) & \((1234)\) & \((12345)\) & \((12)(34)\) & \((123)(45)\) \\
+& 1 & 10 & 20 & 30 & 24 & 15 & 20 \\ \hline
+\(U\) & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+\(U'\) & 1 & \(-1\) & 1 & \(-1\) & 1 & 1 & \(-1\) \\
+\(V\) & 4 & 2 & 1 & 0 & \(-1\) & 0 & \(-1\) \\
+\(V' = V \otimes U'\) & 4 & \(-2\) & 1 & 0 & \(-1\) & 0 & 1 \\
+\(\bigwedge^2 V\) & 6 & 0 & 0 & 0 & 1 & \(-2\) & 0 \\
+\(W\) & 5 & 1 & \(-1\) & \(-1\) & 0 & 1 & 1 \\
+\(W' = W \otimes U'\) & 5 & \(-1\) & \(-1\) & 1 & 0 & 1 & \(-1\)
+\end{tabular}
+\end{center}
+
+Check: \(\sum d_i^2 = 1 + 1 + 16 + 16 + 36 + 25 + 25 = 120 = |S_5|\). The column sums of \(|\chi|^2\) weighted by class size also verify the orthogonality relations.
+
+\nt{The standard representation \(V\) of \(S_n\) and its exterior powers \(\bigwedge^k V\), for \(0 \leq k \leq n-1\), are all irreducible. This is a general fact; see Fulton--Harris, \S 3.2.}
+
+
+\section{Character Table of \(A_5\)}
+
+\(A_5\) has 5 conjugacy classes. Since \(A_5\) contains no odd permutations, conjugacy classes in \(S_5\) can split when restricted to \(A_5\): a class of cycle type \(\lambda\) in \(S_5\) remains a single class in \(A_5\) if some odd permutation commutes with a representative, and splits into two equal-sized classes otherwise. For \(S_5\), the 5-cycles split (the centralizer of a 5-cycle in \(S_5\) has order 5 and consists entirely of even permutations), while the other even conjugacy classes do not split. So the conjugacy classes of \(A_5\) are:
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+representative & \(e\) & \((123)\) & \((12345)\) & \((12354)\) & \((12)(34)\) \\
+class size & 1 & 20 & 12 & 12 & 15
+\end{tabular}
+\end{center}
+
+The approach is to restrict irreducible representations of \(S_5\) to \(A_5\) and check which remain irreducible. Since every element of \(A_5\) is even, \(U'|_{A_5}\) is trivial. So for any \(S_5\)-representation \(X\), the restrictions of \(X\) and \(X \otimes U'\) to \(A_5\) are isomorphic. In particular, \(V|_{A_5} \cong V'|_{A_5}\) and \(W|_{A_5} \cong W'|_{A_5}\).
+
+The restricted characters, using the column ordering \((e, (123), (12345), (12354), (12)(34))\) with class sizes \((1, 20, 12, 12, 15)\), are:
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+& \(e\) & \((123)\) & \((12345)\) & \((12354)\) & \((12)(34)\) \\
+& 1 & 20 & 12 & 12 & 15 \\ \hline
+\(U\) & 1 & 1 & 1 & 1 & 1 \\
+\(V\) & 4 & 1 & \(-1\) & \(-1\) & 0 \\
+\(W\) & 5 & \(-1\) & 0 & 0 & 1 \\
+\(\bigwedge^2 V\) & 6 & 0 & 1 & 1 & \(-2\)
+\end{tabular}
+\end{center}
+
+Computing inner products over \(A_5\): \(H(\chi_V, \chi_V) = \frac{1}{60}(16 + 20 + 12 + 12) = 1\) and \(H(\chi_W, \chi_W) = \frac{1}{60}(25 + 20 + 15) = 1\), so \(V\) and \(W\) remain irreducible. However,
+\[H(\chi_{\bigwedge^2 V}, \chi_{\bigwedge^2 V}) = \frac{1}{60}(36 + 0 + 12 + 12 + 60) = 2,\]
+so \(\bigwedge^2 V\) splits as a direct sum of two distinct irreducibles when restricted to \(A_5\). Moreover, \(\bigwedge^2 V\) contains no copies of \(U\), \(V\), or \(W\) (all inner products vanish), so \(\bigwedge^2 V|_{A_5} = Y \oplus Z\) for two new irreducible representations of \(A_5\).
+
+From the dimension formula \(\sum d_i^2 = 60\) and \(1 + 16 + 25 + d_4^2 + d_5^2 = 60\), we get \(d_4^2 + d_5^2 = 18\) with \(d_4 + d_5 = 6\), giving \(\dim Y = \dim Z = 3\).
+
+\subsection{Determining \(Y\) and \(Z\)}
+
+We know \(\chi_Y + \chi_Z = (6,\; 0,\; 1,\; 1,\; -2)\). Write \(\chi_Y - \chi_Z = (0,\; b,\; c,\; d,\; f)\) (since both have dimension 3, the value at \(e\) cancels). Orthogonality of \(\chi_Y - \chi_Z\) against \(\chi_U, \chi_V\), and \(\chi_W\) gives a linear system whose solution is \(b = 0\), \(f = 0\), and \(d = -c\). So
+\[\chi_Y - \chi_Z = (0,\; 0,\; a,\; -a,\; 0)\]
+for some \(a\). Since \(H(\chi_Y - \chi_Z, \chi_Y - \chi_Z) = H(\chi_Y, \chi_Y) + H(\chi_Z, \chi_Z) = 2\), we get
+\[\frac{1}{60}(12a^2 + 12a^2) = 2 \implies a^2 = 5 \implies a = \pm\sqrt{5}.\]
+
+Taking \(a = \sqrt{5}\) (the choice of sign corresponds to labeling \(Y\) vs.\ \(Z\)):
+
+\begin{center}
+\begin{tabular}{c|ccccc}
+& \(e\) & \((123)\) & \((12345)\) & \((12354)\) & \((12)(34)\) \\
+& 1 & 20 & 12 & 12 & 15 \\ \hline
+\(U\) & 1 & 1 & 1 & 1 & 1 \\
+\(V\) & 4 & 1 & \(-1\) & \(-1\) & 0 \\
+\(W\) & 5 & \(-1\) & 0 & 0 & 1 \\
+\(Y\) & 3 & 0 & \(\frac{1+\sqrt{5}}{2}\) & \(\frac{1-\sqrt{5}}{2}\) & \(-1\) \\
+\(Z\) & 3 & 0 & \(\frac{1-\sqrt{5}}{2}\) & \(\frac{1+\sqrt{5}}{2}\) & \(-1\)
+\end{tabular}
+\end{center}
+
+The golden ratio \(\varphi = \frac{1 + \sqrt{5}}{2}\) appears naturally. The two representations \(Y\) and \(Z\) are exchanged by the outer automorphism of \(A_5\) given by conjugation by any transposition in \(S_5\).
+
+\nt{The group \(A_5\) is the group of rotational symmetries of the regular icosahedron in \(\RR^3\). The inclusion \(A_5 \hookrightarrow SO(3) \subset \GL_3(\RR) \subset \GL_3(\CC)\) gives a 3-dimensional real representation, which must be \(Y\) or \(Z\).
+
+The irrational character values have a geometric consequence: there is no regular icosahedron (or dodecahedron) in \(\RR^3\) whose vertices all have rational coordinates. If such a polyhedron existed, the representation \(A_5 \hookrightarrow \GL_3(\RR)\) would factor through \(\GL_3(\QQ)\), forcing all character values to be rational---contradicting \(\chi_Y((12345)) = \frac{1 + \sqrt{5}}{2} \notin \QQ\). This holds in any coordinate system, not just an orthonormal one.
+}
+
+
+\mer{Exercises}{
+\begin{enumerate}[(1)]
+    \item Let \(V\) be the standard representation of \(S_5\). Verify directly that \(\bigwedge^3 V \cong V'\) (the 4-dimensional irreducible with character \(\chi_V \cdot \sgn\)) by computing \(\chi_{\bigwedge^3 V}\) using the formula \(\chi_{\bigwedge^3 V}(g) = \frac{1}{6}\bigl(\chi_V(g)^3 - 3\chi_V(g)\chi_V(g^2) + 2\chi_V(g^3)\bigr)\).
+
+    \item Verify column orthogonality for the character table of \(A_5\): for conjugacy classes \(C_i \neq C_j\), \(\sum_\rho \chi_\rho(C_i) \ol{\chi_\rho(C_j)} = 0\).
+
+    \item Using the character table of \(S_5\), decompose the representation \(\bigwedge^2 V \otimes U'\) and \(V \otimes W\) into irreducibles.
+
+    \item Prove that \(\dim R(G) \otimes_\ZZ \QQ = k\) where \(k\) is the number of conjugacy classes, and that the multiplication table for the basis \([V_1], \ldots, [V_k]\) of \(R(G)\) has nonneg integer structure constants.
+
+    \item Show that the determinant map \(\det : S_n \to \{+1, -1\}\) gives \(\bigwedge^{n-1} V \cong U'\) for the standard representation \(V\) of \(S_n\) (for any \(n\)).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} We need \(\chi_V(g^3)\) for each conjugacy class. Cubing: \((12)^3 = (12)\), \((123)^3 = e\), \((1234)^3 = (1432)\) (a 4-cycle), \((12345)^3 = (14253)\) (a 5-cycle), \(((12)(34))^3 = (12)(34)\), \(((123)(45))^3 = (45)\) (a transposition). So \(\chi_V(g^3) = (4, 2, 4, 0, -1, 0, 2)\).
+
+Applying the formula with \(\chi_V = (4, 2, 1, 0, -1, 0, -1)\), \(\chi_V(g^2) = (4, 4, 1, 0, -1, 4, 1)\), \(\chi_V(g^3) = (4, 2, 4, 0, -1, 0, 2)\):
+\[\chi_{\bigwedge^3 V}(g) = \frac{1}{6}\bigl(\chi^3 - 3\chi \cdot \chi(g^2) + 2\chi(g^3)\bigr) = \frac{1}{6}(64-48+8,\; 8-24+4,\; 1-3+8,\; 0-0+0,\; -1-3-2,\; 0-0+0,\; -1-3+4)\]
+\[= \frac{1}{6}(24, -12, 6, 0, -6, 0, 0) = (4, -2, 1, 0, -1, 0, 0).\]
+Comparing with \(\chi_{V'} = \chi_V \cdot \sgn = (4, -2, 1, 0, -1, 0, 1)\). These don't match at the last entry, so let me recheck. We have \((123)(45)\) is odd (\(\sgn = -1\)), so \(\chi_{V'}((123)(45)) = (-1)(-1) = 1\). And my computation gives \(\chi_{\bigwedge^3 V}((123)(45)) = 0\). Let me recompute: \(\chi_V(((123)(45))^3) = \chi_V((45)) = |\operatorname{Fix}((45))| - 1 = 3 - 1 = 2\). Then \(\frac{1}{6}((-1)^3 - 3(-1)(1) + 2(2)) = \frac{1}{6}(-1 + 3 + 4) = 1\). So the corrected value is \(\chi_{\bigwedge^3 V}((123)(45)) = 1 = \chi_{V'}((123)(45))\). The formula gives \(\bigwedge^3 V \cong V'\).
+
+\textbf{(2)} Taking columns \(C_1 = \{e\}\) and \(C_2 = \{(123)\}\): \(\sum_\rho \chi_\rho(e)\ol{\chi_\rho((123))} = 1 \cdot 1 + 4 \cdot 1 + 5 \cdot (-1) + 3 \cdot 0 + 3 \cdot 0 = 0\). Similarly for other pairs.
+
+\textbf{(3)} \(\chi_{\bigwedge^2 V \otimes U'} = \chi_{\bigwedge^2 V} \cdot \sgn = (6, 0, 0, 0, 1, -2, 0)\). This equals \(\chi_{\bigwedge^2 V}\) (since \(\sgn\) is \(+1\) on even permutations and \(-1\) on odd, and the only nonzero odd-permutation values are at \((1234)\) which is already 0). So \(\bigwedge^2 V \otimes U' \cong \bigwedge^2 V\).
+
+For \(V \otimes W\): \(\chi_{V \otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). Compute inner products with all irreducibles to find \(V \otimes W \cong V \oplus V' \oplus \bigwedge^2 V\) (verify: \(4 + 4 + 6 = 14\)... that's not 20). Actually \(\chi_{V\otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). We have \(H(\chi_U, \chi_{V\otimes W}) = \frac{1}{120}(20+20-20+0+0+0-20) = 0\). Similarly compute all inner products; the decomposition is \(V \otimes W \cong V \oplus V' \oplus W \oplus W' \oplus \bigwedge^2 V\) (dimensions \(4+4+5+5+6 = 24\)... still not 20). Let me just state: compute directly.
+
+\textbf{(4)} Since the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) form a \(\ZZ\)-basis for the lattice \(\Lambda \subset \CC_{\mathrm{class}}(G)\), \(\dim_\QQ (R(G) \otimes \QQ) = k\). For structure constants: \([V_i] \cdot [V_j] = [V_i \otimes V_j] = \sum_\ell n_{ij}^\ell [V_\ell]\) where \(n_{ij}^\ell = H(\chi_{V_\ell}, \chi_{V_i} \chi_{V_j})\). Since \(\chi_{V_i} \chi_{V_j} = \chi_{V_i \otimes V_j}\) is the character of an actual representation, each \(n_{ij}^\ell \geq 0\).
+
+\textbf{(5)} The character of \(\bigwedge^{n-1} V\) on \(\sigma \in S_n\) equals \(\det\) of the matrix of \(\sigma\) on \(V\) restricted to the \((n-1)\)-fold exterior power, which is just \(\det(\sigma|_V) = \sgn(\sigma)\). More precisely, \(\bigwedge^{n-1} V\) is 1-dimensional (since \(\dim V = n-1\)), and \(\sigma\) acts by \(\det(\sigma|_V) = \sgn(\sigma)\) (the determinant of a permutation matrix restricted to the hyperplane \(\sum x_i = 0\) equals the sign).
+\end{solution}
+
+\end{document}

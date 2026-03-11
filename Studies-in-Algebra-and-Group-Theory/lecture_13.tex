@@ -1,0 +1,303 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 13: Representation Theory
+% Author: S. D. V. Stephens
+% Date: 2026-03-10
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{13}{Representation Theory}
+
+Representation theory studies groups via their actions on vector spaces, i.e., homomorphisms \(G \to \GL(V)\). This converts abstract group theory into linear algebra, where we have powerful tools (eigenvalues, traces, diagonalization). We work over \(k = \CC\) throughout (or more generally, any algebraically closed field of characteristic 0).
+
+
+\section{Representations and Subrepresentations}
+
+\dfn{Representation}{A representation of a group \(G\) is a vector space \(V\) (usually finite-dimensional over \(\CC\)) together with a group homomorphism \(\rho : G \to \GL(V)\). Equivalently, a \(G\)-action on \(V\) by linear operators: \(G \times V \to V\), \((g, v) \mapsto g \cdot v\), with each \(g : V \to V\) linear.
+}
+
+\dfn{Subrepresentation and irreducibility}{
+\begin{itemize}
+    \item A subrepresentation is a subspace \(W \subseteq V\) that is \(G\)-invariant: \(gW = W\) for all \(g \in G\).
+    \item A representation \(V\) is irreducible if it has no nontrivial subrepresentations (i.e., the only \(G\)-invariant subspaces are \(\{0\}\) and \(V\) itself).
+\end{itemize}
+}
+
+\ex{Representations of cyclic groups}{If \(G = \ZZ/n\), a representation is a vector space \(V\) with a linear operator \(\varphi = \rho(1) : V \to V\) satisfying \(\varphi^n = \id_V\). Since the minimal polynomial of \(\varphi\) divides \(x^n - 1 = \prod_{k=0}^{n-1}(x - \lambda_k)\) where \(\lambda_k = e^{2\pi i k/n}\), and this polynomial has distinct roots, \(\varphi\) is diagonalizable. The eigenspaces \(V_{\lambda_k} = \{v : \varphi(v) = \lambda_k v\}\) are subrepresentations, and \(V = \bigoplus_k V_{\lambda_k}\).
+
+Each 1-dimensional subspace \(\CC v\) with \(\varphi(v) = \lambda_k v\) is an irreducible representation, corresponding to the homomorphism \(\ZZ/n \to \CC^* = \GL_1(\CC)\) sending \(1 \mapsto \lambda_k = e^{2\pi i k/n}\). There are exactly \(n\) such irreducible representations, and every representation of \(\ZZ/n\) decomposes as a direct sum of copies of these.
+}
+
+\mprop{Representations of finite abelian groups}{If \(G \cong \ZZ/m_1 \times \cdots \times \ZZ/m_r\) is a finite abelian group and \(V\) is a representation of \(G\) over \(\CC\), then \(V\) splits into a direct sum of 1-dimensional (irreducible) subrepresentations.}
+
+\pf{Proof}{The \(G\)-action is equivalent to commuting operators \(\varphi_1, \ldots, \varphi_r : V \to V\) with \(\varphi_i^{m_i} = \id\). Each \(\varphi_i\) is diagonalizable (as above). Commuting diagonalizable operators are simultaneously diagonalizable: the eigenspaces of \(\varphi_1\) are invariant under all \(\varphi_j\) (since they commute), and the restriction of \(\varphi_j\) to an eigenspace of \(\varphi_1\) is again of finite order, hence diagonalizable. Proceed by induction on \(r\). The simultaneous eigenspaces are 1-dimensional subrepresentations.
+}
+
+\dfn{Dual group}{For a finite abelian group \(G\), the dual group is \(\hat{G} = \Hom(G, \CC^*)\), the group of all 1-dimensional representations (characters in the abelian sense) under pointwise multiplication. For \(G = \ZZ/n\), \(\hat{G} \cong \ZZ/n\) (but not canonically). More generally, \(\hat{G} \cong G\) for any finite abelian group (non-canonically). This completes the classification of complex representations of finite abelian groups.
+}
+
+
+\subsection{Homomorphisms and Constructions}
+
+\dfn{Homomorphism of representations}{Given representations \(V, W\) of \(G\), a homomorphism (or \(G\)-equivariant map, or intertwining operator) is a linear map \(\varphi : V \to W\) satisfying \(\varphi(g \cdot v) = g \cdot \varphi(v)\) for all \(g \in G\), \(v \in V\). Equivalently, \(g \circ \varphi = \varphi \circ g\) as operators. We write \(\Hom_G(V, W)\) for the space of such maps.
+}
+
+\nt{If \(\varphi \in \Hom_G(V, W)\), then \(\Ker(\varphi)\) and \(\Img(\varphi)\) are subrepresentations of \(V\) and \(W\) respectively (since \(v \in \Ker(\varphi) \implies \varphi(gv) = g\varphi(v) = 0\), so \(gv \in \Ker(\varphi)\)).}
+
+\mprop{Constructions with representations}{Given representations \(V, W\) of \(G\):
+\begin{enumerate}[(i)]
+    \item \(V \oplus W\) is a representation: \(g \cdot (v, w) = (gv, gw)\).
+    \item \(V \otimes W\) is a representation: \(g \cdot (v \otimes w) = gv \otimes gw\), extended by linearity.
+    \item The dual \(V^* = \Hom(V, \CC)\) is a representation: \((g \cdot \ell)(v) = \ell(g^{-1} v)\). This is the contragredient representation.
+    \item \(\Hom(V, W)\) is a representation: \((g \cdot \varphi)(v) = g \cdot \varphi(g^{-1} v)\), i.e., \(g \cdot \varphi = g \circ \varphi \circ g^{-1}\). Note \(\Hom(V, W)^G = \Hom_G(V, W)\) (the \(G\)-invariant maps are exactly the \(G\)-equivariant ones).
+    \item Under the isomorphism \(\Hom(V, W) \cong V^* \otimes W\), the \(G\)-action is \(g \cdot (\ell \otimes w) = (g \cdot \ell) \otimes (g \cdot w)\), which is consistent with the above.
+    \item If \(W \subseteq V\) is a subrepresentation, then \(V/W\) is a representation: \(g \cdot (v + W) = gv + W\).
+\end{enumerate}
+}
+
+
+\section{Maschke's Theorem and Complete Reducibility}
+
+\mlemma{Existence of \(G\)-invariant inner product}{If \(V\) is a \(\CC\)-representation of a finite group \(G\), there exists a positive-definite Hermitian inner product \(H\) on \(V\) that is \(G\)-invariant: \(H(gv, gw) = H(v, w)\) for all \(g \in G\), \(v, w \in V\). In other words, all operators \(g : V \to V\) are unitary with respect to \(H\).}
+
+\pf{Proof}{Start with any Hermitian inner product \(H_0\) on \(V\), and average over \(G\):
+\[H(v, w) = \frac{1}{|G|} \sum_{g \in G} H_0(gv, gw).\]
+Then \(H\) is still Hermitian and positive-definite (a positive combination of positive-definite forms), and \(G\)-invariant: \(H(hv, hw) = \frac{1}{|G|} \sum_g H_0(ghv, ghw) = \frac{1}{|G|} \sum_{g'} H_0(g'v, g'w) = H(v, w)\) (reindexing \(g' = gh\)).
+}
+
+\thm{Maschke's Theorem}{Let \(V\) be a representation of a finite group \(G\) over \(\CC\) (or any field \(k\) with \(\operatorname{char}(k) \nmid |G|\)), and let \(W \subseteq V\) be a subrepresentation. Then there exists a complementary subrepresentation \(U \subseteq V\) with \(V = W \oplus U\).}
+
+\pf{Proof 1 (via invariant inner product)}{Equip \(V\) with a \(G\)-invariant Hermitian inner product \(H\) (by the lemma). Since each \(g\) is unitary, \(g(W^\perp) = W^\perp\) (if \(w \in W\) and \(v \in W^\perp\), then \(H(gv, w) = H(v, g^{-1}w) = 0\) since \(g^{-1}w \in W\)). So \(U = W^\perp\) is a \(G\)-invariant complement.
+}
+
+\pf{Proof 2 (via averaging projection)}{Choose any complementary subspace \(U_0\) with \(V = W \oplus U_0\) (not necessarily \(G\)-invariant). Let \(\pi_0 : V \to W\) be the projection onto \(W\) with kernel \(U_0\) (\(\pi_0|_W = \id\), \(\pi_0|_{U_0} = 0\)). Average:
+\[\pi(v) = \frac{1}{|G|} \sum_{g \in G} g \, \pi_0(g^{-1} v).\]
+Then \(\pi : V \to W\) is \(G\)-equivariant (\(g\pi g^{-1} = \pi\)), and \(\pi|_W = \id\) (since \(g\pi_0(g^{-1}w) = g(g^{-1}w) = w\) for \(w \in W\), as \(g^{-1}w \in W\)). So \(\pi\) is a surjection onto \(V^G\), and \(U = \Ker(\pi)\) is a \(G\)-invariant complement.
+}
+
+\nt{Maschke's theorem fails when \(\operatorname{char}(k)\) divides \(|G|\) (modular representation theory), and also fails for infinite groups in general: the representation of \(G = \ZZ\) (or \(\RR\)) on \(\CC^2\) via \(t \mapsto \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\) has the invariant subspace \(\CC \times \{0\}\) but no complementary invariant subspace.}
+
+\cor{Complete reducibility}{Any finite-dimensional representation of a finite group \(G\) (over \(\CC\)) decomposes as a direct sum of irreducible representations.}
+
+\section{Schur's Lemma}
+
+\thm{Schur's Lemma}{Let \(V, W\) be irreducible representations of \(G\), and \(\varphi : V \to W\) a homomorphism of representations. Then:
+\begin{enumerate}[(i)]
+    \item Either \(\varphi = 0\) or \(\varphi\) is an isomorphism.
+    \item Over \(k = \CC\): if \(V\) is irreducible and \(\varphi : V \to V\) is a homomorphism of representations (i.e., \(\varphi \in \Hom_G(V, V)\)), then \(\varphi = \lambda \cdot \id\) for some \(\lambda \in \CC\).
+\end{enumerate}
+}
+
+\pf{Proof}{(i) \(\Ker(\varphi)\) is a subrepresentation of \(V\). Since \(V\) is irreducible, either \(\Ker(\varphi) = V\) (\(\varphi = 0\)) or \(\Ker(\varphi) = \{0\}\) (\(\varphi\) injective). Similarly, \(\Img(\varphi)\) is a subrepresentation of \(W\), so either \(\Img(\varphi) = \{0\}\) (\(\varphi = 0\)) or \(\Img(\varphi) = W\) (\(\varphi\) surjective).
+
+(ii) Over \(\CC\), \(\varphi\) has an eigenvalue \(\lambda\). Then \(\varphi - \lambda \cdot \id\) is also a \(G\)-homomorphism \(V \to V\) with nontrivial kernel. By (i), \(\varphi - \lambda \cdot \id = 0\).
+}
+
+\ex{Center acts by scalars}{Let \(V\) be an irreducible representation of \(G\), and \(h \in Z(G)\). Since \(h\) commutes with all \(g \in G\), the map \(\rho(h) : V \to V\) commutes with all \(\rho(g)\), i.e., \(\rho(h) \in \Hom_G(V, V)\). By Schur, \(\rho(h) = \lambda_h \cdot \id\) for some \(\lambda_h \in \CC\). So every central element acts as a scalar on every irreducible representation. In particular, irreducible representations of abelian groups are 1-dimensional (giving another proof of the earlier result).
+}
+
+\subsection{Irreducible Representations of \(S_3\)}
+
+\ex{The three irreducible representations of \(S_3\)}{
+\begin{itemize}
+    \item The trivial representation \(U = \CC\): \(\sigma \cdot z = z\) for all \(\sigma \in S_3\).
+    \item The alternating (sign) representation \(U' = \CC\): \(\sigma \cdot z = \sgn(\sigma) z\).
+    \item The standard representation \(V\): start with the permutation representation \(\CC^3\) (basis \(e_1, e_2, e_3\), with \(\sigma \cdot e_i = e_{\sigma(i)}\)). This has an invariant subspace \(\operatorname{span}(e_1 + e_2 + e_3) \cong U\). The complement \(V = \{(z_1, z_2, z_3) \in \CC^3 : z_1 + z_2 + z_3 = 0\}\) has \(\dim V = 2\) and is irreducible.
+\end{itemize}
+}
+
+\pf{Irreducibility of \(V\)}{Let \(\tau = (123)\) and \(\sigma = (12)\). Then \(\tau\) acts on \(V\) with eigenvalues \(\lambda = e^{2\pi i/3}\) and \(\lambda^2 = e^{4\pi i/3}\) (since \(\tau^3 = \id\) and \(\tau|_V \neq \id\)). If \(v\) is a \(\lambda\)-eigenvector, then \(\sigma(v)\) is a \(\lambda^2\)-eigenvector (since \(\tau(\sigma v) = \sigma(\tau^{-1} v) = \sigma(\lambda^2 v) = \lambda^2 \sigma v\), using \(\sigma \tau \sigma^{-1} = \tau^{-1}\)). Since \(\lambda \neq \lambda^2\), \(v\) and \(\sigma(v)\) are linearly independent, so they span \(V\). Any invariant subspace of \(V\) must contain an eigenvector of \(\tau\) (since \(\tau\) is diagonalizable on \(V\)), hence contains \(v\) or \(\sigma(v)\), and then contains \(\operatorname{span}(v, \sigma(v)) = V\). So \(V\) is irreducible.
+}
+
+\mprop{These are all irreducibles of \(S_3\)}{The representations \(U, U', V\) are the only irreducible representations of \(S_3\) over \(\CC\), and any representation \(W\) of \(S_3\) decomposes as \(W \cong U^{\oplus a} \oplus U'^{\oplus b} \oplus V^{\oplus c}\) for unique \(a, b, c \geq 0\).}
+
+\nt{We will prove uniqueness (and a method to find \(a, b, c\)) using characters below. The key dimension check: \(\dim U^2 + \dim U'^2 + \dim V^2 = 1 + 1 + 4 = 6 = |S_3|\), which we will show is a necessary condition.}
+
+
+\section{Characters}
+
+\dfn{Character}{The character of a representation \(V\) is the function \(\chi_V : G \to \CC\) defined by \(\chi_V(g) = \Tr(\rho(g))\), the trace of the linear operator \(g : V \to V\).
+}
+
+\nt{Since trace is conjugation-invariant (\(\Tr(ABA^{-1}) = \Tr(B)\)), the character only depends on the conjugacy class of \(g\). That is, \(\chi_V\) is a class function.}
+
+\dfn{Class function}{A class function is a function \(f : G \to \CC\) satisfying \(f(ghg^{-1}) = f(h)\) for all \(g, h \in G\).}
+
+\mprop{Properties of characters}{Given representations \(V, W\) of \(G\):
+\begin{enumerate}[(i)]
+    \item \(\chi_{V \oplus W}(g) = \chi_V(g) + \chi_W(g)\).
+    \item \(\chi_{V \otimes W}(g) = \chi_V(g) \cdot \chi_W(g)\).
+    \item \(\chi_{V^*}(g) = \overline{\chi_V(g)}\) (since \(g\) acts by \({}^t(g^{-1})\), and eigenvalues of \(g\) are roots of unity, so eigenvalues of \(g^{-1}\) are their conjugates).
+    \item \(\chi_{\Hom(V,W)}(g) = \overline{\chi_V(g)} \cdot \chi_W(g)\).
+    \item \(\chi_V(e) = \dim V\).
+    \item For a permutation representation on a set \(S\): \(\chi_V(g) = |\{s \in S : g \cdot s = s\}| = |S^g|\).
+    \item \(\chi_{\bigwedge^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 - \chi_V(g^2))\).
+\end{enumerate}
+}
+
+
+\subsection{Symmetric Polynomials (Digression)}
+
+The connection between eigenvalues and characters motivates a brief digression. To store information about \(n\) complex numbers (the eigenvalues of \(g : V \to V\)), up to reordering, it suffices to specify the coefficients of the polynomial \(\prod(x - \lambda_i)\). These coefficients are the elementary symmetric polynomials \(\sigma_k(z_1, \ldots, z_n) = \sum_{i_1 < \cdots < i_k} z_{i_1} \cdots z_{i_k}\).
+
+\thm{Fundamental theorem of symmetric polynomials}{The subring of symmetric polynomials \({\CC}[z_1, \ldots, z_n]^{S_n}\) is isomorphic to the polynomial algebra \({\CC}[\sigma_1, \ldots, \sigma_n]\). That is, every symmetric polynomial is uniquely a polynomial expression in the elementary symmetric polynomials.}
+
+\nt{Alternatively, one can use the power sums \(\tau_k = \sum z_i^k\). Then \({\CC}[z_1, \ldots, z_n]^{S_n} \cong {\CC}[\tau_1, \ldots, \tau_n]\) as well. In particular, specifying the unordered tuple \(\{z_1, \ldots, z_n\}\) is equivalent to specifying \(\sum z_i, \sum z_i^2, \ldots, \sum z_i^n\). For representations, this means specifying all eigenvalues of \(g\) is equivalent to specifying \(\Tr(g), \Tr(g^2), \ldots, \Tr(g^n)\). But since \(G\) is a group, \(\Tr(g^k)\) is just \(\chi_V(g^k)\)---which is already determined by \(\chi_V\). So the character determines the eigenvalues.}
+
+
+\section{Character Orthogonality}
+
+\subsection{The Inner Product on Class Functions}
+
+\mprop{Averaging projection}{If \(V\) is a representation of \(G\), the map \(\varphi_V = \frac{1}{|G|} \sum_{g \in G} g : V \to V\) is a projection onto \(V^G = \{v \in V : gv = v \; \forall g\}\), the space of \(G\)-invariant vectors. In particular, \(\dim V^G = \Tr(\varphi_V) = \frac{1}{|G|} \sum_{g \in G} \chi_V(g)\).}
+
+\nt{For representations \(V, W\): \(\Hom_G(V, W) = \Hom(V, W)^G\), so \(\dim \Hom_G(V, W) = \frac{1}{|G|} \sum_{g \in G} \chi_{\Hom(V,W)}(g) = \frac{1}{|G|} \sum_{g \in G} \overline{\chi_V(g)} \chi_W(g)\). If \(V\) and \(W\) are irreducible, Schur's lemma gives \(\dim \Hom_G(V, W) = \begin{cases} 1 & V \cong W \\ 0 & V \not\cong W\end{cases}\).}
+
+\dfn{Hermitian inner product on class functions}{Define \(H : \{\text{class functions}\} \times \{\text{class functions}\} \to \CC\) by
+\[H(\alpha, \beta) = \frac{1}{|G|} \sum_{g \in G} \overline{\alpha(g)} \beta(g).\]
+}
+
+\thm{Character orthogonality}{The characters of the irreducible representations of \(G\) are orthonormal with respect to \(H\). That is, if \(V_1, \ldots, V_k\) are the distinct irreducible representations of \(G\), then
+\[H(\chi_{V_i}, \chi_{V_j}) = \frac{1}{|G|} \sum_{g \in G} \overline{\chi_{V_i}(g)} \chi_{V_j}(g) = \delta_{ij}.\]
+In particular, the characters of distinct irreducible representations are linearly independent as class functions.}
+
+\cor{Number of irreducibles}{The number of irreducible representations of \(G\) is at most the number of conjugacy classes of \(G\) (since the irreducible characters are linearly independent class functions, and the space of class functions has dimension = number of conjugacy classes). In fact, equality holds: the number of irreducible representations equals the number of conjugacy classes.}
+
+\cor{Character determines representation}{Every representation of \(G\) is completely determined (up to isomorphism) by its character. If \(W \cong \bigoplus V_i^{\oplus a_i}\), then \(\chi_W = \sum a_i \chi_{V_i}\), and \(a_i = H(\chi_{V_i}, \chi_W)\).}
+
+\cor{Irreducibility criterion}{A representation \(W\) is irreducible if and only if \(H(\chi_W, \chi_W) = 1\). More generally, \(H(\chi_W, \chi_W) = \sum a_i^2\) where \(W \cong \bigoplus V_i^{\oplus a_i}\), so the inner product counts the ``number of irreducible summands'' (with multiplicity squared).}
+
+
+\subsection{The Regular Representation}
+
+\dfn{Regular representation}{The regular representation \(R\) of \(G\) is the vector space \({\CC}[G]\) with basis \(\{e_g\}_{g \in G}\), on which \(G\) acts by left multiplication: \(g \cdot e_h = e_{gh}\).}
+
+\mprop{Decomposition of the regular representation}{In the regular representation, each irreducible \(V_i\) appears with multiplicity \(\dim V_i\): \(R \cong \bigoplus_i V_i^{\oplus \dim V_i}\).}
+
+\pf{Proof}{\(\chi_R(g) = |\{h \in G : gh = h\}| = \begin{cases} |G| & g = e \\ 0 & g \neq e\end{cases}\) (permutation representation where only \(e\) has fixed points). Then \(a_i = H(\chi_{V_i}, \chi_R) = \frac{1}{|G|} \sum_g \overline{\chi_{V_i}(g)} \chi_R(g) = \frac{1}{|G|} \overline{\chi_{V_i}(e)} \cdot |G| = \chi_{V_i}(e) = \dim V_i\).
+}
+
+\cor{Dimension formula}{\(\sum_i (\dim V_i)^2 = |G|\), where the sum is over all irreducible representations.}
+
+\pf{Proof}{\(\dim R = |G| = \sum_i a_i \dim V_i = \sum_i (\dim V_i)^2\).}
+
+
+\section{Character Tables}
+
+\subsection{Character Table of \(S_3\)}
+
+\(S_3\) has 3 conjugacy classes: \(\{e\}\), \(\{(12), (13), (23)\}\), \(\{(123), (132)\}\). The 3 irreducible representations have dimensions satisfying \(d_1^2 + d_2^2 + d_3^2 = 6\), so \(d_i \in \{1, 1, 2\}\).
+
+\begin{center}
+\begin{tabular}{c|ccc}
+ & \(e\) & \((12)\) & \((123)\) \\
+ & 1 & 3 & 2 \\ \hline
+\(U\) (trivial) & 1 & 1 & 1 \\
+\(U'\) (sign) & 1 & \(-1\) & 1 \\
+\(V\) (standard) & 2 & 0 & \(-1\)
+\end{tabular}
+\end{center}
+
+The character of \(V\) is obtained from the permutation representation: \(\chi_{U \oplus V}(g) = |S^g|\), giving \(\chi_{U \oplus V} = (3, 1, 0)\), so \(\chi_V = (2, 0, -1)\). Check: \(H(\chi_V, \chi_V) = \frac{1}{6}(4 + 0 + 2) = 1\), confirming irreducibility.
+
+\subsection{Character Table of \(S_4\)}
+
+\(S_4\) has 5 conjugacy classes (partitions of 4): \(\{e\}\) (1), transpositions (6), double transpositions (3), 3-cycles (8), 4-cycles (6). The dimension formula \(\sum d_i^2 = 24\) with 5 irreducibles gives \(d_i \in \{1, 1, 2, 3, 3\}\).
+
+Three known irreducibles: \(U\) (trivial, dim 1), \(U'\) (sign, dim 1), \(V\) (standard, dim 3: permutation rep on \(\CC^4\) minus trivial summand). The tensor product \(V' = V \otimes U'\) (twist standard by sign) has \(\chi_{V'}(g) = \chi_V(g) \cdot \sgn(g)\) and is irreducible (\(H(\chi_{V'}, \chi_{V'}) = 1\)) and distinct from \(V\). This gives 4 of the 5; we need one more of dimension 2 (since \(1 + 1 + 9 + 9 = 20\), and \(24 - 20 = 4 = 2^2\)).
+
+For the missing \(W\) (dim 2): use \(V \otimes V\). We have \(\chi_{V \otimes V} = \chi_V^2 = (9, 1, 1, 0, 1)\). Compute inner products with known characters to find \(V \otimes V \cong U \oplus V \oplus V' \oplus W\). Then \(\chi_W = \chi_{V \otimes V} - \chi_U - \chi_V - \chi_{V'} = (2, 0, 2, -1, 0)\). Check: \(H(\chi_W, \chi_W) = \frac{1}{24}(4 + 0 + 12 + 8 + 0) = 1\).
+
+The complete character table:
+\begin{center}
+\begin{tabular}{c|ccccc}
+ & \(e\) & \((12)\) & \((12)(34)\) & \((123)\) & \((1234)\) \\
+ & 1 & 6 & 3 & 8 & 6 \\ \hline
+\(U\) & 1 & 1 & 1 & 1 & 1 \\
+\(U'\) & 1 & \(-1\) & 1 & 1 & \(-1\) \\
+\(V\) & 3 & 1 & \(-1\) & 0 & \(-1\) \\
+\(V'\) & 3 & \(-1\) & \(-1\) & 0 & 1 \\
+\(W\) & 2 & 0 & 2 & \(-1\) & 0
+\end{tabular}
+\end{center}
+
+\nt{The representation \(W\) has \(\chi_W((12)(34)) = 2 = \dim W\), so double transpositions act trivially. The normal subgroup \(H = \{e, (12)(34), (13)(24), (14)(23)\} \cong \ZZ/2 \times \ZZ/2\) acts trivially on \(W\), so \(W\) factors through \(S_4/H \cong S_3\). In fact, \(W\) is the standard representation of \(S_3\) ``pulled back'' to \(S_4\) via the quotient map.}
+
+\subsection{Character Table of \(A_4\)}
+
+\(A_4\) has 4 conjugacy classes: \(\{e\}\) (1), \(\{(12)(34), (13)(24), (14)(23)\}\) (3), \(\{(123), (134), (243), (142)\}\) (4), \(\{(132), (143), (234), (124)\}\) (4). Note the 3-cycles split into two classes (since \(A_4\) has no odd permutations to conjugate them). The dimension formula \(\sum d_i^2 = 12\) gives \(d_i \in \{1, 1, 1, 3\}\).
+
+The three 1-dimensional representations correspond to \(\Hom(A_4, \CC^*) \cong \Hom(A_4/H, \CC^*) \cong \widehat{\ZZ/3} = \{1, \omega, \omega^2\}\) where \(\omega = e^{2\pi i/3}\), and the 3-dimensional irreducible is the restriction of the standard representation of \(S_4\).
+
+\begin{center}
+\begin{tabular}{c|cccc}
+ & \(e\) & \((12)(34)\) & \((123)\) & \((132)\) \\
+ & 1 & 3 & 4 & 4 \\ \hline
+\(U\) & 1 & 1 & 1 & 1 \\
+\(U'\) & 1 & 1 & \(\omega\) & \(\omega^2\) \\
+\(U''\) & 1 & 1 & \(\omega^2\) & \(\omega\) \\
+\(V\) & 3 & \(-1\) & 0 & 0
+\end{tabular}
+\end{center}
+
+
+\mer{Representation theory exercises}{
+\begin{enumerate}[(1)]
+    \item Decompose the permutation representation \(\CC^3\) of \(S_3\) into irreducibles and verify using the character inner product.
+    
+    \item Let \(V\) be the standard representation of \(S_3\). Decompose \(V \otimes V\), \(\Sym^2(V)\), and \(\bigwedge^2 V\) into irreducibles.
+    
+    \item Compute the character table of \(\ZZ/2 \times \ZZ/2\) (the Klein four-group). How many irreducible representations are there, and what are their dimensions?
+    
+    \item Using the character table of \(S_4\), verify that \(V \otimes V' \cong U' \oplus W \oplus V \oplus V'\) (where \(V, V', W\) are as in the table).
+    
+    \item Prove that for any representation \(V\) of a finite group \(G\), \(\frac{1}{|G|} \sum_{g \in G} \chi_V(g) = \dim V^G\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} The permutation representation has character \(\chi(g) = |S^g|\): \(\chi(e) = 3\), \(\chi((12)) = 1\), \(\chi((123)) = 0\). Compute: \(H(\chi_U, \chi) = \frac{1}{6}(3 + 3 + 0) = 1\), \(H(\chi_{U'}, \chi) = \frac{1}{6}(3 - 3 + 0) = 0\), \(H(\chi_V, \chi) = \frac{1}{6}(6 + 0 + 0) = 1\). So \(\CC^3 \cong U \oplus V\).
+
+\textbf{(2)} \(\chi_{V \otimes V}(g) = \chi_V(g)^2\): values \((4, 0, 1)\). Inner products: \(H(\chi_U, \chi_{V \otimes V}) = \frac{1}{6}(4 + 0 + 2) = 1\), \(H(\chi_{U'}, \chi_{V \otimes V}) = \frac{1}{6}(4 + 0 + 2) = 1\), \(H(\chi_V, \chi_{V \otimes V}) = \frac{1}{6}(8 + 0 - 2) = 1\). So \(V \otimes V \cong U \oplus U' \oplus V\).
+
+For \(\Sym^2(V)\): \(\chi_{\Sym^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 + \chi_V(g^2))\). Values: \(\frac{1}{2}(4 + 2, 0 + 2, 1 + (-1)) = (3, 1, 0)\). So \(\chi_{\Sym^2 V} = \chi_U + \chi_V\), giving \(\Sym^2 V \cong U \oplus V\).
+
+For \(\bigwedge^2 V\): \(\chi_{\bigwedge^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 - \chi_V(g^2))\). Values: \(\frac{1}{2}(4 - 2, 0 - 2, 1 + 1) = (1, -1, 1) = \chi_{U'}\). So \(\bigwedge^2 V \cong U'\). (This makes sense: the determinant map \(\bigwedge^2 V \to \CC\) of a 2-dimensional rep is the sign character.)
+
+\textbf{(3)} \(\ZZ/2 \times \ZZ/2\) is abelian with 4 elements, so it has 4 conjugacy classes and 4 one-dimensional irreducibles. The dual group is \(\widehat{\ZZ/2 \times \ZZ/2} \cong \ZZ/2 \times \ZZ/2\). Writing elements as \(\{(0,0), (1,0), (0,1), (1,1)\}\), the 4 characters are \(\chi_{ab}(x, y) = (-1)^{ax + by}\) for \((a, b) \in \{0,1\}^2\).
+
+\textbf{(4)} \(\chi_{V \otimes V'} = \chi_V \cdot \chi_{V'}\): values \((9, -1, 1, 0, -1)\). Compute \(H\) with each irreducible to find multiplicities. This yields \(V \otimes V' \cong U' \oplus W \oplus V \oplus V'\) (verify the character sum matches).
+
+\textbf{(5)} The averaging operator \(\varphi = \frac{1}{|G|} \sum_g g\) projects onto \(V^G\). Taking traces: \(\Tr(\varphi) = \frac{1}{|G|} \sum_g \Tr(g) = \frac{1}{|G|} \sum_g \chi_V(g)\). Since \(\varphi\) is a projection (\(\varphi^2 = \varphi\)), its trace equals its rank: \(\Tr(\varphi) = \dim \Img(\varphi) = \dim V^G\).
+\end{solution}
+
+
+
+\section{Characters Form an Orthonormal Basis}
+
+We proved that the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) are orthonormal with respect to \(H\). This shows they are linearly independent, giving \(k \leq\) (number of conjugacy classes). We now prove they also \textit{span} the space of class functions, completing the proof that \(k\) equals the number of conjugacy classes.
+
+\subsection{The Generalized Projection Operator}
+
+The averaging projection \(\varphi_V = \frac{1}{|G|} \sum_{g \in G} g\) onto \(V^G\) can be generalized. Given any function \(\alpha : G \to \CC\) and any representation \(V\) of \(G\), define
+\[\varphi_{\alpha, V} = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \cdot g : V \to V.\]
+This is a ``weighted average'' of the group elements acting on \(V\).
+
+\mprop{Equivariance of \(\varphi_\alpha\)}{If \(\alpha : G \to \CC\) is a class function, then \(\varphi_{\alpha,V}\) is \(G\)-equivariant, i.e., \(\varphi_{\alpha,V} \in \Hom_G(V,V)\).}
+
+\pf{Proof}{We must show \(h \cdot \varphi_\alpha(v) = \varphi_\alpha(h \cdot v)\) for all \(h \in G\), \(v \in V\). For the left side:
+\[h \cdot \varphi_\alpha(v) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \cdot hg(v).\]
+Relabeling \(k = hg\) (so \(g = h^{-1}k\)):
+\[h \cdot \varphi_\alpha(v) = \frac{1}{|G|} \sum_{k \in G} \alpha(h^{-1}k) \cdot k(v).\]
+For the right side:
+\[\varphi_\alpha(hv) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \cdot g(hv) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \cdot gh(v).\]
+Relabeling \(k = gh\) (so \(g = kh^{-1}\)):
+\[\varphi_\alpha(hv) = \frac{1}{|G|} \sum_{k \in G} \alpha(kh^{-1}) \cdot k(v).\]
+These are equal if and only if \(\alpha(h^{-1}k) = \alpha(kh^{-1})\) for all \(h, k \in G\), which holds precisely when \(\alpha\) is a class function (since \(kh^{-1} = k(h^{-1}k)k^{-1}\), so \(h^{-1}k\) and \(kh^{-1}\) are conjugate).
+}
+
