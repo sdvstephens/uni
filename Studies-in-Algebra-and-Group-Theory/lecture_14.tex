@@ -81,7 +81,7 @@ where \(\CC_{\mathrm{class}}(G)\) denotes the ring of class functions \(G \to \C
 
 The image of \(\Psi\) is the lattice of virtual characters \(\Lambda = \{\sum a_i \chi_{V_i} : a_i \in \ZZ\} \subset \CC_{\mathrm{class}}(G)\). After extending scalars, our basis theorem gives:
 
-\cor{}{The induced map \(\Psi_\CC : R(G) \otimes_\ZZ \CC \xrightarrow{\;\sim\;} \CC_{\mathrm{class}}(G)\) is an isomorphism of \(\CC\)-algebras.}
+\cor{}{The induced map \(\Psi_{\CC} : R(G) \otimes_{\ZZ} {\CC} \xrightarrow{\;\sim\;} {\CC}_{\mathrm{class}}(G)\) is an isomorphism of \({\CC}\)-algebras.}
 
 \nt{There are theorems of Artin and Brauer that describe the lattice \(\Lambda\) of virtual characters inside \(\CC_{\mathrm{class}}(G)\):
 \begin{itemize}
@@ -239,7 +239,7 @@ The irrational character values have a geometric consequence: there is no regula
 
     \item Using the character table of \(S_5\), decompose the representation \(\bigwedge^2 V \otimes U'\) and \(V \otimes W\) into irreducibles.
 
-    \item Prove that \(\dim R(G) \otimes_\ZZ \QQ = k\) where \(k\) is the number of conjugacy classes, and that the multiplication table for the basis \([V_1], \ldots, [V_k]\) of \(R(G)\) has nonneg integer structure constants.
+    \item Prove that \(\dim R(G) \otimes_{\ZZ} {\QQ} = k\) where \(k\) is the number of conjugacy classes, and that the multiplication table for the basis \([V_1], \ldots, [V_k]\) of \(R(G)\) has nonneg integer structure constants.
 
     \item Show that the determinant map \(\det : S_n \to \{+1, -1\}\) gives \(\bigwedge^{n-1} V \cong U'\) for the standard representation \(V\) of \(S_n\) (for any \(n\)).
 \end{enumerate}
@@ -259,7 +259,7 @@ Comparing with \(\chi_{V'} = \chi_V \cdot \sgn = (4, -2, 1, 0, -1, 0, 1)\). Thes
 
 For \(V \otimes W\): \(\chi_{V \otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). Compute inner products with all irreducibles to find \(V \otimes W \cong V \oplus V' \oplus \bigwedge^2 V\) (verify: \(4 + 4 + 6 = 14\)... that's not 20). Actually \(\chi_{V\otimes W} = \chi_V \cdot \chi_W = (20, 2, -1, 0, 0, 0, -1)\). We have \(H(\chi_U, \chi_{V\otimes W}) = \frac{1}{120}(20+20-20+0+0+0-20) = 0\). Similarly compute all inner products; the decomposition is \(V \otimes W \cong V \oplus V' \oplus W \oplus W' \oplus \bigwedge^2 V\) (dimensions \(4+4+5+5+6 = 24\)... still not 20). Let me just state: compute directly.
 
-\textbf{(4)} Since the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) form a \(\ZZ\)-basis for the lattice \(\Lambda \subset \CC_{\mathrm{class}}(G)\), \(\dim_\QQ (R(G) \otimes \QQ) = k\). For structure constants: \([V_i] \cdot [V_j] = [V_i \otimes V_j] = \sum_\ell n_{ij}^\ell [V_\ell]\) where \(n_{ij}^\ell = H(\chi_{V_\ell}, \chi_{V_i} \chi_{V_j})\). Since \(\chi_{V_i} \chi_{V_j} = \chi_{V_i \otimes V_j}\) is the character of an actual representation, each \(n_{ij}^\ell \geq 0\).
+\textbf{(4)} Since the irreducible characters \(\chi_{V_1}, \ldots, \chi_{V_k}\) form a \({\ZZ}\)-basis for the lattice \(\Lambda \subset {\CC}_{\mathrm{class}}(G)\), \(\dim_{\QQ} (R(G) \otimes {\QQ}) = k\). For structure constants: \([V_i] \cdot [V_j] = [V_i \otimes V_j] = \sum_\ell n_{ij}^\ell [V_\ell]\) where \(n_{ij}^\ell = H(\chi_{V_\ell}, \chi_{V_i} \chi_{V_j})\). Since \(\chi_{V_i} \chi_{V_j} = \chi_{V_i \otimes V_j}\) is the character of an actual representation, each \(n_{ij}^\ell \geq 0\).
 
 \textbf{(5)} The character of \(\bigwedge^{n-1} V\) on \(\sigma \in S_n\) equals \(\det\) of the matrix of \(\sigma\) on \(V\) restricted to the \((n-1)\)-fold exterior power, which is just \(\det(\sigma|_V) = \sgn(\sigma)\). More precisely, \(\bigwedge^{n-1} V\) is 1-dimensional (since \(\dim V = n-1\)), and \(\sigma\) acts by \(\det(\sigma|_V) = \sgn(\sigma)\) (the determinant of a permutation matrix restricted to the hyperplane \(\sum x_i = 0\) equals the sign).
 \end{solution}

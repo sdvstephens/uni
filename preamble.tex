@@ -143,6 +143,7 @@
 % TIKZ (always load for diagrams)
 % ===========================================
 \usepackage{tikz, tikz-cd, tikz-3dplot, tikzsymbols}
+\usetikzlibrary{braids}
 \usetikzlibrary{intersections, angles, quotes, calc, positioning, arrows.meta, patterns, 3d, backgrounds}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
@@ -720,6 +721,27 @@
   #1,
 }
 
+% Fix duplicate hyperref destinations for tcolorbox theorem counters
+% (counters reset per section/chapter but hypertargets must be globally unique)
+\makeatletter
+\renewcommand{\theHtcb@cnt@Theorem}{\thechapter.\thesection.\arabic{tcb@cnt@Theorem}}
+\renewcommand{\theHtcb@cnt@theorem}{\thechapter.\arabic{tcb@cnt@theorem}}
+\renewcommand{\theHtcb@cnt@Corollary}{\thechapter.\thesection.\arabic{tcb@cnt@Corollary}}
+\renewcommand{\theHtcb@cnt@corollary}{\thechapter.\arabic{tcb@cnt@corollary}}
+\renewcommand{\theHtcb@cnt@Lemma}{\thechapter.\thesection.\arabic{tcb@cnt@Lemma}}
+\renewcommand{\theHtcb@cnt@lemma}{\thechapter.\arabic{tcb@cnt@lemma}}
+\renewcommand{\theHtcb@cnt@Exercise}{\thechapter.\thesection.\arabic{tcb@cnt@Exercise}}
+\renewcommand{\theHtcb@cnt@exercise}{\thechapter.\arabic{tcb@cnt@exercise}}
+\renewcommand{\theHtcb@cnt@Prop}{\thechapter.\thesection.\arabic{tcb@cnt@Prop}}
+\renewcommand{\theHtcb@cnt@prop}{\thechapter.\arabic{tcb@cnt@prop}}
+\renewcommand{\theHtcb@cnt@claim}{\thechapter.\thesection.\arabic{tcb@cnt@claim}}
+\renewcommand{\theHtcb@cnt@Example}{\thechapter.\thesection.\arabic{tcb@cnt@Example}}
+\renewcommand{\theHtcb@cnt@example}{\thechapter.\arabic{tcb@cnt@example}}
+\renewcommand{\theHtcb@cnt@Definition}{\thechapter.\thesection.\arabic{tcb@cnt@Definition}}
+\renewcommand{\theHtcb@cnt@definition}{\thechapter.\arabic{tcb@cnt@definition}}
+\renewcommand{\theHquestioncounter}{\thechapter.\thesection.\arabic{questioncounter}}
+\makeatother
+
 \fi % End of \iforgpreview\else block for tcolorbox
 
 
@@ -728,18 +750,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \iforgpreview\else
-  \newcommand{\thm}[2]{\begin{Theorem}{#1}{}#2\end{Theorem}}
-  \newcommand{\cor}[2]{\begin{Corollary}{#1}{}#2\end{Corollary}}
-  \newcommand{\mlemma}[2]{\begin{Lemma}{#1}{}#2\end{Lemma}}
-  \newcommand{\mer}[2]{\begin{Exercise}{#1}{}#2\end{Exercise}}
-  \newcommand{\mprop}[2]{\begin{Prop}{#1}{}#2\end{Prop}}
+  \newcounter{autotcblabel}
+  \newcommand{\thm}[2]{\stepcounter{autotcblabel}\begin{Theorem}{#1}{autotcb\theautotcblabel}#2\end{Theorem}}
+  \newcommand{\cor}[2]{\stepcounter{autotcblabel}\begin{Corollary}{#1}{autotcb\theautotcblabel}#2\end{Corollary}}
+  \newcommand{\mlemma}[2]{\stepcounter{autotcblabel}\begin{Lemma}{#1}{autotcb\theautotcblabel}#2\end{Lemma}}
+  \newcommand{\mer}[2]{\stepcounter{autotcblabel}\begin{Exercise}{#1}{autotcb\theautotcblabel}#2\end{Exercise}}
+  \newcommand{\mprop}[2]{\stepcounter{autotcblabel}\begin{Prop}{#1}{autotcb\theautotcblabel}#2\end{Prop}}
   \newcommand{\clm}[3]{\begin{claim}{#1}{#2}#3\end{claim}}
   \newcommand{\wc}[2]{\begin{wconc}{#1}{}\setlength{\parindent}{1cm}#2\end{wconc}}
   \newcommand{\thmcon}[1]{\begin{Theoremcon}{#1}\end{Theoremcon}}
-  \newcommand{\ex}[2]{\begin{Example}{#1}{}#2\end{Example}}
-  \newcommand{\dfn}[2]{\begin{Definition}[colbacktitle=red!75!black]{#1}{}#2\end{Definition}}
-  \newcommand{\dfnc}[2]{\begin{definition}[colbacktitle=red!75!black]{#1}{}#2\end{definition}}
-  \newcommand{\qs}[2]{\begin{question}{#1}{}#2\end{question}}
+  \newcommand{\ex}[2]{\stepcounter{autotcblabel}\begin{Example}{#1}{autotcb\theautotcblabel}#2\end{Example}}
+  \newcommand{\dfn}[2]{\stepcounter{autotcblabel}\begin{Definition}[colbacktitle=red!75!black]{#1}{autotcb\theautotcblabel}#2\end{Definition}}
+  \newcommand{\dfnc}[2]{\stepcounter{autotcblabel}\begin{definition}[colbacktitle=red!75!black]{#1}{autotcb\theautotcblabel}#2\end{definition}}
+  \newcommand{\qs}[2]{\stepcounter{autotcblabel}\begin{question}{#1}{autotcb\theautotcblabel}#2\end{question}}
   \newcommand{\pf}[2]{\begin{myproof}[#1]#2\end{myproof}}
   \newcommand{\nt}[1]{\begin{note}#1\end{note}}
 \fi

@@ -1,0 +1,391 @@
+% Studies-in-Algebra-and-Group-Theory - Lecture 17: Further Topics in Algebra
+% Author: S. D. V. Stephens
+% Date: 2026-03-11
+% Compile with: pdflatex -shell-escape
+
+\documentclass{report}
+\input{~/university/preamble.tex}
+\input{~/university/preamble-darkmode.tex}
+
+\course{Studies-in-Algebra-and-Group-Theory}
+
+\begin{document}
+
+\lecture{17}{Further Topics in Algebra}
+
+This chapter collects three subjects that extend the algebra developed in earlier lectures: a deeper study of commutative rings (building toward unique factorization), Galois theory (connecting field extensions to group theory), and an introduction to Lie groups and Lie algebras (the continuous analogues of finite groups and their representations). These topics go beyond the Math 55a syllabus but follow naturally from the material covered so far.
+
+
+\part*{I. Commutative Ring Theory}
+\addcontentsline{toc}{section}{Part I: Commutative Ring Theory}
+
+\section{Integral Domains and Divisibility}
+
+We work with commutative rings with identity throughout.
+
+\dfn{Integral domain}{A commutative ring \(R\) (with \(1 \neq 0\)) is an integral domain if it has no zero divisors: \(ab = 0 \implies a = 0\) or \(b = 0\). Equivalently, the cancellation law holds: \(ab = ac\) and \(a \neq 0\) implies \(b = c\).%
+}
+
+\ex{}{The rings \({\ZZ}\), \({\QQ}\), \({\RR}\), \({\CC}\), \({\ZZ}[i]\), and \(k[x]\) (for \(k\) a field) are integral domains. The ring \({\ZZ}/6\) is not (\(2 \cdot 3 = 0\)). A field is an integral domain; \({\ZZ}/p\) is a field (hence integral domain) for \(p\) prime.%
+}
+
+\dfn{Units, irreducibles, primes}{Let \(R\) be an integral domain.
+\begin{itemize}
+    \item A \emph{unit} is an element \(u \in R\) with a multiplicative inverse: \(uv = 1\) for some \(v \in R\). The units form a group \(R^\times\).
+    \item Two elements \(a, b\) are \emph{associates} if \(a = ub\) for some unit \(u\).
+    \item A nonzero non-unit \(p \in R\) is \emph{irreducible} if \(p = ab\) implies \(a\) or \(b\) is a unit.
+    \item A nonzero non-unit \(p \in R\) is \emph{prime} if \(p \mid ab\) implies \(p \mid a\) or \(p \mid b\).
+\end{itemize}%
+}
+
+\mprop{Prime implies irreducible}{In any integral domain, every prime element is irreducible.%
+}
+
+\pf{Proof}{Suppose \(p\) is prime and \(p = ab\). Then \(p \mid ab\), so \(p \mid a\) or \(p \mid b\). Say \(p \mid a\), so \(a = pc\). Then \(p = pcb\), and canceling \(p\) gives \(1 = cb\), so \(b\) is a unit.%
+}
+
+\nt{The converse (irreducible \(\implies\) prime) holds in PIDs and UFDs but fails in general. In \({\ZZ}[\sqrt{-5}]\), the element \(2\) is irreducible but not prime: \(2 \mid (1 + \sqrt{-5})(1 - \sqrt{-5}) = 6\) but \(2 \nmid (1 + \sqrt{-5})\) and \(2 \nmid (1 - \sqrt{-5})\).}
+
+
+\section{Euclidean Domains}
+
+\dfn{Euclidean domain}{An integral domain \(R\) is a Euclidean domain (ED) if there exists a function \(N : R \setminus \{0\} \to {\ZZ}_{\geq 0}\) (the Euclidean norm) such that for any \(a, b \in R\) with \(b \neq 0\), there exist \(q, r \in R\) with
+\[a = bq + r, \qquad \text{where } r = 0 \text{ or } N(r) < N(b).\]%
+}
+
+\ex{Euclidean domains}{%
+\begin{itemize}
+    \item \({\ZZ}\) with \(N(a) = |a|\).
+    \item \(k[x]\) (for \(k\) a field) with \(N(f) = \deg(f)\).
+    \item The Gaussian integers \({\ZZ}[i] = \{a + bi : a, b \in {\ZZ}\}\) with \(N(a + bi) = a^2 + b^2\).
+    \item The Eisenstein integers \({\ZZ}[\omega] = \{a + b\omega : a, b \in {\ZZ}\}\) where \(\omega = e^{2\pi i/3}\), with \(N(a + b\omega) = a^2 - ab + b^2\).
+\end{itemize}%
+}
+
+
+\section{Principal Ideal Domains}
+
+\dfn{Principal ideal domain}{An integral domain \(R\) is a principal ideal domain (PID) if every ideal \(I \subseteq R\) is principal, i.e., \(I = (a) = aR\) for some \(a \in R\).%
+}
+
+\thm{Every Euclidean domain is a PID}{If \(R\) is a Euclidean domain with norm \(N\), then \(R\) is a PID.%
+}
+
+\pf{Proof}{Let \(I \subseteq R\) be a nonzero ideal. Among all nonzero elements of \(I\), choose \(b\) with \(N(b)\) minimal. We claim \(I = (b)\). Clearly \((b) \subseteq I\). For any \(a \in I\), write \(a = bq + r\) with \(r = 0\) or \(N(r) < N(b)\). Since \(r = a - bq \in I\) and \(N(b)\) was minimal, we must have \(r = 0\), so \(a = bq \in (b)\).%
+}
+
+\nt{The converse fails: there exist PIDs that are not Euclidean domains. The ring \({\ZZ}[\frac{1 + \sqrt{-19}}{2}]\) is a PID but not an ED (a result of Motzkin, 1949).}
+
+\thm{In a PID, irreducible \(\iff\) prime}{Let \(R\) be a PID and \(p \in R\) a nonzero non-unit. Then \(p\) is irreducible if and only if \(p\) is prime. Equivalently, the ideal \((p)\) is prime if and only if it is maximal among proper principal ideals.%
+}
+
+\pf{Proof}{(\(\Leftarrow\)) Already proved: prime \(\implies\) irreducible in any integral domain.
+
+(\(\Rightarrow\)) Suppose \(p\) is irreducible and \(p \mid ab\). Consider the ideal \((p, a)\). Since \(R\) is a PID, \((p, a) = (d)\) for some \(d\). Then \(d \mid p\), so either \(d\) is a unit (hence \((p, a) = R\), so \(1 = rp + sa\) for some \(r, s\), and \(b = rpb + sab\); since \(p \mid ab\), we get \(p \mid b\)) or \(d\) is an associate of \(p\) (hence \(p \mid a\)).%
+}
+
+
+\section{Unique Factorization Domains}
+
+\dfn{Unique factorization domain}{An integral domain \(R\) is a unique factorization domain (UFD) if:
+\begin{enumerate}[(i)]
+    \item Every nonzero non-unit \(a \in R\) can be written as a product of irreducibles: \(a = p_1 p_2 \cdots p_n\).
+    \item This factorization is unique up to order and associates: if \(a = p_1 \cdots p_n = q_1 \cdots q_m\), then \(n = m\) and (after reordering) each \(p_i\) is an associate of \(q_i\).
+\end{enumerate}%
+}
+
+\thm{Every PID is a UFD}{%
+}
+
+\pf{Proof (sketch)}{Existence of factorization follows from the ascending chain condition on principal ideals in a PID: if \(a\) is not irreducible, write \(a = bc\) with neither \(b\) nor \(c\) a unit. Then \((a) \subsetneq (b)\) and \((a) \subsetneq (c)\). Repeat for \(b\) and \(c\). This process terminates because an infinite strictly ascending chain \((a_1) \subsetneq (a_2) \subsetneq \cdots\) would generate an ideal \(\bigcup (a_i)\) that is not principal, contradicting the PID hypothesis.
+
+Uniqueness follows from the fact that irreducibles are prime in a PID: if \(p_1 \cdots p_n = q_1 \cdots q_m\), then \(p_1 \mid q_1 \cdots q_m\), so \(p_1 \mid q_j\) for some \(j\); since \(q_j\) is irreducible, \(p_1\) and \(q_j\) are associates. Cancel and proceed by induction.%
+}
+
+The chain of implications is:
+\[\text{Euclidean domain} \implies \text{PID} \implies \text{UFD} \implies \text{integral domain}.\]
+None of these implications reverse.
+
+\ex{Failure of unique factorization}{In \({\ZZ}[\sqrt{-5}] = \{a + b\sqrt{-5} : a, b \in {\ZZ}\}\), we have \(6 = 2 \cdot 3 = (1 + \sqrt{-5})(1 - \sqrt{-5})\). The norm \(N(a + b\sqrt{-5}) = a^2 + 5b^2\) is multiplicative: \(N(\alpha\beta) = N(\alpha)N(\beta)\). Since \(N(2) = 4\), \(N(3) = 9\), \(N(1 \pm \sqrt{-5}) = 6\), and no element has norm 2 or 3, each of these four elements is irreducible. But \(2\) and \(1 + \sqrt{-5}\) are not associates (they have different norms). So \({\ZZ}[\sqrt{-5}]\) is not a UFD.%
+}
+
+
+\section{Noetherian Rings}
+
+\dfn{Noetherian ring}{A commutative ring \(R\) is Noetherian if it satisfies the ascending chain condition (ACC) on ideals: every ascending chain \(I_1 \subseteq I_2 \subseteq I_3 \subseteq \cdots\) of ideals eventually stabilizes (\(I_n = I_{n+1} = \cdots\) for some \(n\)). Equivalently, every ideal of \(R\) is finitely generated.%
+}
+
+\nt{Every PID is Noetherian (every ideal is generated by one element). Every field is Noetherian. The ring of integers \({\ZZ}\) is Noetherian. However, the polynomial ring \(k[x_1, x_2, \ldots]\) in infinitely many variables is not Noetherian: \((x_1) \subsetneq (x_1, x_2) \subsetneq (x_1, x_2, x_3) \subsetneq \cdots\).}
+
+\thm{Hilbert Basis Theorem}{If \(R\) is a Noetherian ring, then so is the polynomial ring \(R[x]\).%
+}
+
+\pf{Proof}{Let \(I \subseteq R[x]\) be an ideal. For each \(n \geq 0\), let \(L_n \subseteq R\) be the set of leading coefficients of polynomials in \(I\) of degree \(\leq n\), together with 0. Each \(L_n\) is an ideal of \(R\), and \(L_0 \subseteq L_1 \subseteq L_2 \subseteq \cdots\). Since \(R\) is Noetherian, this chain stabilizes at some \(L_N\).
+
+For each \(n \leq N\), the ideal \(L_n\) is finitely generated (since \(R\) is Noetherian), say by leading coefficients of polynomials \(f_{n,1}, \ldots, f_{n,k_n} \in I\) of degree \(\leq n\). We claim these finitely many polynomials generate \(I\).
+
+Given \(g \in I\) of degree \(d\), if \(d > N\), the leading coefficient of \(g\) lies in \(L_N = L_d\), so we can subtract an \(R[x]\)-linear combination of the \(f_{N,j}\) (multiplied by appropriate powers of \(x\)) to reduce the degree. If \(d \leq N\), the leading coefficient lies in \(L_d\), and we subtract a combination of the \(f_{d,j}\) to reduce the degree further. This process terminates, producing \(g\) as a combination of the chosen generators.%
+}
+
+\cor{}{For any Noetherian ring \(R\) and any \(n \geq 1\), the polynomial ring \(R[x_1, \ldots, x_n]\) is Noetherian. In particular, \(k[x_1, \ldots, x_n]\) is Noetherian for any field \(k\).%
+}
+
+\thm{Gauss's Lemma and polynomial UFDs}{If \(R\) is a UFD, then so is \(R[x]\). In particular, \({\ZZ}[x]\) and \(k[x_1, \ldots, x_n]\) are UFDs.%
+}
+
+\pf{Proof (idea)}{A polynomial \(f \in R[x]\) is \emph{primitive} if the gcd of its coefficients is 1. Gauss's lemma states that the product of primitive polynomials is primitive. The key step: an irreducible element of \(R[x]\) is either an irreducible of \(R\) (viewed as a constant polynomial) or a primitive polynomial that is irreducible over the fraction field of \(R\). Factoring out content and using unique factorization in \(R\) and in \(\operatorname{Frac}(R)[x]\) (a PID, hence UFD) gives the result.%
+}
+
+
+\part*{II. Galois Theory}
+\addcontentsline{toc}{section}{Part II: Galois Theory}
+
+\section{Field Extensions}
+
+\dfn{Field extension}{A field extension \(L/K\) is a field \(L\) containing \(K\) as a subfield. The degree \([L:K] = \dim_K L\) is the dimension of \(L\) as a \(K\)-vector space. An extension is finite if \([L:K] < \infty\).%
+}
+
+\mprop{Tower law}{If \(K \subseteq L \subseteq M\) are fields, then \([M:K] = [M:L] \cdot [L:K]\).%
+}
+
+\pf{Proof}{If \(\{e_i\}\) is an \(L\)-basis for \(M\) and \(\{f_j\}\) is a \(K\)-basis for \(L\), then \(\{e_i f_j\}\) is a \(K\)-basis for \(M\).%
+}
+
+\dfn{Algebraic and transcendental elements}{Let \(L/K\) be a field extension and \(\alpha \in L\).
+\begin{itemize}
+    \item \(\alpha\) is \emph{algebraic} over \(K\) if there exists a nonzero polynomial \(f \in K[x]\) with \(f(\alpha) = 0\).
+    \item \(\alpha\) is \emph{transcendental} over \(K\) if no such polynomial exists.
+    \item The \emph{minimal polynomial} of an algebraic element \(\alpha\) is the unique monic polynomial \(m_\alpha \in K[x]\) of least degree with \(m_\alpha(\alpha) = 0\). It is irreducible and generates \(\ker(\operatorname{ev}_\alpha : K[x] \to L)\).
+\end{itemize}%
+}
+
+\mprop{Simple algebraic extensions}{If \(\alpha\) is algebraic over \(K\) with minimal polynomial \(m_\alpha\) of degree \(n\), then \(K(\alpha) \cong K[x]/(m_\alpha)\) is a field extension of degree \(n\), with basis \(\{1, \alpha, \alpha^2, \ldots, \alpha^{n-1}\}\) over \(K\).%
+}
+
+\ex{}{The minimal polynomial of \(\sqrt{2}\) over \({\QQ}\) is \(x^2 - 2\). So \({\QQ}(\sqrt{2}) \cong {\QQ}[x]/(x^2 - 2)\) has degree 2 over \({\QQ}\), with basis \(\{1, \sqrt{2}\}\). The minimal polynomial of \(\sqrt[3]{2}\) over \({\QQ}\) is \(x^3 - 2\) (irreducible by Eisenstein at \(p = 2\)), giving \([{\QQ}(\sqrt[3]{2}):{\QQ}] = 3\).%
+}
+
+
+\section{Splitting Fields and Normal Extensions}
+
+\dfn{Splitting field}{A splitting field of a polynomial \(f \in K[x]\) is an extension \(L/K\) such that \(f\) factors completely into linear factors in \(L[x]\) and \(L\) is generated over \(K\) by the roots of \(f\). A splitting field exists for any \(f\) and is unique up to (non-unique) isomorphism.%
+}
+
+\dfn{Normal extension}{A finite extension \(L/K\) is normal if every irreducible polynomial in \(K[x]\) that has one root in \(L\) splits completely in \(L[x]\). Equivalently, \(L\) is a splitting field of some polynomial over \(K\).%
+}
+
+\dfn{Separable extension}{A polynomial \(f \in K[x]\) is separable if it has no repeated roots (in its splitting field). An algebraic element \(\alpha\) is separable over \(K\) if its minimal polynomial is separable. An algebraic extension \(L/K\) is separable if every element of \(L\) is separable over \(K\). In characteristic 0, every algebraic extension is separable.%
+}
+
+
+\section{The Galois Group}
+
+\dfn{Galois extension and Galois group}{A finite extension \(L/K\) is \emph{Galois} if it is both normal and separable. The Galois group is
+\[\Gal(L/K) = \Aut_K(L) = \{\sigma : L \xrightarrow{\sim} L \mid \sigma|_K = \id_K\},\]
+the group of field automorphisms of \(L\) fixing \(K\) pointwise. For a Galois extension, \(|\Gal(L/K)| = [L:K]\).%
+}
+
+\ex{Galois groups of quadratic extensions}{Let \(d \in {\QQ}\) be a non-square. The extension \({\QQ}(\sqrt{d})/{\QQ}\) is Galois of degree 2. The Galois group is \(\Gal({\QQ}(\sqrt{d})/{\QQ}) = \{{\id}, \sigma\}\) where \(\sigma(\sqrt{d}) = -\sqrt{d}\). So \(\Gal({\QQ}(\sqrt{d})/{\QQ}) \cong {\ZZ}/2\).%
+}
+
+\ex{Splitting field of \(x^3 - 2\)}{The splitting field of \(x^3 - 2\) over \({\QQ}\) is \(L = {\QQ}(\sqrt[3]{2}, \omega)\) where \(\omega = e^{2\pi i/3}\). The roots are \(\sqrt[3]{2}, \omega\sqrt[3]{2}, \omega^2\sqrt[3]{2}\). We have \([L:{\QQ}] = 6\) (since \([{\QQ}(\sqrt[3]{2}):{\QQ}] = 3\) and \([{\QQ}(\sqrt[3]{2}, \omega):{\QQ}(\sqrt[3]{2})] = 2\)). The Galois group is \(\Gal(L/{\QQ}) \cong S_3\): it acts faithfully on the three roots, and \(|S_3| = 6 = [L:{\QQ}]\).%
+}
+
+
+\section{The Fundamental Theorem of Galois Theory}
+
+\thm{Fundamental theorem of Galois theory}{Let \(L/K\) be a finite Galois extension with Galois group \(G = \Gal(L/K)\). There is an inclusion-reversing bijection
+\[\{\text{intermediate fields } K \subseteq E \subseteq L\} \longleftrightarrow \{\text{subgroups } H \leq G\}\]
+given by \(E \mapsto \Gal(L/E)\) and \(H \mapsto L^H = \{x \in L : \sigma(x) = x \; \forall \sigma \in H\}\). Under this correspondence:
+\begin{enumerate}[(i)]
+    \item \([L:E] = |H|\) and \([E:K] = [G:H]\).
+    \item \(E/K\) is normal (Galois) if and only if \(H\) is a normal subgroup of \(G\), in which case \(\Gal(E/K) \cong G/H\).
+    \item Intersections of fields correspond to subgroups generated by unions, and composites of fields correspond to intersections of subgroups.
+\end{enumerate}%
+}
+
+\nt{The proof uses the primitive element theorem (every finite separable extension is simple), Artin's lemma (\([L:L^H] = |H|\) for any finite group \(H\) of automorphisms of \(L\)), and careful bookkeeping.}
+
+\ex{Galois correspondence for \(x^3 - 2\)}{For \(L = {\QQ}(\sqrt[3]{2}, \omega)\) over \({\QQ}\) with \(G = S_3\):
+\begin{itemize}
+    \item The subgroup \(\langle (123) \rangle \cong {\ZZ}/3\) (index 2, normal) corresponds to \({\QQ}(\omega)\). The quotient \(S_3/{\ZZ}/3 \cong {\ZZ}/2\) gives \(\Gal({\QQ}(\omega)/{\QQ}) \cong {\ZZ}/2\).
+    \item The three subgroups \(\langle (12) \rangle, \langle (13) \rangle, \langle (23) \rangle \cong {\ZZ}/2\) (index 3, not normal) correspond to the three cubic subfields \({\QQ}(\sqrt[3]{2})\), \({\QQ}(\omega\sqrt[3]{2})\), \({\QQ}(\omega^2\sqrt[3]{2})\). These are not Galois over \({\QQ}\) (the subgroups are not normal).
+\end{itemize}%
+}
+
+
+\section{Cyclotomic Extensions}
+
+\dfn{Cyclotomic extension}{The \(n\)th cyclotomic extension of \({\QQ}\) is \({\QQ}(\zeta_n)\) where \(\zeta_n = e^{2\pi i/n}\) is a primitive \(n\)th root of unity. The minimal polynomial of \(\zeta_n\) over \({\QQ}\) is the \(n\)th cyclotomic polynomial \(\Phi_n(x)\), which has degree \(\varphi(n)\) (Euler's totient).%
+}
+
+\mprop{Galois group of cyclotomic extensions}{The extension \({\QQ}(\zeta_n)/{\QQ}\) is Galois, and
+\[\Gal({\QQ}(\zeta_n)/{\QQ}) \cong ({\ZZ}/n)^\times.\]
+The isomorphism sends \(\sigma_a\) (defined by \(\sigma_a(\zeta_n) = \zeta_n^a\)) to \(a \bmod n\).%
+}
+
+\nt{This is abelian, so every subextension of \({\QQ}(\zeta_n)/{\QQ}\) is Galois over \({\QQ}\). The Kronecker--Weber theorem states that \emph{every} abelian extension of \({\QQ}\) is contained in some cyclotomic extension.}
+
+
+\section{Solvability by Radicals}
+
+\dfn{Radical extension}{A field extension \(L/K\) is a radical extension if there is a tower \(K = K_0 \subset K_1 \subset \cdots \subset K_m = L\) where each \(K_{i+1} = K_i(\alpha_i)\) with \(\alpha_i^{n_i} \in K_i\) for some \(n_i \geq 1\). A polynomial \(f \in K[x]\) is solvable by radicals if its splitting field is contained in some radical extension of \(K\).%
+}
+
+\thm{Galois's criterion}{A polynomial \(f \in {\QQ}[x]\) is solvable by radicals if and only if its Galois group \(\Gal(L/{\QQ})\) (where \(L\) is the splitting field of \(f\)) is a solvable group.%
+}
+
+\nt{Recall that a group \(G\) is solvable if it has a subnormal series \(G = G_0 \supset G_1 \supset \cdots \supset G_n = \{e\}\) with each \(G_i/G_{i+1}\) abelian. For \(n \leq 4\), the group \(S_n\) is solvable (e.g., \(S_4 \supset A_4 \supset V_4 \supset \{e\}\) where \(V_4 = \{e, (12)(34), (13)(24), (14)(23)\}\)). The key fact: \(A_5\) is simple (proved in Lecture 11), so \(S_5\) is not solvable.}
+
+\cor{Insolvability of the general quintic}{There is no formula involving only the four arithmetic operations and radicals that expresses the roots of a general degree-5 polynomial in terms of its coefficients. More precisely: there exist quintic polynomials \(f \in {\QQ}[x]\) whose Galois group is \(S_5\), which is not solvable.%
+}
+
+\ex{}{The polynomial \(f(x) = x^5 - 4x + 2 \in {\QQ}[x]\) is irreducible (Eisenstein at \(p = 2\)) and has Galois group \(S_5\). It has exactly three real roots and one pair of complex conjugate roots: the complex conjugation gives a transposition in \(\Gal(L/{\QQ})\), and irreducibility gives a 5-cycle. A transposition and a 5-cycle generate \(S_5\).%
+}
+
+\nt{This is the Abel--Ruffini theorem (1824), with the group-theoretic formulation due to Galois (1832). For degree \(\leq 4\), the classical formulas (quadratic, Cardano, Ferrari) exist precisely because \(S_2, S_3, S_4\) are solvable. Galois theory unifies and explains all of this.}
+
+
+\part*{III. Lie Groups and Lie Algebras}
+\addcontentsline{toc}{section}{Part III: Lie Groups and Lie Algebras}
+
+
+\section{Matrix Lie Groups}
+
+The finite groups studied so far (symmetric groups, dihedral groups, etc.) are discrete. Many important groups in mathematics and physics are continuous: the group of rotations \(\mathrm{SO}(3)\), the group of invertible matrices \(\GL_n({\RR})\), and so on. Lie theory provides the algebraic tools to study these.
+
+\dfn{Matrix Lie group}{A matrix Lie group is a closed subgroup \(G \subseteq \GL_n({\CC})\) (closed in the topology inherited from \({\CC}^{n \times n} \cong {\CC}^{n^2}\)). The ``Lie'' condition means \(G\) is simultaneously a group and a smooth manifold, with the group operations (multiplication and inversion) being smooth maps.%
+}
+
+\ex{The classical matrix Lie groups}{%
+\begin{itemize}
+    \item \(\GL_n({\RR})\), \(\GL_n({\CC})\): the general linear groups (invertible \(n \times n\) matrices).
+    \item \(\SL_n({\RR}) = \{A \in \GL_n({\RR}) : \det(A) = 1\}\), \(\SL_n({\CC})\): the special linear groups.
+    \item \(\mathrm{O}(n) = \{A \in \GL_n({\RR}) : A^T A = I\}\): the orthogonal group. \(\mathrm{SO}(n) = \mathrm{O}(n) \cap \SL_n({\RR})\): the special orthogonal group (rotations).
+    \item \(\mathrm{U}(n) = \{A \in \GL_n({\CC}) : A^* A = I\}\): the unitary group. \(\mathrm{SU}(n) = \mathrm{U}(n) \cap \SL_n({\CC})\).
+    \item \(\mathrm{Sp}(2n, {\RR}) = \{A \in \GL_{2n}({\RR}) : A^T J A = J\}\) where \(J = \begin{psmallmatrix} 0 & I_n \\ -I_n & 0 \end{psmallmatrix}\): the symplectic group.
+\end{itemize}%
+}
+
+\nt{The dimension of a Lie group (as a manifold) can be computed from its defining equations: \(\GL_n({\RR})\) has dimension \(n^2\); the constraint \(\det = 1\) removes 1 dimension, giving \(\dim \SL_n = n^2 - 1\); the constraint \(A^T A = I\) gives \(\frac{n(n+1)}{2}\) equations (since \(A^T A\) is symmetric), so \(\dim \mathrm{O}(n) = n^2 - \frac{n(n+1)}{2} = \frac{n(n-1)}{2}\).}
+
+
+\section{Lie Algebras}
+
+The idea: a Lie group is a curved object (a manifold), but its tangent space at the identity is a flat object (a vector space) that retains much of the group's structure. This tangent space is the Lie algebra.
+
+\dfn{Lie algebra (abstract)}{A Lie algebra over a field \(k\) is a \(k\)-vector space \(\mathfrak{g}\) equipped with a bilinear operation \([\cdot, \cdot] : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}\) (the Lie bracket) satisfying:
+\begin{enumerate}[(i)]
+    \item Antisymmetry: \([X, X] = 0\) for all \(X \in \mathfrak{g}\) (equivalently, \([X, Y] = -[Y, X]\)).
+    \item The Jacobi identity: \([X, [Y, Z]] + [Y, [Z, X]] + [Z, [X, Y]] = 0\) for all \(X, Y, Z \in \mathfrak{g}\).
+\end{enumerate}%
+}
+
+\dfn{Lie algebra of a matrix Lie group}{For a matrix Lie group \(G \subseteq \GL_n({\CC})\), the Lie algebra \(\mathfrak{g}\) is
+\[\mathfrak{g} = \operatorname{Lie}(G) = \{X \in {\CC}^{n \times n} : e^{tX} \in G \text{ for all } t \in {\RR}\} = T_I G,\]
+the tangent space to \(G\) at the identity. This is a real vector space with the commutator bracket \([X, Y] = XY - YX\).%
+}
+
+\nt{The commutator bracket satisfies the Lie algebra axioms: antisymmetry is clear (\([X,X] = X^2 - X^2 = 0\)), and the Jacobi identity follows by expanding the triple brackets.}
+
+\ex{Classical Lie algebras}{%
+\begin{itemize}
+    \item \(\mathfrak{gl}_n({\RR}) = {\RR}^{n \times n}\) (all \(n \times n\) real matrices), dimension \(n^2\).
+    \item \(\mathfrak{sl}_n({\RR}) = \{X \in {\RR}^{n \times n} : \Tr(X) = 0\}\), dimension \(n^2 - 1\). (Differentiating \(\det(e^{tX}) = e^{t \Tr(X)} = 1\) gives \(\Tr(X) = 0\).)
+    \item \(\mathfrak{so}(n) = \{X \in {\RR}^{n \times n} : X^T = -X\}\) (skew-symmetric matrices), dimension \(\frac{n(n-1)}{2}\). (Differentiating \((e^{tX})^T e^{tX} = I\) gives \(X^T + X = 0\).)
+    \item \(\mathfrak{su}(n) = \{X \in {\CC}^{n \times n} : X^* = -X, \, \Tr(X) = 0\}\) (skew-Hermitian traceless), dimension \(n^2 - 1\).
+    \item \(\mathfrak{sp}(2n) = \{X \in {\RR}^{2n \times 2n} : X^T J + JX = 0\}\), dimension \(n(2n+1)\).
+\end{itemize}%
+}
+
+
+\section{The Exponential Map}
+
+\dfn{Matrix exponential}{For \(X \in {\CC}^{n \times n}\), the matrix exponential is
+\[e^X = \sum_{k=0}^{\infty} \frac{X^k}{k!} = I + X + \frac{X^2}{2!} + \frac{X^3}{3!} + \cdots.\]
+This converges absolutely for any \(X\). The exponential map \(\exp : \mathfrak{g} \to G\) sends \(X \mapsto e^X\).%
+}
+
+\mprop{Properties of the matrix exponential}{%
+\begin{enumerate}[(i)]
+    \item \(e^{0} = I\).
+    \item \(\det(e^X) = e^{\Tr(X)}\).
+    \item If \(XY = YX\), then \(e^{X+Y} = e^X e^Y\). In general, \(e^{X+Y} \neq e^X e^Y\).
+    \item \(\frac{d}{dt}\big|_{t=0} e^{tX} = X\), confirming that \(\mathfrak{g}\) is the tangent space at the identity.
+    \item The Baker--Campbell--Hausdorff formula: \(e^X e^Y = e^{X + Y + \frac{1}{2}[X,Y] + \cdots}\), where the higher-order terms involve iterated brackets. This shows the group multiplication near the identity is determined by the Lie bracket.
+\end{enumerate}%
+}
+
+\nt{The exponential map is a local diffeomorphism near \(0 \in \mathfrak{g}\) (by the inverse function theorem, since \(d\exp_0 = \id\)). It need not be surjective globally: for \(\SL_2({\RR})\), the matrix \(\begin{psmallmatrix} -1 & 1 \\ 0 & -1 \end{psmallmatrix}\) is not in the image of \(\exp\). However, for compact connected Lie groups (e.g., \(\mathrm{SO}(n)\), \(\mathrm{SU}(n)\)), \(\exp\) is surjective.}
+
+
+\section{Homomorphisms and Representations}
+
+\dfn{Lie algebra homomorphism}{A linear map \(\varphi : \mathfrak{g} \to \mathfrak{h}\) between Lie algebras is a homomorphism if \(\varphi([X, Y]) = [\varphi(X), \varphi(Y)]\) for all \(X, Y \in \mathfrak{g}\).%
+}
+
+\mprop{Functoriality}{Every Lie group homomorphism \(\Phi : G \to H\) induces a Lie algebra homomorphism \(d\Phi_e : \mathfrak{g} \to \mathfrak{h}\) (the differential at the identity). This defines a functor from (connected, simply-connected) Lie groups to Lie algebras, and this functor is an equivalence of categories: a Lie algebra homomorphism \(\mathfrak{g} \to \mathfrak{h}\) integrates to a unique Lie group homomorphism \(\tilde{G} \to H\) (where \(\tilde{G}\) is the simply-connected cover of \(G\)).%
+}
+
+\dfn{Representation of a Lie algebra}{A representation of a Lie algebra \(\mathfrak{g}\) on a vector space \(V\) is a Lie algebra homomorphism \(\rho : \mathfrak{g} \to \mathfrak{gl}(V)\), i.e., a linear map satisfying \(\rho([X,Y]) = \rho(X)\rho(Y) - \rho(Y)\rho(X)\). A representation of a Lie group \(G\) on \(V\) (a smooth homomorphism \(G \to \GL(V)\)) induces a representation of \(\mathfrak{g}\) on \(V\) by differentiation.%
+}
+
+\ex{The adjoint representation}{Every Lie algebra \(\mathfrak{g}\) has a natural representation on itself: the adjoint representation \(\operatorname{ad} : \mathfrak{g} \to \mathfrak{gl}(\mathfrak{g})\) defined by \(\operatorname{ad}(X)(Y) = [X, Y]\). The Jacobi identity is precisely the statement that \(\operatorname{ad}\) is a Lie algebra homomorphism.%
+}
+
+
+\section{Structure and Classification}
+
+The structure theory of Lie algebras parallels finite group theory:
+
+\dfn{Solvable and semisimple Lie algebras}{The derived series of a Lie algebra \(\mathfrak{g}\) is \(\mathfrak{g}^{(0)} = \mathfrak{g}\), \(\mathfrak{g}^{(k+1)} = [\mathfrak{g}^{(k)}, \mathfrak{g}^{(k)}]\). The algebra \(\mathfrak{g}\) is solvable if \(\mathfrak{g}^{(k)} = 0\) for some \(k\), and semisimple if it has no nonzero solvable ideals. Every Lie algebra decomposes as \(\mathfrak{g} = \mathfrak{r} \rtimes \mathfrak{s}\) where \(\mathfrak{r}\) is the radical (maximal solvable ideal) and \(\mathfrak{s}\) is semisimple (Levi decomposition).%
+}
+
+\nt{Every semisimple Lie algebra decomposes (uniquely) as a direct sum of simple Lie algebras (those with no nontrivial ideals). The simple Lie algebras over \({\CC}\) are completely classified by Dynkin diagrams:
+\begin{itemize}
+    \item Four infinite families: \(A_n = \mathfrak{sl}_{n+1}\) (\(n \geq 1\)), \(B_n = \mathfrak{so}_{2n+1}\) (\(n \geq 2\)), \(C_n = \mathfrak{sp}_{2n}\) (\(n \geq 3\)), \(D_n = \mathfrak{so}_{2n}\) (\(n \geq 4\)).
+    \item Five exceptional algebras: \(G_2\) (dim 14), \(F_4\) (dim 52), \(E_6\) (dim 78), \(E_7\) (dim 133), \(E_8\) (dim 248).
+\end{itemize}
+The classification proceeds via root systems: given a semisimple \(\mathfrak{g}\) and a Cartan subalgebra \(\mathfrak{h}\) (maximal abelian subalgebra of semisimple elements), the adjoint action of \(\mathfrak{h}\) on \(\mathfrak{g}\) decomposes \(\mathfrak{g}\) into root spaces. The resulting set of roots \(\Phi \subset \mathfrak{h}^*\) is a root system, which is encoded by its Dynkin diagram. This is one of the great classification theorems in mathematics (Killing 1888, Cartan 1894).}
+
+\ex{\(\mathfrak{sl}_2({\CC})\) --- the simplest semisimple Lie algebra}{The Lie algebra \(\mathfrak{sl}_2({\CC})\) has dimension 3 with standard basis
+\[e = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}, \qquad f = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}, \qquad h = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix},\]
+satisfying \([h, e] = 2e\), \([h, f] = -2f\), \([e, f] = h\). This is the type \(A_1\) Lie algebra. Its finite-dimensional representations are completely classified: for each \(n \geq 0\) there is a unique irreducible representation of dimension \(n + 1\), realized on \(\Sym^n({\CC}^2)\). The representation theory of \(\mathfrak{sl}_2\) is the foundation for the general theory.%
+}
+
+
+\mer{Exercises}{
+\begin{enumerate}[(1)]
+    \item Show that \({\ZZ}[\sqrt{-5}]\) is not a PID by finding an ideal that is not principal. (Hint: consider \((2, 1 + \sqrt{-5})\).)
+
+    \item Prove that \({\ZZ}[i]\) is a Euclidean domain with norm \(N(a + bi) = a^2 + b^2\). (The key step: for any \(\alpha, \beta \in {\ZZ}[i]\) with \(\beta \neq 0\), the quotient \(\alpha/\beta \in {\QQ}(i)\) lies within distance \(\frac{\sqrt{2}}{2} < 1\) of some Gaussian integer.)
+
+    \item Compute \(\Gal({\QQ}(\sqrt{2}, \sqrt{3})/{\QQ})\) and draw its lattice of subgroups alongside the lattice of intermediate fields.
+
+    \item Show that the Galois group of \(x^4 - 2\) over \({\QQ}\) is the dihedral group \(D_4\) of order 8 (not \(S_4\)).
+
+    \item Verify the Lie bracket relations \([h, e] = 2e\), \([h, f] = -2f\), \([e, f] = h\) for the standard basis of \(\mathfrak{sl}_2({\CC})\).
+
+    \item Show that \(\mathfrak{so}(3)\) (real \(3 \times 3\) skew-symmetric matrices) is isomorphic as a Lie algebra to \(({\RR}^3, \times)\) where \(\times\) is the cross product.
+
+    \item Let \(\mathfrak{g} = \mathfrak{gl}_n({\CC})\). Show that the Killing form \(B(X, Y) = \Tr(\operatorname{ad}(X) \operatorname{ad}(Y))\) equals \(2n \Tr(XY) - 2\Tr(X)\Tr(Y)\).
+\end{enumerate}
+}
+
+\begin{solution}
+\textbf{(1)} The ideal \(I = (2, 1 + \sqrt{-5})\) is not principal. If \(I = (\alpha)\), then \(\alpha \mid 2\) and \(\alpha \mid (1 + \sqrt{-5})\), so \(N(\alpha) \mid N(2) = 4\) and \(N(\alpha) \mid N(1 + \sqrt{-5}) = 6\). Thus \(N(\alpha) \mid \gcd(4, 6) = 2\). But no element of \({\ZZ}[\sqrt{-5}]\) has norm 2 (since \(a^2 + 5b^2 = 2\) has no integer solutions). So \(N(\alpha) = 1\), meaning \(\alpha\) is a unit and \(I = {\ZZ}[\sqrt{-5}]\). But \(3 \notin I\) (checking: \(3 = 2a + (1 + \sqrt{-5})b\) for \(a, b \in {\ZZ}[\sqrt{-5}]\) leads to a contradiction modulo 2), so \(I\) is proper and not principal.
+
+\textbf{(2)} Given \(\alpha, \beta \in {\ZZ}[i]\) with \(\beta \neq 0\), write \(\alpha/\beta = p + qi\) with \(p, q \in {\QQ}\). Choose integers \(m, n\) closest to \(p, q\), so \(|p - m| \leq 1/2\) and \(|q - n| \leq 1/2\). Set \(\gamma = m + ni\) and \(r = \alpha - \beta\gamma\). Then \(N(r) = N(\beta) \cdot N(\alpha/\beta - \gamma) = N(\beta)((p-m)^2 + (q-n)^2) \leq N(\beta)(1/4 + 1/4) = N(\beta)/2 < N(\beta)\).
+
+\textbf{(3)} The extension \({\QQ}(\sqrt{2}, \sqrt{3})/{\QQ}\) has degree 4 (since \(x^2 - 3\) is irreducible over \({\QQ}(\sqrt{2})\)). The splitting field of \((x^2 - 2)(x^2 - 3)\) is normal and separable, hence Galois. The Galois group has order 4 and is generated by \(\sigma : \sqrt{2} \mapsto -\sqrt{2}, \sqrt{3} \mapsto \sqrt{3}\) and \(\tau : \sqrt{2} \mapsto \sqrt{2}, \sqrt{3} \mapsto -\sqrt{3}\). Since \(\sigma^2 = \tau^2 = \id\) and \(\sigma\tau = \tau\sigma\), we get \(\Gal \cong {\ZZ}/2 \times {\ZZ}/2\). The three subgroups of order 2 correspond to the three intermediate fields \({\QQ}(\sqrt{2})\), \({\QQ}(\sqrt{3})\), \({\QQ}(\sqrt{6})\).
+
+\textbf{(4)} The splitting field of \(x^4 - 2\) over \({\QQ}\) is \(L = {\QQ}(\sqrt[4]{2}, i)\). We have \([L:{\QQ}] = 8\) (\([{\QQ}(\sqrt[4]{2}):{\QQ}] = 4\) and \([L:{\QQ}(\sqrt[4]{2})] = 2\)). The Galois group has order 8 and is determined by the actions on \(\sqrt[4]{2}\) and \(i\). Let \(\sigma(\sqrt[4]{2}) = i\sqrt[4]{2}\), \(\sigma(i) = i\) (a rotation of the four roots) and \(\tau(\sqrt[4]{2}) = \sqrt[4]{2}\), \(\tau(i) = -i\) (complex conjugation). Then \(\sigma^4 = \id\), \(\tau^2 = \id\), and \(\tau\sigma\tau = \sigma^{-1}\), giving \(\Gal(L/{\QQ}) \cong D_4\). This is a proper subgroup of \(S_4\) (order 8 vs 24).
+
+\textbf{(5)} Direct computation: \([h, e] = he - eh = \begin{psmallmatrix} 0 & 1 \\ 0 & 0 \end{psmallmatrix} - \begin{psmallmatrix} 0 & -1 \\ 0 & 0 \end{psmallmatrix} = \begin{psmallmatrix} 0 & 2 \\ 0 & 0 \end{psmallmatrix} = 2e\). Similarly \([h, f] = hf - fh = \begin{psmallmatrix} 0 & 0 \\ -1 & 0 \end{psmallmatrix} - \begin{psmallmatrix} 0 & 0 \\ 1 & 0 \end{psmallmatrix} = -2f\). And \([e, f] = ef - fe = \begin{psmallmatrix} 1 & 0 \\ 0 & 0 \end{psmallmatrix} - \begin{psmallmatrix} 0 & 0 \\ 0 & 1 \end{psmallmatrix} = h\).
+
+\textbf{(6)} A basis for \(\mathfrak{so}(3)\) is \(E_1 = \begin{psmallmatrix} 0 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{psmallmatrix}\), \(E_2 = \begin{psmallmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ -1 & 0 & 0 \end{psmallmatrix}\), \(E_3 = \begin{psmallmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 0 \end{psmallmatrix}\). Computing: \([E_1, E_2] = E_3\), \([E_2, E_3] = E_1\), \([E_3, E_1] = E_2\). Under the identification \(E_i \leftrightarrow e_i\) (standard basis of \({\RR}^3\)), these bracket relations are exactly \(e_1 \times e_2 = e_3\), etc. So \(\varphi(E_i) = e_i\) is a Lie algebra isomorphism \((\mathfrak{so}(3), [\cdot, \cdot]) \cong ({\RR}^3, \times)\).
+
+\textbf{(7)} For \(\mathfrak{g} = \mathfrak{gl}_n\), \(\operatorname{ad}(X)(Z) = XZ - ZX\). So \(\operatorname{ad}(X)\operatorname{ad}(Y)(Z) = X(YZ - ZY) - (YZ - ZY)X = XYZ - XZY - YZX + ZYX\). Taking the trace over \(Z\) (summing over the basis \(E_{ij}\) with \(Z = E_{ij}\)) requires careful index manipulation. The result \(B(X, Y) = 2n\Tr(XY) - 2\Tr(X)\Tr(Y)\) follows from the identities \(\Tr(E_{ij} \cdot M) = M_{ji}\) and the combinatorial sums. In particular, \(B\) restricted to \(\mathfrak{sl}_n\) (where \(\Tr = 0\)) is just \(2n\Tr(XY)\), which is nondegenerate---confirming \(\mathfrak{sl}_n\) is semisimple (Cartan's criterion).
+\end{solution}
+
+\end{document}

@@ -887,9 +887,10 @@ Let \(p(x) = (x - e^{i\theta})(x - e^{-i\theta}) = x^2 - 2\cos\theta \cdot x + 1
 
 Decompose \(V\) into generalized eigenspaces for real eigenvalues (\(\pm 1\)) and for conjugate pairs of complex eigenvalues. Since \(T\) is orthogonal and hence normal, it is diagonalizable over \(\CC\), so generalized eigenspaces are actual eigenspaces.
 
-For the conjugate pair \(e^{\pm i\theta}\), the real subspace \(W = \Ker((T - e^{i\theta}I)(T - e^{-i\theta}I)) \cap V\) is \(T\)-invariant. Choose a unit eigenvector \(v \in W_\CC\) for \(e^{i\theta}\). Then \(v + \ol{v}\) and \(i(v - \ol{v})\) are real vectors spanning a 2-dimensional \(T\)-invariant subspace on which \(T\) acts as rotation by \(\theta\).
+For the conjugate pair \(e^{\pm i\theta}\), the real subspace \(W = \Ker((T - e^{i\theta}I)(T - e^{-i\theta}I)) \cap V\) is \(T\)-invariant. Choose a unit eigenvector \(v \in W_{\CC}\) for \(e^{i\theta}\). Then \(v + \ol{v}\) and \(i(v - \ol{v})\) are real vectors spanning a 2-dimensional \(T\)-invariant subspace on which \(T\) acts as rotation by \(\theta\).
 
-Repeating this decomposition and using orthogonality of distinct eigenspaces gives the result.}
+Repeating this decomposition and using orthogonality of distinct eigenspaces gives the result.%
+}
 
 \nt{In matrix form, choosing an orthonormal basis adapted to this decomposition, \(T\) is block-diagonal:
 \[T \sim \begin{pmatrix} I_{a} & & & & \\ & -I_{b} & & & \\ & & R_{\theta_1} & & \\ & & & \ddots & \\ & & & & R_{\theta_k} \end{pmatrix}\]
