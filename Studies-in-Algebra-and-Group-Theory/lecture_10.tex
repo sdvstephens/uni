@@ -97,6 +97,22 @@ for all \(u, w \in M\), \(a \in R\).
 }
 
 
+\subsection{Free Modules and Direct Sums}
+
+\dfn{Free module}{An \(R\)-module \(M\) is free if it has a basis: a set \(\{e_i\}_{i \in I}\) such that every element of \(M\) can be written uniquely as a finite \(R\)-linear combination \(\sum r_i e_i\). Equivalently, \(M \cong R^{(I)} = \bigoplus_{i \in I} R\). The rank of a free module is \(|I|\) (well-defined when \(R\) is commutative).%
+}
+
+\nt{Over a field, every module (= vector space) is free. Over \({\ZZ}\), free modules are the groups \({\ZZ}^n\). The module \({\ZZ}/n\) is \emph{not} free for \(n \geq 2\).}
+
+\dfn{Direct sum of modules}{The direct sum \(M_1 \oplus M_2\) is the set of pairs \((m_1, m_2)\) with componentwise operations. More generally, \(\bigoplus_{i \in I} M_i\) consists of tuples \((m_i)_{i \in I}\) with only finitely many nonzero entries. This has the universal property: maps out of \(\bigoplus M_i\) correspond to families of maps out of each \(M_i\).%
+}
+
+\dfn{Exact sequences of modules}{A sequence of \(R\)-module homomorphisms
+\[\cdots \to M_{i-1} \xrightarrow{f_{i-1}} M_i \xrightarrow{f_i} M_{i+1} \to \cdots\]
+is exact at \(M_i\) if \(\Img(f_{i-1}) = \Ker(f_i)\). A short exact sequence \(0 \to A \xrightarrow{f} B \xrightarrow{g} C \to 0\) means \(f\) is injective, \(g\) is surjective, and \(\Img(f) = \Ker(g)\), i.e., \(C \cong B/f(A)\). A short exact sequence \emph{splits} if \(B \cong A \oplus C\). Over a PID, every short exact sequence of finitely generated modules with \(C\) free splits (analogous to Maschke's theorem).%
+}
+
+
 \section{Classification of Finitely Generated Abelian Groups}
 
 The main theorem of this lecture is:

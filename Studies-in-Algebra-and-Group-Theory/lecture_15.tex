@@ -109,12 +109,31 @@ Comparing dimensions of the Hom spaces gives:
 \nt{Thus, if \(U\) is an irreducible representation of \(G\) and \(W\) an irreducible representation of \(H\), the number of times \(W\) appears in \(\operatorname{Res}^G_H(U)\) equals the number of times \(U\) appears in \(\operatorname{Ind}^G_H(W)\).}
 
 
+\section{Dimension Formulas and Irreducibility}
+
+\mprop{Dimension of induced representations}{\(\dim \operatorname{Ind}^G_H W = [G:H] \cdot \dim W\). This is immediate from the construction \(V = \bigoplus_{\sigma \in G/H} \sigma W\).%
+}
+
+\nt{An induced representation is almost never irreducible. For instance, \(\operatorname{Ind}^G_{\{e\}}({\CC}) = {\CC}[G]\) (the regular representation), which decomposes into all irreducibles of \(G\). Frobenius reciprocity gives a criterion: \(\operatorname{Ind}^G_H W\) is irreducible iff \(H(\chi_{\operatorname{Ind} W}, \chi_{\operatorname{Ind} W}) = 1\), which by Frobenius equals \(\langle \chi_{\operatorname{Ind} W}, \chi_{\operatorname{Ind} W} \rangle_G = \langle \chi_W, \chi_{\operatorname{Res} \operatorname{Ind} W} \rangle_H\). Analyzing \(\operatorname{Res}^G_H \operatorname{Ind}^G_H W\) leads to Mackey's formula, which we state without proof.}
+
+\mprop{Mackey's irreducibility criterion}{Let \(W\) be an irreducible representation of \(H \leq G\). Then \(\operatorname{Ind}^G_H W\) is irreducible if and only if for every \(g \in G \setminus H\), the representations \(W\) and \(W^g\) of \(H \cap gHg^{-1}\) have no common irreducible constituent, where \(W^g\) denotes the conjugate representation \(W^g(h) = W(g^{-1}hg)\) restricted to \(H \cap gHg^{-1}\).%
+}
+
+\ex{Induction from normal subgroups}{If \(H \trianglelefteq G\) and \(W\) is an irreducible representation of \(H\), then \(\operatorname{Ind}^G_H W\) is irreducible iff for all \(g \in G \setminus H\), the conjugate \(W^g\) is not isomorphic to \(W\) as an \(H\)-representation. In other words, \(W\) is not fixed by any nontrivial element of \(G/H\) acting on the set of irreducible representations of \(H\) by conjugation.%
+}
+
+\ex{Inducing from index-2 subgroups}{Let \([G:H] = 2\) and \(W\) an irreducible representation of \(H\). Since \(H\) is normal of index 2, there is a single nontrivial coset representative \(g\). Then \(\operatorname{Ind}^G_H W\) is irreducible iff \(W \not\cong W^g\), and splits as a direct sum of two irreducibles (each of dimension \(\dim W\)) when \(W \cong W^g\).
+
+For example, let \(G = S_3\) and \(H = A_3 \cong {\ZZ}/3\). The nontrivial irreducibles of \(A_3\) are the characters \(\chi_\omega : (123) \mapsto \omega\) and \(\chi_{\omega^2} : (123) \mapsto \omega^2\) (where \(\omega = e^{2\pi i/3}\)). Conjugation by \((12)\) swaps \(\chi_\omega \leftrightarrow \chi_{\omega^2}\), so \(\chi_\omega \not\cong \chi_\omega^g\) and \(\operatorname{Ind}^{S_3}_{A_3} \chi_\omega\) is irreducible. Since \(\dim = [S_3:A_3] \cdot 1 = 2\), this is the standard representation \(V\) of \(S_3\).%
+}
+
+
 \section{Example: \(S_4 \supset S_3\)}
 
 \ex{Restriction and induction between \(S_4\) and \(S_3\)}{Let \(G = S_4\) with irreducibles \(U_4, U_4', V_4, V_4', W\) (dimensions 1, 1, 3, 3, 2), and \(H = S_3\) with irreducibles \(U_3, U_3', V_3\) (dimensions 1, 1, 2). We compute restrictions using character tables (restricting the character of a representation of \(S_4\) to elements of \(S_3 \hookrightarrow S_4\)):
 \begin{itemize}
     \item \(\operatorname{Res}(U_4) = U_3\) and \(\operatorname{Res}(U_4') = U_3'\) (trivial and sign restrict to trivial and sign).
-    \item \(\operatorname{Res}(V_4) = V_3 \oplus U_3\). Indeed, the permutation representation \(\CC^4\) restricts as \(\CC^3 \oplus \CC\) (the 4th coordinate is fixed by \(S_3\)), so \(\operatorname{Res}(V_4 \oplus U_4) = V_3 \oplus U_3 \oplus U_3\).
+    \item \(\operatorname{Res}(V_4) = V_3 \oplus U_3\). Indeed, the permutation representation \({\CC}^4\) restricts as \({\CC}^3 \oplus {\CC}\) (the 4th coordinate is fixed by \(S_3\)), so \(\operatorname{Res}(V_4 \oplus U_4) = V_3 \oplus U_3 \oplus U_3\).
     \item \(\operatorname{Res}(V_4') = V_3 \oplus U_3'\) (since \(V_4' = V_4 \otimes U_4'\) and \(V_3 \otimes U_3' \cong V_3\)).
     \item \(\operatorname{Res}(W) = V_3\). The representation \(W\) factors through \(S_4/\{e, (12)(34), (13)(24), (14)(23)\} \cong S_3\), and \(W\) as a representation of this quotient is the standard representation \(V_3\).
 \end{itemize}

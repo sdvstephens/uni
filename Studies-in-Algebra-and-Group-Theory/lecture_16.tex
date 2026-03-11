@@ -86,6 +86,27 @@ Such a \(J\) makes \(V\) into a module over the quaternions \(\mathbb{H} = \{a +
 \end{itemize}
 And if \(\chi_V\) is not real-valued, then \(V \not\cong V^*\) and \(V\) is neither real nor quaternionic.}
 
+\section{The Frobenius--Schur Indicator}
+
+The symmetric/skew dichotomy can be detected numerically.
+
+\thm{Frobenius--Schur indicator}{For an irreducible representation \(V\) of a finite group \(G\),
+\[\nu(V) := \frac{1}{|G|} \sum_{g \in G} \chi_V(g^2) = \begin{cases} 1 & \text{if } V \text{ is real}, \\ 0 & \text{if } \chi_V \notin {\RR}, \\ -1 & \text{if } V \text{ is quaternionic}. \end{cases}\]%
+}
+
+\pf{Proof}{Using the character formulas \(\chi_{\Sym^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 + \chi_V(g^2))\) and \(\chi_{\bigwedge^2 V}(g) = \frac{1}{2}(\chi_V(g)^2 - \chi_V(g^2))\), we get
+\[\nu(V) = \frac{1}{|G|} \sum_g \chi_V(g^2) = \dim(\Sym^2 V)^G - \dim(\bigwedge^2 V)^G.\]
+Now \((\Sym^2 V)^G\) counts the multiplicity of the trivial representation in \(\Sym^2 V\), and similarly for \(\bigwedge^2 V\). A \(G\)-invariant bilinear form on \(V\) (a \(G\)-fixed element of \((V \otimes V)^*\)) is either symmetric or skew-symmetric.
+
+If \(V \not\cong V^*\), then \(\Hom_G(V, V^*) = 0\), so no invariant bilinear form exists. Both dimensions are 0, giving \(\nu(V) = 0\).
+
+If \(V \cong V^*\) (i.e., \(\chi_V\) real-valued), then \(\dim \Hom_G(V, V^*) = 1\) by Schur. The unique form is either symmetric or skew, so exactly one of the two dimensions equals 1. The form is symmetric iff \(V\) is real (\(\nu = 1 - 0 = 1\)), and skew iff \(V\) is quaternionic (\(\nu = 0 - 1 = -1\)).%
+}
+
+\mprop{Quaternionic representations have even dimension}{If \(V\) is quaternionic, then \(\dim_{\CC} V\) is even, since \(J\) with \(J^2 = -\id\) makes \(V\) into an \(\mathbb{H}\)-module and \(\dim_{\CC} V = 2 \dim_\mathbb{H} V\). In particular, an irreducible representation with real character and odd dimension is automatically real.%
+}
+
+
 \section{Examples}
 
 \ex{Standard representation of \(S_3\)}{The 2-dimensional irreducible \(V\) of \(S_3 \cong D_3\) is real: \(S_3\) acts on \(V_0 = \{(x_1, x_2, x_3) \in {\RR}^3 : \sum x_i = 0\} \cong {\RR}^2\) by rotations and reflections, and \(V = V_0 \otimes_{\RR} {\CC}\).

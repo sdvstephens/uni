@@ -187,6 +187,20 @@ In particular, the characters of distinct irreducible representations are linear
 \pf{Proof}{\(\dim R = |G| = \sum_i a_i \dim V_i = \sum_i (\dim V_i)^2\).}
 
 
+\subsection{Column Orthogonality}
+
+The row orthogonality relations (character orthonormality) have a dual version: orthogonality of the columns of the character table.
+
+\mprop{Column orthogonality relations}{Let \(C_1, \ldots, C_k\) be the conjugacy classes of \(G\), with representatives \(g_1, \ldots, g_k\) and sizes \(|C_1|, \ldots, |C_k|\). Then
+\[\sum_{i=1}^k \chi_{V_i}(g_s) \, \overline{\chi_{V_i}(g_t)} = \frac{|G|}{|C_s|} \delta_{st}.\]%
+}
+
+\pf{Proof}{Consider the \(k \times k\) character table matrix \(X\) with entries \(X_{ij} = \chi_{V_i}(g_j)\). Row orthonormality states \(\frac{1}{|G|} \sum_j |C_j| \, X_{ij} \overline{X_{\ell j}} = \delta_{i\ell}\). In matrix form, \(X D \overline{X}^T = |G| \cdot I\) where \(D = \diag(|C_1|/|G|, \ldots, |C_k|/|G|)\). Since \(X\) is square and invertible (the rows are linearly independent), this gives \(\overline{X}^T X D = |G| \cdot I\), which rearranges to the column relations.%
+}
+
+\nt{Column orthogonality provides an independent check on computed character tables. It also has a group-theoretic interpretation: two elements \(g, h \in G\) are conjugate if and only if \(\chi_V(g) = \chi_V(h)\) for every representation \(V\). Characters separate conjugacy classes.}
+
+
 \section{Character Tables}
 
 \subsection{Character Table of \(S_3\)}
