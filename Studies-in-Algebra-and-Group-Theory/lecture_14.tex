@@ -35,19 +35,19 @@ where we substituted \(g = hg'h^{-1}\) (so \(g' = h^{-1}gh\)) and used that \(\a
 
 \pf{Proof}{We already proved orthonormality. It remains to show spanning: if \(H(\alpha, \chi_{V_i}) = 0\) for all \(i\), then \(\alpha = 0\).
 
-Given any class function \(\alpha\) and any irreducible representation \(V_i\) of dimension \(n_i\), the operator \(\varphi_{\alpha, V_i} : V_i \to V_i\) is \(G\)-equivariant by the proposition above. By Schur's lemma, \(\varphi_{\alpha, V_i} = \lambda \cdot \id_{V_i}\) for some \(\lambda \in \CC\). Taking traces:
-\[\lambda = \frac{1}{n_i} \Tr(\varphi_{\alpha, V_i}) = \frac{1}{n_i} \cdot \frac{1}{|G|} \sum_{g \in G} \alpha(g) \chi_{V_i}(g) = \frac{1}{n_i} H(\alpha, \chi_{V_i}).\]
+Given any class function \(\alpha\) and any irreducible representation \(V_i\) of dimension \(n_i\), the operator \(\varphi_{\ol{\alpha}, V_i} : V_i \to V_i\) is \(G\)-equivariant by the proposition above (since \(\ol{\alpha}\) is also a class function). By Schur's lemma, \(\varphi_{\ol{\alpha}, V_i} = \lambda \cdot \id_{V_i}\) for some \(\lambda \in \CC\). Taking traces:
+\[\lambda = \frac{1}{n_i} \Tr(\varphi_{\ol{\alpha}, V_i}) = \frac{1}{n_i} \cdot \frac{1}{|G|} \sum_{g \in G} \ol{\alpha(g)} \chi_{V_i}(g) = \frac{1}{n_i} H(\alpha, \chi_{V_i}).\]
 
-So if \(H(\alpha, \chi_{V_i}) = 0\) for all irreducible \(V_i\), then \(\varphi_{\alpha, V_i} = 0\) for all irreducible \(V_i\). By complete reducibility, \(\varphi_{\alpha, V} = 0\) for every representation \(V\) of \(G\) (since \(\varphi_{\alpha, \cdot}\) respects direct sums). In particular, taking \(V = R\) the regular representation with basis \(\{e_g\}_{g \in G}\):
-\[\varphi_{\alpha, R}(e_e) = \frac{1}{|G|} \sum_{g \in G} \alpha(g) \, e_g = 0.\]
+So if \(H(\alpha, \chi_{V_i}) = 0\) for all irreducible \(V_i\), then \(\varphi_{\ol{\alpha}, V_i} = 0\) for all irreducible \(V_i\). By complete reducibility, \(\varphi_{\ol{\alpha}, V} = 0\) for every representation \(V\) of \(G\) (since \(\varphi_{\ol{\alpha}, \cdot}\) respects direct sums). In particular, taking \(V = R\) the regular representation with basis \(\{e_g\}_{g \in G}\):
+\[\varphi_{\ol{\alpha}, R}(e_e) = \frac{1}{|G|} \sum_{g \in G} \ol{\alpha(g)} \, e_g = 0.\]
 
-Since the \(e_g\) are linearly independent, \(\alpha(g) = 0\) for all \(g \in G\).
+Since the \(e_g\) are linearly independent, \(\ol{\alpha(g)} = 0\) for all \(g \in G\), hence \(\alpha = 0\).
 }
 
 \subsection{Projection onto Isotypic Components}
 
-The proof above also yields an explicit projection formula. For \(V_i, V_j\) irreducible, consider the class function \(\alpha = \chi_{V_i}\). Then
-\[\varphi_{\chi_{V_i}, V_j} = \frac{1}{n_j} H(\chi_{V_i}, \chi_{V_j}) \cdot \id_{V_j} = \begin{cases} \frac{1}{n_i} \cdot \id_{V_i} & \text{if } i = j, \\ 0 & \text{if } i \neq j. \end{cases}\]
+The proof above also yields an explicit projection formula. For \(V_i, V_j\) irreducible, consider the class function \(\alpha = \ol{\chi_{V_i}}\). Then
+\[\varphi_{\ol{\chi_{V_i}}, V_j} = \frac{1}{n_j} H(\chi_{V_i}, \chi_{V_j}) \cdot \id_{V_j} = \begin{cases} \frac{1}{n_i} \cdot \id_{V_i} & \text{if } i = j, \\ 0 & \text{if } i \neq j. \end{cases}\]
 
 \mprop{Isotypic projection formula}{If \(V\) is any representation of \(G\) with decomposition \(V = \bigoplus_i V_i^{\oplus a_i}\), then the map
 \[\varphi_{V_i} = \frac{n_i}{|G|} \sum_{g \in G} \ol{\chi_{V_i}(g)} \, g : V \to V\]

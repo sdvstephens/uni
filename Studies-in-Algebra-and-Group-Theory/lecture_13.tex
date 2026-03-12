@@ -77,7 +77,7 @@ Then \(H\) is still Hermitian and positive-definite (a positive combination of p
 
 \pf{Proof 2 (via averaging projection)}{Choose any complementary subspace \(U_0\) with \(V = W \oplus U_0\) (not necessarily \(G\)-invariant). Let \(\pi_0 : V \to W\) be the projection onto \(W\) with kernel \(U_0\) (\(\pi_0|_W = \id\), \(\pi_0|_{U_0} = 0\)). Average:
 \[\pi(v) = \frac{1}{|G|} \sum_{g \in G} g \, \pi_0(g^{-1} v).\]
-Then \(\pi : V \to W\) is \(G\)-equivariant (\(g\pi g^{-1} = \pi\)), and \(\pi|_W = \id\) (since \(g\pi_0(g^{-1}w) = g(g^{-1}w) = w\) for \(w \in W\), as \(g^{-1}w \in W\)). So \(\pi\) is a surjection onto \(V^G\), and \(U = \Ker(\pi)\) is a \(G\)-invariant complement.
+Then \(\pi : V \to W\) is \(G\)-equivariant (\(g\pi g^{-1} = \pi\)), and \(\pi|_W = \id\) (since \(g\pi_0(g^{-1}w) = g(g^{-1}w) = w\) for \(w \in W\), as \(g^{-1}w \in W\)). So \(\pi\) is a \(G\)-equivariant projection onto \(W\), and \(U = \Ker(\pi)\) is a \(G\)-invariant complement.
 }
 
 \nt{Maschke's theorem fails when \(\operatorname{char}(k)\) divides \(|G|\) (modular representation theory), and also fails for infinite groups in general: the representation of \(G = \ZZ\) (or \(\RR\)) on \(\CC^2\) via \(t \mapsto \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\) has the invariant subspace \(\CC \times \{0\}\) but no complementary invariant subspace.}
@@ -195,7 +195,7 @@ The row orthogonality relations (character orthonormality) have a dual version: 
 \[\sum_{i=1}^k \chi_{V_i}(g_s) \, \overline{\chi_{V_i}(g_t)} = \frac{|G|}{|C_s|} \delta_{st}.\]%
 }
 
-\pf{Proof}{Consider the \(k \times k\) character table matrix \(X\) with entries \(X_{ij} = \chi_{V_i}(g_j)\). Row orthonormality states \(\frac{1}{|G|} \sum_j |C_j| \, X_{ij} \overline{X_{\ell j}} = \delta_{i\ell}\). In matrix form, \(X D \overline{X}^T = |G| \cdot I\) where \(D = \diag(|C_1|/|G|, \ldots, |C_k|/|G|)\). Since \(X\) is square and invertible (the rows are linearly independent), this gives \(\overline{X}^T X D = |G| \cdot I\), which rearranges to the column relations.%
+\pf{Proof}{Consider the \(k \times k\) character table matrix \(X\) with entries \(X_{ij} = \chi_{V_i}(g_j)\). Row orthonormality states \(\frac{1}{|G|} \sum_j |C_j| \, X_{ij} \overline{X_{\ell j}} = \delta_{i\ell}\). In matrix form, \(X D \overline{X}^T = I\) where \(D = \diag(|C_1|/|G|, \ldots, |C_k|/|G|)\). Since \(X\) is square and invertible, \(X^{-1} = D \overline{X}^T\). Taking the transpose: \((X^T)^{-1} = \overline{X} D\), so \(X^T \overline{X} D = I\), giving \(X^T \overline{X} = D^{-1}\). Entry-by-entry, this is the column orthogonality relation.%
 }
 
 \nt{Column orthogonality provides an independent check on computed character tables. It also has a group-theoretic interpretation: two elements \(g, h \in G\) are conjugate if and only if \(\chi_V(g) = \chi_V(h)\) for every representation \(V\). Characters separate conjugacy classes.}

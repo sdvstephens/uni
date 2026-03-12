@@ -52,10 +52,10 @@ Recall from \textbf{Lecture 2} that every abelian group \((G, +)\) is a \(\ZZ\)-
 \dfn{Submodule}{A \textbf{submodule} of an \(R\)-module \(M\) is a subset \(N \subseteq M\) that is itself an \(R\)-module under the inherited operations. Equivalently, \(N\) is a subgroup of \((M, +)\) that is closed under scalar multiplication: \(rn \in N\) for all \(r \in R\), \(n \in N\).
 }
 
-\dfn{Ideal}{A submodule of \(R\) (viewed as a module over itself) is called an \textbf{ideal}. That is, an ideal \(I \subseteq R\) is a subset satisfying:
+\dfn{Ideal}{A submodule of \(R\) (viewed as a module over itself) is called a \textbf{left ideal}. When \(R\) is commutative (as will be the case for us), left ideals are automatically \textbf{two-sided ideals}: subsets \(I \subseteq R\) satisfying:
 \begin{enumerate}[(i)]
     \item \(I\) is an abelian subgroup of \((R, +)\).
-    \item \(R \cdot I \subseteq I\): for all \(r \in R\) and \(a \in I\), we have \(ra \in I\).
+    \item \(rI \subseteq I\) and \(Ir \subseteq I\) for all \(r \in R\).
 \end{enumerate}
 }
 
@@ -93,7 +93,7 @@ By contrast, this pathology does not occur over Noetherian rings (including \(\Z
 for all \(u, w \in M\), \(a \in R\).
 }
 
-\nt{\(\Hom_R(M, N)\) is itself an \(R\)-module: \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\) and \((a\varphi)(v) = a\varphi(v)\). For free modules, things work as expected: \(\Hom_R(R^m, R^n) \cong R^{m \times n}\) (determined by images of basis vectors, just like linear maps between vector spaces). But for non-free modules, \(\Hom_R(M, N)\) can vanish even when both \(M\) and \(N\) are nonzero. For instance, \(\Hom_R(k, k[x]) = 0\) when \(R = k[x]\) and \(M = k = k[x]/(x)\): any \(\varphi\) must satisfy \(x \cdot \varphi(1) = \varphi(x \cdot 1) = \varphi(0) = 0\), so \(\varphi(1)\) is killed by \(x\) in \(k[x]\), forcing \(\varphi(1) = 0\).
+\nt{When \(R\) is commutative, \(\Hom_R(M, N)\) is itself an \(R\)-module: \((\varphi + \psi)(v) = \varphi(v) + \psi(v)\) and \((a\varphi)(v) = a\varphi(v)\). (For noncommutative \(R\), this scalar multiplication need not yield an \(R\)-module homomorphism, so \(\Hom_R(M, N)\) is only an abelian group.) For free modules, things work as expected: \(\Hom_R(R^m, R^n) \cong R^{m \times n}\) (determined by images of basis vectors, just like linear maps between vector spaces). But for non-free modules, \(\Hom_R(M, N)\) can vanish even when both \(M\) and \(N\) are nonzero. For instance, \(\Hom_R(k, k[x]) = 0\) when \(R = k[x]\) and \(M = k = k[x]/(x)\): any \(\varphi\) must satisfy \(x \cdot \varphi(1) = \varphi(x \cdot 1) = \varphi(0) = 0\), so \(\varphi(1)\) is killed by \(x\) in \(k[x]\), forcing \(\varphi(1) = 0\).
 }
 
 

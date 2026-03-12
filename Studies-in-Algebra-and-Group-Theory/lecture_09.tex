@@ -430,9 +430,9 @@ for all \(v, w \in V\).
 Since the inner product is nondegenerate, the map \(\varphi : V \to V^*\) defined by \(\varphi(u) = \langle u, \cdot \rangle\) is an isomorphism. Thus there exists a unique \(u \in V\) with \(\langle u, w \rangle = \langle v, T(w) \rangle\) for all \(w\). Define \(T^*(v) = u\).
 
 We must check \(T^*\) is linear. For \(v_1, v_2 \in V\) and \(\lambda \in k\):
-\[\langle T^*(v_1 + \lambda v_2), w \rangle = \langle v_1 + \lambda v_2, T(w) \rangle = \langle v_1, T(w) \rangle + \ol{\lambda} \langle v_2, T(w) \rangle\]
-\[= \langle T^*(v_1), w \rangle + \ol{\lambda} \langle T^*(v_2), w \rangle = \langle T^*(v_1) + \lambda T^*(v_2), w \rangle.\]
-(In the real case, \(\ol{\lambda} = \lambda\).) Since this holds for all \(w\), we get \(T^*(v_1 + \lambda v_2) = T^*(v_1) + \lambda T^*(v_2)\).
+\[\langle T^*(v_1 + \lambda v_2), w \rangle = \langle v_1 + \lambda v_2, T(w) \rangle = \langle v_1, T(w) \rangle + \lambda \langle v_2, T(w) \rangle\]
+\[= \langle T^*(v_1), w \rangle + \lambda \langle T^*(v_2), w \rangle = \langle T^*(v_1) + \lambda T^*(v_2), w \rangle.\]
+Since this holds for all \(w\), we get \(T^*(v_1 + \lambda v_2) = T^*(v_1) + \lambda T^*(v_2)\).
 
 \textbf{Uniqueness:} If \(S\) also satisfies \(\langle v, T(w) \rangle = \langle S(v), w \rangle\), then \(\langle T^*(v) - S(v), w \rangle = 0\) for all \(w\), so \(T^*(v) = S(v)\) by nondegeneracy.
 }
@@ -930,7 +930,7 @@ Let \(J : W \to W\) be scalar multiplication by \(i\). Then:
 \begin{enumerate}[(i)]
     \item \(G\) is a symmetric bilinear form on \(W\).
     \item \(B\) is a skew-symmetric bilinear form on \(W\).
-    \item \(G(u, v) = B(u, Jv)\) for all \(u, v \in W\).
+    \item \(G(u, v) = B(Ju, v)\) for all \(u, v \in W\).
     \item \(H\) is nondegenerate iff \(G\) is nondegenerate iff \(B\) is nondegenerate.
 \end{enumerate}
 }
@@ -940,9 +940,9 @@ Let \(J : W \to W\) be scalar multiplication by \(i\). Then:
 
 (ii) Similarly, \(B(v, u) = \operatorname{Im} H(v, u) = \operatorname{Im} \ol{H(u, v)} = -\operatorname{Im} H(u, v) = -B(u, v)\).
 
-(iii) \(B(u, Jv) = \operatorname{Im} H(u, iv) = \operatorname{Im}(\ol{i} H(u, v)) = \operatorname{Im}(-i H(u, v)) = \operatorname{Re} H(u, v) = G(u, v)\).
+(iii) \(B(Ju, v) = \operatorname{Im} H(iu, v) = \operatorname{Im}(i \cdot H(u, v)) = \operatorname{Re} H(u, v) = G(u, v)\).
 
-(iv) Suppose \(H\) is nondegenerate and \(G(u, v) = 0\) for all \(v\). Then \(B(u, Jv) = G(u, v) = 0\) for all \(v\), so \(B(u, w) = 0\) for all \(w\) (since \(J\) is surjective). Thus \(H(u, v) = G(u, v) + iB(u, v) = 0\) for all \(v\), giving \(u = 0\). The other implications are similar.
+(iv) Suppose \(H\) is nondegenerate and \(G(u, v) = 0\) for all \(v\). Then \(B(Ju, v) = G(u, v) = 0\) for all \(v\), so \(B(w, v) = 0\) for all \(w, v\) (since \(J\) is surjective). Thus \(H(u, v) = G(u, v) + iB(u, v) = 0\) for all \(v\), giving \(u = 0\). The other implications are similar.
 }
 
 \nt{A linear operator \(T : W \to W\) is \(\CC\)-linear (i.e., \(T \circ J = J \circ T\)) iff it comes from a \(\CC\)-linear operator on \(V\). The proposition implies: for nondegenerate \(H\), any two of the following imply the third:
@@ -999,7 +999,7 @@ Differentiating: \(\frac{d}{dt}|_{t=0} f(w_t) = 2\langle T(v), u \rangle\). So \
 
 Thus \(T(v) \perp v^\perp\), meaning \(T(v) \in (v^\perp)^\perp = \operatorname{span}(v)\). So \(T(v) = \lambda v\) for some \(\lambda\).
 
-\textbf{(3)} e have $T(S) = \{w : \|T^{-1}(w)\| = 1\}$. Now
+\textbf{(3)} We have $T(S) = \{w : \|T^{-1}(w)\| = 1\}$. Now
 \[
   \|T^{-1}(w)\|^2 = \langle T^{-1}(w),\, T^{-1}(w) \rangle = \langle (T^{-1})^* T^{-1}(w),\, w \rangle = \langle Q(w),\, w \rangle,
 \]
