@@ -18,6 +18,11 @@
       "code": "7.01SC",
       "instructor": "",
       "schedule": ""
+    },
+    "Proof and Problem Solving": {
+      "code": "MARS101",
+      "instructor": "Mars and Sam",
+      "schedule": "mew"
     }
   }
 }
