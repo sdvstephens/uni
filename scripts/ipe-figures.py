@@ -57,8 +57,8 @@ class IpeFigures:
 <ipe version="70218" creator="Ipe 7.2.24">
 <info created="D:20240101000000" modified="D:20240101000000"/>
 <preamble>
-\\input{{/Users/stephens1/university/preamble.tex}}
-{"\\input{/Users/stephens1/university/preamble-darkmode.tex}" if self.dark_mode else ""}
+\\input{{~/university/preamble.tex}}
+{"\\input{~/university/preamble-darkmode.tex}" if self.dark_mode else ""}
 </preamble>
 <ipestyle name="custom">
 {extra_colors}

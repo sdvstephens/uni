@@ -25,3 +25,5 @@ build/
 
 # Optional: Keep PDFs out of version control
 # *.pdf
+__pycache__/
+*.pyc

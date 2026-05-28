@@ -59,7 +59,7 @@ We say that \(s_1\) is made up of all \(t_i\) that are odd; \(s_{2}\) is made up
 
 \pf{Proof}{Proof of non-existence of largest cardinality
 
-Recall that \(\{0,1\}^S = \{ \text{all } f \text{ such that } f : S \to \{0,1\} \}\). There must exist a bijection since \(|\mcP(S)| = 2^{|S|}\) and \(|\{0,1\}^S| = 2^{|S|}\). Now to show \(|\mcP(S)| > |S|\) we use proof by contradiction: suppose \(\exists \alpha : S \leftrightarrow \mcP(S)\) and let \(A \subset S\) defined by \(A \coloneqq \{s \in S \mid s \neq \alpha(s)\}\), now for \(A = \alpha(t)\) for some \(t \in A\) we notice that \(t \not\in \alpha(t) = A\) means that \(t \in A\), but to say \(t \in \alpha(t) \implies t \not\in A\), thus we have a contradiction.
+Recall that \(\{0,1\}^S = \{ \text{all } f \text{ such that } f : S \to \{0,1\} \}\). There must exist a bijection since \(|\mcP(S)| = 2^{|S|}\) and \(|\{0,1\}^S| = 2^{|S|}\). Now to show \(|\mcP(S)| > |S|\) we use proof by contradiction: suppose \(\exists \alpha : S \leftrightarrow \mcP(S)\) and let \(A \subset S\) defined by \(A \coloneqq \{s \in S \mid s \not\in \alpha(s)\}\), now for \(A = \alpha(t)\) for some \(t \in A\) we notice that \(t \not\in \alpha(t) = A\) means that \(t \in A\), but to say \(t \in \alpha(t) \implies t \not\in A\), thus we have a contradiction.
 }
 
 Another option for this proof, though less formal, can be found by showing that \(\mcP(S) = \{0,1\}^S\) and that subsets of \(S\) have \(f\) such that \(f \mapsto f^{-1}\); let \(A \subset S\) then
@@ -113,7 +113,7 @@ Why stop at integers? What if we want to make congruence mod \(H\) where \(H\) i
 
 \subsection{Congruence mod \(H\) and cosets}
 
-For any two elements \(a, b \in G\) we define \(a \sim b \iff ab^{-1} \in H\), this is to say that \(a \in bH\). We thus have \(a \sim a\) since \(e \in H\), \(a \sim b \implies ab^{-1} \in H\), and \(ba^{-1} = (ab^{-1})^{-1} \in H\), thus \(b \sim a\). Finally, \(a \sim b, b \sim c\) meaning that \(ab^{-1}\) and \(bc^{-1}\) are both in \(H\), so \(ac^{-1} = (ab^{-1})(bc^{-1}) \in H\) since \(H\) is closed under the group operation, thus \(a \sim c\) and transitivity holds. We have shown congruence mod \(H\) is indeed an equivalence relation.
+For any two elements \(a, b \in G\) we define \(a \sim b \iff a^{-1}b \in H\), this is to say that \(b \in aH\). We thus have \(a \sim a\) since \(a^{-1}a = e \in H\), \(a \sim b \implies a^{-1}b \in H\), and \(b^{-1}a = (a^{-1}b)^{-1} \in H\), thus \(b \sim a\). Finally, \(a \sim b, b \sim c\) meaning that \(a^{-1}b\) and \(b^{-1}c\) are both in \(H\), so \(a^{-1}c = (a^{-1}b)(b^{-1}c) \in H\) since \(H\) is closed under the group operation, thus \(a \sim c\) and transitivity holds. We have shown congruence mod \(H\) is indeed an equivalence relation.
 
 \dfn{Cosets}{Given a subgroup \(H \subset G\) and an element \(a \in G\), the \textbf{\emph{left coset}} of \(H\) containing \(a\) is the set \(aH = \{ah \mid h \in H\}\). Similarly, the \textbf{\emph{right coset}} is \(Ha = \{ha \mid h \in H\}\). The equivalence classes under congruence mod \(H\) are precisely the left cosets of \(H\).
 }
@@ -152,20 +152,20 @@ The left cosets of \(H\) partition \(G\) into disjoint subsets, each of cardinal
 
 A question naturally arises then: when is \(G/H\) a group? If we try to define \((aH)(bH) = abH\), we need this to be well-defined, meaning if \(aH = a'H\) and \(bH = b'H\), then \(abH = a'b'H\). This does \emph{not} always work!
 
-\ex{}{Consider \(G = S_3\) and \(H = \{e, (12)\}\). We have three left cosets: \(H = \{e, (12)\}\), \((13)H = \{(13), (132)\}\), and \((23)H = \{(23), (123)\}\). Take representatives \(a = (13)\) and \(a' = (132)\) from the same coset; both satisfy \(aH = a'H = (13)H\). Now take \(b = (23)\). We compute:
+\ex{}{Consider \(G = S_3\) and \(H = \{e, (12)\}\), using right-to-left composition (so \((\sigma\tau)(x) = \sigma(\tau(x))\)). The three left cosets are \(H = \{e, (12)\}\), \((13)H = \{(13), (123)\}\), and \((23)H = \{(23), (132)\}\). Fix \(a = (13)\) and take representatives \(b = (23)\) and \(b' = (132)\) from the same coset \((23)H\). We compute:
 \begin{align*}
-ab &= (13)(23) = (132), \quad \text{so } abH = (132)H = (13)H \\
-a'b &= (132)(23) = (13), \quad \text{so } a'bH = (13)H
+ab &= (13)(23) = (132), \quad \text{so } abH = (132)H = (23)H \\
+ab' &= (13)(132) = (23), \quad \text{so } ab'H = (23)H
 \end{align*}
-Okay, this worked (yay)! But now try \(b = (13)\) and \(b' = (132)\) (same coset), with \(a = (23)\):
+Okay, this worked (yay)! But now try varying \(a\) instead: take \(a = (13)\) and \(a' = (123)\) (same coset), with \(b = (23)\):
 \begin{align*}
-ab &= (23)(13) = (123), \quad \text{so } abH = (123)H = (23)H \\
-ab' &= (23)(132) = (12), \quad \text{so } ab'H = (12)H = H
+ab &= (13)(23) = (132), \quad \text{so } abH = (132)H = (23)H \\
+a'b &= (123)(23) = (12), \quad \text{so } a'bH = (12)H = H
 \end{align*}
 Disaster! We got \((23)H \neq H\), so coset multiplication is not well-defined for this \(H\).
 }
 
-What went wrong? The issue is that \(H = \{e, (12)\}\) is not ``symmetric'' enough---left cosets and right cosets differ. For instance, \((13)H = \{(13), (132)\}\) but \(H(13) = \{(13), (123)\}\).
+What went wrong? The issue is that \(H = \{e, (12)\}\) is not ``symmetric'' enough---left cosets and right cosets differ. For instance, \((13)H = \{(13), (123)\}\) but \(H(13) = \{(13), (132)\}\).
 
 \subsection{Normal subgroups and quotient groups}
 
@@ -314,7 +314,7 @@ Consider the left multiplication action of \(G\) on itself: \(g \cdot h = gh\). 
 
 \textbf{Injectivity:} If \(\rho(g) = \rho(g')\), then for all \(h \in G\), \(gh = g'h\). Taking \(h = e\): \(g = g'\). Thus \(\ker(\rho) = \{e\}\), so \(\rho\) is injective.
 
-By the First Isomorphism Theorem, \(G \cong \Img(\rho) \subset \Sym(G)\). If \(|G| = n\), then \(\Sym(G) \cong S_n\).
+By the First Isomorphism Theorem (cited here ahead of its proof later in this lecture), \(G \cong \Img(\rho) \subset \Sym(G)\). If \(|G| = n\), then \(\Sym(G) \cong S_n\).
 }
 
 \nt{Cayley's theorem is simultaneously profound and useless. Profound: every abstract group is ``really'' a permutation group; the group axioms capture exactly the structure of bijection composition. Useless: the embedding is almost always far larger than necessary. \(S_n\) has order \(n!\), so embedding a group of order \(n\) into \(S_n\) wastes enormous space. Better embeddings come from finding smaller faithful actions. 'Tis fun nonetheless.
@@ -1002,7 +1002,7 @@ Explicitly: define \(\varphi : G \to \mathbb{Z}^2\) by \(\varphi(a) = (1, 0)\) a
 
 A presentation: \(Q_8 = \langle i, j \mid i^4, i^2 j^{-2}, iji^{-1}j \rangle\).
 
-Let's verify: \(i^4 = 1\) says \(i\) has order dividing 4 (actually 4). \(i^2 = j^2\) says both square to the same element (which will be \(-1\)). \(iji^{-1}j = e\) means \(ij = j^{-1}i^{-1} = j^{-1}i^3 = j^{-1}(i^{-1}) = (ji)^{-1}\), which combined with \(i^2 = j^2\) gives \(ij = k\) where \(k = i^{-1}j^{-1}\), and one can derive all the quaternion relations.
+Let's verify: \(i^4 = 1\) says \(i\) has order dividing 4 (actually 4). \(i^2 = j^2\) says both square to the same element (which will be \(-1\)). \(iji^{-1}j = e\) rearranges to \(ij = j^{-1}i\); combined with \(i^2 = j^2\) (hence \(j^4 = 1\) and \(j^{-1} = j^3 = j \cdot i^2\)), this gives \(ij = ji^3 = ji^{-1}\), which is the characteristic non-commutativity of the quaternions (setting \(k := ij\), one can derive all the standard relations \(i^2 = j^2 = k^2 = ijk = -1\)).
 
 Alternative (cleaner): \(Q_8 = \langle x, y \mid x^4, x^2 y^{-2}, yxy^{-1}x \rangle\).
 

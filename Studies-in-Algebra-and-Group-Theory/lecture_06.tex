@@ -226,7 +226,7 @@ For a matrix \(A \in \mcM_{m \times n}(k)\), the associated linear map is \(L_A 
 
 \nt{The rank of a matrix equals the number of linearly independent columns, which equals the number of linearly independent rows. The column space has dimension equal to the rank, and the null space has dimension equal to \(n - \rank(A)\).
 
-Looking ahead: when we study eigenvalues, the kernel will reappear in a crucial role. For a linear operator \(T : V \to V\) and scalar \(\lambda\), the \textbf{\emph{eigenspace}} \(E_\lambda = \ker(T - \lambda I)\) is precisely the kernel of the shifted operator. The dimension of this eigenspace (the \emph{geometric multiplicity} of \(\lambda\)) measures ``how degenerate'' the eigenvalue is. The interplay between algebraic and geometric multiplicities---and the failure of these to match---is what makes Jordan normal form necessary.
+Looking ahead (citing concepts we'll introduce in later lectures): when we study eigenvalues, the kernel will reappear in a crucial role. For a linear operator \(T : V \to V\) and scalar \(\lambda\), the \textbf{\emph{eigenspace}} \(E_\lambda = \ker(T - \lambda I)\) is precisely the kernel of the shifted operator. The dimension of this eigenspace (the \emph{geometric multiplicity} of \(\lambda\)) measures ``how degenerate'' the eigenvalue is. The interplay between algebraic and geometric multiplicities---and the failure of these to match---is what makes Jordan normal form necessary.
 }
 
 \ex{Computing kernel and image}{Let \(A = \begin{pmatrix} 1 & 2 & 3 \\ 0 & 1 & 2 \\ 1 & 3 & 5 \end{pmatrix}\) over \(\RR\).
@@ -383,11 +383,11 @@ T^*(\lambda \psi) &= (\lambda \psi) \circ T = \lambda(\psi \circ T) = \lambda T^
 \end{align*}
 }
 
-\mprop{Algebraic properties of the dual map}{Let \(S : V \to W\) and \(T : W \to U\) be linear maps.
+\mprop{Algebraic properties of the dual map}{Let \(V, W, U\) be vector spaces over \(k\).
 \begin{enumerate}
-  \item \((S + T)^* = S^* + T^*\) (when both are defined).
-  \item \((\lambda T)^* = \lambda T^*\) for \(\lambda \in k\).
-  \item \((T \circ S)^* = S^* \circ T^*\) (order reverses!).
+  \item For \(S, T : V \to W\), \((S + T)^* = S^* + T^*\).
+  \item For \(T : V \to W\) and \(\lambda \in k\), \((\lambda T)^* = \lambda T^*\).
+  \item For \(S : V \to W\) and \(T : W \to U\), \((T \circ S)^* = S^* \circ T^*\) (order reverses!).
   \item \((\id_V)^* = \id_{V^*}\).
 \end{enumerate}
 }
@@ -448,6 +448,34 @@ Here, for a subspace \(U \subseteq V\), the \textbf{\emph{annihilator}} is \(U^\
 \nt{The annihilator \(U^\circ\) consists of all linear functionals that vanish on \(U\). If \(\dim(V) = n\) and \(\dim(U) = k\), then \(\dim(U^\circ) = n - k\). The annihilator provides a duality between subspaces of \(V\) and subspaces of \(V^*\): bigger subspaces have smaller annihilators.
 }
 
+\subsection{The Double Dual and Natural Isomorphisms}
+
+We've seen that \(V \cong V^*\) for finite-dimensional \(V\), but this isomorphism required a choice of basis. The double dual \(V^{**} = (V^*)^*\) enjoys a more canonical relationship with \(V\).
+
+\dfn{Evaluation map}{The \textbf{evaluation map} is \(\ev : V \to V^{**}\) defined by
+\[\ev(v)(\ell) = \ell(v)\]
+for \(v \in V\) and \(\ell \in V^*\). That is, \(\ev(v)\) is the linear functional on \(V^*\) that ``evaluates at \(v\).''}
+
+\mprop{Properties of the evaluation map}{The evaluation map \(\ev : V \to V^{**}\) satisfies:
+\begin{enumerate}
+  \item \(\ev\) is linear.
+  \item \(\ev\) is injective.
+  \item If \(V\) is finite-dimensional, \(\ev\) is an isomorphism.
+\end{enumerate}
+}
+
+\pf{Proof}{\textbf{(1)} For \(v, w \in V\), \(\lambda \in k\), and \(\ell \in V^*\):
+\[\ev(v + \lambda w)(\ell) = \ell(v + \lambda w) = \ell(v) + \lambda \ell(w) = \ev(v)(\ell) + \lambda \ev(w)(\ell).\]
+
+\textbf{(2)} Suppose \(\ev(v) = 0\), meaning \(\ell(v) = 0\) for all \(\ell \in V^*\). If \(v \neq 0\), extend \(\{v\}\) to a basis and let \(\ell\) be the dual basis element with \(\ell(v) = 1\). Contradiction. So \(v = 0\).
+
+\textbf{(3)} For finite-dimensional \(V\): \(\dim(V^{**}) = \dim(V^*) = \dim(V)\). Since \(\ev\) is injective, it's an isomorphism.
+}
+
+\nt{The crucial point: \(\ev\) is \emph{natural}---it doesn't depend on any choices. Given bases \(\{e_1, \ldots, e_n\}\) of \(V\), dual basis \(\{e_1^*, \ldots, e_n^*\}\) of \(V^*\), and double dual basis \(\{e_1^{**}, \ldots, e_n^{**}\}\) of \(V^{**}\), one can verify that \(\ev(e_i) = e_i^{**}\). The evaluation map sends each basis element to its ``double dual counterpart.''}
+
+\nt{For infinite-dimensional \(V\), the situation is strikingly different. If \(V\) has a basis \(\{e_i\}_{i \in I}\) indexed by an infinite set \(I\), then every element of \(V\) is a \emph{finite} linear combination \(\sum_{i \in I} x_i e_i\) (with only finitely many \(x_i \neq 0\)). However, elements of \(V^*\) can be arbitrary: given any function \(a : I \to k\), the map \(\ell_a(\sum x_i e_i) = \sum x_i a_i\) is a well-defined linear functional. Thus \(V^* \cong k^I = \prod_{i \in I} k\), the full product, which is much larger than the direct sum \(V \cong \bigoplus_{i \in I} k\). The evaluation map \(\ev : V \to V^{**}\) is still injective, but far from surjective.}
+
 \qs{}{
 \begin{enumerate}
   \item Let \(V = \RR^3\) with standard basis \(\{e_1, e_2, e_3\}\). Write down the dual basis explicitly as functions \(\RR^3 \to \RR\).
@@ -479,36 +507,6 @@ Since this holds for all \(w \in W\), we have \(\psi = 0\). Thus \(\ker(T^*) = \
 
 \textbf{Surjective:} Since \(\dim(V) = \dim(V^*) = \dim(V^{**})\), injectivity implies surjectivity.
 \end{solution}
-
-
-
-\subsection{The Double Dual and Natural Isomorphisms}
-
-We've seen that \(V \cong V^*\) for finite-dimensional \(V\), but this isomorphism required a choice of basis. The double dual \(V^{**} = (V^*)^*\) enjoys a more canonical relationship with \(V\).
-
-\dfn{Evaluation map}{The \textbf{evaluation map} is \(\ev : V \to V^{**}\) defined by
-\[\ev(v)(\ell) = \ell(v)\]
-for \(v \in V\) and \(\ell \in V^*\). That is, \(\ev(v)\) is the linear functional on \(V^*\) that ``evaluates at \(v\).''}
-
-\mprop{Properties of the evaluation map}{The evaluation map \(\ev : V \to V^{**}\) satisfies:
-\begin{enumerate}
-  \item \(\ev\) is linear.
-  \item \(\ev\) is injective.
-  \item If \(V\) is finite-dimensional, \(\ev\) is an isomorphism.
-\end{enumerate}
-}
-
-\pf{Proof}{\textbf{(1)} For \(v, w \in V\), \(\lambda \in k\), and \(\ell \in V^*\):
-\[\ev(v + \lambda w)(\ell) = \ell(v + \lambda w) = \ell(v) + \lambda \ell(w) = \ev(v)(\ell) + \lambda \ev(w)(\ell).\]
-
-\textbf{(2)} Suppose \(\ev(v) = 0\), meaning \(\ell(v) = 0\) for all \(\ell \in V^*\). If \(v \neq 0\), extend \(\{v\}\) to a basis and let \(\ell\) be the dual basis element with \(\ell(v) = 1\). Contradiction. So \(v = 0\).
-
-\textbf{(3)} For finite-dimensional \(V\): \(\dim(V^{**}) = \dim(V^*) = \dim(V)\). Since \(\ev\) is injective, it's an isomorphism.
-}
-
-\nt{The crucial point: \(\ev\) is \emph{natural}---it doesn't depend on any choices. Given bases \(\{e_1, \ldots, e_n\}\) of \(V\), dual basis \(\{e_1^*, \ldots, e_n^*\}\) of \(V^*\), and double dual basis \(\{e_1^{**}, \ldots, e_n^{**}\}\) of \(V^{**}\), one can verify that \(\ev(e_i) = e_i^{**}\). The evaluation map sends each basis element to its ``double dual counterpart.''}
-
-\nt{For infinite-dimensional \(V\), the situation is strikingly different. If \(V\) has a basis \(\{e_i\}_{i \in I}\) indexed by an infinite set \(I\), then every element of \(V\) is a \emph{finite} linear combination \(\sum_{i \in I} x_i e_i\) (with only finitely many \(x_i \neq 0\)). However, elements of \(V^*\) can be arbitrary: given any function \(a : I \to k\), the map \(\ell_a(\sum x_i e_i) = \sum x_i a_i\) is a well-defined linear functional. Thus \(V^* \cong k^I = \prod_{i \in I} k\), the full product, which is much larger than the direct sum \(V \cong \bigoplus_{i \in I} k\). The evaluation map \(\ev : V \to V^{**}\) is still injective, but far from surjective.}
 
 
 

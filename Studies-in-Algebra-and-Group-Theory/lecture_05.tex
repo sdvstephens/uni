@@ -193,15 +193,15 @@ The interplay between the abstract (linear maps) and the concrete (matrices) is 
 
 What if we want to choose a different basis for \( V \) and/ or \( W \)? That is to say, what if we want to take vectors expressable in one basis to the same vectors expressed in another basis? Well, say that we are given two bases: \( (v_i) \) and \( (v_i') \) in \( V \). If given an expression of \( (v_i) \) we want to plug in and get an expression in terms of \( v'_i \), we write this as
 \[
-v'_j=\sum_{n}^{i=1}p_{ij}v_i
+v'_j=\sum_{i=1}^{n}p_{ij}v_i
 .\] 
 
-So we get an \( n \times  m \) matrix \(P \) with entries \( (p_{ij}) \), whose \( j^\text{th} \) column is the expression of \( v'_j \) in the basis \( (v_i) \) as a column vector. So symbolically, we can think of this as \( (v_i')=(v_i)P \). So \( (v_i')X'=(v_i)PX' \), i.e. the element of \( V \) represented by a column vector \( X' \) in new basis \( (v'_i) \) is represented by \( X=PX' \) in the old basis \( (v_i) \) . We can think of this more conceptually as \( P \) being a linear map---i.e. a matrix transformation---by \( P = \mcM (\text{id}_V,(v_i'),(v_i)) \). Breaking this down, we have the identity mapping taking the vector to itself (from one basis to another, but the same vector(s)); thus we are taking things from \( (v_i') \), here, to the targets of \( (v_i) \). We can additionally do the same for \( W \) in reverse! Let \( Q = \mcM (\text{id}_W,(w_i)(w_i'))\), i.e. \( (w_i)=(w_i')Q \). Hence: \[ \varphi ((v_i'))X' =\varphi ((v_i)PX')=(w_i)APX'=(w'_i)QAPX'.\]
+So we get an \( n \times  m \) matrix \(P \) with entries \( (p_{ij}) \), whose \( j^\text{th} \) column is the expression of \( v'_j \) in the basis \( (v_i) \) as a column vector. So symbolically, we can think of this as \( (v_i')=(v_i)P \). So \( (v_i')X'=(v_i)PX' \), i.e. the element of \( V \) represented by a column vector \( X' \) in new basis \( (v'_i) \) is represented by \( X=PX' \) in the old basis \( (v_i) \) . We can think of this more conceptually as \( P \) being a linear map---i.e. a matrix transformation---by \( P = \mcM (\text{id}_V,(v_i'),(v_i)) \). Breaking this down, we have the identity mapping taking the vector to itself (from one basis to another, but the same vector(s)); thus we are taking things from \( (v_i') \), here, to the targets of \( (v_i) \). We can additionally do the same for \( W \) in reverse! Let \( Q = \mcM (\text{id}_W,(w_i),(w_i'))\), i.e. \( (w_i)=(w_i')Q \). Hence: \[ \varphi((v_i')X') =\varphi((v_i)PX')=(w_i)APX'=(w'_i)QAPX'.\]
 That is to say, \( \mcM(\varphi ,(v'),(w'))=QAP \).
 
-\nt{Matrix of identity from \( (v_i) \) to \( (v_i') \) would be \( P^{-1} \) which is the matrix such that \( pp^{-1} \) is the identity matrix.}
+\nt{Matrix of identity from \( (v_i) \) to \( (v_i') \) would be \( P^{-1} \) which is the matrix such that \( PP^{-1} \) is the identity matrix.}
 
-If \( V=W \) and we change basis using a single new basis \( (v_i') \) for both domain and codomain, then a remarkable simplification occurs. Let \(\varphi \in \End(V) = \Hom(V, V)\) be an \textbf{\emph{endomorphism}} (a linear map from a space to itself). With \(P = \mcM(\text{id}_V, (v_i'), (v_i))\) as above, and using the \emph{same} basis change for both domain and codomain, we have \(Q = P\) (since we're using \((v_i)\) and \((v_i')\) for \(W\) as well). Thus the formula \(\mcM(\varphi, (v'), (w')) = QAP\) becomes:
+If \( V=W \) and we change basis using a single new basis \( (v_i') \) for both domain and codomain, then a remarkable simplification occurs. Let \(\varphi \in \End(V) = \Hom(V, V)\) be an \textbf{\emph{endomorphism}} (a linear map from a space to itself). With \(P = \mcM(\text{id}_V, (v_i'), (v_i))\) as above, and using the \emph{same} basis change for both domain and codomain, we have \(Q = P^{-1}\) (since \(Q\) converts \((w_i) = (v_i)\) back to \((w_i') = (v_i')\), the inverse direction of \(P\)). Thus the formula \(\mcM(\varphi, (v'), (w')) = QAP\) becomes:
 
 \thm{Change of basis for endomorphisms}{Let \(\varphi \in \End(V)\), let \(\mathcal{B} = (v_1, \ldots, v_n)\) and \(\mathcal{B}' = (v_1', \ldots, v_n')\) be two bases of \(V\), and let \(P = \mcM(\text{id}_V, \mathcal{B}', \mathcal{B})\) be the change-of-basis matrix. If \(A = \mcM(\varphi, \mathcal{B})\) and \(A' = \mcM(\varphi, \mathcal{B}')\), then
 \[A' = P^{-1}AP.\]
@@ -266,7 +266,7 @@ These double sums are identical (just reorder the summation), so \(Tr(AB) = Tr(B
 \[\det(B) = \det(P^{-1}AP) = \det(P^{-1})\det(A)\det(P) = \frac{1}{\det(P)} \cdot \det(A) \cdot \det(P) = \det(A).\]
 }
 
-\mprop{Eigenvalues are similarity invariants}{If \(A \sim B\), then \(A\) and \(B\) have the same eigenvalues (with the same algebraic multiplicities). In particular, the eigenvalues of a linear operator are intrinsic to the operator, not dependent on the choice of basis.
+\mprop{Eigenvalues are similarity invariants}{(Cited here ahead of the formal introduction of eigenvalues in a later lecture; for now, a scalar \(\lambda\) is an \emph{eigenvalue} of \(A\) if \(Av = \lambda v\) for some nonzero \(v\), equivalently \(\det(A - \lambda I) = 0\).) If \(A \sim B\), then \(A\) and \(B\) have the same eigenvalues (with the same algebraic multiplicities). In particular, the eigenvalues of a linear operator are intrinsic to the operator, not dependent on the choice of basis.
 }
 
 \pf{Proof}{A scalar \(\lambda\) is an eigenvalue of \(A\) if and only if \(\det(A - \lambda I) = 0\). If \(B = P^{-1}AP\), then

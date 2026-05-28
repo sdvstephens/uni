@@ -1,0 +1,12 @@
+#+title: 9.26 - Lecture 7: test
+#+author: S. D. V. Stephens
+#+date: 2026-05-28
+#+setupfile: ../org-preamble.setup
+#+latex_header_extra: \course{9.26}
+
+#+begin_export latex
+\lecture{7}{test}
+#+end_export
+
+* test
+

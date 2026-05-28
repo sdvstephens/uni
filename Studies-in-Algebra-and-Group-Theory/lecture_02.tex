@@ -118,11 +118,11 @@ Identity is \(0\), inverse of \(a\) is \(n - a\) (mod \(n\)). This is an abelian
 
 \pf{Proof}{Proof that units form a group
 
-\textbf{Closure:} If \(\gcd(a, n) = \gcd(b, n) = 1\), then \(\gcd(ab, n) = 1\) (if a prime \(p\) divides both \(ab\) and \(n\), it divides \(a\) or \(b\), contradicting coprimality).
+\textbf{Closure:} If \(\gcd(a, n) = \gcd(b, n) = 1\), then \(\gcd(ab, n) = 1\) (if a prime \(p\) divides both \(ab\) and \(n\), it divides \(a\) or \(b\) by Euclid's lemma---which we cite ahead of its proof below---contradicting coprimality).
 
 \textbf{Identity:} \(1\) is coprime to \(n\).
 
-\textbf{Inverses:} If \(\gcd(a, n) = 1\), then by Bézout's identity, \(\exists r, s\) with \(ra + sn = 1\). Thus \(ra \equiv 1 \pmod{n}\), so \(r\) is a multiplicative inverse.
+\textbf{Inverses:} If \(\gcd(a, n) = 1\), then by Bézout's identity (cited here ahead of its proof in the subsection below), \(\exists r, s\) with \(ra + sn = 1\). Thus \(ra \equiv 1 \pmod{n}\), so \(r\) is a multiplicative inverse.
 }
 
 \subsection{Multiplicative groups of fields}
@@ -337,7 +337,7 @@ Define \(\varphi : \mathbb{Z} \to G\) by \(\varphi(k) = a^k\). This is a homomor
 
 \textbf{Case 1:} \(\ord(a) = \infty\). If \(\varphi(k) = \varphi(l)\) with \(k > l\), then \(a^{k-l} = e\), contradicting infinite order. So \(\varphi\) is injective, hence an isomorphism \(\mathbb{Z} \xrightarrow{\sim} G\).
 
-\textbf{Case 2:} \(\ord(a) = n\). Then \(\ker(\varphi) = \{k \in \mathbb{Z} : a^k = e\}\). Since \(a^n = e\), we have \(n\mathbb{Z} \subseteq \ker(\varphi)\). Conversely, if \(a^k = e\), write \(k = qn + r\) with \(0 \le r < n\). Then \(a^r = a^{k-qn} = a^k (a^n)^{-q} = e\). By minimality of \(n\), \(r = 0\), so \(k \in n\mathbb{Z}\). Thus \(\ker(\varphi) = n\mathbb{Z}\), and \(G \cong \mathbb{Z}/n\mathbb{Z}\) by the First Isomorphism Theorem (this will be introduced later but to oversimplify: surjectivity is guaranteed iff the kernal only contains the identity).
+\textbf{Case 2:} \(\ord(a) = n\). Then \(\ker(\varphi) = \{k \in \mathbb{Z} : a^k = e\}\). Since \(a^n = e\), we have \(n\mathbb{Z} \subseteq \ker(\varphi)\). Conversely, if \(a^k = e\), write \(k = qn + r\) with \(0 \le r < n\). Then \(a^r = a^{k-qn} = a^k (a^n)^{-q} = e\). By minimality of \(n\), \(r = 0\), so \(k \in n\mathbb{Z}\). Thus \(\ker(\varphi) = n\mathbb{Z}\), and \(G \cong \mathbb{Z}/n\mathbb{Z}\) by the First Isomorphism Theorem (this will be introduced later but to oversimplify: modding out by the kernal turns a surjective homomorphism into an isomorphism onto its image).
 }
 
 \mprop{Subgroups of cyclic groups}{Every subgroup of a cyclic group is cyclic. If \(G = \langle a \rangle\) has order \(n\), the subgroups of \(G\) are exactly \(\langle a^d \rangle\) for divisors \(d \mid n\), and \(|\langle a^d \rangle| = n/d\).
@@ -380,7 +380,7 @@ Lattice (larger subgroups higher):
 \end{tikzpicture}
 \end{center}
 
-\textbf{(2)} By Lagrange's theorem, the order of any subgroup divides \(p\). So subgroups have order 1 or \(p\), meaning \(\{0\}\) or \(\mathbb{Z}/p\).
+\textbf{(2)} By Lagrange's theorem (cited here ahead of its proof in the next lecture), the order of any subgroup divides \(p\). So subgroups have order 1 or \(p\), meaning \(\{0\}\) or \(\mathbb{Z}/p\).
 
 \textbf{(3)} \(a\) generates \(\mathbb{Z}/n\) iff \(\ord(a) = n\) iff \(\gcd(a, n) = 1\). The count is \(\varphi(n)\), Euler's totient.
 

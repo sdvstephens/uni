@@ -417,10 +417,10 @@ We want to look at general eigenvectors: things that are not \textit{actually} e
 \nt{We note that \( \text{gker}(\varphi ) \) is not standard notation. Auroux likes it though, so that is what we are going with! \textit{If you meet a stranger on the street and bring up gker be sure to tell them what you mean, lest they be confused}.}
 
 The difference between the kernal and generalized kernal can be summed up by this: you are in the kernal if you go to \( 0 \) in one step; if you apply itterative steps---\( \varphi ^m \)---and end up at \( 0 \) you are in the generalized kernal. If I look at the kernal of \( \varphi  \) I notice that it is in the kernal of \( \varphi ^2 \); then too this holds for more! They may or may not get larger but they are subsets:\[
-  \Ker(\varphi ) \subset \Ker (\varphi ^2) \subset \Ker \varphi  \subset \ldots 
-\] 
+  \Ker(\varphi ) \subset \Ker (\varphi ^2) \subset \Ker \varphi^3  \subset \ldots
+\]
 \mprop{}{If \( \Ker (\varphi ^m) = \Ker (\varphi^{m+1}) \) then there is no strictly larger kernal.}
-\pf{Proof}{\( \varphi ^{m+2}(v)=\varphi ^{m+1}(\varphi (V))=0 \iff \varphi (v)=\Ker \varphi ^m \iff \varphi ^m(\varphi (v))=\varphi ^{m+1}(v)=0 \). So \( \Ker (\varphi ^{m+1})=\Ker (\varphi ^{m+2}).\) Since the sequence stops increasing after at most \( n= \dim V \) steps, \( \text{gker}(\varphi )=\Ker \varphi ^n \).}
+\pf{Proof}{\( \varphi ^{m+2}(v)=\varphi ^{m+1}(\varphi (v))=0 \iff \varphi (v)\in \Ker \varphi ^m \iff \varphi ^m(\varphi (v))=\varphi ^{m+1}(v)=0 \). So \( \Ker (\varphi ^{m+1})=\Ker (\varphi ^{m+2}).\) Since the sequence stops increasing after at most \( n= \dim V \) steps, \( \text{gker}(\varphi )=\Ker \varphi ^n \).}
 
 \ex{}{\( \varphi : k^2 \to k^2  \) with \( e_{1} \mapsto 0, \, e_{2} \mapsto e_{1} \) and \(
       \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} 
